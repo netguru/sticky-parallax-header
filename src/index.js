@@ -58,7 +58,6 @@ class StickyParalaxHeader extends Component {
 
   render() {
     const {
-      hasElevation,
       headerHeight
     } = this.props
 
@@ -66,20 +65,6 @@ class StickyParalaxHeader extends Component {
       nScroll,
       scrollHeight
     } = this.state
-
-    const header = {
-      width: '100%',
-      justifyContent: 'flex-end',
-      paddingHorizontal: 16,
-      backgroundColor: 'white',
-      elevation: hasElevation ? 5 : 0,
-      shadowRadius: 5,
-      shadowColor: 'black',
-      shadowOpacity: 1,
-      shadowOffset: { width: 0, height: 5 },
-      marginBottom: 5,
-      paddingBottom: 3
-    }
 
     const titleOpacity = nScroll.interpolate({
       inputRange: [0, scrollHeight],
@@ -114,12 +99,14 @@ class StickyParalaxHeader extends Component {
           >
             <Animated.View
               style={[
-                header,
+                styles.header,
                 {
                   height: headerHeight
                 }]}
             >
-              {this.props.foreground}
+              <View style={{ height: headerHeight }}>
+                {this.props.foreground}
+              </View>
             </Animated.View>
           </Animated.View>
           {this.props.children}
@@ -156,7 +143,6 @@ class StickyParalaxHeader extends Component {
 }
 
 StickyParalaxHeader.propTypes = {
-  hasElevation: bool,
   onEndReached: func,
   renderContent: func,
   foreground: object,
@@ -164,7 +150,6 @@ StickyParalaxHeader.propTypes = {
 }
 
 StickyParalaxHeader.defaultProps = {
-  hasElevation: true,
   headerHeight: 115,
 }
 

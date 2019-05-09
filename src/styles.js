@@ -4,6 +4,10 @@ import { StyleSheet, Dimensions } from 'react-native'
 const { width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
+  header: {
+    width: '100%',
+    justifyContent: 'flex-end'
+  },
   titleWrapper: {
     width: width,
     paddingBottom: 24,
@@ -19,11 +23,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingHorizontal: 16,
-    zIndex: 1,
-    shadowRadius: 5,
-    shadowColor: 'black',
-    shadowOpacity: 1,
-    shadowOffset: { width: 0, height: 5 }
+    zIndex: 1
   }
 })
 

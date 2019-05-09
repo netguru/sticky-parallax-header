@@ -4,5 +4,5 @@
   "main": "src/index.js",
   "repository": "https://github.com/netguru/sticky-parallax-header",
   "author": "IdaszakDaniel <idaszak1@gmail.com>",
-  "license": "MIT",
+  "license": "MIT"
 }
