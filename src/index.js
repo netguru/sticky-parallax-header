@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Animated, ScrollView, View, TouchableOpacity, Text } from 'react-native'
 import { func, number, node, arrayOf, string } from 'prop-types'
-import { colors } from './constants'
 import styles from './styles'
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
@@ -64,28 +63,42 @@ class StickyParalaxHeader extends Component {
         </TouchableOpacity>
       </View>
     ) : (
-      <View style={styles.tabsContainer} />
-    )
+        <View style={styles.tabsContainer} />
+      )
   }
 
-  render() {
-    const { headerHeight, header, foreground, children } = this.props
+  renderHeader = () => {
+    const { headerHeight, header } = this.props
     const { nScroll, scrollHeight } = this.state
-
-    const headerStyle = {
-      width: '100%',
-      justifyContent: 'flex-end',
-      paddingHorizontal: 16,
-      backgroundColor: colors.primaryGreen,
-      marginBottom: 5,
-      paddingBottom: 3
-    }
-
     const titleOpacity = nScroll.interpolate({
       inputRange: [0, scrollHeight],
       outputRange: [0, 1],
       extrapolate: 'clamp'
     })
+
+    return (
+      <View style={[styles.toolbar, { height: headerHeight }]}>
+        <Animated.View style={[styles.toolbarWrapper, { height: headerHeight }]}>
+          <Animated.View
+            style={[
+              styles.titleWrapper,
+              {
+                opacity: titleOpacity
+              }
+            ]}
+          >
+            {header}
+          </Animated.View>
+        </Animated.View>
+      </View>
+    )
+  }
+
+  render() {
+    const { headerHeight, header, foreground, children, parallaxHeight } = this.props
+    const { nScroll, scrollHeight } = this.state
+
+    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
 
     const headerBorderRadius = nScroll.interpolate({
       inputRange: [0, scrollHeight],
@@ -115,33 +128,22 @@ class StickyParalaxHeader extends Component {
           >
             <Animated.View
               style={[
-                headerStyle,
+                styles.headerStyle,
                 {
-                  height: headerHeight,
+                  height: backgroundHeight,
                   borderBottomRightRadius: headerBorderRadius
                 }
               ]}
             >
-              {foreground}
-              {this.renderTabs()}
+              <View style={{ height: backgroundHeight, paddingTop: headerHeight }}>
+                {foreground}
+                {this.renderTabs()}
+              </View>
             </Animated.View>
           </Animated.View>
           {children}
         </AnimatedScrollView>
-        <View style={styles.toolbar}>
-          <Animated.View style={styles.toolbarWrapper}>
-            <Animated.View
-              style={[
-                styles.titleWrapper,
-                {
-                  opacity: titleOpacity
-                }
-              ]}
-            >
-              {header}
-            </Animated.View>
-          </Animated.View>
-        </View>
+        {header && this.renderHeader()}
       </View>
     )
   }
@@ -152,12 +154,14 @@ StickyParalaxHeader.propTypes = {
   foreground: node,
   header: node,
   headerHeight: number,
+  parallaxHeight: number,
   children: node,
   tabs: arrayOf(string)
 }
 
 StickyParalaxHeader.defaultProps = {
-  headerHeight: 250
+  headerHeight: 70,
+  parallaxHeight: 0
 }
 
 export default StickyParalaxHeader
