@@ -26,15 +26,14 @@ class StickyParalaxHeader extends Component {
   }
 
   onScrollEndSnapToEdge = (event) => {
-    const { contentHeight, scrollHeight } = this.state
-    const { headerHeight } = this.props
+    const { headerHeight, parallaxHeight } = this.props
     const { y } = event.nativeEvent.contentOffset
+    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
+    const scrollHeight = backgroundHeight - headerHeight
     if (y > 0 && y < scrollHeight / 2) {
       this.scroll.getNode().scrollTo({ x: 0, y: 0, animate: true })
-    } else if (scrollHeight / 2 <= y && y < scrollHeight) {
-      this.scroll.getNode().scrollTo({ x: 0, y: headerHeight - 41, animate: true })
-    } else if (contentHeight < 400 && y > headerHeight) {
-      this.scroll.getNode().scrollTo({ x: 0, y: headerHeight - 41, animate: true })
+    } else if (scrollHeight / 2 <= y) {
+      this.scroll.getNode().scrollTo({ x: 0, y: backgroundHeight, animate: true })
     }
   }
 
