@@ -13,6 +13,9 @@
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-native": "^3.7.0"
+    "eslint-plugin-react-native": "^3.7.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-native": "^0.59.8"
   }
 }
