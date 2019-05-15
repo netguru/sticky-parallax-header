@@ -104,7 +104,12 @@ class StickyParalaxHeader extends Component {
     const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
     return (
       <View
-        style={[styles.headerStyle, { height: backgroundHeight }]}
+        style={[
+          styles.headerStyle,
+          {
+            height: backgroundHeight
+          }
+        ]}
       >
         {background}
       </View>
