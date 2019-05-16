@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Animated, ScrollView, View, TouchableOpacity, Text } from 'react-native'
-import { func, number, node, arrayOf, string } from 'prop-types'
+import { Animated, ScrollView, View } from 'react-native'
+import { func, number, node, arrayOf, string, bool } from 'prop-types'
 import { colors } from './constants'
 import styles from './styles'
+import { ScrollableTabView, ScrollableTabBar } from './components'
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 
@@ -39,6 +40,20 @@ class StickyParalaxHeader extends Component {
     }
   }
 
+  onChangeTabHandler = (tab) => {
+    const { onChangeTab, headerHeight } = this.props
+    const { nScroll } = this.state
+    onChangeTab ? onChangeTab(tab) : null
+    if (nScroll._value > 0) {
+      this.scroll.getNode().scrollTo({ x: 0, y: headerHeight - 41, animate: true })
+    }
+    this.setContentHeight()
+  }
+
+  setContentHeight = () => {
+    this.tab.measure((ox, oy, width, height) => this.setState({ contentHeight: height }))
+  }
+
   isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
     const { onEndReached } = this.props
 
@@ -48,24 +63,53 @@ class StickyParalaxHeader extends Component {
   }
 
   renderTabs = () => {
-    const { tabs } = this.props
+    const { tabs, locked, initialPage, renderCount } = this.props
     const shouldRenderTabs = tabs && tabs.length > 0
+    const { nScroll, scrollHeight } = this.state
+
+    const tabWrapper = {
+      zIndex: 1,
+      width: '100%'
+    }
+
+    const tabY = nScroll.interpolate({
+      inputRange: [0, scrollHeight, scrollHeight + 1],
+      outputRange: [0, 0, 1]
+    })
 
     return shouldRenderTabs ? (
-      <View style={styles.tabsContainer}>
-        <TouchableOpacity activeOpacity={0.75} style={styles.tab}>
-          <Text style={styles.tabText}>{tabs[0]}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.75} style={styles.tab}>
-          <Text style={styles.tabText}>{tabs[1]}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.75} style={styles.tab}>
-          <Text style={styles.tabText}>{tabs[2]}</Text>
-        </TouchableOpacity>
-      </View>
-    ) : (
-      <View style={styles.tabsContainer} />
-    )
+      <ScrollableTabView
+        initialPage={initialPage}
+        onChangeTab={tab => this.onChangeTabHandler(tab)}
+        locked={locked}
+        renderTabBar={props => (
+          <Animated.View
+            style={[
+              tabWrapper,
+              {
+                transform: [{ translateY: tabY }]
+              }
+            ]}
+          >
+            <ScrollableTabBar {...props} renderCount={renderCount} />
+          </Animated.View>
+        )}
+      >
+        {tabs.map(item => (
+          <View
+            style={styles.tabWrapper}
+            tabLabel={item.title}
+            key={item.title}
+            onLayout={this.setContentHeight}
+            ref={(c) => {
+              this.tab = c
+            }}
+          >
+            {item.content}
+          </View>
+        ))}
+      </ScrollableTabView>
+    ) : null
   }
 
   render() {
@@ -149,10 +193,14 @@ class StickyParalaxHeader extends Component {
 
 StickyParalaxHeader.propTypes = {
   onEndReached: func,
+  initialPage: number,
+  locked: bool,
   foreground: node,
   header: node,
   headerHeight: number,
   children: node,
+  renderCount: func,
+  onChangeTab: func,
   tabs: arrayOf(string)
 }
 
