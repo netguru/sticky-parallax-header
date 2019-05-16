@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   titleWrapper: {
-    width: width,
+    width,
     paddingBottom: 24,
     paddingTop: 18,
     alignItems: 'center',
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   toolbarWrapper: {
-    width: width,
+    width,
     backgroundColor: colors.primaryGreen,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -44,6 +44,16 @@ const styles = StyleSheet.create({
   tabText: {
     color: colors.white,
     fontWeight: '500'
+  },
+  tabWrapper: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between'
+  },
+  singleTabContainer: {
+    zIndex: 1,
+    width: '100%'
   },
   headerStyle: {
     position: 'absolute',
