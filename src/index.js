@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Animated, ScrollView, View } from 'react-native'
 import { func, number, node, arrayOf, string, bool } from 'prop-types'
-import { colors } from './constants'
+import { Animated, ScrollView, View, ImageBackground } from 'react-native'
 import styles from './styles'
 import { ScrollableTabView, ScrollableTabBar } from './components'
 
@@ -28,13 +27,15 @@ class StickyParalaxHeader extends Component {
   }
 
   onScrollEndSnapToEdge = (event) => {
-    const { contentHeight, scrollHeight } = this.state
-    const { headerHeight } = this.props
+    const { headerHeight, parallaxHeight } = this.props
+    const { contentHeight } = this.state
     const { y } = event.nativeEvent.contentOffset
+    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
+    const scrollHeight = backgroundHeight + 35
     if (y > 0 && y < scrollHeight / 2) {
       this.scroll.getNode().scrollTo({ x: 0, y: 0, animate: true })
-    } else if (scrollHeight / 2 <= y && y < scrollHeight) {
-      this.scroll.getNode().scrollTo({ x: 0, y: headerHeight - 41, animate: true })
+    } else if (y >= scrollHeight / 2 && y < scrollHeight) {
+      this.scroll.getNode().scrollTo({ x: 0, y: scrollHeight, animate: true })
     } else if (contentHeight < 400 && y > headerHeight) {
       this.scroll.getNode().scrollTo({ x: 0, y: headerHeight - 41, animate: true })
     }
@@ -52,6 +53,12 @@ class StickyParalaxHeader extends Component {
 
   setContentHeight = () => {
     this.tab.measure((ox, oy, width, height) => this.setState({ contentHeight: height }))
+  }
+
+  onScroll = (e) => {
+    const { scrollEvent } = this.props
+
+    scrollEvent && scrollEvent(e)
   }
 
   isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
@@ -112,30 +119,69 @@ class StickyParalaxHeader extends Component {
     ) : null
   }
 
+  renderHeader = () => {
+    const { headerHeight, header } = this.props
+
+    return (
+      <View style={[styles.toolbar, { height: headerHeight }]}>
+        <Animated.View style={[styles.toolbarWrapper, { height: headerHeight }]}>
+          <View style={styles.titleWrapper}>{header}</View>
+        </Animated.View>
+      </View>
+    )
+  }
+
+  renderImageBackground = () => {
+    const { headerHeight, parallaxHeight, backgroundImage } = this.props
+    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
+    const AnimatedImageBackground = Animated.createAnimatedComponent(ImageBackground)
+
+    return (
+      <AnimatedImageBackground
+        style={[
+          styles.headerStyle,
+          {
+            height: backgroundHeight
+          }
+        ]}
+        source={backgroundImage}
+      />
+    )
+  }
+
+  renderPlainBackground = () => {
+    const { headerHeight, parallaxHeight, background } = this.props
+    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
+
+    return (
+      <View
+        style={[
+          styles.headerStyle,
+          {
+            height: backgroundHeight
+          }
+        ]}
+      >
+        {background}
+      </View>
+    )
+  }
+
+  renderForeground = () => {
+    const { headerHeight, foreground, parallaxHeight } = this.props
+    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
+
+    return (
+      <View style={{ height: backgroundHeight, paddingTop: headerHeight }}>
+        {foreground}
+        {this.renderTabs()}
+      </View>
+    )
+  }
+
   render() {
-    const { headerHeight, header, foreground, children } = this.props
-    const { nScroll, scrollHeight } = this.state
-
-    const headerStyle = {
-      width: '100%',
-      justifyContent: 'flex-end',
-      paddingHorizontal: 16,
-      backgroundColor: colors.primaryGreen,
-      marginBottom: 5,
-      paddingBottom: 3
-    }
-
-    const titleOpacity = nScroll.interpolate({
-      inputRange: [0, scrollHeight],
-      outputRange: [0, 1],
-      extrapolate: 'clamp'
-    })
-
-    const headerBorderRadius = nScroll.interpolate({
-      inputRange: [0, scrollHeight],
-      outputRange: [70, 0],
-      extrapolate: 'extend'
-    })
+    const { header, children, backgroundImage, parallaxHeight } = this.props
+    const { nScroll } = this.state
 
     return (
       <View style={styles.container}>
@@ -149,43 +195,24 @@ class StickyParalaxHeader extends Component {
           showsVerticalScrollIndicator={false}
           onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: nScroll } } }], {
             useNativeDriver: true,
-            listener: event => this.isCloseToBottom(event.nativeEvent)
+            listener: (event) => {
+              this.isCloseToBottom(event.nativeEvent)
+              this.onScroll(event)
+            }
           })}
         >
           <Animated.View
             style={{
-              transform: [{ translateY: Animated.multiply(nScroll, 0.1) }]
+              transform: [{ translateY: Animated.multiply(nScroll, 0.1) }],
+              height: parallaxHeight
             }}
           >
-            <Animated.View
-              style={[
-                headerStyle,
-                {
-                  height: headerHeight,
-                  borderBottomRightRadius: headerBorderRadius
-                }
-              ]}
-            >
-              {foreground}
-              {this.renderTabs()}
-            </Animated.View>
+            {backgroundImage ? this.renderImageBackground() : this.renderPlainBackground()}
+            {this.renderForeground()}
           </Animated.View>
           {children}
         </AnimatedScrollView>
-        <View style={styles.toolbar}>
-          <Animated.View style={styles.toolbarWrapper}>
-            <Animated.View
-              style={[
-                styles.titleWrapper,
-                {
-                  opacity: titleOpacity
-                }
-              ]}
-            >
-              {header}
-            </Animated.View>
-          </Animated.View>
-        </View>
+        {header && this.renderHeader()}
       </View>
     )
   }
@@ -198,14 +225,19 @@ StickyParalaxHeader.propTypes = {
   foreground: node,
   header: node,
   headerHeight: number,
+  parallaxHeight: number,
   children: node,
   renderCount: func,
   onChangeTab: func,
-  tabs: arrayOf(string)
+  tabs: arrayOf(string),
+  backgroundImage: number,
+  background: node,
+  scrollEvent: func
 }
 
 StickyParalaxHeader.defaultProps = {
-  headerHeight: 250
+  headerHeight: 70,
+  parallaxHeight: 0
 }
 
 export default StickyParalaxHeader

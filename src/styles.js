@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { colors, constants, sizes } from './constants'
+import { colors } from './constants'
 
 const { width } = Dimensions.get('window')
 
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   titleWrapper: {
-    width: constants.responsiveWidth(width),
+    width,
     paddingBottom: 24,
     paddingTop: 18,
     alignItems: 'center',
@@ -16,16 +16,13 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   toolbarWrapper: {
-    height: sizes.toolbarHeight,
-    width: constants.responsiveWidth(width),
+    width,
     backgroundColor: colors.primaryGreen,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingHorizontal: 16,
     zIndex: 1
   },
   toolbar: {
-    height: sizes.toolbarHeight,
     backgroundColor: colors.primaryGreen,
     position: 'absolute',
     top: 0,
@@ -48,12 +45,20 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: '500'
   },
-
   tabWrapper: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between'
+  },
+  headerStyle: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    justifyContent: 'flex-end',
+    marginBottom: 5,
+    paddingBottom: 3
   }
 })
 
