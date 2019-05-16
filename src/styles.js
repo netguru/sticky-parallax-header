@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primaryGreen,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingHorizontal: 16,
     zIndex: 1
   },
   toolbar: {
@@ -47,10 +46,11 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   headerStyle: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
     width: '100%',
     justifyContent: 'flex-end',
-    paddingHorizontal: 16,
-    backgroundColor: colors.primaryGreen,
     marginBottom: 5,
     paddingBottom: 3
   }
