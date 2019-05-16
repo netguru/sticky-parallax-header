@@ -51,6 +51,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-between'
   },
+  singleTabContainer: {
+    zIndex: 1,
+    width: '100%'
+  },
   headerStyle: {
     position: 'absolute',
     top: 0,

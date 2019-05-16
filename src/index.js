@@ -74,11 +74,6 @@ class StickyParalaxHeader extends Component {
     const shouldRenderTabs = tabs && tabs.length > 0
     const { nScroll, scrollHeight } = this.state
 
-    const tabWrapper = {
-      zIndex: 1,
-      width: '100%'
-    }
-
     const tabY = nScroll.interpolate({
       inputRange: [0, scrollHeight, scrollHeight + 1],
       outputRange: [0, 0, 1]
@@ -92,7 +87,7 @@ class StickyParalaxHeader extends Component {
         renderTabBar={props => (
           <Animated.View
             style={[
-              tabWrapper,
+              styles.singleTabContainer,
               {
                 transform: [{ translateY: tabY }]
               }
