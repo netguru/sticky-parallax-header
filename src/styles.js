@@ -9,8 +9,6 @@ const styles = StyleSheet.create({
   },
   titleWrapper: {
     width,
-    paddingBottom: 24,
-    paddingTop: 18,
     alignItems: 'center',
     flex: 1,
     position: 'absolute'
