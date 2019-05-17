@@ -61,7 +61,7 @@ class ScrollableTabBar extends React.PureComponent {
   }
 
   render() {
-    const { activeTab, renderCount, scrollValue, tabs } = this.props
+    const { activeTab, scrollValue, tabs } = this.props
     const { tabUnderlineWidth } = this.state
 
     const tabWidth = tabs.length > 3 ? constants.deviceWidth * 0.3 : constants.deviceWidth * 0.33
@@ -76,11 +76,6 @@ class ScrollableTabBar extends React.PureComponent {
       height: 3
     }
 
-    const nestedStyle = {
-      height: 50,
-      alignSelf: 'center'
-    }
-
     const translateX = scrollValue.interpolate({
       inputRange: [0, 1],
       outputRange: [0, tabWidth]
@@ -89,7 +84,7 @@ class ScrollableTabBar extends React.PureComponent {
     return (
       <View style={styles.container}>
         <NestedScrollView
-          style={nestedStyle}
+          style={styles.nestedStyle}
           ref={r => (this.scrollView = r)}
           onScrollEndDrag={event => (this.currentXPosition = event.nativeEvent.contentOffset.x)}
           vertical={false}
@@ -97,18 +92,19 @@ class ScrollableTabBar extends React.PureComponent {
           bounces={false}
           showsHorizontalScrollIndicator={false}
         >
-          {tabs.map((name, page) => {
+          {tabs.map((tab, page) => {
             const isTabActive = activeTab === page
 
             return (
               <TouchableOpacity
-                key={name}
+                key={tab}
                 accessible
-                accessibilityLabel={name}
+                accessibilityLabel={tab}
                 accessibilityTraits="button"
+                activeOpacity={0.9}
                 onPress={() => this.goToPage(page)}
               >
-                <View style={[styles.tabWrapper, { width: tabWidth }]}>
+                <View style={[styles.tabWrapper, isTabActive && styles.tabWrapperActive]}>
                   <Text
                     // eslint-disable-next-line no-return-assign
                     onLayout={({
@@ -120,18 +116,10 @@ class ScrollableTabBar extends React.PureComponent {
                       newWidth[page] = width
                       this.setState({ tabUnderlineWidth: newWidth })
                     }}
-                    style={{ color: isTabActive ? 'black' : 'grey' }}
+                    style={styles.tabText}
                   >
-                    {name}
+                    {tab}
                   </Text>
-                  {renderCount(page) > 0 ? (
-                    <React.Fragment>
-                      <View style={{ width: 10 }} />
-                      <View style={styles.countWrapper}>
-                        <Text>{renderCount(page).toString()}</Text>
-                      </View>
-                    </React.Fragment>
-                  ) : null}
                 </View>
               </TouchableOpacity>
             )
@@ -153,13 +141,7 @@ class ScrollableTabBar extends React.PureComponent {
 ScrollableTabBar.propTypes = {
   activeTab: number,
   goToPage: func,
-  renderCount: func,
   scrollValue: object,
   tabs: array
 }
-
-ScrollableTabBar.defaultProps = {
-  renderCount: () => 0
-}
-
 export default ScrollableTabBar

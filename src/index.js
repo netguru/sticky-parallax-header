@@ -2,16 +2,28 @@ import React, { Component } from 'react'
 import { func, number, node, arrayOf, string, bool } from 'prop-types'
 import { Animated, ScrollView, View, ImageBackground } from 'react-native'
 import styles from './styles'
-import { ScrollableTabView, ScrollableTabBar } from './components'
+import { ScrollableTabBar } from './components'
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 
 class StickyParalaxHeader extends Component {
   constructor(props) {
     super(props)
+    const { initialPage, deviceWidth } = this.props
+
+    const scrollXIOS = new Animated.Value(initialPage * deviceWidth)
+    const containerWidthAnimatedValue = new Animated.Value(deviceWidth)
+
+    // eslint-disable-next-line no-underscore-dangle
+    containerWidthAnimatedValue.__makeNative()
+    const scrollValue = Animated.divide(scrollXIOS, containerWidthAnimatedValue)
     this.state = {
       nScroll: new Animated.Value(0),
-      scrollHeight: 65
+      scrollHeight: 65,
+      scrollValue,
+      scrollXIOS,
+      containerWidth: deviceWidth,
+      currentPage: initialPage
     }
   }
 
@@ -48,11 +60,6 @@ class StickyParalaxHeader extends Component {
     if (nScroll._value > 0) {
       this.scroll.getNode().scrollTo({ x: 0, y: headerHeight - 41, animate: true })
     }
-    this.setContentHeight()
-  }
-
-  setContentHeight = () => {
-    this.tab.measure((ox, oy, width, height) => this.setState({ contentHeight: height }))
   }
 
   onScroll = (e) => {
@@ -69,69 +76,87 @@ class StickyParalaxHeader extends Component {
     }
   }
 
+  goToPage = (pageNumber) => {
+    const { containerWidth } = this.state
+    const offset = pageNumber * containerWidth
+    if (this.scrollView) {
+      this.scrollView.getNode().scrollTo({ x: offset, y: 0, animated: true })
+    }
+    this.setState({ currentPage: pageNumber })
+  }
+
   renderTabs = () => {
-    const { tabs, locked, initialPage, renderCount } = this.props
+    const { tabs } = this.props
     const shouldRenderTabs = tabs && tabs.length > 0
-    const { nScroll, scrollHeight } = this.state
+    const { nScroll, scrollHeight, scrollValue, currentPage, containerWidth } = this.state
 
     const tabY = nScroll.interpolate({
       inputRange: [0, scrollHeight, scrollHeight + 1],
       outputRange: [0, 0, 1]
     })
 
+    const tabOpacity = nScroll.interpolate({
+      inputRange: [0, 65],
+      outputRange: [1, 0],
+      extrapolate: 'clamp'
+    })
+
+    const props = {
+      goToPage: this.goToPage,
+      tabs,
+      scrollValue,
+      activeTab: currentPage,
+      containerWidth
+    }
+
     return shouldRenderTabs ? (
-      <ScrollableTabView
-        initialPage={initialPage}
-        onChangeTab={tab => this.onChangeTabHandler(tab)}
-        locked={locked}
-        renderTabBar={props => (
-          <Animated.View
-            style={[
-              styles.singleTabContainer,
-              {
-                transform: [{ translateY: tabY }]
-              }
-            ]}
-          >
-            <ScrollableTabBar {...props} renderCount={renderCount} />
-          </Animated.View>
-        )}
+      <Animated.View
+        style={[
+          styles.singleTabContainer,
+          {
+            transform: [{ translateY: tabY }],
+            opacity: tabOpacity
+          }
+        ]}
       >
-        {tabs.map(item => (
-          <View
-            style={styles.tabWrapper}
-            tabLabel={item.title}
-            key={item.title}
-            onLayout={this.setContentHeight}
-            ref={(c) => {
-              this.tab = c
-            }}
-          >
-            {item.content}
-          </View>
-        ))}
-      </ScrollableTabView>
+        <ScrollableTabBar {...props} />
+      </Animated.View>
     ) : null
   }
 
   renderHeader = () => {
-    const { headerHeight, header } = this.props
-    const { nScroll } = this.state
-    const tabsOpacity = nScroll.interpolate({
+
+    const { headerHeight, header, tabs } = this.props
+    const shouldRenderTabs = tabs && tabs.length > 0
+    const { scrollValue, currentPage, containerWidth, nScroll } = this.state
+
+    const props = {
+      goToPage: this.goToPage,
+      tabs,
+      scrollValue,
+      activeTab: currentPage,
+      containerWidth
+    }
+    const tabOpacity = nScroll.interpolate({
       inputRange: [0, 65],
       outputRange: [0, 1],
       extrapolate: 'clamp'
     })
-    console.log(headerHeight)
+
     return (
       <View style={[styles.toolbar, { height: headerHeight }]}>
         <Animated.View style={[styles.toolbarWrapper, { height: headerHeight }]}>
-          <View
-            style={styles.titleWrapper}
-          >
+          <View style={styles.titleWrapper}>
             {header}
-            <Animated.View style={{ opacity: tabsOpacity }}>
-              {this.renderTabs()}
+            <Animated.View
+              style={[
+                styles.singleTabContainer,
+                {
+                  opacity: tabOpacity
+                }
+              ]}
+            >
+              {shouldRenderTabs ? <ScrollableTabBar {...props} /> : null}
             </Animated.View>
           </View>
         </Animated.View>
@@ -235,17 +260,18 @@ StickyParalaxHeader.propTypes = {
   headerHeight: number,
   parallaxHeight: number,
   children: node,
-  renderCount: func,
   onChangeTab: func,
   tabs: arrayOf(string),
   backgroundImage: number,
   background: node,
-  scrollEvent: func
+  scrollEvent: func,
+  deviceWidth: number
 }
 
 StickyParalaxHeader.defaultProps = {
-  headerHeight: 70,
-  parallaxHeight: 0
+  headerHeight: 140,
+  parallaxHeight: 0,
+  initialPage: 0
 }
 
 export default StickyParalaxHeader
