@@ -8,22 +8,17 @@ const styles = StyleSheet.create({
     flex: 1
   },
   titleWrapper: {
-    width,
-    alignItems: 'center',
     flex: 1,
-    position: 'absolute'
+    width,
+    alignItems: 'center'
   },
   toolbarWrapper: {
     width,
-    backgroundColor: colors.primaryGreen,
-    flexDirection: 'row',
-    justifyContent: 'center',
     zIndex: 1
   },
   toolbar: {
-    backgroundColor: colors.primaryGreen,
     position: 'absolute',
-    top: 0,
+    top: -20,
     left: 0,
     width: '100%'
   },
