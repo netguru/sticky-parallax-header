@@ -125,6 +125,7 @@ class StickyParalaxHeader extends Component {
   }
 
   renderHeader = () => {
+
     const { headerHeight, header, tabs } = this.props
     const shouldRenderTabs = tabs && tabs.length > 0
     const { scrollValue, currentPage, containerWidth, nScroll } = this.state
