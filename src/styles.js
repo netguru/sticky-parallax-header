@@ -8,26 +8,20 @@ const styles = StyleSheet.create({
     flex: 1
   },
   titleWrapper: {
-    width,
+    width: width,
     paddingBottom: 24,
     paddingTop: 18,
-    alignItems: 'center',
     flex: 1,
-    position: 'absolute'
   },
   toolbarWrapper: {
-    width,
-    backgroundColor: colors.primaryGreen,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    width: width,
     zIndex: 1
   },
   toolbar: {
-    backgroundColor: colors.primaryGreen,
     position: 'absolute',
-    top: 0,
+    top: -20,
     left: 0,
-    width: '100%'
+    width: '100%',
   },
   tabsContainer: {
     justifyContent: 'flex-start',

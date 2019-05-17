@@ -116,11 +116,24 @@ class StickyParalaxHeader extends Component {
 
   renderHeader = () => {
     const { headerHeight, header } = this.props
-
+    const { nScroll } = this.state
+    const tabsOpacity = nScroll.interpolate({
+      inputRange: [0, 65],
+      outputRange: [0, 1],
+      extrapolate: 'clamp'
+    })
+    console.log(headerHeight)
     return (
       <View style={[styles.toolbar, { height: headerHeight }]}>
         <Animated.View style={[styles.toolbarWrapper, { height: headerHeight }]}>
-          <View style={styles.titleWrapper}>{header}</View>
+          <View
+            style={styles.titleWrapper}
+          >
+            {header}
+            <Animated.View style={{ opacity: tabsOpacity }}>
+              {this.renderTabs()}
+            </Animated.View>
+          </View>
         </Animated.View>
       </View>
     )
