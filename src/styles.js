@@ -45,12 +45,6 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: '500'
   },
-  tabWrapper: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between'
-  },
   singleTabContainer: {
     zIndex: 1,
     width: '100%'

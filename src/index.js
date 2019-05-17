@@ -60,11 +60,6 @@ class StickyParalaxHeader extends Component {
     if (nScroll._value > 0) {
       this.scroll.getNode().scrollTo({ x: 0, y: headerHeight - 41, animate: true })
     }
-    this.setContentHeight()
-  }
-
-  setContentHeight = () => {
-    this.tab.measure((ox, oy, width, height) => this.setState({ contentHeight: height }))
   }
 
   onScroll = (e) => {
@@ -90,7 +85,7 @@ class StickyParalaxHeader extends Component {
     this.setState({ currentPage: pageNumber })
   }
 
-  renderTabs = (opacityForeground, opacityHeader) => {
+  renderTabs = () => {
     const { tabs } = this.props
     const shouldRenderTabs = tabs && tabs.length > 0
     const { nScroll, scrollHeight, scrollValue, currentPage, containerWidth } = this.state
@@ -102,7 +97,7 @@ class StickyParalaxHeader extends Component {
 
     const tabOpacity = nScroll.interpolate({
       inputRange: [0, 65],
-      outputRange: [opacityForeground, opacityHeader],
+      outputRange: [1, 0],
       extrapolate: 'clamp'
     })
 
@@ -114,35 +109,55 @@ class StickyParalaxHeader extends Component {
       containerWidth
     }
 
-    if (shouldRenderTabs && opacityForeground === 1) {
-      return (
-        <Animated.View
-          style={[
-            styles.singleTabContainer,
-            {
-              transform: [{ translateY: tabY }],
-              opacity: tabOpacity
-            }
-          ]}
-        >
-          <ScrollableTabBar {...props} />
-        </Animated.View>
-      )
-    }
-    if (shouldRenderTabs && opacityForeground === 0) {
-      return <ScrollableTabBar {...props} />
-    }
-
-    return null
+    return shouldRenderTabs ? (
+      <Animated.View
+        style={[
+          styles.singleTabContainer,
+          {
+            transform: [{ translateY: tabY }],
+            opacity: tabOpacity
+          }
+        ]}
+      >
+        <ScrollableTabBar {...props} />
+      </Animated.View>
+    ) : null
   }
 
   renderHeader = () => {
-    const { headerHeight, header } = this.props
+    const { headerHeight, header, tabs } = this.props
+    const shouldRenderTabs = tabs && tabs.length > 0
+    const { scrollValue, currentPage, containerWidth, nScroll } = this.state
+
+    const props = {
+      goToPage: this.goToPage,
+      tabs,
+      scrollValue,
+      activeTab: currentPage,
+      containerWidth
+    }
+    const tabOpacity = nScroll.interpolate({
+      inputRange: [0, 65],
+      outputRange: [0, 1],
+      extrapolate: 'clamp'
+    })
 
     return (
       <View style={[styles.toolbar, { height: headerHeight }]}>
         <Animated.View style={[styles.toolbarWrapper, { height: headerHeight }]}>
-          <View style={styles.titleWrapper}>{header}</View>
+          <View style={styles.titleWrapper}>
+            {header}
+            <Animated.View
+              style={[
+                styles.singleTabContainer,
+                {
+                  opacity: tabOpacity
+                }
+              ]}
+            >
+              {shouldRenderTabs ? <ScrollableTabBar {...props} /> : null}
+            </Animated.View>
+          </View>
         </Animated.View>
       </View>
     )
@@ -191,7 +206,7 @@ class StickyParalaxHeader extends Component {
     return (
       <View style={{ height: backgroundHeight, paddingTop: headerHeight }}>
         {foreground}
-        {this.renderTabs(1, 0)}
+        {this.renderTabs()}
       </View>
     )
   }
@@ -253,7 +268,7 @@ StickyParalaxHeader.propTypes = {
 }
 
 StickyParalaxHeader.defaultProps = {
-  headerHeight: 70,
+  headerHeight: 140,
   parallaxHeight: 0,
   initialPage: 0
 }
