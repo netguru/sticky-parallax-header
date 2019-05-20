@@ -14,13 +14,8 @@ const styles = StyleSheet.create({
   },
   toolbarWrapper: {
     width,
-    zIndex: 1
-  },
-  toolbar: {
-    position: 'absolute',
-    top: -20,
-    left: 0,
-    width: '100%'
+    zIndex: 1,
+    position: 'absolute'
   },
   tabsContainer: {
     justifyContent: 'flex-start',
@@ -38,7 +33,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: '500'
   },
-  singleTabContainer: {
+  tabBarContainer: {
     zIndex: 1,
     width: '100%'
   },

@@ -2,7 +2,7 @@
 /* eslint-disable no-return-assign */
 import React from 'react'
 import { Animated, View, TouchableOpacity, Text } from 'react-native'
-import { array, func, number, object, shape } from 'prop-types'
+import { array, func, number, object } from 'prop-types'
 import NestedScrollView from 'react-native-nested-scroll-view'
 import { constants } from '../../constants'
 import styles from './ScrollableTabBar.styles'
@@ -61,15 +61,7 @@ class ScrollableTabBar extends React.PureComponent {
   }
 
   render() {
-    const {
-      activeTab,
-      scrollValue,
-      tabs,
-      tabTextStyle,
-      tabTextActiveStyle,
-      tabTextContainerStyle,
-      tabTextContainerActiveStyle
-    } = this.props
+    const { activeTab, scrollValue, tabs } = this.props
     const { tabUnderlineWidth } = this.state
 
     const tabWidth = tabs.length > 3 ? constants.deviceWidth * 0.3 : constants.deviceWidth * 0.33
@@ -112,13 +104,7 @@ class ScrollableTabBar extends React.PureComponent {
                 activeOpacity={0.9}
                 onPress={() => this.goToPage(page)}
               >
-                <View
-                  style={[
-                    styles.tabContainer,
-                    tabTextContainerStyle,
-                    isTabActive && tabTextContainerActiveStyle
-                  ]}
-                >
+                <View style={[styles.tabWrapper, isTabActive && styles.tabWrapperActive]}>
                   <Text
                     // eslint-disable-next-line no-return-assign
                     onLayout={({
@@ -130,7 +116,7 @@ class ScrollableTabBar extends React.PureComponent {
                       newWidth[page] = width
                       this.setState({ tabUnderlineWidth: newWidth })
                     }}
-                    style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}
+                    style={styles.tabText}
                   >
                     {tab}
                   </Text>
@@ -156,10 +142,6 @@ ScrollableTabBar.propTypes = {
   activeTab: number,
   goToPage: func,
   scrollValue: object,
-  tabs: array,
-  tabTextStyle: shape({}),
-  tabTextActiveStyle: shape({}),
-  tabTextContainerStyle: shape({}),
-  tabTextContainerActiveStyle: shape({})
+  tabs: array
 }
 export default ScrollableTabBar

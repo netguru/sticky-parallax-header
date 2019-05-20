@@ -7,10 +7,12 @@ export default StyleSheet.create({
     zIndex: 10,
     paddingLeft: 20
   },
-  tabContainer: {
+  tabWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: colors.transparent,
+    borderRadius: 18
   },
   countWrapper: {
     width: 14,
@@ -18,8 +20,15 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  tabWrapperActive: {
+    backgroundColor: colors.darkMint
+  },
   tabText: {
-    fontSize: 16
+    fontSize: 16,
+    lineHeight: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    color: colors.white
   },
   nestedStyle: {
     height: 50,
