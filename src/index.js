@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { func, number, node, arrayOf, string, bool } from 'prop-types'
+import { func, number, node, arrayOf, string, bool, shape } from 'prop-types'
 import { Animated, ScrollView, View, ImageBackground } from 'react-native'
 import styles from './styles'
 import { ScrollableTabBar } from './components'
@@ -113,7 +113,7 @@ class StickyParalaxHeader extends Component {
     return shouldRenderTabs ? (
       <Animated.View
         style={[
-          styles.singleTabContainer,
+          styles.tabBarContainer,
           !isHeader && {
             transform: [{ translateY: tabY }]
           },
@@ -128,23 +128,21 @@ class StickyParalaxHeader extends Component {
   }
 
   renderHeader = () => {
-    const { headerHeight, header, tabs, parallaxHeight } = this.props
+    const { headerHeight, header, tabs, parallaxHeight, tabsContainerBackgroundColor } = this.props
     const { top } = this.state
     const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
     const scrollHeight = backgroundHeight + 35
     const shouldRenderTabs = tabs && tabs.length > 0 && top >= scrollHeight / 2
 
     return (
-      <View style={[styles.toolbar, { height: shouldRenderTabs ? 126 : headerHeight }]}>
-        <Animated.View
-          style={[styles.toolbarWrapper, { height: shouldRenderTabs ? 126 : headerHeight }]}
-        >
-          <View style={styles.titleWrapper}>
-            {header}
-            {shouldRenderTabs && this.renderTabs(true)}
-          </View>
-        </Animated.View>
-      </View>
+      <Animated.View
+        style={[styles.toolbarWrapper, { backgroundColor: tabsContainerBackgroundColor }]}
+      >
+        <View style={styles.titleWrapper}>
+          {header}
+          {shouldRenderTabs && this.renderTabs(true)}
+        </View>
+      </Animated.View>
     )
   }
 
@@ -249,7 +247,8 @@ StickyParalaxHeader.propTypes = {
   backgroundImage: number,
   background: node,
   scrollEvent: func,
-  deviceWidth: number
+  deviceWidth: number,
+  tabsContainerBackgroundStyle: shape({})
 }
 
 StickyParalaxHeader.defaultProps = {
