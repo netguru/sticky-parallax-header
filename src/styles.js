@@ -8,20 +8,19 @@ const styles = StyleSheet.create({
     flex: 1
   },
   titleWrapper: {
-    width: width,
-    paddingBottom: 24,
-    paddingTop: 18,
     flex: 1,
+    width,
+    alignItems: 'center'
   },
   toolbarWrapper: {
-    width: width,
+    width,
     zIndex: 1
   },
   toolbar: {
     position: 'absolute',
     top: -20,
     left: 0,
-    width: '100%',
+    width: '100%'
   },
   tabsContainer: {
     justifyContent: 'flex-start',
