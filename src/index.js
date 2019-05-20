@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { func, number, node, arrayOf, string, bool } from 'prop-types'
+import { func, number, node, arrayOf, string, bool, shape } from 'prop-types'
 import { Animated, ScrollView, View, ImageBackground } from 'react-native'
 import styles from './styles'
 import { ScrollableTabBar } from './components'
@@ -87,7 +87,13 @@ class StickyParalaxHeader extends Component {
   }
 
   renderTabs = (isHeader) => {
-    const { tabs } = this.props
+    const {
+      tabs,
+      tabTextStyle,
+      tabTextContainerStyle,
+      tabTextActiveStyle,
+      tabTextContainerActiveStyle
+    } = this.props
     const shouldRenderTabs = tabs && tabs.length > 0
     const { nScroll, scrollHeight, scrollValue, currentPage, containerWidth } = this.state
 
@@ -107,7 +113,11 @@ class StickyParalaxHeader extends Component {
       tabs,
       scrollValue,
       activeTab: currentPage,
-      containerWidth
+      containerWidth,
+      tabTextStyle,
+      tabTextActiveStyle,
+      tabTextContainerStyle,
+      tabTextContainerActiveStyle
     }
 
     return shouldRenderTabs ? (
@@ -249,13 +259,21 @@ StickyParalaxHeader.propTypes = {
   backgroundImage: number,
   background: node,
   scrollEvent: func,
-  deviceWidth: number
+  deviceWidth: number,
+  tabTextStyle: shape({}),
+  tabTextActiveStyle: shape({}),
+  tabTextContainerStyle: shape({}),
+  tabTextContainerActiveStyle: shape({})
 }
 
 StickyParalaxHeader.defaultProps = {
   headerHeight: 70,
   parallaxHeight: 0,
-  initialPage: 0
+  initialPage: 0,
+  tabTextStyle: {},
+  tabTextActiveStyle: {},
+  tabTextContainerStyle: {},
+  tabTextContainerActiveStyle: {}
 }
 
 export default StickyParalaxHeader
