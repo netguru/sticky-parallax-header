@@ -26,11 +26,6 @@ describe('with basic props', () => {
   const props = defaultProps
   const wrapper = shallow(<StickyParalaxHeader {...props} />)
 
-  // it('Should render properly', () => {
-  //   expect(wrapper.find(PrimarySlider).length).toBe(1)
-  //   expect(wrapper.find(Text).length).toBe(3)
-  // })
-
   it('Should render snapshot properly', () => {
     expect(wrapper).toMatchSnapshot()
   })
