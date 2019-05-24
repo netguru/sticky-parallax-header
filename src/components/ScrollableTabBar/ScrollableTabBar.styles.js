@@ -4,15 +4,16 @@ import { colors } from '../../constants'
 export default StyleSheet.create({
   container: {
     width: '100%',
-    zIndex: 10,
-    paddingLeft: 20
+    paddingLeft: 20,
+    alignItems: 'center'
   },
-  tabWrapper: {
+  contentContainer: {
+    alignItems: 'center'
+  },
+  tabContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
-    backgroundColor: colors.transparent,
-    borderRadius: 18
+    flexDirection: 'row'
   },
   countWrapper: {
     width: 14,
@@ -20,15 +21,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  tabWrapperActive: {
-    backgroundColor: colors.darkMint
-  },
   tabText: {
-    fontSize: 16,
-    lineHeight: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    color: colors.white
+    fontSize: 16
   },
   nestedStyle: {
     height: 50,
