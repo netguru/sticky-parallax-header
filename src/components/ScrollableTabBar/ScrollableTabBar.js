@@ -1,8 +1,8 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-return-assign */
 import React from 'react'
-import { Animated, View, TouchableOpacity, Text, string } from 'react-native'
-import { array, func, number, object, shape , string} from 'prop-types'
+import { Animated, View, TouchableOpacity, Text } from 'react-native'
+import { array, func, number, object, shape, string } from 'prop-types'
 import NestedScrollView from 'react-native-nested-scroll-view'
 import { constants } from '../../constants'
 import styles from './ScrollableTabBar.styles'
