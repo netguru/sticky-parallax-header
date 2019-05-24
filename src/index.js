@@ -78,14 +78,15 @@ class StickyParalaxHeader extends Component {
 
   onLayout = (e) => {
     const { x, y, width, height } = e.nativeEvent.layout
-    this.setState({
-      headerLayout: {
-        x,
-        y,
-        width,
-        height
-      }
-    })
+    const { headerSize } = this.props
+    const headerLayout = {
+      x,
+      y,
+      width,
+      height
+    }
+    this.setState({ headerLayout })
+    headerSize(headerLayout)
   }
 
   isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
@@ -129,8 +130,6 @@ class StickyParalaxHeader extends Component {
       tabTextContainerActiveStyle,
       tabsContainerBackgroundColor
     }
-
-    console.log('tabTextStyle: ', tabTextStyle)
 
     return shouldRenderTabs ? (
       <View onLayout={e => this.setState({ tabsHeight: e.nativeEvent.layout.height })}>
@@ -283,7 +282,8 @@ StickyParalaxHeader.propTypes = {
   tabTextActiveStyle: shape({}),
   tabTextContainerStyle: shape({}),
   tabTextContainerActiveStyle: shape({}),
-  tabsContainerBackgroundColor: string
+  tabsContainerBackgroundColor: string,
+  headerSize: func
 }
 
 StickyParalaxHeader.defaultProps = {
