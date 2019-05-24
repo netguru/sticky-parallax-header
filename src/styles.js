@@ -9,18 +9,11 @@ const styles = StyleSheet.create({
   },
   titleWrapper: {
     flex: 1,
-    width,
     alignItems: 'center'
   },
   toolbarWrapper: {
     width,
-    zIndex: 1,
     position: 'absolute'
-  },
-  tabsContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    flexDirection: 'row'
   },
   tab: {
     paddingVertical: 5,
@@ -32,10 +25,6 @@ const styles = StyleSheet.create({
   tabText: {
     color: colors.white,
     fontWeight: '500'
-  },
-  tabBarContainer: {
-    zIndex: 1,
-    width: '100%'
   },
   headerStyle: {
     position: 'absolute',
