@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { func, number, node, arrayOf, string, bool, shape } from 'prop-types'
-import { Animated, ScrollView, View, ImageBackground, StatusBar } from 'react-native'
+import { Animated, ScrollView, View, ImageBackground, StatusBar, Dimensions } from 'react-native'
 import styles from './styles'
 import { ScrollableTabBar } from './components'
 
@@ -9,10 +9,10 @@ const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 class StickyParalaxHeader extends Component {
   constructor(props) {
     super(props)
-    const { initialPage, deviceWidth } = this.props
-
-    const scrollXIOS = new Animated.Value(initialPage * deviceWidth)
-    const containerWidthAnimatedValue = new Animated.Value(deviceWidth)
+    const { initialPage } = this.props
+    const { width } = Dimensions.get('window')
+    const scrollXIOS = new Animated.Value(initialPage * width)
+    const containerWidthAnimatedValue = new Animated.Value(width)
 
     // eslint-disable-next-line no-underscore-dangle
     containerWidthAnimatedValue.__makeNative()
@@ -22,7 +22,7 @@ class StickyParalaxHeader extends Component {
       scrollHeight: 65,
       scrollValue,
       scrollXIOS,
-      containerWidth: deviceWidth,
+      containerWidth: width,
       currentPage: initialPage,
       tabsHeight: 0,
       headerLayout: {
@@ -46,15 +46,17 @@ class StickyParalaxHeader extends Component {
   }
 
   onScrollEndSnapToEdge = (event) => {
-    const { headerHeight, parallaxHeight } = this.props
+    const { headerHeight, parallaxHeight, snapToEdge } = this.props
 
     const { y } = event.nativeEvent.contentOffset
     const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
     const scrollHeight = backgroundHeight + 35
-    if (y > 0 && y < scrollHeight / 2) {
-      this.scroll.getNode().scrollTo({ x: 0, y: 0, animate: true })
-    } else if (y >= scrollHeight / 2 && y < scrollHeight) {
-      this.scroll.getNode().scrollTo({ x: 0, y: scrollHeight, animate: true })
+    if (snapToEdge) {
+      if (y > 0 && y < scrollHeight / 2) {
+        this.scroll.getNode().scrollTo({ x: 0, y: 0, animate: true })
+      } else if (y >= scrollHeight / 2 && y < scrollHeight) {
+        this.scroll.getNode().scrollTo({ x: 0, y: scrollHeight, animate: true })
+      }
     }
   }
 
@@ -277,13 +279,13 @@ StickyParalaxHeader.propTypes = {
   backgroundImage: number,
   background: node,
   scrollEvent: func,
-  deviceWidth: number,
   tabTextStyle: shape({}),
   tabTextActiveStyle: shape({}),
   tabTextContainerStyle: shape({}),
   tabTextContainerActiveStyle: shape({}),
   tabsContainerBackgroundColor: string,
-  headerSize: func
+  headerSize: func,
+  snapToEdge: bool
 }
 
 StickyParalaxHeader.defaultProps = {
@@ -293,7 +295,8 @@ StickyParalaxHeader.defaultProps = {
   tabTextStyle: {},
   tabTextActiveStyle: {},
   tabTextContainerStyle: {},
-  tabTextContainerActiveStyle: {}
+  tabTextContainerActiveStyle: {},
+  snapToEdge: true
 }
 
 export default StickyParalaxHeader
