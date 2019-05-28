@@ -171,7 +171,7 @@ class StickyParalaxHeader extends Component {
         style={[
           styles.headerStyle,
           {
-            height
+            height: backgroundHeight
           }
         ]}
         source={backgroundImage}
