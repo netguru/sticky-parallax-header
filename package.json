@@ -1,6 +1,6 @@
 {
   "name": "react-native-sticky-parallax-header",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "main": "src/index.js",
   "repository": "https://github.com/netguru/sticky-parallax-header",
   "author": "IdaszakDaniel <idaszak1@gmail.com>",
@@ -29,7 +29,8 @@
     "metro-react-native-babel-preset": "^0.54.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-native": "^0.59.8"
+    "react-native": "^0.59.8",
+    "react-native-iphone-x-helper": "^1.2.0"
   },
   "jest": {
     "verbose": true,
