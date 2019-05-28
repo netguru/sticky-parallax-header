@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { colors } from './constants'
 
 const { width } = Dimensions.get('window')
 
@@ -7,24 +6,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  titleWrapper: {
-    flex: 1,
-    alignItems: 'center'
+  scrollView: {
+    top: -1
   },
   toolbarWrapper: {
+    flex: 1,
+    alignItems: 'center',
     width,
-    position: 'absolute'
-  },
-  tab: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    margin: 5,
-    borderRadius: 15,
-    backgroundColor: colors.secondaryGreen
-  },
-  tabText: {
-    color: colors.white,
-    fontWeight: '500'
+    position: 'absolute',
+    zIndex: 2
   },
   headerStyle: {
     position: 'absolute',
