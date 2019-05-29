@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { func, number, node, arrayOf, string, bool, shape } from 'prop-types'
 import { Animated, ScrollView, View, ImageBackground, Dimensions, Platform } from 'react-native'
-import { getStatusBarHeight, isIphoneX } from 'react-native-iphone-x-helper'
-import { ScrollableTabBar } from './components'
+import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+import { ScrollableTabBar, ScrollableTabView } from './components'
 import styles from './styles'
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
@@ -45,7 +45,7 @@ class StickyParalaxHeader extends Component {
     scrollY.removeListener()
   }
 
-  onScrollEndSnapToEdge = (event) => {
+  onScrollEndSnapToEdge = event => {
     const { headerHeight, parallaxHeight, snapToEdge } = this.props
     const { scrollY } = this.state
     const { y } = event.nativeEvent.contentOffset
@@ -63,21 +63,17 @@ class StickyParalaxHeader extends Component {
     }
   }
 
-  onChangeTabHandler = (tab) => {
-    const { onChangeTab, headerHeight } = this.props
-    const { scrollY } = this.state
+  onChangeTabHandler = tab => {
+    const { onChangeTab } = this.props
     onChangeTab ? onChangeTab(tab) : null
-    if (scrollY._value > 0) {
-      this.scroll.getNode().scrollTo({ x: 0, y: headerHeight - 41, animate: true })
-    }
   }
 
-  onScroll = (e) => {
+  onScroll = e => {
     const { scrollEvent } = this.props
     scrollEvent && scrollEvent(e)
   }
 
-  onLayout = (e) => {
+  onLayout = e => {
     const { x, y, width, height } = e.nativeEvent.layout
     const { headerSize } = this.props
     const headerLayout = {
@@ -98,7 +94,7 @@ class StickyParalaxHeader extends Component {
     }
   }
 
-  goToPage = (pageNumber) => {
+  goToPage = pageNumber => {
     const { containerWidth } = this.state
     const offset = pageNumber * containerWidth
     if (this.scrollView) {
@@ -205,9 +201,19 @@ class StickyParalaxHeader extends Component {
     return <ScrollableTabBar {...props} />
   }
 
+  swipedPage = page => this.setState({ currentPage: page })
+
   render() {
-    const { header, children, backgroundImage, parallaxHeight, tabs } = this.props
-    const { scrollY } = this.state
+    const {
+      header,
+      children,
+      backgroundImage,
+      parallaxHeight,
+      tabs,
+      initialPage,
+      tabs
+    } = this.props
+    const { scrollY, currentPage } = this.state
 
     const shouldRenderTabs = tabs && tabs.length > 0
 
@@ -222,7 +228,7 @@ class StickyParalaxHeader extends Component {
         {header && this.renderHeader()}
         <AnimatedScrollView
           bounces={false}
-          ref={(c) => {
+          ref={c => {
             this.scroll = c
           }}
           style={styles.scrollView}
@@ -232,7 +238,7 @@ class StickyParalaxHeader extends Component {
           showsVerticalScrollIndicator={false}
           onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
             useNativeDriver: true,
-            listener: (event) => {
+            listener: event => {
               this.isCloseToBottom(event.nativeEvent)
               this.onScroll(event)
             }
@@ -249,7 +255,31 @@ class StickyParalaxHeader extends Component {
             {this.renderForeground()}
           </Animated.View>
           {shouldRenderTabs && this.renderTabs()}
-          <View>{children}</View>
+          <View>
+            <ScrollableTabView
+              initialPage={initialPage}
+              onChangeTab={i => this.onChangeTabHandler(i)}
+              locked={false}
+              tabs={tabs}
+              page={currentPage}
+              swipedPage={this.swipedPage}
+            >
+              {!tabs && children}
+              {tabs &&
+                tabs.map(item => (
+                  <View
+                    tabLabel={item.title}
+                    key={item.title}
+                    onLayout={this.setContentHeight}
+                    ref={c => {
+                      this.tab = c
+                    }}
+                  >
+                    {item.content}
+                  </View>
+                ))}
+            </ScrollableTabView>
+          </View>
         </AnimatedScrollView>
       </View>
     )

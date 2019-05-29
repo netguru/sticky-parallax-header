@@ -18,6 +18,13 @@ class ScrollableTabBar extends React.PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { activeTab } = this.props
+    if (nextProps.activeTab !== activeTab) {
+      this.scrollToTab(nextProps.activeTab)
+    }
+  }
+
   adjustPrevious = (page) => {
     const lastHidden = Math.floor(this.currentXPosition / (constants.deviceWidth * 0.3))
     if (page <= lastHidden) {
@@ -107,9 +114,9 @@ class ScrollableTabBar extends React.PureComponent {
 
             return (
               <TouchableOpacity
-                key={tab}
+                key={tab.title}
                 accessible
-                accessibilityLabel={tab}
+                accessibilityLabel={tab.title}
                 accessibilityTraits="button"
                 activeOpacity={0.9}
                 onPress={() => this.goToPage(page)}
@@ -134,7 +141,7 @@ class ScrollableTabBar extends React.PureComponent {
                     }}
                     style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}
                   >
-                    {tab}
+                    {tab.title}
                   </Text>
                 </View>
               </TouchableOpacity>
