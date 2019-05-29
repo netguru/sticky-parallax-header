@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 
 const { height, width } = Dimensions.get('window')
 
@@ -16,6 +16,7 @@ const isSmallScreen = width <= breakpoints.smallPhoneWidth || height <= breakpoi
 const isNormalScreen = width > breakpoints.smallPhoneWidth && width < breakpoints.mediumPhoneWidth
 const isBigScreen = width >= breakpoints.mediumPhoneWidth
 const isBiggestPhoneScreen = width >= breakpoints.bigPhoneWidth
+const isAndroid = Platform.OS === 'android'
 
 export default {
   deviceWidth,
@@ -25,5 +26,6 @@ export default {
   isSmallScreen,
   isNormalScreen,
   isBigScreen,
-  isBiggestPhoneScreen
+  isBiggestPhoneScreen,
+  isAndroid
 }
