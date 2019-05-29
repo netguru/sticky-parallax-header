@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { func, number, node, arrayOf, string, bool, shape } from 'prop-types'
-import { Animated, ScrollView, View, ImageBackground, Dimensions } from 'react-native'
-import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+import { Animated, ScrollView, View, ImageBackground, Dimensions, Platform } from 'react-native'
+import { getStatusBarHeight, isIphoneX } from 'react-native-iphone-x-helper'
 import { ScrollableTabBar } from './components'
 import styles from './styles'
 
@@ -47,10 +47,13 @@ class StickyParalaxHeader extends Component {
 
   onScrollEndSnapToEdge = (event) => {
     const { headerHeight, parallaxHeight, snapToEdge } = this.props
-
+    const { scrollY } = this.state
     const { y } = event.nativeEvent.contentOffset
     const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
-    const scrollHeight = backgroundHeight + 35
+    console.log('backgroundHeight: ', backgroundHeight)
+    console.log('scrollY: ', scrollY)
+    console.log('y : ', y)
+    const scrollHeight = backgroundHeight
     if (snapToEdge) {
       if (y > 0 && y < scrollHeight / 2) {
         this.scroll.getNode().scrollTo({ x: 0, y: 0, animate: true })
@@ -112,8 +115,8 @@ class StickyParalaxHeader extends Component {
         style={
           (styles.toolbarWrapper,
           {
-            height: headerHeight,
-            paddingTop: getStatusBarHeight('safe'),
+            height: Platform.OS === 'android' ? headerHeight - 30 : headerHeight,
+            paddingTop: Platform.OS === 'android' ? 0 : getStatusBarHeight('safe'),
             backgroundColor: header.props.style.backgroundColor
           })
         }
