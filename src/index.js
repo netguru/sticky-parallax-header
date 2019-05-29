@@ -47,7 +47,6 @@ class StickyParalaxHeader extends Component {
 
   onScrollEndSnapToEdge = (event) => {
     const { headerHeight, parallaxHeight, snapToEdge } = this.props
-    const { scrollY } = this.state
     const { y } = event.nativeEvent.contentOffset
     const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
 
