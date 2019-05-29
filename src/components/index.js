@@ -1,3 +1,4 @@
 import ScrollableTabBar from './ScrollableTabBar/ScrollableTabBar'
+import ScrollableTabView from './ScrollableTabView/ScrollableTabView'
 
-export { ScrollableTabBar }
+export { ScrollableTabBar, ScrollableTabView }

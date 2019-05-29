@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { func, number, node, arrayOf, string, bool, shape } from 'prop-types'
 import { Animated, ScrollView, View, ImageBackground, Dimensions } from 'react-native'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
-import { ScrollableTabBar } from './components'
+import { ScrollableTabBar, ScrollableTabView } from './components'
 import styles from './styles'
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
@@ -61,12 +61,8 @@ class StickyParalaxHeader extends Component {
   }
 
   onChangeTabHandler = (tab) => {
-    const { onChangeTab, headerHeight } = this.props
-    const { scrollY } = this.state
+    const { onChangeTab } = this.props
     onChangeTab ? onChangeTab(tab) : null
-    if (scrollY._value > 0) {
-      this.scroll.getNode().scrollTo({ x: 0, y: headerHeight - 41, animate: true })
-    }
   }
 
   onScroll = (e) => {
@@ -202,9 +198,11 @@ class StickyParalaxHeader extends Component {
     return <ScrollableTabBar {...props} />
   }
 
+  swipedPage = page => this.setState({ currentPage: page })
+
   render() {
-    const { header, children, backgroundImage, parallaxHeight, tabs } = this.props
-    const { scrollY } = this.state
+    const { header, children, backgroundImage, parallaxHeight, tabs, initialPage, tabs } = this.props
+    const { scrollY, currentPage } = this.state
 
     const shouldRenderTabs = tabs && tabs.length > 0
 
@@ -246,7 +244,27 @@ class StickyParalaxHeader extends Component {
             {this.renderForeground()}
           </Animated.View>
           {shouldRenderTabs && this.renderTabs()}
-          <View>{children}</View>
+          <View>
+            <ScrollableTabView
+              initialPage={initialPage}
+              onChangeTab={i => this.onChangeTabHandler(i)}
+              locked={false}
+              tabs={tabs}
+              page={currentPage}
+              swipedPage={this.swipedPage}
+            >
+              {!tabs && children}
+              {tabs && tabs.map(item => (
+                <View
+                  tabLabel={item.title}
+                  key={item.title}
+                  onLayout={this.setContentHeight}
+                  ref={(c) => { this.tab = c }}
+                >
+                  {item.content}
+                </View>))}
+            </ScrollableTabView>
+          </View>
         </AnimatedScrollView>
       </View>
     )
