@@ -1,8 +1,9 @@
+/* eslint-disable react/destructuring-assignment  */
 import React from 'react'
 import { Animated, StyleSheet, View } from 'react-native'
 import { func, node, number } from 'prop-types'
 import SceneComponent from './SceneComponent'
-import { constants } from '../../constants'
+import constants from '../../constants/constants'
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +23,7 @@ class ScrollableTabView extends React.Component {
     const scrollXIOS = new Animated.Value(initialPage * deviceWidth)
     const containerWidthAnimatedValue = new Animated.Value(deviceWidth)
 
+    // eslint-disable-next-line no-underscore-dangle
     containerWidthAnimatedValue.__makeNative()
     const scrollValue = Animated.divide(scrollXIOS, containerWidthAnimatedValue)
 
@@ -31,9 +33,7 @@ class ScrollableTabView extends React.Component {
       currentPage: initialPage,
       scrollXIOS,
       containerWidth: deviceWidth,
-      sceneKeys: this.newSceneKeys({
-        currentPage: initialPage
-      })
+      sceneKeys: this.newSceneKeys({ currentPage: initialPage })
     }
 
     scrollXIOS.addListener(({ value }) => callListeners(value / deviceWidth))
@@ -43,10 +43,7 @@ class ScrollableTabView extends React.Component {
     const { children } = this.props
     const { currentPage } = this.state
     if (props.children !== children) {
-      this.updateSceneKeys({
-        page: currentPage,
-        children: props.children
-      })
+      this.updateSceneKeys({ page: currentPage, children: props.children })
     }
 
     if (props.page >= 0 && props.page !== currentPage) {
@@ -93,24 +90,20 @@ class ScrollableTabView extends React.Component {
     })
   }
 
-  composeScenes = () => {
-    this.children().map((child, idx) => {
-      const key = this.makeSceneKey(child, idx)
-      const { currentPage, containerWidth, sceneKeys } = this.state
+  composeScenes = () => this.children().map((child, idx) => {
+    const key = this.makeSceneKey(child, idx)
+    const { currentPage, containerWidth, sceneKeys } = this.state
 
-      return (
-        <SceneComponent
-          key={child.key}
-          shouldUpdated={this.shouldRenderSceneKey(idx, currentPage)}
-          style={{
-            width: containerWidth
-          }}
-        >
-          {this.keyExists(sceneKeys, key) ? child : null}
-        </SceneComponent>
-      )
-    })
-  }
+    return (
+      <SceneComponent
+        key={child.key}
+        shouldUpdated={this.shouldRenderSceneKey(idx, currentPage)}
+        style={{ width: containerWidth }}
+      >
+        {this.keyExists(sceneKeys, key) ? child : null}
+      </SceneComponent>
+    )
+  })
 
   makeSceneKey = (child, idx) => `${child.props.tabLabel}_${idx}`
 
@@ -133,18 +126,15 @@ class ScrollableTabView extends React.Component {
       listeners.clear()
     }
 
-    /* eslint-disable no-param-reassign */
+    /* eslint-disable no-param-reassign  */
     animatedValue.addListener = addListener
     animatedValue.removeListener = removeListener
     animatedValue.removeAllListeners = removeAllListeners
-    /* eslint-enable no-param-reassign */
+    /* eslint-disable no-param-reassign  */
 
-    return value => listeners.forEach(listener => listener({
-      value
-    }))
+    return value => listeners.forEach(listener => listener({ value }))
   }
 
-  // eslint-disable-next-line react/destructuring-assignment
   newSceneKeys = ({ previousKeys = [], currentPage = 0, children = this.props.children }) => {
     const newKeys = []
     this.children(children).forEach((child, idx) => {
@@ -157,32 +147,17 @@ class ScrollableTabView extends React.Component {
     return newKeys
   }
 
-  // eslint-disable-next-line react/destructuring-assignment
   updateSceneKeys = ({ page, children = this.props.children, callback = () => {} }) => {
     const { sceneKeys } = this.state
-    const newKeys = this.newSceneKeys({
-      previousKeys: sceneKeys,
-      currentPage: page,
-      children
-    })
-    this.setState(
-      {
-        currentPage: page,
-        sceneKeys: newKeys
-      },
-      callback
-    )
+    const newKeys = this.newSceneKeys({ previousKeys: sceneKeys, currentPage: page, children })
+    this.setState({ currentPage: page, sceneKeys: newKeys }, callback)
   }
 
   goToPage = (pageNumber) => {
     const { containerWidth } = this.state
     const offset = pageNumber * containerWidth
     if (this.scrollView) {
-      this.scrollView.getNode().scrollTo({
-        x: offset,
-        y: 0,
-        animated: true
-      })
+      this.scrollView.getNode().scrollTo({ x: offset, y: 0, animated: true })
     }
 
     const { currentPage } = this.state
@@ -207,15 +182,12 @@ class ScrollableTabView extends React.Component {
       return
     }
 
-    this.setState({
-      containerWidth: width
-    })
+    this.setState({ containerWidth: width })
     this.requestAnimationFrame(() => {
       this.goToPage(currentPage)
     })
   }
 
-  // eslint-disable-next-line react/destructuring-assignment
   children = (children = this.props.children) => React.Children.map(children, child => child)
 
   renderScrollableContent() {
@@ -228,27 +200,14 @@ class ScrollableTabView extends React.Component {
         horizontal
         pagingEnabled
         automaticallyAdjustContentInsets={false}
-        contentOffset={{
-          x: initialPage * containerWidth
-        }}
+        contentOffset={{ x: initialPage * containerWidth }}
         ref={(scrollView) => {
           this.scrollView = scrollView
         }}
-        onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: {
-                  x: scrollXIOS
-                }
-              }
-            }
-          ],
-          {
-            useNativeDriver: true,
-            listener: this.onScroll
-          }
-        )}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollXIOS } } }], {
+          useNativeDriver: true,
+          listener: this.onScroll
+        })}
         onMomentumScrollBegin={this.onMomentumScrollBeginAndEnd}
         onMomentumScrollEnd={this.onMomentumScrollBeginAndEnd}
         scrollEventThrottle={16}
