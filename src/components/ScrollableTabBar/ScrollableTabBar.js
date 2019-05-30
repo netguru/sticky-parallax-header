@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-return-assign */
 import React from 'react'
-import { Animated, View, TouchableOpacity, Text } from 'react-native'
+import { Animated, Text, TouchableOpacity, View } from 'react-native'
 import { array, func, number, object, shape, string } from 'prop-types'
 import NestedScrollView from 'react-native-nested-scroll-view'
 import { constants } from '../../constants'
@@ -29,7 +29,9 @@ class ScrollableTabBar extends React.PureComponent {
     const lastHidden = Math.floor(this.currentXPosition / (constants.deviceWidth * 0.3))
     if (page <= lastHidden) {
       this.currentXPosition = constants.deviceWidth * 0.3 * page
-      this.scrollView.scrollTo({ x: this.currentXPosition })
+      this.scrollView.scrollTo({
+        x: this.currentXPosition
+      })
     }
   }
 
@@ -39,7 +41,9 @@ class ScrollableTabBar extends React.PureComponent {
 
     if (invisibleX < 0) {
       this.currentXPosition = this.currentXPosition - invisibleX
-      this.scrollView.scrollTo({ x: this.currentXPosition })
+      this.scrollView.scrollTo({
+        x: this.currentXPosition
+      })
     }
   }
 
@@ -48,7 +52,9 @@ class ScrollableTabBar extends React.PureComponent {
 
     if (tabs.length > 3) {
       if (page === 0) {
-        this.scrollView.scrollTo({ x: 0 })
+        this.scrollView.scrollTo({
+          x: 0
+        })
         this.currentXPosition = 0
       } else if (page !== tabs.length - 1) {
         this.adjustPrevious(page - 1)
@@ -98,7 +104,14 @@ class ScrollableTabBar extends React.PureComponent {
     })
 
     return (
-      <View style={[styles.container, { backgroundColor: tabsContainerBackgroundColor }]}>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: tabsContainerBackgroundColor
+          }
+        ]}
+      >
         <NestedScrollView
           style={styles.nestedStyle}
           contentContainerStyle={styles.contentContainer}
@@ -137,7 +150,9 @@ class ScrollableTabBar extends React.PureComponent {
                     }) => {
                       const newWidth = [...tabUnderlineWidth]
                       newWidth[page] = width
-                      this.setState({ tabUnderlineWidth: newWidth })
+                      this.setState({
+                        tabUnderlineWidth: newWidth
+                      })
                     }}
                     style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}
                   >
@@ -151,7 +166,11 @@ class ScrollableTabBar extends React.PureComponent {
             style={[
               tabUnderlineStyle,
               {
-                transform: [{ translateX }]
+                transform: [
+                  {
+                    translateX
+                  }
+                ]
               }
             ]}
           />
