@@ -319,7 +319,7 @@ StickyParalaxHeader.propTypes = {
   tabTextContainerActiveStyle: shape({}),
   tabTextContainerStyle: shape({}),
   tabTextStyle: shape({}),
-  tabs: arrayOf(string),
+  tabs: arrayOf(shape({})),
   tabsContainerBackgroundColor: string
 }
 
