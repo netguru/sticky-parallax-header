@@ -6,9 +6,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  scrollView: {
-    top: -1
-  },
   toolbarWrapper: {
     flex: 1,
     alignItems: 'center',

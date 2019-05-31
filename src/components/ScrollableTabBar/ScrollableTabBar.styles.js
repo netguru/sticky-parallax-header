@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
   container: {
     width: '100%',
-    paddingLeft: 20,
     alignItems: 'center'
   },
   contentContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingHorizontal: 20
   },
   tabContainer: {
     alignItems: 'center',
@@ -24,7 +24,6 @@ export default StyleSheet.create({
     fontSize: 16
   },
   nestedStyle: {
-    height: 50,
     alignSelf: 'center'
   }
 })
