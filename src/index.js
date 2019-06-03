@@ -223,6 +223,8 @@ class StickyParalaxHeader extends Component {
         {header && this.renderHeader()}
         <AnimatedScrollView
           bounces={false}
+          overScrollMode="never"
+          nestedScrollEnabled
           ref={(c) => {
             this.scroll = c
           }}
