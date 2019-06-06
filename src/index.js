@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { arrayOf, bool, func, node, number, shape, string } from 'prop-types'
-import { Animated, Dimensions, ImageBackground, ScrollView, View } from 'react-native'
+import { Animated, Dimensions, ImageBackground, ScrollView, View, Platform } from 'react-native'
 import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import styles from './styles'
@@ -44,6 +44,11 @@ class StickyParalaxHeader extends Component {
     const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
 
     const scrollHeight = backgroundHeight
+    if (y < -20) {
+      this.spring(0, y)
+
+      return null
+    }
     if (snapToEdge) {
       if (y > 0 && y < scrollHeight / 2) {
         this.scroll.getNode().scrollTo({
@@ -71,6 +76,17 @@ class StickyParalaxHeader extends Component {
     const { scrollEvent } = this.props
 
     return scrollEvent && scrollEvent(e)
+  }
+
+  spring = (y, scrollOffset) => {
+    const animatedValue = new Animated.Value(scrollOffset)
+    const id = animatedValue.addListener(({ value }) => {
+      this.scroll.getNode().scrollTo({ x: 0, y: value, animated: false })
+    })
+    Animated.spring(
+      animatedValue,
+      { toValue: y, bounciness: 30 }
+    ).start(() => { animatedValue.removeListener(id) })
   }
 
   onLayout = (e) => {
@@ -168,8 +184,15 @@ class StickyParalaxHeader extends Component {
   }
 
   renderForeground = () => {
-    const { headerHeight, foreground, parallaxHeight, tabsContainerBackgroundColor } = this.props
+    const {
+      headerHeight,
+      foreground,
+      parallaxHeight,
+      tabsContainerBackgroundColor,
+      header
+    } = this.props
     const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
+    const { backgroundColor } = header.props.style
 
     return (
       <View
@@ -178,6 +201,11 @@ class StickyParalaxHeader extends Component {
           backgroundColor: tabsContainerBackgroundColor
         }}
       >
+        {Platform.OS === 'ios'
+          && <View
+            style={[styles.overScrollPadding, { backgroundColor }]}
+          />
+        }
         {foreground}
       </View>
     )
@@ -213,7 +241,7 @@ class StickyParalaxHeader extends Component {
   }
 
   render() {
-    const { backgroundImage, children, header, initialPage, parallaxHeight, tabs } = this.props
+    const { backgroundImage, children, header, initialPage, parallaxHeight, tabs, locked } = this.props
     const { scrollY, currentPage } = this.state
 
     const shouldRenderTabs = tabs && tabs.length > 0
@@ -222,8 +250,8 @@ class StickyParalaxHeader extends Component {
       <View style={styles.container}>
         {header && this.renderHeader()}
         <AnimatedScrollView
-          bounces={false}
-          overScrollMode="never"
+          // bounces={false}
+          // overScrollMode="never"
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c

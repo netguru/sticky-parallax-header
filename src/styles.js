@@ -21,6 +21,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginBottom: 5,
     paddingBottom: 3
+  },
+  overScrollPadding: {
+    height: 200,
+    position: 'absolute',
+    top: -200,
+    left: 0,
+    right: 0
   }
 })
 
