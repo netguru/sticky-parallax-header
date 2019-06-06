@@ -13,7 +13,7 @@ In order to make tab bar work, we have to link react-native-nested-scroll-view p
 $ react-native link react-native-nested-scroll-view
 ```
 
-Depending on the version of React Native you use, the package can still making issues for you, you have to install patch-package
+Depending on the version of React Native you use, the package can be still making issues for you, you have to install patch-package
 ```bash
 $ yarn add patch-package postinstall-postinstall
 ```
@@ -167,6 +167,9 @@ class UserScreen extends React.Component {
 }
 ```
 
+## Tips
+In order to nest scrollable component use `scrollEnabled={false}` on it and move all the logic to the header eg. by using `onEndReached` prop.
+
 ## API Usage
 | Property                       | Type              | Required | Description                                                   | Default |
 | ------------------------------ | ----------------- | -------- | ------------------------------------------------------------- | ------- |
@@ -176,7 +179,7 @@ class UserScreen extends React.Component {
 | `foreground`                   | `node`            | Yes      | This renders foreground component                             | -       |
 | `header`                       | `node`            | Yes      | This renders header component                                 | -       |
 | `headerHeight`                 | `number`          | No       | sets height of folded header                                  | -       |
-| `headerSize`                   | `func`            | No       | returns size of hedaer for current device                     | -       |
+| `headerSize`                   | `func`            | No       | returns size of header for current device                     | -       |
 | `initialPage`                  | `number`          | No       | set initial page of tab bar                                   | -       |
 | `onChangeTab`                  | `func`            | No       | Tab change event                                              | -       |
 | `onEndReached`                 | `func`            | No       | Tab change event                                              | -       |
