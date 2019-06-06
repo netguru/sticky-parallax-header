@@ -241,17 +241,18 @@ class StickyParalaxHeader extends Component {
   }
 
   render() {
-    const { backgroundImage, children, header, initialPage, parallaxHeight, tabs, locked } = this.props
+    const { backgroundImage, children, header, initialPage, parallaxHeight, tabs, bounces } = this.props
     const { scrollY, currentPage } = this.state
 
     const shouldRenderTabs = tabs && tabs.length > 0
+    const overScrollMode = bounces ? 'auto ' : 'never'
 
     return (
       <View style={styles.container}>
         {header && this.renderHeader()}
         <AnimatedScrollView
-          // bounces={false}
-          // overScrollMode="never"
+          bounces={bounces}
+          overScrollMode
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c
@@ -316,6 +317,7 @@ class StickyParalaxHeader extends Component {
 StickyParalaxHeader.propTypes = {
   background: node,
   backgroundImage: number,
+  bounces: bool,
   children: node,
   foreground: node,
   header: node,
@@ -338,6 +340,7 @@ StickyParalaxHeader.propTypes = {
 }
 
 StickyParalaxHeader.defaultProps = {
+  bounces: true,
   headerHeight: 92,
   initialPage: 0,
   parallaxHeight: 0,
