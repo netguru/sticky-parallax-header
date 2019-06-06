@@ -87,7 +87,6 @@ class ScrollableTabBar extends React.PureComponent {
     } = this.props
     const { tabUnderlineWidth } = this.state
 
-    console.log('tabsWrapperStyle: ', tabsWrapperStyle)
     const tabWidth = tabs.length > 3 ? constants.deviceWidth * 0.3 : constants.deviceWidth * 0.33
 
     const tabUnderlineStyle = {
