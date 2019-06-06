@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { arrayOf, bool, func, node, number, shape, string } from 'prop-types'
 import { Animated, Dimensions, ImageBackground, ScrollView, View } from 'react-native'
-import { getStatusBarHeight, ifIphoneX } from 'react-native-iphone-x-helper'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import styles from './styles'
-import { constants } from './constants'
+import { constants, responsive } from './constants'
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 
@@ -104,11 +103,11 @@ class StickyParalaxHeader extends Component {
     })
   }
 
-  isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
+  isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
     const { onEndReached } = this.props
 
     if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 20) {
-      onEndReached()
+      return onEndReached && onEndReached()
     }
   }
 
@@ -121,7 +120,7 @@ class StickyParalaxHeader extends Component {
           (styles.toolbarWrapper,
           {
             height: headerHeight,
-            paddingTop: constants.isAndroid ? 0 : getStatusBarHeight('safe'),
+            paddingTop: constants.isAndroid ? 0 : responsive.getStatusBarHeight('safe'),
             backgroundColor: header.props.style.backgroundColor
           })
         }
@@ -250,6 +249,7 @@ class StickyParalaxHeader extends Component {
               }
             }
           )}
+          {...this.props}
         >
           <View style={{ height: parallaxHeight }} onLayout={e => this.onLayout(e)}>
             {backgroundImage ? this.renderImageBackground() : this.renderPlainBackground()}
@@ -259,7 +259,6 @@ class StickyParalaxHeader extends Component {
           <ScrollableTabView
             initialPage={initialPage}
             onChangeTab={i => this.onChangeTabHandler(i)}
-            locked={false}
             tabs={tabs}
             page={currentPage}
             swipedPage={this.swipedPage}
@@ -292,9 +291,8 @@ StickyParalaxHeader.propTypes = {
   foreground: node,
   header: node,
   headerHeight: number,
-  headerSize: func,
+  headerSize: func.isRequired,
   initialPage: number,
-  locked: bool,
   onChangeTab: func,
   onEndReached: func,
   parallaxHeight: number,
