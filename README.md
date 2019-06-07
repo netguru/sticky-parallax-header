@@ -32,7 +32,7 @@ You're ready to use the package now.
 ## Example
 ```jsx
 import React from 'react'
-import { Text, View, Animated, Image, TouchableOpacity, Dimensions, Platform, StyleSheet } from 'react-native'
+import { Text, View, Animated, StyleSheet } from 'react-native'
 import StickyParalaxHeader from 'react-native-sticky-parallax-header'
 
 const styles = StyleSheet.create({
@@ -44,19 +44,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end'
   },
-  messageContainer: {
-    paddingTop: 24,
-    paddingBottom: 7
-  },
   message: {
     color: 'white',
-    fontSize: 40
-  },
-  background: {
-    width: '100%',
-    justifyContent: 'flex-end',
-    backgroundColor: 'green',
-    height: '100%'
+    fontSize: 40,
+    paddingTop: 24,
+    paddingBottom: 7
   },
   headerWrapper: {
     backgroundColor: 'green',
@@ -66,28 +58,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  headerMenu: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  headerTitleContainer: {
-    marginLeft: 24,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   headerTitle: {
     fontSize: 16,
     color: 'white',
-    marginLeft: 12
+    margin: 12
+  },
+  tabsWrapper: {
+    paddingVertical: 12
+  },
+  tabTextContainerStyle: {
+    backgroundColor: 'transparent',
+    borderRadius: 18
+  },
+  tabTextContainerActiveStyle: {
+    backgroundColor: 'lightgreen'
+  },
+  tabText: {
+    fontSize: 16,
+    lineHeight: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    color: 'white'
   }
 })
 
-const { height } = Dimensions.get('window')
-const IS_IPHONE_X = height === 812 || height === 896
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? (IS_IPHONE_X ? 44 : 20) : 0
-const PADDING_TOP = STATUS_BAR_HEIGHT + 25
-
-class UserScreen extends React.Component {
+class TabScreen extends React.Component {
   state = {
     scroll: new Animated.Value(0)
   }
@@ -97,53 +92,42 @@ class UserScreen extends React.Component {
     scroll.addListener(({ value }) => (this._value = value))
   }
 
-  renderContent = () => (
+  renderContent = (label) => (
     <View style={styles.content}>
-      <Text>Content</Text>
+      <Text>{label}</Text>
     </View>
   )
 
   renderForeground = () => {
     const { scroll } = this.state
     const titleOpacity = scroll.interpolate({
-      inputRange: [0, 126, 174],
+      inputRange: [0, 106, 154],
       outputRange: [1, 1, 0],
       extrapolate: 'clamp'
     })
 
     return (
       <View style={styles.foreground}>
-        <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
+        <Animated.View style={{ opacity: titleOpacity }}>
           <Text style={styles.message}>STICKY HEADER</Text>
         </Animated.View>
       </View>
     )
   }
 
-  renderBackground = () => (
-    <View
-      style={styles.background}
-    />
-  )
-
   renderHeader = () => {
     const { scroll } = this.state
     const opacity = scroll.interpolate({
-      inputRange: [0, 180, 250],
+      inputRange: [0, 160, 210],
       outputRange: [0, 0, 1],
       extrapolate: 'clamp'
     })
 
     return (
-      <View style={[styles.headerWrapper, { paddingTop: PADDING_TOP }]}>
-        <View style={styles.headerMenu}>
-          <TouchableOpacity>
-            <Image source={require('../../assets/icons/Icon-Arrow.png')} />
-          </TouchableOpacity>
-          <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
-            <Text style={styles.headerTitle}>Sticky Header</Text>
-          </Animated.View>
-        </View>
+      <View style={styles.headerWrapper}>
+        <Animated.View style={{ opacity }}>
+          <Text style={styles.headerTitle}>STICKY HEADER</Text>
+        </Animated.View>
       </View>
     )
   }
@@ -155,12 +139,39 @@ class UserScreen extends React.Component {
       <StickyParalaxHeader
         foreground={this.renderForeground()}
         header={this.renderHeader()}
-        background={this.renderBackground()}
-        parallaxHeight={300}
-        headerHeight={70}
+        parallaxHeight={200}
+        headerHeight={90}
+        headerSize={() => {}}
+        onEndReached={() => {}}
         scrollEvent={Animated.event([{ nativeEvent: { contentOffset: { y: scroll } } }])}
+        tabs={[
+          {
+            title: 'First Tab',
+            content: this.renderContent('FIRST TAB')
+          },
+          {
+            title: 'Second Tab',
+            content: this.renderContent('SECOND TAB')
+          },
+          {
+            title: 'Third Tab',
+            content: this.renderContent('THIRD TAB')
+          },
+          {
+            title: 'Fourth Tab',
+            content: this.renderContent('FOURTH TAB')
+          },
+          {
+            title: 'Fifth Tab',
+            content: this.renderContent('FIFTH TAB')
+          }
+        ]}
+        tabTextStyle={styles.tabText}
+        tabTextContainerStyle={styles.tabTextContainerStyle}
+        tabTextContainerActiveStyle={styles.tabTextContainerActiveStyle}
+        tabsContainerBackgroundColor={'green'}
+        tabsWrapperStyle={styles.tabsWrapper}
       >
-        {this.renderContent()}
       </StickyParalaxHeader>
     )
   }
