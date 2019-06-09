@@ -114,6 +114,13 @@ class StickyParalaxHeader extends Component {
   renderHeader = () => {
     const { header, headerHeight } = this.props
 
+    const headerStyle = header.props.style
+    const isArray = Array.isArray(headerStyle)
+    const arrayHeaderStyle = {}
+    if (isArray) {
+      headerStyle.map(el => Object.assign(arrayHeaderStyle, el))
+    }
+
     return (
       <View
         style={
@@ -121,7 +128,9 @@ class StickyParalaxHeader extends Component {
           {
             height: headerHeight,
             paddingTop: constants.isAndroid ? 0 : responsive.getStatusBarHeight('safe'),
-            backgroundColor: header.props.style.backgroundColor
+            backgroundColor: isArray
+              ? arrayHeaderStyle.backgroundColor
+              : headerStyle.backgroundColor
           })
         }
       >
@@ -249,7 +258,6 @@ class StickyParalaxHeader extends Component {
               }
             }
           )}
-          {...this.props}
         >
           <View style={{ height: parallaxHeight }} onLayout={e => this.onLayout(e)}>
             {backgroundImage ? this.renderImageBackground() : this.renderPlainBackground()}
