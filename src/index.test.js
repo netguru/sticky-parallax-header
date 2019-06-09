@@ -12,6 +12,18 @@ const renderContent = title => (
   </View>
 )
 
+function createClientXY(x, y) {
+  return { clientX: x, clientY: y }
+}
+
+function createStartTouchEventObject({ x = 0, y = 0 }) {
+  return { touches: [createClientXY(x, y)] }
+}
+
+function createMoveTouchEventObject({ x = 0, y = 0 }) {
+  return { changedTouches: [createClientXY(x, y)] }
+}
+
 configure({
   adapter: new Adapter()
 })
@@ -61,6 +73,8 @@ const defaultProps = {
 describe('with basic props', () => {
   const props = defaultProps
   const wrapper = shallow(<StickyParalaxHeader {...props} />)
+  const instance = wrapper.instance()
+  const dived = wrapper.dive()
 
   it('Should render snapshot properly', () => {
     expect(wrapper).toMatchSnapshot()
@@ -71,5 +85,14 @@ describe('with basic props', () => {
     expect(wrapper.find(Text).length).toBe(4)
     expect(wrapper.find(ScrollableTabBar).length).toBe(1)
     expect(wrapper.find(ScrollableTabView).length).toBe(1)
+  })
+
+  it('Should swipe the page', () => {
+    const spyOnSwipePage = jest.spyOn(instance, 'swipedPage')
+    wrapper.simulate('touchStart', createStartTouchEventObject({ x: 100, y: 0 }))
+    wrapper.simulate('touchMove', createMoveTouchEventObject({ x: 150, y: 0 }))
+    wrapper.simulate('touchEnd', createMoveTouchEventObject({ x: 200, y: 0 }))
+
+    expect(spyOnSwipePage).toHaveBeenCalled()
   })
 })
