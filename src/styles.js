@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
     paddingBottom: 3
   },
   overScrollPadding: {
-    height: 200,
+    height: 300,
     position: 'absolute',
-    top: -200,
+    top: -300,
     left: 0,
     right: 0
   }
