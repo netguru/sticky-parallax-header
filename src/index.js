@@ -81,7 +81,6 @@ class StickyParalaxHeader extends Component {
     const springAnimation = new Animated.Value(scrollOffset)
     const scrollNode = this.scroll.getNode()
     const id = springAnimation.addListener(({ value }) => {
-      console.log()
       scrollNode.scrollTo({ x: 0, y: value, animated: false })
     })
 
