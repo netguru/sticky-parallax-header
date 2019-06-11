@@ -37,12 +37,10 @@ class StickyParalaxHeader extends Component {
     scrollY.removeListener()
   }
 
-  onScrollEndSnapToEdge = (event) => {
-    const { headerHeight, parallaxHeight, snapToEdge } = this.props
+  onScrollEndSnapToEdge = (event, scrollHeight) => {
+    const { snapToEdge } = this.props
     const { y } = event.nativeEvent.contentOffset
-    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
 
-    const scrollHeight = backgroundHeight
     if (y < -20) {
       this.spring(0, y)
 
@@ -50,19 +48,22 @@ class StickyParalaxHeader extends Component {
     }
     if (snapToEdge) {
       if (y > 0 && y < scrollHeight / 2) {
-        this.scroll.getNode().scrollTo({
+        return this.scroll.getNode().scrollTo({
           x: 0,
           y: 0,
           animate: true
         })
-      } else if (y >= scrollHeight / 2 && y < scrollHeight) {
-        this.scroll.getNode().scrollTo({
+      }
+      if (y >= scrollHeight / 2 && y < scrollHeight) {
+        return this.scroll.getNode().scrollTo({
           x: 0,
           y: scrollHeight,
           animate: true
         })
       }
     }
+
+    return null
   }
 
   onChangeTabHandler = (tab) => {
@@ -131,6 +132,8 @@ class StickyParalaxHeader extends Component {
     if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 20) {
       return onEndReached && onEndReached()
     }
+
+    return null
   }
 
   renderHeader = () => {
@@ -161,9 +164,9 @@ class StickyParalaxHeader extends Component {
     )
   }
 
-  renderImageBackground = () => {
-    const { headerHeight, parallaxHeight, backgroundImage, background, header } = this.props
-    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
+  renderImageBackground = (backgroundHeight) => {
+    const { backgroundImage, background, header } = this.props
+
     const AnimatedImageBackground = Animated.createAnimatedComponent(ImageBackground)
     const headerStyle = header.props.style
     const isArray = Array.isArray(headerStyle)
@@ -199,9 +202,8 @@ class StickyParalaxHeader extends Component {
     )
   }
 
-  renderPlainBackground = () => {
-    const { headerHeight, parallaxHeight, background, header } = this.props
-    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
+  renderPlainBackground = (backgroundHeight) => {
+    const { background, header } = this.props
     const headerStyle = header.props.style
     const isArray = Array.isArray(headerStyle)
     const arrayHeaderStyle = {}
@@ -235,15 +237,8 @@ class StickyParalaxHeader extends Component {
     )
   }
 
-  renderForeground = () => {
-    const {
-      headerHeight,
-      foreground,
-      parallaxHeight,
-      tabsContainerBackgroundColor,
-      header
-    } = this.props
-    const backgroundHeight = Math.max(parallaxHeight, headerHeight * 2)
+  renderForeground = (backgroundHeight) => {
+    const { foreground, tabsContainerBackgroundColor, header } = this.props
     const { backgroundColor } = header.props.style
 
     return (
@@ -293,12 +288,14 @@ class StickyParalaxHeader extends Component {
       backgroundImage,
       children,
       header,
+      headerHeight,
       initialPage,
       parallaxHeight,
       tabs,
       bounces
     } = this.props
     const { scrollY, currentPage } = this.state
+    const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
 
     const shouldRenderTabs = tabs && tabs.length > 0
     const overScrollMode = bounces ? 'auto ' : 'never'
@@ -313,7 +310,7 @@ class StickyParalaxHeader extends Component {
           ref={(c) => {
             this.scroll = c
           }}
-          onScrollEndDrag={event => this.onScrollEndSnapToEdge(event)}
+          onScrollEndDrag={event => this.onScrollEndSnapToEdge(event, scrollHeight)}
           scrollEventThrottle={1}
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
@@ -337,8 +334,10 @@ class StickyParalaxHeader extends Component {
           )}
         >
           <View style={{ height: parallaxHeight }} onLayout={e => this.onLayout(e)}>
-            {backgroundImage ? this.renderImageBackground() : this.renderPlainBackground()}
-            {this.renderForeground()}
+            {backgroundImage
+              ? this.renderImageBackground(scrollHeight)
+              : this.renderPlainBackground(scrollHeight)}
+            {this.renderForeground(scrollHeight)}
           </View>
           {shouldRenderTabs && this.renderTabs()}
           <ScrollableTabView
@@ -347,6 +346,10 @@ class StickyParalaxHeader extends Component {
             tabs={tabs}
             page={currentPage}
             swipedPage={this.swipedPage}
+            scrollRef={this.scroll}
+            scrollHeight={scrollHeight}
+            // eslint-disable-next-line no-underscore-dangle
+            scrollYValue={scrollY._value}
           >
             {!tabs && children}
             {tabs

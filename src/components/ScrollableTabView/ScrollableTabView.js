@@ -70,11 +70,21 @@ class ScrollableTabView extends React.Component {
 
   onChangeTab(prevPage, currentPage) {
     const { onChangeTab } = this.props
+
     onChangeTab({
       i: currentPage,
       ref: this.children()[currentPage],
       from: prevPage
     })
+    this.scrollToTop()
+  }
+
+  scrollToTop = () => {
+    const { scrollRef, scrollHeight, scrollYValue } = this.props
+
+    return (
+      scrollYValue !== 0 && scrollRef.getNode().scrollTo({ x: 0, y: scrollHeight, animated: true })
+    )
   }
 
   updateSelectedPage = (nextPage) => {
@@ -237,7 +247,10 @@ ScrollableTabView.propTypes = {
   initialPage: number,
   page: number,
   onChangeTab: func,
-  swipedPage: func
+  swipedPage: func,
+  scrollHeight: number,
+  scrollYValue: number,
+  scrollRef: node
 }
 
 ScrollableTabView.defaultProps = {
