@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment  */
 import React from 'react'
 import { Animated, StyleSheet, View, InteractionManager } from 'react-native'
-import { func, node, number } from 'prop-types'
+import { func, node, number, shape } from 'prop-types'
 import SceneComponent from './SceneComponent'
 import constants from '../../constants/constants'
 
@@ -80,15 +80,13 @@ class ScrollableTabView extends React.Component {
   scrollToTop = () => {
     const { scrollRef, scrollHeight, scrollYValue } = this.props
 
-    return (
-      scrollYValue !== 0
+    return scrollYValue !== 0
       && InteractionManager.runAfterInteractions(() => {
         scrollRef.getNode().scrollTo({
           y: scrollHeight,
           duration: 1000
         })
       })
-    )
   }
 
   updateSelectedPage = (nextPage) => {
@@ -256,7 +254,7 @@ ScrollableTabView.propTypes = {
   swipedPage: func,
   scrollHeight: number,
   scrollYValue: number,
-  scrollRef: node
+  scrollRef: shape({})
 }
 
 ScrollableTabView.defaultProps = {

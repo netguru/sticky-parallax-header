@@ -107,12 +107,15 @@ class StickyParalaxHeader extends Component {
     headerSize(headerLayout)
   }
 
-  swipedPage = page => this.setState({
-    currentPage: page
-  })
+  swipedPage = page => this.setState(
+    {
+      currentPage: page
+    },
+    () => this.goToPage(page)
+  )
 
   goToPage = (pageNumber) => {
-    const { containerWidth } = this.state
+    const { containerWidth, currentPage } = this.state
     const offset = pageNumber * containerWidth
     if (this.scrollView) {
       this.scrollView.getNode().scrollTo({
@@ -121,9 +124,11 @@ class StickyParalaxHeader extends Component {
         animated: true
       })
     }
-    this.setState({
-      currentPage: pageNumber
-    })
+    if (currentPage !== pageNumber) {
+      this.setState({
+        currentPage: pageNumber
+      })
+    }
   }
 
   isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
@@ -185,18 +190,16 @@ class StickyParalaxHeader extends Component {
         ]}
         source={backgroundImage}
       >
-        {!constants.isAndroid && (
-          <View
-            style={[
-              styles.overScrollPadding,
-              {
-                backgroundColor: isArray
-                  ? arrayHeaderStyle.backgroundColor
-                  : headerStyle.backgroundColor
-              }
-            ]}
-          />
-        )}
+        <View
+          style={[
+            styles.overScrollPadding,
+            {
+              backgroundColor: isArray
+                ? arrayHeaderStyle.backgroundColor
+                : headerStyle.backgroundColor
+            }
+          ]}
+        />
         {background}
       </AnimatedImageBackground>
     )
@@ -220,18 +223,16 @@ class StickyParalaxHeader extends Component {
           }
         ]}
       >
-        {!constants.isAndroid && (
-          <View
-            style={[
-              styles.overScrollPadding,
-              {
-                backgroundColor: isArray
-                  ? arrayHeaderStyle.backgroundColor
-                  : headerStyle.backgroundColor
-              }
-            ]}
-          />
-        )}
+        <View
+          style={[
+            styles.overScrollPadding,
+            {
+              backgroundColor: isArray
+                ? arrayHeaderStyle.backgroundColor
+                : headerStyle.backgroundColor
+            }
+          ]}
+        />
         {background}
       </View>
     )
@@ -248,7 +249,7 @@ class StickyParalaxHeader extends Component {
           backgroundColor: tabsContainerBackgroundColor
         }}
       >
-        {!constants.isAndroid && <View style={[styles.overScrollPadding, { backgroundColor }]} />}
+        <View style={[styles.overScrollPadding, { backgroundColor }]} />
         {foreground}
       </View>
     )
