@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment  */
 import React from 'react'
-import { Animated, StyleSheet, View, InteractionManager } from 'react-native'
-import { func, node, number, shape } from 'prop-types'
+import { Animated, StyleSheet, View } from 'react-native'
+import { func, node, number, shape, bool } from 'prop-types'
 import SceneComponent from './SceneComponent'
 import constants from '../../constants/constants'
 
@@ -64,6 +64,7 @@ class ScrollableTabView extends React.Component {
     const page = Math.round(offsetX / containerWidth)
     if (currentPage !== page) {
       swipedPage(page)
+      this.onChangeTab(currentPage, page)
       this.updateSelectedPage(page)
     }
   }
@@ -78,15 +79,15 @@ class ScrollableTabView extends React.Component {
   }
 
   scrollToTop = () => {
-    const { scrollRef, scrollHeight, scrollYValue } = this.props
+    const { scrollRef, scrollHeight, isHeaderFolded } = this.props
 
-    return scrollYValue !== 0
-      && InteractionManager.runAfterInteractions(() => {
-        scrollRef.getNode().scrollTo({
-          y: scrollHeight,
-          duration: 1000
-        })
+    return (
+      isHeaderFolded
+      && scrollRef.getNode().scrollTo({
+        y: scrollHeight,
+        duration: 1000
       })
+    )
   }
 
   updateSelectedPage = (nextPage) => {
@@ -94,11 +95,8 @@ class ScrollableTabView extends React.Component {
     if (typeof localNextPage === 'object') {
       localNextPage = nextPage.nativeEvent.position
     }
-
-    const { currentPage } = this.state
     this.updateSceneKeys({
-      page: localNextPage,
-      callback: this.onChangeTab.bind(this, currentPage, localNextPage)
+      page: localNextPage
     })
   }
 
@@ -253,7 +251,7 @@ ScrollableTabView.propTypes = {
   onChangeTab: func,
   swipedPage: func,
   scrollHeight: number,
-  scrollYValue: number,
+  isHeaderFolded: bool,
   scrollRef: shape({})
 }
 
