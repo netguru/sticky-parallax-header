@@ -22,7 +22,8 @@ class StickyParalaxHeader extends Component {
       scrollY: new Animated.Value(0),
       scrollValue,
       containerWidth: width,
-      currentPage: initialPage
+      currentPage: initialPage,
+      folded: false
     }
   }
 
@@ -48,18 +49,32 @@ class StickyParalaxHeader extends Component {
     }
     if (snapToEdge) {
       if (y > 0 && y < scrollHeight / 2) {
-        return this.scroll.getNode().scrollTo({
-          x: 0,
-          y: 0,
-          animate: true
-        })
+        this.setState(
+          {
+            folded: false
+          },
+          () => {
+            this.scroll.getNode().scrollTo({
+              x: 0,
+              y: 0,
+              animate: true
+            })
+          }
+        )
       }
       if (y >= scrollHeight / 2 && y < scrollHeight) {
-        return this.scroll.getNode().scrollTo({
-          x: 0,
-          y: scrollHeight,
-          animate: true
-        })
+        this.setState(
+          {
+            folded: true
+          },
+          () => {
+            this.scroll.getNode().scrollTo({
+              x: 0,
+              y: scrollHeight,
+              animate: true
+            })
+          }
+        )
       }
     }
 
@@ -107,12 +122,9 @@ class StickyParalaxHeader extends Component {
     headerSize(headerLayout)
   }
 
-  swipedPage = page => this.setState(
-    {
-      currentPage: page
-    },
-    () => this.goToPage(page)
-  )
+  swipedPage = page => this.setState({
+    currentPage: page
+  })
 
   goToPage = (pageNumber) => {
     const { containerWidth, currentPage } = this.state
@@ -295,7 +307,7 @@ class StickyParalaxHeader extends Component {
       tabs,
       bounces
     } = this.props
-    const { scrollY, currentPage } = this.state
+    const { scrollY, currentPage, folded } = this.state
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
 
     const shouldRenderTabs = tabs && tabs.length > 0
@@ -350,7 +362,7 @@ class StickyParalaxHeader extends Component {
             scrollRef={this.scroll}
             scrollHeight={scrollHeight}
             // eslint-disable-next-line no-underscore-dangle
-            scrollYValue={scrollY._value}
+            isHeaderFolded={folded}
           >
             {!tabs && children}
             {tabs
