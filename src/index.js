@@ -298,14 +298,14 @@ class StickyParalaxHeader extends Component {
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
 
     const shouldRenderTabs = tabs && tabs.length > 0
-    const overScrollMode = bounces ? 'auto ' : 'never'
+    const overScrollMode = bounces ? 'auto' : 'never'
 
     return (
       <View style={styles.container}>
         {header && this.renderHeader()}
         <AnimatedScrollView
           bounces={bounces}
-          overScrollMode={constants.isAndroid ? 'never' : overScrollMode}
+          overScrollMode={overScrollMode}
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c

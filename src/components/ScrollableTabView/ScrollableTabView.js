@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment  */
 import React from 'react'
-import { Animated, StyleSheet, View } from 'react-native'
+import { Animated, StyleSheet, View, InteractionManager } from 'react-native'
 import { func, node, number } from 'prop-types'
 import SceneComponent from './SceneComponent'
 import constants from '../../constants/constants'
@@ -70,20 +70,24 @@ class ScrollableTabView extends React.Component {
 
   onChangeTab(prevPage, currentPage) {
     const { onChangeTab } = this.props
-
     onChangeTab({
       i: currentPage,
       ref: this.children()[currentPage],
       from: prevPage
     })
-    this.scrollToTop()
   }
 
   scrollToTop = () => {
     const { scrollRef, scrollHeight, scrollYValue } = this.props
 
     return (
-      scrollYValue !== 0 && scrollRef.getNode().scrollTo({ x: 0, y: scrollHeight, animated: true })
+      scrollYValue !== 0
+      && InteractionManager.runAfterInteractions(() => {
+        scrollRef.getNode().scrollTo({
+          y: scrollHeight,
+          duration: 1000
+        })
+      })
     )
   }
 
@@ -175,6 +179,8 @@ class ScrollableTabView extends React.Component {
       page: pageNumber,
       callback: this.onChangeTab.bind(this, currentPage, pageNumber)
     })
+
+    this.scrollToTop()
   }
 
   onScroll = (e) => {
