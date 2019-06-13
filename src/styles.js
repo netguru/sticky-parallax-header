@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -300,
     left: 0,
-    right: 0
+    right: 0,
+    overflow: 'scroll'
   }
 })
 
