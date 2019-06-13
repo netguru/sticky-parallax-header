@@ -3,7 +3,6 @@ import { arrayOf, bool, func, node, number, shape, string } from 'prop-types'
 import { Animated, Dimensions, ImageBackground, ScrollView, View } from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import styles from './styles'
-import { constants, responsive } from './constants'
 
 const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 
@@ -169,7 +168,6 @@ class StickyParalaxHeader extends Component {
           (styles.toolbarWrapper,
           {
             height: headerHeight,
-            paddingTop: constants.isAndroid ? 0 : responsive.getStatusBarHeight('safe'),
             backgroundColor: isArray
               ? arrayHeaderStyle.backgroundColor
               : headerStyle.backgroundColor
