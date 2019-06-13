@@ -95,6 +95,7 @@ class ScrollableTabView extends React.Component {
     if (typeof localNextPage === 'object') {
       localNextPage = nextPage.nativeEvent.position
     }
+
     this.updateSceneKeys({
       page: localNextPage
     })
@@ -195,7 +196,7 @@ class ScrollableTabView extends React.Component {
     }
 
     this.setState({ containerWidth: width })
-    this.requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
       this.goToPage(currentPage)
     })
   }
