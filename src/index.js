@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { arrayOf, bool, func, node, number, shape, string } from 'prop-types'
-import { Dimensions, ImageBackground, ScrollView, View, Animated } from 'react-native'
+import { Dimensions, ImageBackground, ScrollView, View, Animated, FlatList } from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import styles from './styles'
 
-const { divide, Value, createAnimatedComponent, event } = Animated
+const { divide, Value, createAnimatedComponent, event, spring, timing, sequence } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
 
 class StickyParalaxHeader extends Component {
@@ -15,7 +15,6 @@ class StickyParalaxHeader extends Component {
     const scrollXIOS = new Value(initialPage * width)
     const containerWidthAnimatedValue = new Value(width)
 
-    // eslint-disable-next-line no-underscore-dangle
     containerWidthAnimatedValue.__makeNative()
     const scrollValue = divide(scrollXIOS, containerWidthAnimatedValue)
     this.state = {
@@ -36,10 +35,10 @@ class StickyParalaxHeader extends Component {
     this.scrollY.removeListener()
   }
 
-  onScrollEndSnapToEdge = (e, scrollHeight) => {
+  onScrollEndSnapToEdge = (event, scrollHeight) => {
     const { snapToEdge } = this.props
     const scrollNode = this.scroll.getNode()
-    const { y } = e.nativeEvent.contentOffset
+    const { y } = event.nativeEvent.contentOffset
 
     if (y < -20) this.spring(0, y)
 
@@ -85,16 +84,14 @@ class StickyParalaxHeader extends Component {
 
   spring = () => {
     const scrollNode = this.scroll.getNode()
+    scrollNode.scrollTo({ x: 0, y: 40, animated: true })
 
     return setTimeout(() => {
       setTimeout(() => {
-        setTimeout(() => {
-          scrollNode.scrollTo({ x: 0, y: 30, animated: true })
-        }, 200)
-        scrollNode.scrollTo({ x: 0, y: -20, animated: true })
-      }, 400)
-      scrollNode.scrollTo({ x: 0, y: 40, animated: true })
-    }, 0)
+        scrollNode.scrollTo({ x: 0, y: 30, animated: true })
+      }, 200)
+      scrollNode.scrollTo({ x: 0, y: -20, animated: true })
+    }, 400)
   }
 
   onLayout = (e) => {
@@ -283,8 +280,8 @@ class StickyParalaxHeader extends Component {
           ref={(c) => {
             this.scroll = c
           }}
-          onScrollEndDrag={e => this.onScrollEndSnapToEdge(e, scrollHeight)}
-          scrollEventThrottle={1}
+          onScrollEndDrag={event => this.onScrollEndSnapToEdge(event, scrollHeight)}
+          scrollEventThrottle={16}
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
           onScroll={event(
@@ -299,9 +296,9 @@ class StickyParalaxHeader extends Component {
             ],
             {
               useNativeDriver: true,
-              listener: (e) => {
-                this.isCloseToBottom(e.nativeEvent)
-                scrollEvent(e)
+              listener: (event) => {
+                this.isCloseToBottom(event.nativeEvent)
+                scrollEvent(event)
               }
             }
           )}
