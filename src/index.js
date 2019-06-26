@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
 import { arrayOf, bool, func, node, number, shape, string } from 'prop-types'
-import { Dimensions, ImageBackground, ScrollView, View, Animated, PanResponder } from 'react-native'
+import { Dimensions, ImageBackground, ScrollView, View, Animated, FlatList } from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import styles from './styles'
 
-const { divide, Value, timing, createAnimatedComponent, event, spring } = Animated
+const { divide, Value, createAnimatedComponent, event, spring, timing, sequence } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
 
 class StickyParalaxHeader extends Component {
   constructor(props) {
     super(props)
-    const { initialPage, parallaxHeight, headerHeight } = this.props
+    const { initialPage } = this.props
     const { width } = Dimensions.get('window')
     const scrollXIOS = new Value(initialPage * width)
     const containerWidthAnimatedValue = new Value(width)
-    const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
 
     containerWidthAnimatedValue.__makeNative()
     const scrollValue = divide(scrollXIOS, containerWidthAnimatedValue)
@@ -25,16 +24,6 @@ class StickyParalaxHeader extends Component {
       isFolded: false
     }
     this.scrollY = new Value(0)
-    this.springAnimation = new Value(0)
-    this.springAnimationValue = 0
-    this.panResponder = PanResponder.create({
-      onMoveShouldSetPanResponder: event => event.nativeEvent.pageY >= 0,
-      onPanResponderMove: (event, gestureState) => {},
-      onPanResponderTerminationRequest: () => true,
-      onPanResponderRelease: (event, gestureState) => {
-        // if (!this.state.isFolded && gestureState.dy >= 30) this.spring(0, gestureState)
-      }
-    })
   }
 
   componentDidMount() {
@@ -48,7 +37,10 @@ class StickyParalaxHeader extends Component {
 
   onScrollEndSnapToEdge = (event, scrollHeight) => {
     const { snapToEdge } = this.props
+    const scrollNode = this.scroll.getNode()
     const { y } = event.nativeEvent.contentOffset
+
+    if (y < -20) this.spring(0, y)
 
     if (snapToEdge) {
       if (y > 0 && y < scrollHeight / 2) {
@@ -57,7 +49,7 @@ class StickyParalaxHeader extends Component {
             isFolded: false
           },
           () => {
-            this.scroll.getNode().scrollTo({
+            scrollNode.scrollTo({
               x: 0,
               y: 0,
               animate: true
@@ -71,7 +63,7 @@ class StickyParalaxHeader extends Component {
             isFolded: true
           },
           () => {
-            this.scroll.getNode().scrollTo({
+            scrollNode.scrollTo({
               x: 0,
               y: scrollHeight,
               animate: true
@@ -90,34 +82,18 @@ class StickyParalaxHeader extends Component {
     return onChangeTab && onChangeTab(tab)
   }
 
-  spring = (y) => {
+  spring = () => {
     const scrollNode = this.scroll.getNode()
-    const firstDistance = 50
-    const secondDistance = 80
-    const id = this.springAnimation.addListener(({ value }) => {
-      scrollNode.scrollTo({ x: 0, y: value, animated: false })
-    })
 
-    const secondStep = spring(this.springAnimation, {
-      toValue: y - secondDistance,
-      useNativeDriver: true,
-      duration: 200
-    })
-
-    const thirdStep = spring(this.springAnimation, {
-      toValue: y + firstDistance,
-      useNativeDriver: true,
-      duration: 200
-    })
-
-    const fourthStep = spring(this.springAnimation, {
-      toValue: y,
-      useNativeDriver: true,
-      duration: 200
-    })
-    secondStep.start(() => {
-      this.springAnimation.removeListener(id)
-    })
+    return setTimeout(() => {
+      setTimeout(() => {
+        setTimeout(() => {
+          scrollNode.scrollTo({ x: 0, y: 30, animated: true })
+        }, 200)
+        scrollNode.scrollTo({ x: 0, y: -20, animated: true })
+      }, 400)
+      scrollNode.scrollTo({ x: 0, y: 40, animated: true })
+    }, 0)
   }
 
   onLayout = (e) => {
@@ -301,13 +277,13 @@ class StickyParalaxHeader extends Component {
           bounces={bounces}
           overScrollMode="always"
           bouncesZoom
+          decelerationRate="fast"
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c
           }}
           onScrollEndDrag={event => this.onScrollEndSnapToEdge(event, scrollHeight)}
           scrollEventThrottle={1}
-          snapToOffsets={[0, 2]}
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
           onScroll={event(
@@ -328,7 +304,6 @@ class StickyParalaxHeader extends Component {
               }
             }
           )}
-          // {...this.panResponder.panHandlers}
         >
           <View style={{ height: parallaxHeight }} onLayout={e => this.onLayout(e)}>
             <View
@@ -355,7 +330,7 @@ class StickyParalaxHeader extends Component {
             swipedPage={this.swipedPage}
             scrollRef={this.scroll}
             scrollHeight={scrollHeight}
-            isHeaderisFolded={isFolded}
+            isHeaderFolded={isFolded}
           >
             {!tabs && children}
             {tabs
