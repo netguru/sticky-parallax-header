@@ -45,7 +45,7 @@ class StickyParalaxHeader extends Component {
     const id = animatedValue.addListener(({ value }) => {
       scrollNode.scrollTo({ x: 0, y: value, animated: false })
     })
-    if (y < -20) this.spring(y)
+    if (y < -20 && !constants.isAndroid) this.spring(y)
 
     if (snapToEdge) {
       if (y > 0 && y < scrollHeight / 2) {
@@ -57,7 +57,7 @@ class StickyParalaxHeader extends Component {
             timing(animatedValue, {
               toValue: 0,
               duration: 300,
-              easing: Easing.circle,
+              easing: Easing.cubic,
               useNativeDriver: true
             }).start(() => {
               animatedValue.removeListener(id)
@@ -74,7 +74,7 @@ class StickyParalaxHeader extends Component {
             timing(animatedValue, {
               toValue: scrollHeight,
               duration: 300,
-              easing: Easing.circle,
+              easing: Easing.cubic,
               useNativeDriver: true
             }).start(() => {
               animatedValue.removeListener(id)
