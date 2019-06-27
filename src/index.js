@@ -116,13 +116,14 @@ class StickyParalaxHeader extends Component {
     headerSize(headerLayout)
   }
 
-  swipedPage = page => this.setState({
-    currentPage: page
-  })
-
-  goToPage = (pageNumber) => {
+  swipedPage = (pageNumber) => {
     const { containerWidth, currentPage } = this.state
     const offset = pageNumber * containerWidth
+    if (currentPage !== pageNumber) {
+      this.setState({
+        currentPage: pageNumber
+      })
+    }
     if (this.scrollView) {
       this.scrollView.getNode().scrollTo({
         x: offset,
@@ -130,9 +131,21 @@ class StickyParalaxHeader extends Component {
         animated: true
       })
     }
+  }
+
+  goToPage = (pageNumber) => {
+    const { containerWidth, currentPage } = this.state
+    const offset = pageNumber * containerWidth
     if (currentPage !== pageNumber) {
       this.setState({
         currentPage: pageNumber
+      })
+    }
+    if (this.scrollView) {
+      this.scrollView.getNode().scrollTo({
+        x: offset,
+        y: 0,
+        animated: true
       })
     }
   }
