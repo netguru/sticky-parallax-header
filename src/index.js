@@ -55,8 +55,8 @@ class StickyParalaxHeader extends Component {
           () => {
             timing(animatedValue, {
               toValue: 0,
-              duration: 500,
-              easing: Easing.circle,
+              duration: 250,
+              easing: Easing.in(),
               useNativeDriver: true
             }).start(() => {
               animatedValue.removeListener(id)
@@ -72,8 +72,8 @@ class StickyParalaxHeader extends Component {
           () => {
             timing(animatedValue, {
               toValue: scrollHeight,
-              duration: 500,
-              easing: Easing.circle,
+              duration: 250,
+              easing: Easing.in(),
               useNativeDriver: true
             }).start(() => {
               animatedValue.removeListener(id)
