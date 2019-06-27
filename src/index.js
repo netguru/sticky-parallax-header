@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { arrayOf, bool, func, node, number, shape, string } from 'prop-types'
 import { Dimensions, ImageBackground, ScrollView, View, Animated, Easing } from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
+import { constants } from './constants'
 import styles from './styles'
 
 const { divide, Value, createAnimatedComponent, event, timing } = Animated
@@ -55,8 +56,8 @@ class StickyParalaxHeader extends Component {
           () => {
             timing(animatedValue, {
               toValue: 0,
-              duration: 250,
-              easing: Easing.in(),
+              duration: 300,
+              easing: Easing.circle,
               useNativeDriver: true
             }).start(() => {
               animatedValue.removeListener(id)
@@ -72,8 +73,8 @@ class StickyParalaxHeader extends Component {
           () => {
             timing(animatedValue, {
               toValue: scrollHeight,
-              duration: 250,
-              easing: Easing.in(),
+              duration: 300,
+              easing: Easing.circle,
               useNativeDriver: true
             }).start(() => {
               animatedValue.removeListener(id)
@@ -279,7 +280,7 @@ class StickyParalaxHeader extends Component {
         {header && this.renderHeader()}
         <AnimatedScrollView
           bounces={bounces}
-          overScrollMode="always"
+          overScrollMode={constants.isAndroid ? 'never' : 'always'}
           bouncesZoom
           decelerationRate="fast"
           nestedScrollEnabled
