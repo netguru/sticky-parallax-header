@@ -41,14 +41,16 @@ class StickyParalaxHeader extends Component {
     const { snapToEdge } = this.props
     const scrollNode = this.scroll.getNode()
     const { y } = e.nativeEvent.contentOffset
+
     const animatedValue = new Value(y)
+    const snapToEdgeTreshold = scrollHeight / 2
     const id = animatedValue.addListener(({ value }) => {
       scrollNode.scrollTo({ x: 0, y: value, animated: false })
     })
     if (y < -20 && !constants.isAndroid) this.spring(y)
 
     if (snapToEdge) {
-      if (y > 0 && y < scrollHeight / 2) {
+      if (y > 0 && y < snapToEdgeTreshold) {
         this.setState(
           {
             isFolded: false
@@ -56,8 +58,8 @@ class StickyParalaxHeader extends Component {
           () => {
             timing(animatedValue, {
               toValue: 0,
-              duration: 300,
-              easing: Easing.cubic,
+              duration: 500,
+              easing: Easing.out(Easing.circle),
               useNativeDriver: true
             }).start(() => {
               animatedValue.removeListener(id)
@@ -65,7 +67,7 @@ class StickyParalaxHeader extends Component {
           }
         )
       }
-      if (y >= scrollHeight / 2 && y < scrollHeight) {
+      if (y >= snapToEdgeTreshold && y < scrollHeight) {
         this.setState(
           {
             isFolded: true
@@ -73,8 +75,8 @@ class StickyParalaxHeader extends Component {
           () => {
             timing(animatedValue, {
               toValue: scrollHeight,
-              duration: 300,
-              easing: Easing.cubic,
+              duration: 500,
+              easing: Easing.out(Easing.circle),
               useNativeDriver: true
             }).start(() => {
               animatedValue.removeListener(id)
@@ -102,7 +104,7 @@ class StickyParalaxHeader extends Component {
         scrollNode.scrollTo({ x: 0, y: 25, animated: true })
       }, 200)
       scrollNode.scrollTo({ x: 0, y: -20, animated: true })
-    }, 400)
+    }, 300)
   }
 
   onLayout = (e) => {
