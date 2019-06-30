@@ -62,6 +62,7 @@ class ScrollableTabView extends React.Component {
     const { swipedPage } = this.props
     const offsetX = e.nativeEvent.contentOffset.x
     const page = Math.round(offsetX / containerWidth)
+
     if (currentPage !== page) {
       swipedPage(page)
       this.onChangeTab(currentPage, page)
@@ -221,7 +222,6 @@ class ScrollableTabView extends React.Component {
           useNativeDriver: true,
           listener: this.onScroll
         })}
-        onMomentumScrollBegin={this.onMomentumScrollBeginAndEnd}
         onMomentumScrollEnd={this.onMomentumScrollBeginAndEnd}
         scrollEventThrottle={16}
         scrollsToTop={false}

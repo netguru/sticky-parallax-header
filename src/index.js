@@ -5,7 +5,7 @@ import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
 
-const { divide, Value, createAnimatedComponent, event, timing } = Animated
+const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
 
 class StickyParalaxHeader extends Component {
@@ -25,7 +25,7 @@ class StickyParalaxHeader extends Component {
       currentPage: initialPage,
       isFolded: false
     }
-    this.scrollY = new Value(0)
+    this.scrollY = new ValueXY()
   }
 
   componentDidMount() {
@@ -34,65 +34,7 @@ class StickyParalaxHeader extends Component {
   }
 
   componentWillUnmount() {
-    this.scrollY.removeListener()
-  }
-
-  onScrollEndSnapToEdge = (e, scrollHeight) => {
-    const { snapToEdge } = this.props
-    const scrollNode = this.scroll.getNode()
-    const { y } = e.nativeEvent.contentOffset
-
-    const animatedValue = new Value(y)
-    const snapToEdgeTreshold = scrollHeight / 2
-    const id = animatedValue.addListener(({ value }) => {
-      scrollNode.scrollTo({ x: 0, y: value, animated: false })
-    })
-    if (y < -20 && !constants.isAndroid) this.spring(y)
-
-    if (snapToEdge) {
-      if (y > 0 && y < snapToEdgeTreshold) {
-        this.setState(
-          {
-            isFolded: false
-          },
-          () => {
-            timing(animatedValue, {
-              toValue: 0,
-              duration: 500,
-              easing: Easing.out(Easing.circle),
-              useNativeDriver: true
-            }).start(() => {
-              animatedValue.removeListener(id)
-            })
-          }
-        )
-      }
-      if (y >= snapToEdgeTreshold && y < scrollHeight) {
-        this.setState(
-          {
-            isFolded: true
-          },
-          () => {
-            timing(animatedValue, {
-              toValue: scrollHeight,
-              duration: 500,
-              easing: Easing.out(Easing.circle),
-              useNativeDriver: true
-            }).start(() => {
-              animatedValue.removeListener(id)
-            })
-          }
-        )
-      }
-    }
-
-    return null
-  }
-
-  onChangeTabHandler = (tab) => {
-    const { onChangeTab } = this.props
-
-    return onChangeTab && onChangeTab(tab)
+    this.scrollY.removeAllListeners()
   }
 
   spring = () => {
@@ -103,8 +45,74 @@ class StickyParalaxHeader extends Component {
       setTimeout(() => {
         scrollNode.scrollTo({ x: 0, y: 25, animated: true })
       }, 200)
-      scrollNode.scrollTo({ x: 0, y: -20, animated: true })
+      scrollNode.scrollTo({ x: 0, y: 0, animated: true })
     }, 300)
+  }
+
+  onScrollEndSnapToEdge = (scrollHeight) => {
+    const { snapToEdge } = this.props
+    const scrollNode = this.scroll.getNode()
+    // eslint-disable-next-line no-underscore-dangle
+    const scrollValue = this.scrollY.__getValue()
+    const { y } = scrollValue
+    const snapToEdgeAnimatedValue = new ValueXY(scrollValue)
+    const snapToEdgeTreshold = scrollHeight / 2
+    const id = snapToEdgeAnimatedValue.addListener((value) => {
+      scrollNode.scrollTo({ x: 0, y: value.y, animated: false })
+    })
+
+    if (y < -20 && !constants.isAndroid) this.spring(y)
+
+    if (snapToEdge) {
+      if (y > 0 && y < snapToEdgeTreshold) {
+        return constants.isAndroid
+          ? this.setState(
+            {
+              isFolded: true
+            },
+            scrollNode.scrollTo({ x: 0, y: 0, animated: true })
+          )
+          : timing(snapToEdgeAnimatedValue, {
+            toValue: { x: 0, y: 0 },
+            duration: 400,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true
+          }).start(() => {
+            snapToEdgeAnimatedValue.removeListener(id)
+            this.setState({
+              isFolded: false
+            })
+          })
+      }
+      if (y >= snapToEdgeTreshold && y < scrollHeight) {
+        return constants.isAndroid
+          ? this.setState(
+            {
+              isFolded: true
+            },
+            scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
+          )
+          : timing(snapToEdgeAnimatedValue, {
+            toValue: { x: 0, y: scrollHeight },
+            duration: 400,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true
+          }).start(() => {
+            snapToEdgeAnimatedValue.removeListener(id)
+            this.setState({
+              isFolded: true
+            })
+          })
+      }
+    }
+
+    return null
+  }
+
+  onChangeTabHandler = (tab) => {
+    const { onChangeTab } = this.props
+
+    return onChangeTab && onChangeTab(tab)
   }
 
   onLayout = (e) => {
@@ -289,8 +297,8 @@ class StickyParalaxHeader extends Component {
           ref={(c) => {
             this.scroll = c
           }}
-          onScrollEndDrag={e => this.onScrollEndSnapToEdge(e, scrollHeight)}
-          scrollEventThrottle={16}
+          onScrollEndDrag={() => this.onScrollEndSnapToEdge(scrollHeight)}
+          scrollEventThrottle={1}
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
           onScroll={event(
@@ -298,7 +306,7 @@ class StickyParalaxHeader extends Component {
               {
                 nativeEvent: {
                   contentOffset: {
-                    y: this.scrollY
+                    y: this.scrollY.y
                   }
                 }
               }
