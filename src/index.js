@@ -1,75 +1,108 @@
 import React, { Component } from 'react'
 import { arrayOf, bool, func, node, number, shape, string } from 'prop-types'
-import { Animated, Dimensions, ImageBackground, ScrollView, View } from 'react-native'
+import { Dimensions, ImageBackground, ScrollView, View, Animated, Easing } from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
+import { constants } from './constants'
 import styles from './styles'
 
-const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
+const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated
+const AnimatedScrollView = createAnimatedComponent(ScrollView)
 
 class StickyParalaxHeader extends Component {
   constructor(props) {
     super(props)
     const { initialPage } = this.props
     const { width } = Dimensions.get('window')
-    const scrollXIOS = new Animated.Value(initialPage * width)
-    const containerWidthAnimatedValue = new Animated.Value(width)
+    const scrollXIOS = new Value(initialPage * width)
+    const containerWidthAnimatedValue = new Value(width)
 
     // eslint-disable-next-line no-underscore-dangle
     containerWidthAnimatedValue.__makeNative()
-    const scrollValue = Animated.divide(scrollXIOS, containerWidthAnimatedValue)
+    const scrollValue = divide(scrollXIOS, containerWidthAnimatedValue)
     this.state = {
-      scrollY: new Animated.Value(0),
       scrollValue,
       containerWidth: width,
       currentPage: initialPage,
-      folded: false
+      isFolded: false
     }
+    this.scrollY = new ValueXY()
   }
 
   componentDidMount() {
-    const { scrollY } = this.state
     // eslint-disable-next-line
-    scrollY.addListener(({ value }) => (this._value = value))
+    this.scrollY.addListener(({ value }) => (this._value = value))
   }
 
   componentWillUnmount() {
-    const { scrollY } = this.state
-    scrollY.removeListener()
+    this.scrollY.removeAllListeners()
   }
 
-  onScrollEndSnapToEdge = (event, scrollHeight) => {
+  spring = () => {
+    const scrollNode = this.scroll.getNode()
+    scrollNode.scrollTo({ x: 0, y: 40, animated: true })
+
+    return setTimeout(() => {
+      setTimeout(() => {
+        scrollNode.scrollTo({ x: 0, y: 25, animated: true })
+      }, 200)
+      scrollNode.scrollTo({ x: 0, y: 0, animated: true })
+    }, 300)
+  }
+
+  onScrollEndSnapToEdge = (scrollHeight) => {
     const { snapToEdge } = this.props
-    const { y } = event.nativeEvent.contentOffset
-    // this.spring(0, event)
+    const scrollNode = this.scroll.getNode()
+    // eslint-disable-next-line no-underscore-dangle
+    const scrollValue = this.scrollY.__getValue()
+    const { y } = scrollValue
+    const snapToEdgeAnimatedValue = new ValueXY(scrollValue)
+    const snapToEdgeTreshold = scrollHeight / 2
+    const id = snapToEdgeAnimatedValue.addListener((value) => {
+      scrollNode.scrollTo({ x: 0, y: value.y, animated: false })
+    })
+
+    if (y < -20 && !constants.isAndroid) this.spring(y)
 
     if (snapToEdge) {
-      if (y > 0 && y < scrollHeight / 2) {
-        this.setState(
-          {
-            folded: false
-          },
-          () => {
-            this.scroll.getNode().scrollTo({
-              x: 0,
-              y: 0,
-              animate: true
+      if (y > 0 && y < snapToEdgeTreshold) {
+        return constants.isAndroid
+          ? this.setState(
+            {
+              isFolded: true
+            },
+            scrollNode.scrollTo({ x: 0, y: 0, animated: true })
+          )
+          : timing(snapToEdgeAnimatedValue, {
+            toValue: { x: 0, y: 0 },
+            duration: 400,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true
+          }).start(() => {
+            snapToEdgeAnimatedValue.removeListener(id)
+            this.setState({
+              isFolded: false
             })
-          }
-        )
+          })
       }
-      if (y >= scrollHeight / 2 && y < scrollHeight) {
-        this.setState(
-          {
-            folded: true
-          },
-          () => {
-            this.scroll.getNode().scrollTo({
-              x: 0,
-              y: scrollHeight,
-              animate: true
+      if (y >= snapToEdgeTreshold && y < scrollHeight) {
+        return constants.isAndroid
+          ? this.setState(
+            {
+              isFolded: true
+            },
+            scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
+          )
+          : timing(snapToEdgeAnimatedValue, {
+            toValue: { x: 0, y: scrollHeight },
+            duration: 400,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true
+          }).start(() => {
+            snapToEdgeAnimatedValue.removeListener(id)
+            this.setState({
+              isFolded: true
             })
-          }
-        )
+          })
       }
     }
 
@@ -80,55 +113,6 @@ class StickyParalaxHeader extends Component {
     const { onChangeTab } = this.props
 
     return onChangeTab && onChangeTab(tab)
-  }
-
-  onScroll = (e) => {
-    const { scrollEvent } = this.props
-
-    return scrollEvent && scrollEvent(e)
-  }
-
-  spring = (y, event) => {
-    const scrollOffset = event.nativeEvent.contentOffset.y
-    console.log('scrollOffset: ', scrollOffset)
-    const springAnimation = new Animated.Value(scrollOffset)
-    const scrollNode = this.scroll.getNode()
-    const id = springAnimation.addListener(({ value }) => {
-      console.log('value: ', value)
-      scrollNode.scrollTo({ x: 0, y: value, animated: false })
-    })
-
-    const firstDistance = 50
-    const secondDistance = 100
-
-    const firstStep = Animated.timing(springAnimation, {
-      toValue: y + firstDistance,
-      useNativeDriver: true,
-      duration: 500
-    })
-
-    const secondStep = Animated.timing(springAnimation, {
-      toValue: y - secondDistance,
-      useNativeDriver: true,
-      duration: 83
-    })
-
-    const thirdStep = Animated.timing(springAnimation, {
-      toValue: y + firstDistance,
-      useNativeDriver: true,
-      duration: 167
-    })
-
-    const fourthStep = Animated.timing(springAnimation, {
-      toValue: y,
-      useNativeDriver: true,
-      duration: 250
-    })
-    if (scrollOffset < -20) {
-      Animated.sequence([firstStep, secondStep, thirdStep, fourthStep]).start(() => {
-        springAnimation.removeListener(id)
-      })
-    }
   }
 
   onLayout = (e) => {
@@ -143,23 +127,19 @@ class StickyParalaxHeader extends Component {
     headerSize(headerLayout)
   }
 
-  swipedPage = page => this.setState({
-    currentPage: page
-  })
-
   goToPage = (pageNumber) => {
     const { containerWidth, currentPage } = this.state
     const offset = pageNumber * containerWidth
+    if (currentPage !== pageNumber) {
+      this.setState({
+        currentPage: pageNumber
+      })
+    }
     if (this.scrollView) {
       this.scrollView.getNode().scrollTo({
         x: offset,
         y: 0,
         animated: true
-      })
-    }
-    if (currentPage !== pageNumber) {
-      this.setState({
-        currentPage: pageNumber
       })
     }
   }
@@ -204,7 +184,7 @@ class StickyParalaxHeader extends Component {
   renderImageBackground = (backgroundHeight) => {
     const { backgroundImage, background } = this.props
 
-    const AnimatedImageBackground = Animated.createAnimatedComponent(ImageBackground)
+    const AnimatedImageBackground = createAnimatedComponent(ImageBackground)
 
     return (
       <AnimatedImageBackground
@@ -291,9 +271,10 @@ class StickyParalaxHeader extends Component {
       initialPage,
       parallaxHeight,
       tabs,
-      bounces
+      bounces,
+      scrollEvent
     } = this.props
-    const { scrollY, currentPage, folded } = this.state
+    const { currentPage, isFolded } = this.state
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
     const headerStyle = header.props.style
     const isArray = Array.isArray(headerStyle)
@@ -309,33 +290,32 @@ class StickyParalaxHeader extends Component {
         {header && this.renderHeader()}
         <AnimatedScrollView
           bounces={bounces}
-          overScrollMode="always"
+          overScrollMode={constants.isAndroid ? 'never' : 'always'}
           bouncesZoom
+          decelerationRate="fast"
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c
           }}
-          onScrollEndDrag={(event) => {
-            this.onScrollEndSnapToEdge(event, scrollHeight)
-          }}
+          onScrollEndDrag={() => this.onScrollEndSnapToEdge(scrollHeight)}
           scrollEventThrottle={1}
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
-          onScroll={Animated.event(
+          onScroll={event(
             [
               {
                 nativeEvent: {
                   contentOffset: {
-                    y: scrollY
+                    y: this.scrollY.y
                   }
                 }
               }
             ],
             {
               useNativeDriver: true,
-              listener: (event) => {
-                this.isCloseToBottom(event.nativeEvent)
-                this.onScroll(event)
+              listener: (e) => {
+                this.isCloseToBottom(e.nativeEvent)
+                scrollEvent(e)
               }
             }
           )}
@@ -362,11 +342,10 @@ class StickyParalaxHeader extends Component {
             onChangeTab={i => this.onChangeTabHandler(i)}
             tabs={tabs}
             page={currentPage}
-            swipedPage={this.swipedPage}
+            swipedPage={this.goToPage}
             scrollRef={this.scroll}
             scrollHeight={scrollHeight}
-            // eslint-disable-next-line no-underscore-dangle
-            isHeaderFolded={folded}
+            isHeaderFolded={isFolded}
           >
             {!tabs && children}
             {tabs
