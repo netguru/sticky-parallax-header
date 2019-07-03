@@ -68,7 +68,7 @@ class StickyParalaxHeader extends Component {
         return constants.isAndroid
           ? this.setState(
             {
-              isFolded: true
+              isFolded: false
             },
             scrollNode.scrollTo({ x: 0, y: 0, animated: true })
           )
