@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    width: '100%',
+    width: width + 0.5,
     justifyContent: 'flex-end',
     marginBottom: 5,
     paddingBottom: 3
