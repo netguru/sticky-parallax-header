@@ -1,6 +1,6 @@
 {
   "name": "react-native-sticky-parallax-header",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "main": "src/index.js",
   "repository": "https://github.com/netguru/sticky-parallax-header",
   "author": "IdaszakDaniel <idaszak1@gmail.com>",
@@ -14,7 +14,7 @@
     "react-native-iphone-x-helper": "^1.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
+    "@babel/core": "^7.5.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
     "enzyme": "^3.9.0",
