@@ -290,7 +290,7 @@ class StickyParalaxHeader extends Component {
         {header && this.renderHeader()}
         <AnimatedScrollView
           bounces={bounces}
-          overScrollMode={constants.isAndroid ? 'never' : 'always'}
+          overScrollMode="never"
           bouncesZoom
           decelerationRate="fast"
           nestedScrollEnabled
