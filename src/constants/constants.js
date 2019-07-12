@@ -18,7 +18,25 @@ const isBigScreen = width >= breakpoints.mediumPhoneWidth
 const isBiggestPhoneScreen = width >= breakpoints.bigPhoneWidth
 const isAndroid = Platform.OS === 'android'
 
+const normalizedFontSize = (basicFontSize) => {
+  if (isSmallScreen) {
+    return basicFontSize - 6
+  }
+  if (isNormalScreen) {
+    return basicFontSize
+  }
+  if (isBigScreen) {
+    return basicFontSize + 1
+  }
+
+  return basicFontSize
+}
+
+const scrollPosition = (scrollHeight, x) => x * 0.01 * scrollHeight
+
 export default {
+  normalizedFontSize,
+  scrollPosition,
   deviceWidth,
   deviceHeight,
   responsiveHeight,

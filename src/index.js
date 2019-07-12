@@ -4,6 +4,7 @@ import { Dimensions, ImageBackground, ScrollView, View, Animated, Easing } from 
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
+import * as defaultProps from './defaultProps/TabbedHeader'
 
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
@@ -376,7 +377,7 @@ StickyParalaxHeader.propTypes = {
   foreground: node,
   header: node,
   headerHeight: number,
-  headerSize: func.isRequired,
+  headerSize: func,
   initialPage: number,
   onChangeTab: func,
   onEndReached: func,
@@ -394,15 +395,21 @@ StickyParalaxHeader.propTypes = {
 
 StickyParalaxHeader.defaultProps = {
   bounces: true,
-  headerHeight: 92,
   initialPage: 0,
-  parallaxHeight: 0,
   snapToEdge: true,
   tabTextActiveStyle: {},
-  tabTextContainerActiveStyle: {},
-  tabTextContainerStyle: {},
-  tabTextStyle: {},
-  tabsWrapperStyle: {}
+  scrollEvent: event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }]),
+  foreground: defaultProps.foreground(this.scrollY),
+  header: defaultProps.header,
+  tabs: defaultProps.header,
+  parallaxHeight: defaultProps.parallaxHeight,
+  headerSize: defaultProps.headerSize,
+  headerHeight: defaultProps.headerHeight,
+  tabTextStyle: defaultProps.tabTextStyle,
+  tabTextContainerStyle: defaultProps,
+  tabTextContainerActiveStyle: defaultProps.tabTextContainerActiveStyle,
+  tabsContainerBackgroundColor: defaultProps.tabsContainerBackgroundColor,
+  tabsWrapperStyle: defaultProps.tabsWrapperStyles
 }
 
 export default StickyParalaxHeader
