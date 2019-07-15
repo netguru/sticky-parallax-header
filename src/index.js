@@ -24,7 +24,11 @@ class StickyParallaxHeader extends Component {
       scrollValue,
       containerWidth: width,
       currentPage: initialPage,
-      isFolded: false
+      isFolded: false,
+      // eslint-disable-next-line react/no-unused-state
+      headerLayout: {
+        height: 0
+      }
     }
     this.scrollY = new ValueXY()
   }
@@ -272,8 +276,8 @@ class StickyParallaxHeader extends Component {
       initialPage,
       parallaxHeight,
       tabs,
-      bounces,
-      scrollEvent
+      bounces
+      // scrollEvent
     } = this.props
     const { currentPage, isFolded } = this.state
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
@@ -316,7 +320,7 @@ class StickyParallaxHeader extends Component {
               useNativeDriver: true,
               listener: (e) => {
                 this.isCloseToBottom(e.nativeEvent)
-                scrollEvent(e)
+                event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }])
               }
             }
           )}
@@ -382,7 +386,7 @@ StickyParallaxHeader.propTypes = {
   onChangeTab: func,
   onEndReached: func,
   parallaxHeight: number,
-  scrollEvent: func,
+  // scrollEvent: func,
   snapToEdge: bool,
   tabTextActiveStyle: shape({}),
   tabTextContainerActiveStyle: shape({}),
@@ -398,7 +402,7 @@ StickyParallaxHeader.defaultProps = {
   initialPage: 0,
   snapToEdge: true,
   tabTextActiveStyle: {},
-  scrollEvent: event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }]),
+  // scrollEvent: event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }]),
   foreground: defaultProps.foreground(this.state, this.scrollY),
   header: defaultProps.header,
   tabs: defaultProps.header,
