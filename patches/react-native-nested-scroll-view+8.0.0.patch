@@ -305,7 +305,7 @@ index 0000000..a35c848
 +attr buttonTintMode
 +attr checkboxStyle
 +attr checkedTextViewStyle
-+attr closeIcon
++attr leftTopIcon
 +attr closeItemLayout
 +attr collapseContentDescription
 +attr collapseIcon
@@ -1781,7 +1781,7 @@ index 0000000..a35c848
 +styleable RecyclerView android_descendantFocusability android_orientation fastScrollEnabled fastScrollHorizontalThumbDrawable fastScrollHorizontalTrackDrawable fastScrollVerticalThumbDrawable fastScrollVerticalTrackDrawable layoutManager reverseLayout spanCount stackFromEnd
 +styleable ScrimInsetsFrameLayout insetForeground
 +styleable ScrollingViewBehavior_Layout behavior_overlapTop
-+styleable SearchView android_focusable android_imeOptions android_inputType android_maxWidth closeIcon commitIcon defaultQueryHint goIcon iconifiedByDefault layout queryBackground queryHint searchHintIcon searchIcon submitBackground suggestionRowLayout voiceIcon
++styleable SearchView android_focusable android_imeOptions android_inputType android_maxWidth leftTopIcon commitIcon defaultQueryHint goIcon iconifiedByDefault layout queryBackground queryHint searchHintIcon searchIcon submitBackground suggestionRowLayout voiceIcon
 +styleable SimpleDraweeView actualImageResource actualImageScaleType actualImageUri backgroundImage fadeDuration failureImage failureImageScaleType overlayImage placeholderImage placeholderImageScaleType pressedStateOverlayImage progressBarAutoRotateInterval progressBarImage progressBarImageScaleType retryImage retryImageScaleType roundAsCircle roundBottomEnd roundBottomLeft roundBottomRight roundBottomStart roundTopEnd roundTopLeft roundTopRight roundTopStart roundWithOverlayColor roundedCornerRadius roundingBorderColor roundingBorderPadding roundingBorderWidth viewAspectRatio
 +styleable SnackbarLayout android_maxWidth elevation maxActionInlineWidth
 +styleable Spinner android_dropDownWidth android_entries android_popupBackground android_prompt popupTheme
@@ -1910,7 +1910,7 @@ index 0000000..a75e57c
 +int attr buttonTintMode 0x7f040050
 +int attr checkboxStyle 0x7f040051
 +int attr checkedTextViewStyle 0x7f040052
-+int attr closeIcon 0x7f040053
++int attr leftTopIcon 0x7f040053
 +int attr closeItemLayout 0x7f040054
 +int attr collapseContentDescription 0x7f040055
 +int attr collapseIcon 0x7f040056

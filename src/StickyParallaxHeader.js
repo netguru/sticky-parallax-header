@@ -155,7 +155,7 @@ class StickyParallaxHeader extends Component {
   }
 
   renderHeader = () => {
-    const { header, headerHeight } = this.props
+    const { header, headerHeight, backgroundColor } = this.props
 
     const headerStyle = header.props.style
     const isArray = Array.isArray(headerStyle)
@@ -172,7 +172,7 @@ class StickyParallaxHeader extends Component {
             height: headerHeight,
             backgroundColor: isArray
               ? arrayHeaderStyle.backgroundColor
-              : headerStyle.backgroundColor
+              : backgroundColor || headerStyle.backgroundColor
           })
         }
       >
@@ -370,6 +370,7 @@ class StickyParallaxHeader extends Component {
 
 StickyParallaxHeader.propTypes = {
   background: node,
+  backgroundColor: string,
   backgroundImage: number,
   bounces: bool,
   children: node,
@@ -395,6 +396,7 @@ StickyParallaxHeader.propTypes = {
 StickyParallaxHeader.defaultProps = {
   bounces: true,
   headerHeight: 92,
+  backgroundColor: '',
   initialPage: 0,
   parallaxHeight: 0,
   snapToEdge: true,

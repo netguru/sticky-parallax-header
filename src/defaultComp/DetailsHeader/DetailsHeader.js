@@ -29,7 +29,13 @@ class DetailsHeader extends React.Component {
   }
 
   renderHeader = () => {
-    const { backgroundColor, onPressClose, onPressOption, closeIcon, optionIcon } = this.props
+    const {
+      backgroundColor,
+      leftTopIconOnPress,
+      rightTopIconOnPress,
+      leftTopIcon,
+      rightTopIcon
+    } = this.props
 
     const opacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(60), this.scrollPosition(90)],
@@ -40,15 +46,15 @@ class DetailsHeader extends React.Component {
     return (
       <View style={[styles.headerWrapper, styles.cardScreenHeader, { backgroundColor }]}>
         <View style={styles.headerMenu}>
-          <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressClose}>
-            <Image style={styles.icon} resizeMode="contain" source={closeIcon} />
+          <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
+            <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
             <Text style={styles.headerTitle}>Design System</Text>
           </Animated.View>
         </View>
-        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressOption}>
-          <Image style={styles.icon} resizeMode="contain" source={optionIcon} />
+        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
+          <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
         </TouchableOpacity>
       </View>
     )
@@ -155,10 +161,10 @@ class DetailsHeader extends React.Component {
 }
 
 DetailsHeader.propTypes = {
-  onPressClose: func,
-  onPressOption: func,
-  closeIcon: number,
-  optionIcon: number,
+  leftTopIconOnPress: func,
+  rightTopIconOnPress: func,
+  leftTopIcon: number,
+  rightTopIcon: number,
   backgroundColor: string,
   headerHeight: number,
   backgroundImage: number,
@@ -171,10 +177,10 @@ DetailsHeader.propTypes = {
   hasBorderRadius: bool
 }
 DetailsHeader.defaultProps = {
-  onPressClose: () => {},
-  onPressOption: () => {},
-  closeIcon: require('../../assets/icons/iconCloseWhite.png'),
-  optionIcon: require('../../assets/icons/Icon-Menu.png'),
+  leftTopIconOnPress: () => {},
+  rightTopIconOnPress: () => {},
+  leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),
+  rightTopIcon: require('../../assets/icons/Icon-Menu.png'),
   backgroundColor: Brandon.color,
   headerHeight: sizes.cardScreenHeaderHeight,
   backgroundImage: null,

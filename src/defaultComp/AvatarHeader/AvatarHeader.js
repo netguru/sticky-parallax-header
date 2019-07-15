@@ -33,10 +33,10 @@ class AvatarHeader extends React.Component {
 
   renderHeader = () => {
     const {
-      onPressClose,
-      closeIcon,
-      optionIcon,
-      onPressOption,
+      leftTopIconOnPress,
+      leftTopIcon,
+      rightTopIcon,
+      rightTopIconOnPress,
       image,
       backgroundColor,
       title
@@ -66,8 +66,8 @@ class AvatarHeader extends React.Component {
 
     return (
       <View style={[styles.headerWrapper, styles.userModalHeader, { backgroundColor }]}>
-        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressClose}>
-          <Image style={styles.icon} resizeMode="contain" source={closeIcon} />
+        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
+          <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />
         </TouchableOpacity>
         <View style={styles.headerMenu}>
           <View style={styles.headerTitleContainer}>
@@ -77,8 +77,8 @@ class AvatarHeader extends React.Component {
             </Animated.Text>
           </View>
         </View>
-        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressOption}>
-          <Image style={styles.icon} resizeMode="contain" source={optionIcon} />
+        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
+          <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
         </TouchableOpacity>
       </View>
     )
@@ -205,10 +205,10 @@ AvatarHeader.propTypes = {
   hasBorderRadius: bool,
   bounces: bool,
   snapToEdge: bool,
-  onPressClose: func,
-  onPressOption: func,
-  closeIcon: number,
-  optionIcon: number,
+  leftTopIconOnPress: func,
+  rightTopIconOnPress: func,
+  leftTopIcon: number,
+  rightTopIcon: number,
   backgroundColor: string,
   headerHeight: number,
   backgroundImage: number,
@@ -218,10 +218,10 @@ AvatarHeader.propTypes = {
   renderBody: func
 }
 AvatarHeader.defaultProps = {
-  onPressClose: () => {},
-  onPressOption: () => {},
-  closeIcon: require('../../assets/icons/iconCloseWhite.png'),
-  optionIcon: require('../../assets/icons/Icon-Menu.png'),
+  leftTopIconOnPress: () => {},
+  rightTopIconOnPress: () => {},
+  leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),
+  rightTopIcon: require('../../assets/icons/Icon-Menu.png'),
   backgroundColor: Brandon.color,
   headerHeight: sizes.userModalHeaderHeight,
   backgroundImage: null,
