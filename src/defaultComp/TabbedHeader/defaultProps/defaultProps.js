@@ -16,7 +16,7 @@ function renderContent(title = 'Popular Quizes') {
           key={JSON.stringify(user)}
           elements={user.cardsAmount}
           authorName={user.author}
-          mainText={user.labels}
+          mainText={user.label}
           labelText={user.type}
           imageSource={user.image}
           onPress={() => {}}
