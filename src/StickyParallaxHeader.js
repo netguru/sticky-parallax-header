@@ -4,12 +4,11 @@ import { Dimensions, ImageBackground, ScrollView, View, Animated, Easing } from 
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
-import * as defaultProps from './defaultComp/TabbedHeader/TabbedHeader'
 
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
 
-class StickyParalaxHeader extends Component {
+class StickyParallaxHeader extends Component {
   constructor(props) {
     super(props)
     const { initialPage } = this.props
@@ -369,7 +368,7 @@ class StickyParalaxHeader extends Component {
   }
 }
 
-StickyParalaxHeader.propTypes = {
+StickyParallaxHeader.propTypes = {
   background: node,
   backgroundImage: number,
   bounces: bool,
@@ -377,7 +376,7 @@ StickyParalaxHeader.propTypes = {
   foreground: node,
   header: node,
   headerHeight: number,
-  headerSize: func,
+  headerSize: func.isRequired,
   initialPage: number,
   onChangeTab: func,
   onEndReached: func,
@@ -393,23 +392,17 @@ StickyParalaxHeader.propTypes = {
   tabsWrapperStyle: shape({})
 }
 
-StickyParalaxHeader.defaultProps = {
+StickyParallaxHeader.defaultProps = {
   bounces: true,
+  headerHeight: 92,
   initialPage: 0,
+  parallaxHeight: 0,
   snapToEdge: true,
   tabTextActiveStyle: {},
-  scrollEvent: event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }]),
-  foreground: defaultProps.foreground(this.scrollY),
-  header: defaultProps.header,
-  tabs: defaultProps.header,
-  parallaxHeight: defaultProps.parallaxHeight,
-  headerSize: defaultProps.headerSize,
-  headerHeight: defaultProps.headerHeight,
-  tabTextStyle: defaultProps.tabTextStyle,
-  tabTextContainerStyle: defaultProps,
-  tabTextContainerActiveStyle: defaultProps.tabTextContainerActiveStyle,
-  tabsContainerBackgroundColor: defaultProps.tabsContainerBackgroundColor,
-  tabsWrapperStyle: defaultProps.tabsWrapperStyles
+  tabTextContainerActiveStyle: {},
+  tabTextContainerStyle: {},
+  tabTextStyle: {},
+  tabsWrapperStyle: {}
 }
 
-export default StickyParalaxHeader
+export default StickyParallaxHeader
