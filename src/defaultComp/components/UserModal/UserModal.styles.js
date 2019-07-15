@@ -1,6 +1,6 @@
 import { StyleSheet, Platform } from 'react-native'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import { colors, constants, screenStyles } from '../../constants'
+import { colors, constants, screenStyles } from '../../../constants'
 
 export default StyleSheet.create({
   ...screenStyles,

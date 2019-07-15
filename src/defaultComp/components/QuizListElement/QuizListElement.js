@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { func, string, number } from 'prop-types'
 import styles from './QuizListElement.styles'
-import { colors } from '../../constants'
+import { colors } from '../../../constants'
 
 const QuizListElement = ({
   onPress,
@@ -19,7 +19,7 @@ const QuizListElement = ({
         <Text style={styles.labelText}>{labelText}</Text>
       </View>
       <View style={[styles.iconContainer, elements >= 20 && { backgroundColor: colors.coralPink }]}>
-        <Image source={require('../../assets/icons/cards.png')} style={styles.icon} />
+        <Image source={require('../../../assets/icons/cards.png')} style={styles.icon} />
         <Text style={[styles.number, elements < 10 && styles.iconCardElement]}>{elements}</Text>
       </View>
     </View>

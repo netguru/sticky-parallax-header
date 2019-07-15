@@ -2,15 +2,15 @@ import React from 'react'
 import { View, Text, Image } from 'react-native'
 import { string, shape, bool } from 'prop-types'
 import styles from './QuizOption.styles'
-import { colors } from '../../constants'
+import { colors } from '../../../constants'
 
 const QuizOption = ({ data: { number, question, value, revealed, picked } }) => {
   const renderValue = () => {
     if (value) {
-      return <Image source={require('../../assets/icons/Check.png')} />
+      return <Image source={require('../../../assets/icons/Check.png')} />
     }
 
-    return <Image source={require('../../assets/icons/Close.png')} />
+    return <Image source={require('../../../assets/icons/Close.png')} />
   }
   if (revealed) {
     let backgroundColor = 'white'

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity, Animated, StatusBar } from 'react-native'
-import StickyParalaxHeader from 'react-native-sticky-parallax-header'
 import { func, shape, string, oneOfType, object, array, number } from 'prop-types'
-import { constants, sizes } from '../../constants'
+import StickyParalaxHeader from '../../../StickyParallaxHeader'
+import { constants, sizes } from '../../../constants'
 import styles from './UserModal.styles'
 import QuizListElement from '../QuizListElement/QuizListElement'
 
@@ -61,7 +61,7 @@ class UserModal extends React.Component {
           <Image
             style={styles.icon}
             resizeMode="contain"
-            source={require('../../assets/icons/iconCloseWhite.png')}
+            source={require('../../../assets/icons/iconCloseWhite.png')}
           />
         </TouchableOpacity>
         <View style={styles.headerMenu}>
@@ -79,7 +79,7 @@ class UserModal extends React.Component {
           <Image
             style={styles.icon}
             resizeMode="contain"
-            source={require('../../assets/icons/Icon-Menu.png')}
+            source={require('../../../assets/icons/Icon-Menu.png')}
           />
         </TouchableOpacity>
       </View>
@@ -180,28 +180,28 @@ class UserModal extends React.Component {
           authorName="Brandon"
           mainText="Design System"
           labelText="Product Design"
-          imageSource={require('../../assets/images/photosPortraitA.png')}
+          imageSource={require('../../../assets/images/photosPortraitA.png')}
         />
         <QuizListElement
           elements={7}
           authorName="Brandon"
           mainText="Style Guide"
           labelText="Product Design"
-          imageSource={require('../../assets/images/photosPortraitA.png')}
+          imageSource={require('../../../assets/images/photosPortraitA.png')}
         />
         <QuizListElement
           elements={7}
           authorName="Brandon"
           mainText="Style Guide"
           labelText="Product Design"
-          imageSource={require('../../assets/images/photosPortraitA.png')}
+          imageSource={require('../../../assets/images/photosPortraitA.png')}
         />
         <QuizListElement
           elements={7}
           authorName="Brandon"
           mainText="Style Guide"
           labelText="Product Design"
-          imageSource={require('../../assets/images/photosPortraitA.png')}
+          imageSource={require('../../../assets/images/photosPortraitA.png')}
         />
       </View>
     )
