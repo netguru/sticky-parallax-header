@@ -1,6 +1,6 @@
 import React from 'react'
 import { AvatarHeader, TabbedHeader, DetailsHeader } from './defaultComp'
-import StickyParalaxHeader from './StickyParallaxHeader'
+import StickyParallaxHeader from './StickyParallaxHeader'
 
 const index = (props) => {
   // eslint-disable-next-line react/prop-types
@@ -12,7 +12,7 @@ const index = (props) => {
     case 'DetailsHeader':
       return <DetailsHeader {...props} />
     default:
-      return <StickyParalaxHeader {...props} />
+      return <StickyParallaxHeader {...props} />
   }
 }
 
