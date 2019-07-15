@@ -1,10 +1,11 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity, StatusBar, Animated } from 'react-native'
+import { bool, number, func, string } from 'prop-types'
 import StickyParallaxHeader from '../../index'
-import { constants, sizes, colors } from '../../constants'
-import { QuizCard } from '../components'
+import { constants, sizes } from '../../constants'
 import { Brandon } from '../../assets/data/cards'
 import styles from './DetailsHeader.styles'
+import { renderContent } from './defaultProps/defaultProps'
 
 const { event, ValueXY } = Animated
 class DetailsHeader extends React.Component {
@@ -27,7 +28,9 @@ class DetailsHeader extends React.Component {
     return constants.scrollPosition(headerLayout.height, value)
   }
 
-  renderHeader = (user) => {
+  renderHeader = () => {
+    const { backgroundColor, onPressClose, onPressOption, closeIcon, optionIcon } = this.props
+
     const opacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(60), this.scrollPosition(90)],
       outputRange: [0, 0, 1],
@@ -35,32 +38,25 @@ class DetailsHeader extends React.Component {
     })
 
     return (
-      <View
-        style={[styles.headerWrapper, styles.cardScreenHeader, { backgroundColor: user.color }]}
-      >
+      <View style={[styles.headerWrapper, styles.cardScreenHeader, { backgroundColor }]}>
         <View style={styles.headerMenu}>
-          <TouchableOpacity hitSlop={sizes.hitSlop}>
-            <Image
-              style={styles.icon}
-              resizeMode="contain"
-              source={require('../../assets/icons/Icon-Arrow.png')}
-            />
+          <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressClose}>
+            <Image style={styles.icon} resizeMode="contain" source={closeIcon} />
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
             <Text style={styles.headerTitle}>Design System</Text>
           </Animated.View>
         </View>
-        <Image
-          style={styles.icon}
-          resizeMode="contain"
-          source={require('../../assets/icons/Icon-Menu.png')}
-        />
+        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressOption}>
+          <Image style={styles.icon} resizeMode="contain" source={optionIcon} />
+        </TouchableOpacity>
       </View>
     )
   }
 
   renderForeground = (user) => {
     const { cardsAmount, labelColor } = user
+    const { image, headerText, title } = this.props
     const labelOpacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(19), this.scrollPosition(25)],
       outputRange: [1, 0.8, 0],
@@ -80,10 +76,10 @@ class DetailsHeader extends React.Component {
     return (
       <View style={styles.foreground}>
         <Animated.View style={[styles.foregroundTitle, { opacity: labelOpacity, labelColor }]}>
-          <Text style={styles.foregroundText}>{user.type}</Text>
+          <Text style={styles.foregroundText}>{title}</Text>
         </Animated.View>
         <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
-          <Text style={styles.message}>{user.label}</Text>
+          <Text style={styles.message}>{headerText}</Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: authorOpacity }]}>
           <View style={styles.iconContainer}>
@@ -91,7 +87,7 @@ class DetailsHeader extends React.Component {
             <Text style={styles.number}>{cardsAmount}</Text>
           </View>
           <View style={styles.footerContainer}>
-            <Image source={user.image} style={styles.authorPhoto} resizeMode="contain" />
+            <Image source={image} style={styles.authorPhoto} resizeMode="contain" />
             <Text style={styles.authorName}>{user.author}</Text>
           </View>
         </Animated.View>
@@ -99,15 +95,17 @@ class DetailsHeader extends React.Component {
     )
   }
 
-  renderBackground = (user) => {
+  renderBackground = () => {
+    const { hasBorderRadius, backgroundColor } = this.props
     const {
       headerLayout: { height }
     } = this.state
-    const headerBorderRadius = this.scrollY.y.interpolate({
-      inputRange: [0, height],
-      outputRange: [80, 0],
-      extrapolate: 'extend'
-    })
+    const headerBorderRadius = hasBorderRadius
+      && this.scrollY.y.interpolate({
+        inputRange: [0, height],
+        outputRange: [80, 0],
+        extrapolate: 'extend'
+      })
 
     return (
       <Animated.View
@@ -115,28 +113,27 @@ class DetailsHeader extends React.Component {
           styles.background,
           {
             borderBottomRightRadius: headerBorderRadius,
-            backgroundColor: user.color
+            backgroundColor
           }
         ]}
       />
     )
   }
 
-  renderContent = user => (
-    <View style={styles.content}>
-      {user.cards.map((data, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <QuizCard data={data} num={i} key={data.question} />
-      ))}
-    </View>
-  )
-
   render() {
     const user = Brandon
+    const {
+      backgroundColor,
+      backgroundImage,
+      renderBody,
+      headerHeight,
+      snapToEdge,
+      bounces
+    } = this.props
 
     return (
       <React.Fragment>
-        <StatusBar barStyle="light-content" backgroundColor={colors.transparent} translucent />
+        <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
           foreground={this.renderForeground(user)}
           header={this.renderHeader(user)}
@@ -144,14 +141,50 @@ class DetailsHeader extends React.Component {
           parallaxHeight={sizes.cardScreenParallaxHeader}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }])}
           headerSize={this.setHeaderSize}
-          headerHeight={sizes.cardScreenHeaderHeight}
+          headerHeight={headerHeight}
           background={this.renderBackground(user)}
+          snapToEdge={snapToEdge}
+          bounces={bounces}
+          backgroundImage={backgroundImage}
         >
-          {this.renderContent(user)}
+          {renderBody(user)}
         </StickyParallaxHeader>
       </React.Fragment>
     )
   }
+}
+
+DetailsHeader.propTypes = {
+  onPressClose: func,
+  onPressOption: func,
+  closeIcon: number,
+  optionIcon: number,
+  backgroundColor: string,
+  headerHeight: number,
+  backgroundImage: number,
+  headerText: string,
+  title: string,
+  image: number,
+  renderBody: func,
+  bounces: bool,
+  snapToEdge: bool,
+  hasBorderRadius: bool
+}
+DetailsHeader.defaultProps = {
+  onPressClose: () => {},
+  onPressOption: () => {},
+  closeIcon: require('../../assets/icons/iconCloseWhite.png'),
+  optionIcon: require('../../assets/icons/Icon-Menu.png'),
+  backgroundColor: Brandon.color,
+  headerHeight: sizes.cardScreenHeaderHeight,
+  backgroundImage: null,
+  title: Brandon.type,
+  headerText: Brandon.label,
+  image: Brandon.image,
+  renderBody: renderContent,
+  bounces: true,
+  snapToEdge: true,
+  hasBorderRadius: true
 }
 
 export default DetailsHeader
