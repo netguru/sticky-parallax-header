@@ -1,11 +1,12 @@
 import React from 'react'
-import { Text, View, Image, StatusBar, Modal, Animated } from 'react-native'
+import { Text, View, Image, StatusBar, Animated } from 'react-native'
 import { arrayOf, bool, number, shape, string } from 'prop-types'
 import StickyParallaxHeader from '../../index'
-import { QuizListElement, UserModal } from '../components'
+import { QuizListElement } from '../components'
 import { constants, colors, sizes } from '../../constants'
 import styles from './TabbedHeader.styles'
 import { Brandon, Jennifer, Ewa, Jazzy } from '../../assets/data/cards'
+import { renderContent } from './defaultProps/defaultProps'
 
 const { event, ValueXY } = Animated
 export default class TabbedHeader extends React.Component {
@@ -15,8 +16,7 @@ export default class TabbedHeader extends React.Component {
     this.state = {
       headerLayout: {
         height: 0
-      },
-      modalVisible: false
+      }
     }
     this.scrollY = new ValueXY()
   }
@@ -30,15 +30,7 @@ export default class TabbedHeader extends React.Component {
     this.scrollY.y.removeListener()
   }
 
-  setModalVisible = (visible) => {
-    this.setState({ modalVisible: visible })
-  }
-
   setHeaderSize = headerLayout => this.setState({ headerLayout })
-
-  openUserModal = (userSelected) => {
-    this.setState({ userSelected }, () => this.setModalVisible(true))
-  }
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state
@@ -99,42 +91,27 @@ export default class TabbedHeader extends React.Component {
     )
   }
 
-  renderQuizElements = (title) => {
+  renderContent = (title) => {
     const users = [Brandon, Jennifer, Ewa, Jazzy]
 
-    return users.map(
-      user => (title === 'Popular Quizes' || title === user.type) && (
-      <QuizListElement
-        key={JSON.stringify(user)}
-        elements={user.cardsAmount}
-        authorName={user.author}
-        mainText={user.label}
-        labelText={user.type}
-        imageSource={user.image}
-        onPress={() => {}}
-        pressUser={() => this.openUserModal(user)}
-      />
-      )
-    )
-  }
-
-  renderContent = title => (
-    <View style={styles.content}>
-      {this.renderModal()}
-      <Text style={styles.contentText}>{title}</Text>
-      {this.renderQuizElements(title)}
-    </View>
-  )
-
-  renderModal = () => {
-    const { modalVisible, userSelected } = this.state
-
     return (
-      <Modal animationType="slide" transparent visible={modalVisible} style={styles.modalStyle}>
-        <View style={styles.modalContentContainer}>
-          <UserModal onPressCloseModal={() => this.setModalVisible(false)} user={userSelected} />
-        </View>
-      </Modal>
+      <View style={styles.content}>
+        <Text style={styles.contentText}>{title}</Text>
+        {users.map(
+          user => (title === 'Popular Quizes' || title === user.type) && (
+          <QuizListElement
+            key={JSON.stringify(user)}
+            elements={user.cardsAmount}
+            authorName={user.author}
+            mainText={user.label}
+            labelText={user.type}
+            imageSource={user.image}
+            onPress={() => {}}
+            pressUser={() => {}}
+          />
+          )
+        )}
+      </View>
     )
   }
 
@@ -189,19 +166,19 @@ TabbedHeader.defaultProps = {
   tabs: [
     {
       title: 'Popular',
-      content: this.renderContent('Popular Quizes')
+      content: renderContent()
     },
     {
       title: 'Product Design',
-      content: this.renderContent('Product Design')
+      content: renderContent('Product Design')
     },
     {
       title: 'Development',
-      content: this.renderContent('Development')
+      content: renderContent('Development')
     },
     {
       title: 'Project Management',
-      content: this.renderContent('Project Management')
+      content: renderContent('Project Management')
     }
   ]
 }
