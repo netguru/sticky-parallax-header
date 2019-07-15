@@ -47,10 +47,10 @@ export default class TabbedHeader extends React.Component {
   }
 
   renderHeader = () => {
-    const { backgorundColor } = this.props
+    const { backgroundColor } = this.props
 
     return (
-      <View style={[styles.headerWrapper, backgorundColor]}>
+      <View style={[styles.headerWrapper, { backgroundColor }]}>
         <Image
           resizeMode="contain"
           source={require('../../assets/images/logo.png')}
@@ -139,11 +139,11 @@ export default class TabbedHeader extends React.Component {
   }
 
   render() {
-    const { tabs, headerHeight, backgorundColor, backgroundImage, bounces, snapToEdge } = this.props
+    const { tabs, headerHeight, backgroundColor, backgroundImage, bounces, snapToEdge } = this.props
 
     return (
       <React.Fragment>
-        <StatusBar barStyle="light-content" backgroundColor={backgorundColor} translucent />
+        <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
           foreground={this.renderForeground(this.scrollY)}
           header={this.renderHeader()}
@@ -156,7 +156,7 @@ export default class TabbedHeader extends React.Component {
           tabTextStyle={styles.tabText}
           tabTextContainerStyle={styles.tabTextContainerStyle}
           tabTextContainerActiveStyle={styles.tabTextContainerActiveStyle}
-          tabsContainerBackgroundColor={colors.primaryGreen}
+          tabsContainerBackgroundColor={backgroundColor}
           tabsWrapperStyle={styles.tabsWrapper}
           backgroundImage={backgroundImage}
           bounces={bounces}
@@ -170,7 +170,7 @@ export default class TabbedHeader extends React.Component {
 }
 
 TabbedHeader.propTypes = {
-  backgorundColor: string,
+  backgroundColor: string,
   headerHeight: number,
   backgroundImage: number,
   title: string,
@@ -180,7 +180,7 @@ TabbedHeader.propTypes = {
 }
 
 TabbedHeader.defaultProps = {
-  backgorundColor: colors.primaryGreen,
+  backgroundColor: colors.primaryGreen,
   headerHeight: sizes.headerHeight,
   backgroundImage: null,
   title: "Mornin' Mark! \nReady for a quiz?",
