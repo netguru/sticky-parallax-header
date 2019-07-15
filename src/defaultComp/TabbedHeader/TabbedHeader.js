@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image, StatusBar, Modal, Animated } from 'react-native'
-import { arrayOf, bool,  number, shape, string } from 'prop-types'
+import { arrayOf, bool, number, shape, string } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { QuizListElement, UserModal } from '../components'
 import { constants, colors, sizes } from '../../constants'
@@ -145,22 +145,22 @@ export default class TabbedHeader extends React.Component {
       <React.Fragment>
         <StatusBar barStyle="light-content" backgroundColor={backgorundColor} translucent />
         <StickyParallaxHeader
-          bounces={bounces}
-          snapToEdge={snapToEdge}
           foreground={this.renderForeground(this.scrollY)}
           header={this.renderHeader()}
-          tabs={tabs}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.homeScreenParallaxHeader}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }])}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
+          tabs={tabs}
           tabTextStyle={styles.tabText}
           tabTextContainerStyle={styles.tabTextContainerStyle}
           tabTextContainerActiveStyle={styles.tabTextContainerActiveStyle}
           tabsContainerBackgroundColor={colors.primaryGreen}
           tabsWrapperStyle={styles.tabsWrapper}
           backgroundImage={backgroundImage}
+          bounces={bounces}
+          snapToEdge={snapToEdge}
         >
           {this.renderContent('Popular Quizes')}
         </StickyParallaxHeader>
