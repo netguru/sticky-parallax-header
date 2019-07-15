@@ -1,16 +1,14 @@
 import React from 'react'
-import { View, Image, Text, Animated, Row } from 'react-native'
+import { View, Image, Text, Animated } from 'react-native'
 import { sizes, constants, colors } from '../constants'
 import styles from './TabbedHeader.styles'
 
-const setHeaderSize = headerLayout => this.setState({ headerLayout })
-const scrollPosition = (value) => {
-  const { headerLayout } = this.state
+const foreground = (state, scrollY) => {
+  const scrollPosition = (value) => {
+    const { headerLayout } = state
 
-  return constants.scrollPosition(headerLayout.height, value)
-}
-
-const foreground = (scrollY) => {
+    return constants.scrollPosition(headerLayout.height, value)
+  }
   const message = "Mornin' Mark! \nReady for a quiz?"
   const startSize = constants.responsiveWidth(18)
   const endSize = constants.responsiveWidth(10)
@@ -62,7 +60,7 @@ const renderContent = (title) => {
     <View style={styles.content}>
       {data.map((_, i) => (
         <View
-        // eslint-disable-next-line react-native/no-inline-styles
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{ backgroundColor: colors.paleGrey, padding: 10, margin: 10, width: '95%' }}
           key={i}
         >
@@ -95,7 +93,7 @@ const tabs = [
 
 const parallaxHeight = sizes.homeScreenParallaxHeader
 
-const headerSize = setHeaderSize()
+// const headerSize = setHeaderSize()
 
 const { headerHeight } = sizes
 
@@ -111,7 +109,6 @@ export {
   header,
   tabs,
   parallaxHeight,
-  headerSize,
   headerHeight,
   tabTextStyle,
   tabTextContainerStyle,
