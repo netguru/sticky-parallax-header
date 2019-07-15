@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, Text, Animated } from 'react-native'
+import { View, Image, Text, Animated, Row } from 'react-native'
 import { sizes, constants, colors } from '../constants'
 import styles from './TabbedHeader.styles'
 
@@ -55,22 +55,41 @@ const header = () => (
   </View>
 )
 
+renderContent = (title) => {
+  const data = Array.from({ length: 15 })
+
+  return (
+    <View style={styles.content}>
+      {data.map((_, i) => (
+        <View
+        // eslint-disable-next-line react-native/no-inline-styles
+          style={{ backgroundColor: colors.paleGrey, padding: 10, margin: 10, width: '95%' }}
+          key={i}
+        >
+          <Text>{title}</Text>
+          <Text>{i}</Text>
+        </View>
+      ))}
+    </View>
+  )
+}
+
 const tabs = [
   {
     title: 'Popular',
-    content: this.renderContent('Popular Quizes')
+    content: renderContent('Popular Quizes')
   },
   {
     title: 'Product Design',
-    content: this.renderContent('Product Design')
+    content: renderContent('Product Design')
   },
   {
     title: 'Development',
-    content: this.renderContent('Development')
+    content: renderContent('Development')
   },
   {
     title: 'Project Management',
-    content: this.renderContent('Project Management')
+    content: renderContent('Project Management')
   }
 ]
 
