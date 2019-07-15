@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image, StatusBar, Modal, Animated } from 'react-native'
-import StickyParalaxHeader from '../../index'
+import StickyParallaxHeader from '../../index'
 import { QuizListElement, UserModal } from '../components'
 import { constants, colors, sizes } from '../../constants'
 import styles from './TabbedHeader.styles'
@@ -137,7 +137,7 @@ export default class HomeScreen extends React.Component {
     return (
       <React.Fragment>
         <StatusBar barStyle="light-content" backgroundColor={colors.primaryGreen} translucent />
-        <StickyParalaxHeader
+        <StickyParallaxHeader
           foreground={this.renderForeground(this.scrollY)}
           header={this.renderHeader()}
           tabs={[
@@ -170,7 +170,7 @@ export default class HomeScreen extends React.Component {
           tabsWrapperStyle={styles.tabsWrapper}
         >
           {this.renderContent('Popular Quizes')}
-        </StickyParalaxHeader>
+        </StickyParallaxHeader>
       </React.Fragment>
     )
   }
