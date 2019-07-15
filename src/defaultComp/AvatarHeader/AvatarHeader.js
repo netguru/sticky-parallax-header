@@ -5,6 +5,7 @@ import StickyParallaxHeader from '../../index'
 import { constants, sizes } from '../../constants'
 import styles from './AvatarHeader.styles'
 import QuizListElement from '../components/QuizListElement/QuizListElement'
+import { Brandon } from '../../assets/data/cards'
 
 const { event, ValueXY } = Animated
 
@@ -237,6 +238,10 @@ AvatarHeader.propTypes = {
     about: string,
     image: oneOfType([object, array, func, number])
   })
+}
+AvatarHeader.defaultProps = {
+  onPressCloseModal: () => {},
+  user: Brandon
 }
 
 export default AvatarHeader
