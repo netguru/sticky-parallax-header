@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity, Animated, StatusBar } from 'react-native'
-import { func, string, number } from 'prop-types'
+import { func, string, number, bool } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, sizes } from '../../constants'
 import styles from './AvatarHeader.styles'
@@ -146,13 +146,14 @@ class AvatarHeader extends React.Component {
     const {
       headerLayout: { height }
     } = this.state
-    const headerBorderRadius = this.scrollY.y.interpolate({
-      inputRange: [0, height],
-      outputRange: [80, 0],
-      extrapolate: 'extend'
-    })
+    const { backgroundColor, hasBorderRadius } = this.props
 
-    const { backgroundColor } = this.props
+    const headerBorderRadius = hasBorderRadius
+      && this.scrollY.y.interpolate({
+        inputRange: [0, height],
+        outputRange: [80, 0],
+        extrapolate: 'extend'
+      })
 
     return (
       <Animated.View
@@ -168,7 +169,14 @@ class AvatarHeader extends React.Component {
   }
 
   render() {
-    const { backgroundColor, backgroundImage, renderBody, headerHeight } = this.props
+    const {
+      backgroundColor,
+      backgroundImage,
+      renderBody,
+      headerHeight,
+      snapToEdge,
+      bounces
+    } = this.props
 
     return (
       <React.Fragment>
@@ -183,6 +191,8 @@ class AvatarHeader extends React.Component {
           headerHeight={headerHeight}
           background={this.renderBackground()}
           backgroundImage={backgroundImage}
+          bounces={bounces}
+          snapToEdge={snapToEdge}
         >
           {renderBody()}
         </StickyParallaxHeader>
@@ -192,6 +202,9 @@ class AvatarHeader extends React.Component {
 }
 
 AvatarHeader.propTypes = {
+  hasBorderRadius: bool,
+  bounces: bool,
+  snapToEdge: bool,
   onPressClose: func,
   onPressOption: func,
   closeIcon: number,
@@ -215,7 +228,10 @@ AvatarHeader.defaultProps = {
   title: Brandon.author,
   subtitle: Brandon.about,
   image: Brandon.image,
-  renderBody: renderContent
+  renderBody: renderContent,
+  bounces: true,
+  snapToEdge: true,
+  hasBorderRadius: true
 }
 
 export default AvatarHeader
