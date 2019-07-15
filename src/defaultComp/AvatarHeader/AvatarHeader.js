@@ -1,11 +1,11 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity, Animated, StatusBar } from 'react-native'
-import { func, shape, string, oneOfType, object, array, number } from 'prop-types'
+import { func, string, number } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, sizes } from '../../constants'
 import styles from './AvatarHeader.styles'
-import QuizListElement from '../components/QuizListElement/QuizListElement'
 import { Brandon } from '../../assets/data/cards'
+import { renderContent } from './defaultProps/defaultProps'
 
 const { event, ValueXY } = Animated
 
@@ -32,7 +32,15 @@ class AvatarHeader extends React.Component {
   }
 
   renderHeader = () => {
-    const { onPressCloseModal, user } = this.props
+    const {
+      onPressClose,
+      closeIcon,
+      optionIcon,
+      onPressOption,
+      image,
+      backgroundColor,
+      title
+    } = this.props
 
     const [beforeFadeImg, startFadeImg, finishFadeImg] = [
       this.scrollPosition(30),
@@ -57,38 +65,27 @@ class AvatarHeader extends React.Component {
     })
 
     return (
-      <View style={[styles.headerWrapper, styles.userModalHeader, { backgroundColor: user.color }]}>
-        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressCloseModal}>
-          <Image
-            style={styles.icon}
-            resizeMode="contain"
-            source={require('../../assets/icons/iconCloseWhite.png')}
-          />
+      <View style={[styles.headerWrapper, styles.userModalHeader, { backgroundColor }]}>
+        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressClose}>
+          <Image style={styles.icon} resizeMode="contain" source={closeIcon} />
         </TouchableOpacity>
         <View style={styles.headerMenu}>
           <View style={styles.headerTitleContainer}>
-            <Animated.Image
-              source={user.image}
-              style={[styles.headerPic, { opacity: imageOpacity }]}
-            />
+            <Animated.Image source={image} style={[styles.headerPic, { opacity: imageOpacity }]} />
             <Animated.Text style={[styles.headerTitle, { opacity: nameOpacity }]}>
-              {user.author}
+              {title}
             </Animated.Text>
           </View>
         </View>
-        <TouchableOpacity hitSlop={sizes.hitSlop}>
-          <Image
-            style={styles.icon}
-            resizeMode="contain"
-            source={require('../../assets/icons/Icon-Menu.png')}
-          />
+        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressOption}>
+          <Image style={styles.icon} resizeMode="contain" source={optionIcon} />
         </TouchableOpacity>
       </View>
     )
   }
 
   renderForeground = () => {
-    const { user } = this.props
+    const { image, subtitle, title } = this.props
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(12)
 
@@ -125,7 +122,7 @@ class AvatarHeader extends React.Component {
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
           <Animated.Image
-            source={user.image}
+            source={image}
             style={[styles.profilePic, { width: imageSize, height: imageSize }]}
           />
         </Animated.View>
@@ -136,10 +133,10 @@ class AvatarHeader extends React.Component {
             { opacity: authorOpacity }
           ]}
         >
-          <Text style={styles.message}>{user.author}</Text>
+          <Text style={styles.message}>{title}</Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: aboutOpacity }]}>
-          <Text style={styles.infoText}>{user.about}</Text>
+          <Text style={styles.infoText}>{subtitle}</Text>
         </Animated.View>
       </View>
     )
@@ -155,7 +152,7 @@ class AvatarHeader extends React.Component {
       extrapolate: 'extend'
     })
 
-    const { user } = this.props
+    const { backgroundColor } = this.props
 
     return (
       <Animated.View
@@ -163,57 +160,19 @@ class AvatarHeader extends React.Component {
           styles.background,
           {
             borderBottomRightRadius: headerBorderRadius,
-            backgroundColor: user.color
+            backgroundColor
           }
         ]}
       />
     )
   }
 
-  renderContent = () => {
-    const title = "Author's Quizes"
-
-    return (
-      <View style={[styles.content, { paddingBottom: sizes.userScreenParallaxHeader }]}>
-        <Text style={styles.contentText}>{title}</Text>
-        <QuizListElement
-          elements={10}
-          authorName="Brandon"
-          mainText="Design System"
-          labelText="Product Design"
-          imageSource={require('../../assets/images/photosPortraitA.png')}
-        />
-        <QuizListElement
-          elements={7}
-          authorName="Brandon"
-          mainText="Style Guide"
-          labelText="Product Design"
-          imageSource={require('../../assets/images/photosPortraitA.png')}
-        />
-        <QuizListElement
-          elements={7}
-          authorName="Brandon"
-          mainText="Style Guide"
-          labelText="Product Design"
-          imageSource={require('../../assets/images/photosPortraitA.png')}
-        />
-        <QuizListElement
-          elements={7}
-          authorName="Brandon"
-          mainText="Style Guide"
-          labelText="Product Design"
-          imageSource={require('../../assets/images/photosPortraitA.png')}
-        />
-      </View>
-    )
-  }
-
   render() {
-    const { user } = this.props
+    const { backgroundColor, backgroundImage, renderBody, headerHeight } = this.props
 
     return (
       <React.Fragment>
-        <StatusBar backgroundColor={user.color} barStyle="light-content" />
+        <StatusBar backgroundColor={backgroundColor} barStyle="light-content" />
         <StickyParallaxHeader
           foreground={this.renderForeground()}
           header={this.renderHeader()}
@@ -221,10 +180,11 @@ class AvatarHeader extends React.Component {
           parallaxHeight={sizes.userScreenParallaxHeader}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }])}
           headerSize={this.setHeaderSize}
-          headerHeight={sizes.userModalHeaderHeight}
+          headerHeight={headerHeight}
           background={this.renderBackground()}
+          backgroundImage={backgroundImage}
         >
-          {this.renderContent()}
+          {renderBody()}
         </StickyParallaxHeader>
       </React.Fragment>
     )
@@ -232,16 +192,30 @@ class AvatarHeader extends React.Component {
 }
 
 AvatarHeader.propTypes = {
-  onPressCloseModal: func,
-  user: shape({
-    author: string,
-    about: string,
-    image: oneOfType([object, array, func, number])
-  })
+  onPressClose: func,
+  onPressOption: func,
+  closeIcon: number,
+  optionIcon: number,
+  backgroundColor: string,
+  headerHeight: number,
+  backgroundImage: number,
+  title: string,
+  subtitle: string,
+  image: number,
+  renderBody: func
 }
 AvatarHeader.defaultProps = {
-  onPressCloseModal: () => {},
-  user: Brandon
+  onPressClose: () => {},
+  onPressOption: () => {},
+  closeIcon: require('../../assets/icons/iconCloseWhite.png'),
+  optionIcon: require('../../assets/icons/Icon-Menu.png'),
+  backgroundColor: Brandon.color,
+  headerHeight: sizes.userModalHeaderHeight,
+  backgroundImage: null,
+  title: Brandon.author,
+  subtitle: Brandon.about,
+  image: Brandon.image,
+  renderBody: renderContent
 }
 
 export default AvatarHeader
