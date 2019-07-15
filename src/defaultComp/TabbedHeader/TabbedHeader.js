@@ -96,9 +96,6 @@ export default class HomeScreen extends React.Component {
 
   renderQuizElements = (title) => {
     const users = [Brandon, Jennifer, Ewa, Jazzy]
-    const {
-      navigation: { navigate }
-    } = this.props
 
     return users.map(
       user => (title === 'Popular Quizes' || title === user.type) && (
@@ -109,7 +106,7 @@ export default class HomeScreen extends React.Component {
         mainText={user.label}
         labelText={user.type}
         imageSource={user.image}
-        onPress={() => navigate('Card', { user })}
+        onPress={() => {}}
         pressUser={() => this.openUserModal(user)}
       />
       )
