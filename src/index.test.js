@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { ScrollableTabBar, ScrollableTabView } from './components'
-import StickyParallaxHeader from './index'
+import StickyParallaxHeader from './StickyParallaxHeader'
 import { colors } from './constants'
 
 const renderContent = title => (
