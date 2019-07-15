@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View, Image, StatusBar, Modal, Animated } from 'react-native'
+import { arrayOf, bool,  number, shape, string } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { QuizListElement, UserModal } from '../components'
 import { constants, colors, sizes } from '../../constants'
@@ -7,7 +8,7 @@ import styles from './TabbedHeader.styles'
 import { Brandon, Jennifer, Ewa, Jazzy } from '../../assets/data/cards'
 
 const { event, ValueXY } = Animated
-export default class HomeScreen extends React.Component {
+export default class TabbedHeader extends React.Component {
   constructor(props) {
     super(props)
 
@@ -45,18 +46,22 @@ export default class HomeScreen extends React.Component {
     return constants.scrollPosition(headerLayout.height, value)
   }
 
-  renderHeader = () => (
-    <View style={[styles.headerWrapper, styles.homeScreenHeader]}>
-      <Image
-        resizeMode="contain"
-        source={require('../../assets/images/logo.png')}
-        style={styles.logo}
-      />
-    </View>
-  )
+  renderHeader = () => {
+    const { backgorundColor } = this.props
+
+    return (
+      <View style={[styles.headerWrapper, backgorundColor]}>
+        <Image
+          resizeMode="contain"
+          source={require('../../assets/images/logo.png')}
+          style={styles.logo}
+        />
+      </View>
+    )
+  }
 
   renderForeground = (scrollY) => {
-    const message = "Mornin' Mark! \nReady for a quiz?"
+    const { title } = this.props
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(10)
     const [startImgFade, finishImgFade] = [this.scrollPosition(22), this.scrollPosition(27)]
@@ -88,7 +93,7 @@ export default class HomeScreen extends React.Component {
           />
         </Animated.View>
         <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
-          <Text style={styles.message}>{message}</Text>
+          <Text style={styles.message}>{title}</Text>
         </Animated.View>
       </View>
     )
@@ -134,44 +139,69 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    const { tabs, headerHeight, backgorundColor, backgroundImage, bounces, snapToEdge } = this.props
+
     return (
       <React.Fragment>
-        <StatusBar barStyle="light-content" backgroundColor={colors.primaryGreen} translucent />
+        <StatusBar barStyle="light-content" backgroundColor={backgorundColor} translucent />
         <StickyParallaxHeader
+          bounces={bounces}
+          snapToEdge={snapToEdge}
           foreground={this.renderForeground(this.scrollY)}
           header={this.renderHeader()}
-          tabs={[
-            {
-              title: 'Popular',
-              content: this.renderContent('Popular Quizes')
-            },
-            {
-              title: 'Product Design',
-              content: this.renderContent('Product Design')
-            },
-            {
-              title: 'Development',
-              content: this.renderContent('Development')
-            },
-            {
-              title: 'Project Management',
-              content: this.renderContent('Project Management')
-            }
-          ]}
+          tabs={tabs}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.homeScreenParallaxHeader}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }])}
           headerSize={this.setHeaderSize}
-          headerHeight={sizes.headerHeight}
+          headerHeight={headerHeight}
           tabTextStyle={styles.tabText}
           tabTextContainerStyle={styles.tabTextContainerStyle}
           tabTextContainerActiveStyle={styles.tabTextContainerActiveStyle}
           tabsContainerBackgroundColor={colors.primaryGreen}
           tabsWrapperStyle={styles.tabsWrapper}
+          backgroundImage={backgroundImage}
         >
           {this.renderContent('Popular Quizes')}
         </StickyParallaxHeader>
       </React.Fragment>
     )
   }
+}
+
+TabbedHeader.propTypes = {
+  backgorundColor: string,
+  headerHeight: number,
+  backgroundImage: number,
+  title: string,
+  bounces: bool,
+  snapToEdge: bool,
+  tabs: arrayOf(shape({}))
+}
+
+TabbedHeader.defaultProps = {
+  backgorundColor: colors.primaryGreen,
+  headerHeight: sizes.headerHeight,
+  backgroundImage: null,
+  title: "Mornin' Mark! \nReady for a quiz?",
+  bounces: true,
+  snapToEdge: true,
+  tabs: [
+    {
+      title: 'Popular',
+      content: this.renderContent('Popular Quizes')
+    },
+    {
+      title: 'Product Design',
+      content: this.renderContent('Product Design')
+    },
+    {
+      title: 'Development',
+      content: this.renderContent('Development')
+    },
+    {
+      title: 'Project Management',
+      content: this.renderContent('Project Management')
+    }
+  ]
 }
