@@ -55,7 +55,7 @@ const header = () => (
   </View>
 )
 
-renderContent = (title) => {
+const renderContent = (title) => {
   const data = Array.from({ length: 15 })
 
   return (
