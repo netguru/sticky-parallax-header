@@ -9,7 +9,7 @@ import * as defaultProps from './defaultProps/TabbedHeader'
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
 
-class StickyParalaxHeader extends Component {
+class StickyParallaxHeader extends Component {
   constructor(props) {
     super(props)
     const { initialPage } = this.props
@@ -369,7 +369,7 @@ class StickyParalaxHeader extends Component {
   }
 }
 
-StickyParalaxHeader.propTypes = {
+StickyParallaxHeader.propTypes = {
   background: node,
   backgroundImage: number,
   bounces: bool,
@@ -393,7 +393,7 @@ StickyParalaxHeader.propTypes = {
   tabsWrapperStyle: shape({})
 }
 
-StickyParalaxHeader.defaultProps = {
+StickyParallaxHeader.defaultProps = {
   bounces: true,
   initialPage: 0,
   snapToEdge: true,
@@ -412,4 +412,4 @@ StickyParalaxHeader.defaultProps = {
   tabsWrapperStyle: defaultProps.tabsWrapperStyles
 }
 
-export default StickyParalaxHeader
+export default StickyParallaxHeader

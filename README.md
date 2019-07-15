@@ -33,7 +33,7 @@ You're ready to use the package now.
 ```jsx
 import React from 'react'
 import { Text, View, Animated, StyleSheet } from 'react-native'
-import StickyParalaxHeader from 'react-native-sticky-parallax-header'
+import StickyParallaxHeader from 'react-native-sticky-parallax-header'
 
 const styles = StyleSheet.create({
   content: {
@@ -136,7 +136,7 @@ class TabScreen extends React.Component {
     const { scroll } = this.state
 
     return (
-      <StickyParalaxHeader
+      <StickyParallaxHeader
         foreground={this.renderForeground()}
         header={this.renderHeader()}
         parallaxHeight={200}
@@ -172,7 +172,7 @@ class TabScreen extends React.Component {
         tabsContainerBackgroundColor={'green'}
         tabsWrapperStyle={styles.tabsWrapper}
       >
-      </StickyParalaxHeader>
+      </StickyParallaxHeader>
     )
   }
 }

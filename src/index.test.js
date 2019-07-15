@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { ScrollableTabBar, ScrollableTabView } from './components'
-import StickyParalaxHeader from './index'
+import StickyParallaxHeader from './index'
 import { colors } from './constants'
 
 const renderContent = title => (
@@ -72,7 +72,7 @@ const defaultProps = {
 
 describe('with basic props', () => {
   const props = defaultProps
-  const wrapper = shallow(<StickyParalaxHeader {...props} />)
+  const wrapper = shallow(<StickyParallaxHeader {...props} />)
   const instance = wrapper.instance()
   const dived = wrapper.dive()
 
