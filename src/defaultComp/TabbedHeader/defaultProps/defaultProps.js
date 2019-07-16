@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { QuizListElement } from '../../components'
-import { Brandon, Jennifer, Ewa, Jazzy } from '../../../assets/data/cards'
+import { Brandon, Jennifer, Ewa } from '../../../assets/data/cards'
 import styles from '../TabbedHeader.styles'
 
 function renderContent(title = 'Popular Quizes') {
-  const users = [Brandon, Jennifer, Ewa, Jazzy]
+  const users = [Brandon, Jennifer, Ewa]
 
   return (
     <View style={styles.content}>
