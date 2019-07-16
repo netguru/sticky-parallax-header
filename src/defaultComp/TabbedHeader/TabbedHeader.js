@@ -1,11 +1,9 @@
 import React from 'react'
 import { Text, View, Image, StatusBar, Animated } from 'react-native'
-import { arrayOf, bool, number, shape, string } from 'prop-types'
+import { arrayOf, bool, number, shape, string, func } from 'prop-types'
 import StickyParallaxHeader from '../../index'
-import { QuizListElement } from '../components'
 import { constants, colors, sizes } from '../../constants'
 import styles from './TabbedHeader.styles'
-import { Brandon, Jennifer, Ewa, Jazzy } from '../../assets/data/cards'
 import { renderContent } from './defaultProps/defaultProps'
 
 const { event, ValueXY } = Animated
@@ -91,32 +89,16 @@ export default class TabbedHeader extends React.Component {
     )
   }
 
-  renderContent = (title) => {
-    const users = [Brandon, Jennifer, Ewa, Jazzy]
-
-    return (
-      <View style={styles.content}>
-        <Text style={styles.contentText}>{title}</Text>
-        {users.map(
-          user => (title === 'Popular Quizes' || title === user.type) && (
-          <QuizListElement
-            key={JSON.stringify(user)}
-            elements={user.cardsAmount}
-            authorName={user.author}
-            mainText={user.label}
-            labelText={user.type}
-            imageSource={user.image}
-            onPress={() => {}}
-            pressUser={() => {}}
-          />
-          )
-        )}
-      </View>
-    )
-  }
-
   render() {
-    const { tabs, headerHeight, backgroundColor, backgroundImage, bounces, snapToEdge } = this.props
+    const {
+      tabs,
+      headerHeight,
+      backgroundColor,
+      backgroundImage,
+      bounces,
+      snapToEdge,
+      renderBody
+    } = this.props
 
     return (
       <React.Fragment>
@@ -139,7 +121,7 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
         >
-          {this.renderContent('Popular Quizes')}
+          {renderBody('Popular Quizes')}
         </StickyParallaxHeader>
       </React.Fragment>
     )
@@ -153,7 +135,8 @@ TabbedHeader.propTypes = {
   title: string,
   bounces: bool,
   snapToEdge: bool,
-  tabs: arrayOf(shape({}))
+  tabs: arrayOf(shape({})),
+  renderBody: func
 }
 
 TabbedHeader.defaultProps = {
@@ -163,6 +146,7 @@ TabbedHeader.defaultProps = {
   title: "Mornin' Mark! \nReady for a quiz?",
   bounces: true,
   snapToEdge: true,
+  renderBody: renderContent,
   tabs: [
     {
       title: 'Popular',
