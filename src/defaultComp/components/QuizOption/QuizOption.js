@@ -1,56 +1,72 @@
-import React from 'react'
-import { View, Text, Image } from 'react-native'
-import { string, shape, bool } from 'prop-types'
+import React, { Component } from 'react'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { string, bool, shape, func } from 'prop-types'
 import styles from './QuizOption.styles'
 import { colors } from '../../../constants'
 
-const QuizOption = ({ data: { number, question, value, revealed, picked } }) => {
-  const renderValue = () => {
+export default class QuizOption extends Component {
+  state = {
+    picked: false
+  }
+
+  renderValue = (value) => {
     if (value) {
       return <Image source={require('../../../assets/icons/Check.png')} />
     }
 
     return <Image source={require('../../../assets/icons/Close.png')} />
   }
-  if (revealed) {
-    let backgroundColor = 'white'
-    let color = 'black'
-    if (picked) color = 'white'
-    if (picked && value) backgroundColor = colors.jade
-    if (picked && !value) backgroundColor = colors.coralPink
+
+  render() {
+    const {
+      reveal,
+      revealed,
+      card: { number, question, value }
+    } = this.props
+    const { picked } = this.state
+    if (revealed) {
+      let backgroundColor = 'white'
+      let color = 'black'
+      if (picked) color = 'white'
+      if (picked && value) backgroundColor = colors.jade
+      if (picked && !value) backgroundColor = colors.coralPink
+
+      return (
+        <View style={[styles.container, { backgroundColor }]}>
+          <View style={styles.letterContainer}>{this.renderValue(value)}</View>
+          <View style={styles.textContainer}>
+            <Text style={[styles.text, { color }]}>{question}</Text>
+          </View>
+        </View>
+      )
+    }
 
     return (
-      <View style={[styles.container, { backgroundColor }]}>
+      <TouchableOpacity
+        onPress={() => {
+          reveal()
+          this.setState({ picked: true })
+        }}
+        style={styles.container}
+      >
         <View style={styles.letterContainer}>
-          {renderValue()}
+          <Text style={styles.letter}>{number}</Text>
         </View>
         <View style={styles.textContainer}>
-          <Text style={[styles.text, { color }]}>{question}</Text>
+          <Text style={styles.text}>{question}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.letterContainer}>
-        <Text style={styles.letter}>{number}</Text>
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>{question}</Text>
-      </View>
-    </View>
-  )
 }
 
 QuizOption.propTypes = {
-  data: shape({
+  card: shape({
     number: string,
     question: string,
     value: bool,
-    revealed: bool,
     picked: bool
-  })
+  }),
+  reveal: func,
+  revealed: bool
 }
-
-export default QuizOption
