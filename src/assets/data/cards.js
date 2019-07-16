@@ -154,7 +154,7 @@ const Brandon = {
   cards: cardsDesign,
   color: 'rgb(78,15,255)',
   labelColor: 'rgb(89,80,249)',
-  image: require('../../assets/images/photosPortraitA.png'),
+  image: require('../../assets/images/photosPortraitBrandon.png'),
   about: 'Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer.'
 }
 
@@ -166,7 +166,7 @@ const Ewa = {
   cards: cardsAgile,
   color: 'rgb(138,85,192)',
   labelColor: 'rgb(163,109,217)',
-  image: require('../../assets/images/photosPortraitB.png'),
+  image: require('../../assets/images/photosPortraitEwa.png'),
   about: 'Wannabe entrepreneur. Reader. Devoted organizer. Social media lover. Analyst.'
 }
 
@@ -178,20 +178,8 @@ const Jennifer = {
   cards: cardsReact,
   color: 'rgb(255,94,107)',
   labelColor: 'rgb(255,130,140)',
-  image: require('../../assets/images/photosPortraitC.png'),
+  image: require('../../assets/images/photosPortraitJennifer.png'),
   about: 'Web nerd. Alcohol trailblazer. Organizer. Hipster-friendly explorer.'
 }
 
-const Jazzy = {
-  cardsAmount: 12,
-  author: 'Jazzy',
-  type: 'Development',
-  label: 'Swift',
-  cards: cardsReact,
-  color: 'rgb(78,15,255)',
-  labelColor: 'rgb(89,80,249)',
-  image: require('../../assets/images/photosPortraitD.png'),
-  about: 'CEO of small software house. Cake eater. Black coffee consumer. Excentric musician.'
-}
-
-export { Brandon, Ewa, Jennifer, Jazzy }
+export { Brandon, Ewa, Jennifer }
