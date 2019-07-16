@@ -61,8 +61,8 @@ class DetailsHeader extends React.Component {
   }
 
   renderForeground = (user) => {
-    const { cardsAmount, labelColor } = user
-    const { image, headerText, title } = this.props
+    const { labelColor } = user
+    const { image, title, tag, iconNumber } = this.props
     const labelOpacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(19), this.scrollPosition(25)],
       outputRange: [1, 0.8, 0],
@@ -82,15 +82,15 @@ class DetailsHeader extends React.Component {
     return (
       <View style={styles.foreground}>
         <Animated.View style={[styles.foregroundTitle, { opacity: labelOpacity, labelColor }]}>
-          <Text style={styles.foregroundText}>{title}</Text>
+          <Text style={styles.foregroundText}>{tag}</Text>
         </Animated.View>
         <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
-          <Text style={styles.message}>{headerText}</Text>
+          <Text style={styles.message}>{title}</Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: authorOpacity }]}>
           <View style={styles.iconContainer}>
             <Image source={require('../../assets/icons/cards_black.png')} style={styles.icon} />
-            <Text style={styles.number}>{cardsAmount}</Text>
+            <Text style={styles.number}>{iconNumber}</Text>
           </View>
           <View style={styles.footerContainer}>
             <Image source={image} style={styles.authorPhoto} resizeMode="contain" />
@@ -168,13 +168,14 @@ DetailsHeader.propTypes = {
   backgroundColor: string,
   headerHeight: number,
   backgroundImage: number,
-  headerText: string,
   title: string,
+  tag: string,
   image: number,
   renderBody: func,
   bounces: bool,
   snapToEdge: bool,
-  hasBorderRadius: bool
+  hasBorderRadius: bool,
+  iconNumber: number
 }
 DetailsHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -184,13 +185,14 @@ DetailsHeader.defaultProps = {
   backgroundColor: Brandon.color,
   headerHeight: sizes.cardScreenHeaderHeight,
   backgroundImage: null,
-  title: Brandon.type,
-  headerText: Brandon.label,
+  tag: Brandon.type,
+  title: Brandon.label,
   image: Brandon.image,
   renderBody: renderContent,
   bounces: true,
   snapToEdge: true,
-  hasBorderRadius: true
+  hasBorderRadius: true,
+  iconNumber: Brandon.cardsAmount
 }
 
 export default DetailsHeader
