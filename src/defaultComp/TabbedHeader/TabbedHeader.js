@@ -78,7 +78,7 @@ export default class TabbedHeader extends React.Component {
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
           <Animated.Image
-            source={require('../../assets/images/photosPortraitD.png')}
+            source={require('../../assets/images/photosPortraitMe.png')}
             style={[styles.profilePic, { width: imageSize, height: imageSize }]}
           />
         </Animated.View>
