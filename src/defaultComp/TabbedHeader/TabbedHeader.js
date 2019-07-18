@@ -4,7 +4,7 @@ import { arrayOf, bool, number, shape, string, func } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, colors, sizes } from '../../constants'
 import styles from './TabbedHeader.styles'
-import { renderContent } from './defaultProps/defaultProps'
+import RenderContent from './defaultProps/defaultProps'
 
 const { event, ValueXY } = Animated
 export default class TabbedHeader extends React.Component {
@@ -152,7 +152,7 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
         >
-          {renderBody('Popular Quizes', this.onLayoutContent, this.calcMargin)}
+          {renderBody('Popular Quizes')}
         </StickyParallaxHeader>
       </React.Fragment>
     )
@@ -177,23 +177,23 @@ TabbedHeader.defaultProps = {
   title: "Mornin' Mark! \nReady for a quiz?",
   bounces: true,
   snapToEdge: true,
-  renderBody: renderContent,
+  renderBody: title => <RenderContent title={title} />,
   tabs: [
     {
       title: 'Popular',
-      content: renderContent()
+      content: <RenderContent title="Popular Quizes" />
     },
     {
       title: 'Product Design',
-      content: renderContent('Product Design')
+      content: <RenderContent title="Product Design" />
     },
     {
       title: 'Development',
-      content: renderContent('Development')
+      content: <RenderContent title="Development" />
     },
     {
       title: 'Project Management',
-      content: renderContent('Project Management')
+      content: <RenderContent title="Project Management" />
     }
   ]
 }
