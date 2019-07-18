@@ -5,7 +5,7 @@ import StickyParallaxHeader from '../../index'
 import { constants, sizes } from '../../constants'
 import styles from './AvatarHeader.styles'
 import { Brandon } from '../../assets/data/cards'
-import { renderContent } from './defaultProps/defaultProps'
+import RenderContent from './defaultProps/defaultProps'
 
 const { event, ValueXY } = Animated
 
@@ -194,7 +194,7 @@ class AvatarHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
         >
-          {renderBody()}
+          {renderBody(Brandon)}
         </StickyParallaxHeader>
       </React.Fragment>
     )
@@ -228,7 +228,7 @@ AvatarHeader.defaultProps = {
   title: Brandon.author,
   subtitle: Brandon.about,
   image: Brandon.image,
-  renderBody: renderContent,
+  renderBody: user => <RenderContent user={user} />,
   bounces: true,
   snapToEdge: true,
   hasBorderRadius: true
