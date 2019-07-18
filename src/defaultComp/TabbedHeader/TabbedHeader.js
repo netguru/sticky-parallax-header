@@ -12,6 +12,7 @@ export default class TabbedHeader extends React.Component {
     super(props)
 
     this.state = {
+      contentHeight: {},
       headerLayout: {
         height: 0
       }
@@ -89,6 +90,36 @@ export default class TabbedHeader extends React.Component {
     )
   }
 
+  onLayoutContent = (e, title) => {
+    const { contentHeight } = this.state
+    const contentHeightTmp = { ...contentHeight }
+    contentHeightTmp[title] = e.nativeEvent.layout.height
+
+    this.setState({
+      contentHeight: { ...contentHeightTmp }
+    })
+  }
+
+  calcMargin = (title) => {
+    const { contentHeight } = this.state
+    let marginBottom = 50
+
+    if (contentHeight[title]) {
+      const padding = 24
+      const isBigContent = constants.deviceHeight - contentHeight[title] < 0
+
+      if (isBigContent) {
+        return marginBottom
+      }
+
+      marginBottom = constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title]
+
+      return marginBottom
+    }
+
+    return marginBottom
+  }
+
   render() {
     const {
       tabs,
@@ -121,7 +152,7 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
         >
-          {renderBody('Popular Quizes')}
+          {renderBody('Popular Quizes', this.onLayoutContent, this.calcMargin)}
         </StickyParallaxHeader>
       </React.Fragment>
     )
