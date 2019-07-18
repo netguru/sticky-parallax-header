@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { string, bool, shape, func } from 'prop-types'
 import styles from './QuizOption.styles'
 import { colors } from '../../../constants'
 
-export default class QuizOption extends Component {
-  state = {
-    picked: false
-  }
+const QuizOption = ({ reveal, revealed, card: { number, question, value } }) => {
+  const [picked, setPicked] = useState(false)
 
-  renderValue = (value) => {
+  const renderValue = () => {
     if (value) {
       return <Image source={require('../../../assets/icons/Check.png')} />
     }
@@ -17,47 +15,39 @@ export default class QuizOption extends Component {
     return <Image source={require('../../../assets/icons/Close.png')} />
   }
 
-  render() {
-    const {
-      reveal,
-      revealed,
-      card: { number, question, value }
-    } = this.props
-    const { picked } = this.state
-    if (revealed) {
-      let backgroundColor = 'white'
-      let color = 'black'
-      if (picked) color = 'white'
-      if (picked && value) backgroundColor = colors.jade
-      if (picked && !value) backgroundColor = colors.coralPink
-
-      return (
-        <View style={[styles.container, { backgroundColor }]}>
-          <View style={styles.letterContainer}>{this.renderValue(value)}</View>
-          <View style={styles.textContainer}>
-            <Text style={[styles.text, { color }]}>{question}</Text>
-          </View>
-        </View>
-      )
-    }
+  if (revealed) {
+    let backgroundColor = 'white'
+    let color = 'black'
+    if (picked) color = 'white'
+    if (picked && value) backgroundColor = colors.jade
+    if (picked && !value) backgroundColor = colors.coralPink
 
     return (
-      <TouchableOpacity
-        onPress={() => {
-          reveal()
-          this.setState({ picked: true })
-        }}
-        style={styles.container}
-      >
-        <View style={styles.letterContainer}>
-          <Text style={styles.letter}>{number}</Text>
-        </View>
+      <View style={[styles.container, { backgroundColor }]}>
+        <View style={styles.letterContainer}>{renderValue()}</View>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>{question}</Text>
+          <Text style={[styles.text, { color }]}>{question}</Text>
         </View>
-      </TouchableOpacity>
+      </View>
     )
   }
+
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        reveal()
+        setPicked(true)
+      }}
+      style={styles.container}
+    >
+      <View style={styles.letterContainer}>
+        <Text style={styles.letter}>{number}</Text>
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>{question}</Text>
+      </View>
+    </TouchableOpacity>
+  )
 }
 
 QuizOption.propTypes = {
@@ -70,3 +60,5 @@ QuizOption.propTypes = {
   reveal: func,
   revealed: bool
 }
+
+export default QuizOption
