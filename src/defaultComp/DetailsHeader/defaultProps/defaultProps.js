@@ -5,8 +5,8 @@ import styles from '../DetailsHeader.styles'
 
 const renderContent = user => (
   <View style={styles.content}>
-    {user.cards.map((data, i) => (
-      <QuizCard data={data} num={i} key={JSON.stringify(data)} />
+    {user.cards.map((data, i, arr) => (
+      <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
     ))}
   </View>
 )

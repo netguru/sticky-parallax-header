@@ -4,14 +4,14 @@ import { func, string, shape, bool, number } from 'prop-types'
 import styles from './QuizCard.styles'
 import QuizOption from '../QuizOption/QuizOption'
 
-const QuizCard = ({ data: { question, cards }, num, onPress }) => {
+const QuizCard = ({ data: { question, cards }, num, onPress, cardsAmount }) => {
   const [revealed, setRevealed] = useState(false)
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} activeOpacity={0.95}>
       <View style={styles.labelContainer}>
         <View style={styles.labelTextContainer}>
-          <Text style={styles.labelText}>{`${num + 1}/10`}</Text>
+          <Text style={styles.labelText}>{`${num + 1}/${cardsAmount}`}</Text>
         </View>
       </View>
       <View>
@@ -40,7 +40,8 @@ QuizCard.propTypes = {
     revealed: bool,
     picked: bool
   }),
-  num: number
+  num: number,
+  cardsAmount: number
 }
 
 export default QuizCard
