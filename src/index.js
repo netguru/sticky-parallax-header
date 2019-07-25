@@ -1,5 +1,5 @@
 import React from 'react'
-import { AvatarHeader, TabbedHeader, DetailsHeader } from './defaultComp'
+import { AvatarHeader, TabbedHeader, DetailsHeader } from './predefinedComponents'
 import StickyParallaxHeader from './StickyParallaxHeader'
 
 const index = (props) => {
