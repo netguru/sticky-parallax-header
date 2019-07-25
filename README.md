@@ -1,5 +1,5 @@
 
-![header img](./src/assets/images/readme_header.png)
+![header img](./src/assets/images/readme_header_2.png)
 
 # stickyheader.js
 
