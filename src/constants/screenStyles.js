@@ -52,7 +52,7 @@ const screenStyles = StyleSheet.create({
   },
   message: {
     color: colors.white,
-    fontSize: constants.normalizedFontSize(40),
+    fontSize: 40,
     lineHeight: 48,
     letterSpacing: -0.8,
     fontFamily: 'AvertaStd-Semibold'
