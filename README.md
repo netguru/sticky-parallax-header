@@ -8,7 +8,7 @@
 [![Github All Releases](https://img.shields.io/github/downloads/netguru/sticky-parallax-header/total.svg)]()
 
 
-_Brought with_ :heart: _by_ &nbsp; <img alt="Netguru logo" src='./src/assets/images/readme_netguru_logo.png' width='30'/>
+_Brought with_ :heart: _by_ &nbsp; <a href="https://www.netguru.com"><img alt="Netguru logo" src='./src/assets/images/readme_netguru_logo.png' width='30'/></a>
 
 # Introduction 
 
