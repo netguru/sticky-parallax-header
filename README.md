@@ -26,17 +26,9 @@ _React Native library for sticky header effect with a simple, yet powerful API. 
 ## Features
 Stickyheader.js ships with 3 different use cases for sticky headers and a possibility to create fully custom header!
 
-* Tabbed Header
-
-![Tabbed Header Gif](./src/assets/images/readme_TabbedHeader.gif)
-
-* Avatar Header
-
-![Avatar Header Gif](./src/assets/images/readme_AvatarHeader.gif)
-* Details Header
-
-![Details Header Gif](./src/assets/images/readme_DetailsHeader.gif)
-
+| Tabbed Header | Avatar Header | Details Header| 
+| :------: | :------: | :------: |
+| ![Tabbed Header Gif](./src/assets/images/readme_TabbedHeader.gif) |![Avatar Header Gif](./src/assets/images/readme_AvatarHeader.gif)| ![Details Header Gif](./src/assets/images/readme_DetailsHeader.gif)|
 
 
 ## In Use
@@ -64,6 +56,9 @@ Below are examples of those components and description of the props they are acc
 
 ### Tabbed Header
 
+
+![Details Header Gif](./src/assets/images/readme_iosTabbedHeader.gif)
+
 | Property          | Type                  | Optional |  Default                                                                     | Description                                              |
 | :---------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
 | `backgroundColor` | `string`              |    Yes   | `#1ca75d`                                                                    | Header backgtorund color                                 |
@@ -74,9 +69,6 @@ Below are examples of those components and description of the props they are acc
 | `snapToEdge`      | `bool`                |    Yes   | `true`                                                                       | Boolean to fire the function for snap To Edge            |
 | `renderBody`      | `func`                |    Yes   | `title => <RenderContent title={title} />`                                   | Function that renders body of the header (can be empty)  |
 | `tabs`            | `arrayOf(shape({}))`  |    Yes   | `[{title: 'Popular',content: <RenderContent title="Popular Quizes" />},...]`,| Array with tabs names and content                        |
-
-
-![Details Header Gif](./src/assets/images/readme_iosTabbedHeader.gif)
 
 
 ### Details Header
