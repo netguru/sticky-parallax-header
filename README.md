@@ -56,8 +56,7 @@ Below are examples of those components and description of the props they are acc
 
 ### Tabbed Header
 
-
-![Details Header Gif](./src/assets/images/readme_iosTabbedHeader.gif)
+![Tabbed Header Gif](./src/assets/images/readme_iosTabbedHeader.gif)
 
 | Property          | Type                  | Optional |  Default                                                                     | Description                                              |
 | :---------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
@@ -72,6 +71,8 @@ Below are examples of those components and description of the props they are acc
 
 
 ### Details Header
+
+![Details Header Gif](./src/assets/images/readme_iosDetailsHeader.gif)
 
 | Property              | Type                  | Optional |  Default                                                                     | Description                                              |
 | :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
@@ -91,9 +92,10 @@ Below are examples of those components and description of the props they are acc
 | `hasBorderRadius`     | `bool`                |    Yes   | `true`                                                                       | Adds radius to header's left bottom border               |
 | `iconNumber`          | `number`              |    Yes   | `10`                                                                         | Set amount of cards shown on icon                        |
 
-![Details Header Gif](./src/assets/images/readme_iosDetailsHeader.gif)
 
 ### Avatar Header
+
+![Avatar Header Gif](./src/assets/images/readme_iosAvatarHeader.gif)
 
 | Property              | Type                  | Optional |  Default                                                                     | Description                                              |
 | :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
@@ -111,8 +113,6 @@ Below are examples of those components and description of the props they are acc
 | `bounces`             | `bool`                |    Yes   | `true`                                                                       | Bounces on swiping up                                    |
 | `snapToEdge`          | `bool`                |    Yes   | `true`                                                                       | Boolean to fire the function for snap To Edge            |
 | `hasBorderRadius`     | `bool`                |    Yes   | `true`                                                                       | Adds radius to header's left bottom border               |
-
-![Details Header Gif](./src/assets/images/readme_iosAvatarHeader.gif)
 
 ## Custom Header 
 | Property                         | Type                | Required   | Default   | Description                                                     | 
