@@ -40,8 +40,7 @@ const screenStyles = StyleSheet.create({
   headerWrapper: {
     width: '100%',
     paddingHorizontal: 24,
-    paddingTop: Platform.OS === 'ios' ? ifIphoneX(64, 44) : 55,
-    paddingBottom: 20,
+    paddingTop: Platform.select({ ios: ifIphoneX(50, 40), android: 55 }),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
@@ -52,9 +51,9 @@ const screenStyles = StyleSheet.create({
   },
   message: {
     color: colors.white,
-    fontSize: 40,
+    fontSize: constants.responsiveWidth(11),
     lineHeight: 48,
-    letterSpacing: -0.8,
+    letterSpacing: -1,
     fontFamily: 'AvertaStd-Semibold'
   },
   messageContainer: {
