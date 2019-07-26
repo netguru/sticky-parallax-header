@@ -60,7 +60,7 @@ Below are examples of those components and description of the props they are acc
 
 | Property          | Type                  | Optional |  Default                                                                     | Description                                              |
 | :---------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
-| `backgroundColor` | `string`              |    Yes   | `#1ca75d`                                                                    | Header backgtorund color                                 |
+| `backgroundColor` | `string`              |    Yes   | `#1ca75d`                                                                    | Header background color                                 |
 | `headerHeight`    | `number`              |    Yes   | `ifIphoneX(92, constants.responsiveHeight(13))`                              | Sets height of folded header                             |
 | `backgroundImage` | `number`              |    Yes   | `null`                                                                       | Sets header background image                             |
 | `title`           | `string`              |    Yes   | `"Mornin' Mark! \nReady for a quiz?"`                                        | Sets header title                                        |
