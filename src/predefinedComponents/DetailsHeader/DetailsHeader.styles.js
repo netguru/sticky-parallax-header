@@ -3,9 +3,6 @@ import { colors, screenStyles, constants } from '../../constants'
 
 export default StyleSheet.create({
   ...screenStyles,
-  cardScreenHeader: {
-    paddingBottom: 14
-  },
   foregroundText: {
     color: colors.white,
     fontFamily: 'AvertaStd-Semibold',

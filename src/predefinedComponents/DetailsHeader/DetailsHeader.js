@@ -44,7 +44,7 @@ class DetailsHeader extends React.Component {
     })
 
     return (
-      <View style={[styles.headerWrapper, styles.cardScreenHeader, { backgroundColor }]}>
+      <View style={[styles.headerWrapper, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
             <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />

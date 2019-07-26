@@ -1,10 +1,11 @@
 import React from 'react'
-import { Text, View, Image, TouchableOpacity, Animated, StatusBar } from 'react-native'
+import { Text, View, Image, TouchableOpacity, Animated, StatusBar, Platform } from 'react-native'
 import { func, shape, string, oneOfType, object, array, number } from 'prop-types'
-import StickyParalaxHeader from '../../../StickyParallaxHeader'
+import StickyParallaxHeader from '../../../StickyParallaxHeader'
 import { constants, sizes } from '../../../constants'
 import styles from './UserModal.styles'
 import QuizListElement from '../QuizListElement/QuizListElement'
+import { Brandon } from '../../../assets/data/cards'
 
 const { event, ValueXY } = Animated
 
@@ -15,20 +16,13 @@ class UserModal extends React.Component {
     this.state = {
       headerLayout: {
         height: 0
-      }
+      },
+      contentHeight: 0
     }
     this.scrollY = new ValueXY()
   }
 
   setHeaderSize = headerLayout => this.setState({ headerLayout })
-
-  scrollPosition(value) {
-    const {
-      headerLayout: { height }
-    } = this.state
-
-    return constants.scrollPosition(height, value)
-  }
 
   renderHeader = () => {
     const { onPressCloseModal, user } = this.props
@@ -169,40 +163,77 @@ class UserModal extends React.Component {
     )
   }
 
+  calcMargin = () => {
+    const { contentHeight } = this.state
+    let marginBottom = 0
+
+    if (contentHeight) {
+      const isBigContent = constants.deviceHeight - contentHeight < 0
+
+      if (isBigContent) {
+        return marginBottom
+      }
+
+      marginBottom = constants.deviceHeight - sizes.headerHeight - contentHeight
+
+      return marginBottom
+    }
+
+    return marginBottom
+  }
+
+  onLayoutContent = (e) => {
+    this.setState({
+      contentHeight: e.nativeEvent.layout.height
+    })
+  }
+
+  scrollPosition(value) {
+    const {
+      headerLayout: { height }
+    } = this.state
+
+    return constants.scrollPosition(height, value)
+  }
+
   renderContent = () => {
+    const marginBottom = Platform.select({ ios: this.calcMargin(), android: 0 })
+    const user = Brandon
     const title = "Author's Quizes"
+    const cards = [
+      {
+        id: '4850294857',
+        elements: user.cardsAmount,
+        authorName: user.author,
+        mainText: user.label,
+        labelText: user.type,
+        imageSource: user.image
+      }
+    ]
 
     return (
-      <View style={[styles.content, { paddingBottom: sizes.userScreenParallaxHeader }]}>
+      <View
+        onLayout={this.onLayoutContent}
+        style={[
+          styles.content,
+          {
+            marginBottom,
+            paddingBottom: sizes.userScreenParallaxHeader
+          }
+        ]}
+      >
         <Text style={styles.contentText}>{title}</Text>
-        <QuizListElement
-          elements={10}
-          authorName="Brandon"
-          mainText="Design System"
-          labelText="Product Design"
-          imageSource={require('../../../assets/images/photosPortraitA.png')}
-        />
-        <QuizListElement
-          elements={7}
-          authorName="Brandon"
-          mainText="Style Guide"
-          labelText="Product Design"
-          imageSource={require('../../../assets/images/photosPortraitA.png')}
-        />
-        <QuizListElement
-          elements={7}
-          authorName="Brandon"
-          mainText="Style Guide"
-          labelText="Product Design"
-          imageSource={require('../../../assets/images/photosPortraitA.png')}
-        />
-        <QuizListElement
-          elements={7}
-          authorName="Brandon"
-          mainText="Style Guide"
-          labelText="Product Design"
-          imageSource={require('../../../assets/images/photosPortraitA.png')}
-        />
+        {cards.map(card => (
+          <QuizListElement
+            key={card.id}
+            elements={card.elements}
+            authorName={card.authorName}
+            mainText={card.mainText}
+            labelText={card.labelText}
+            imageSource={card.imageSource}
+            onPress={() => {}}
+          />
+        ))}
       </View>
     )
   }
@@ -213,7 +244,7 @@ class UserModal extends React.Component {
     return (
       <React.Fragment>
         <StatusBar backgroundColor={user.color} barStyle="light-content" />
-        <StickyParalaxHeader
+        <StickyParallaxHeader
           foreground={this.renderForeground()}
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
@@ -224,7 +255,7 @@ class UserModal extends React.Component {
           background={this.renderBackground()}
         >
           {this.renderContent()}
-        </StickyParalaxHeader>
+        </StickyParallaxHeader>
       </React.Fragment>
     )
   }
