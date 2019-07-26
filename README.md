@@ -141,7 +141,7 @@ Below are examples of those components and description of the props they are acc
 | `tabsWrapperStyle`               | `shape({})`         | No         | {}        | Tabs Wrapper styles                                             |
 
 
-# Getting  Started
+# Getting Started
 
 ## Prerequisites
 * [React Native](https://facebook.github.io/react-native/docs/getting-started.html)
