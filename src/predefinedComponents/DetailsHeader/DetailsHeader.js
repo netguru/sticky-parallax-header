@@ -28,7 +28,7 @@ class DetailsHeader extends React.Component {
     return constants.scrollPosition(headerLayout.height, value)
   }
 
-  renderHeader = () => {
+  renderHeader = (user) => {
     const {
       backgroundColor,
       leftTopIconOnPress,
@@ -50,7 +50,7 @@ class DetailsHeader extends React.Component {
             <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
-            <Text style={styles.headerTitle}>Design System</Text>
+            <Text style={styles.headerTitle}>{user.label}</Text>
           </Animated.View>
         </View>
         <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
