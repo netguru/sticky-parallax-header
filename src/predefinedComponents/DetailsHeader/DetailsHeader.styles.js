@@ -29,7 +29,8 @@ export default StyleSheet.create({
   },
   icon: {
     width: 16,
-    height: 16
+    height: 16,
+    marginTop: 3
   },
   number: {
     color: colors.black,
