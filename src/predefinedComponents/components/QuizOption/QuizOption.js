@@ -6,6 +6,13 @@ import { colors } from '../../../constants'
 
 const QuizOption = ({ reveal, revealed, card: { number, question, value } }) => {
   const [picked, setPicked] = useState(false)
+  const [paddingVertical, setPaddingVertical] = useState(0)
+  const calcPaddings = (event) => {
+    const { height } = event.nativeEvent.layout
+    const circleRadius = 40
+    const padding = height > circleRadius ? height / 2.5 : 0
+    setPaddingVertical(padding)
+  }
 
   const renderValue = () => {
     if (value) {
@@ -24,8 +31,13 @@ const QuizOption = ({ reveal, revealed, card: { number, question, value } }) => 
 
     return (
       <View style={[styles.container, { backgroundColor }]}>
-        <View style={styles.letterContainer}>{renderValue()}</View>
-        <View style={styles.textContainer}>
+        <View style={[styles.letterContainer, { paddingVertical }]}>{renderValue()}</View>
+        <View
+          onLayout={(event) => {
+            calcPaddings(event)
+          }}
+          style={styles.textContainer}
+        >
           <Text style={[styles.text, { color }]}>{question}</Text>
         </View>
       </View>
@@ -40,10 +52,15 @@ const QuizOption = ({ reveal, revealed, card: { number, question, value } }) => 
       }}
       style={styles.container}
     >
-      <View style={styles.letterContainer}>
+      <View style={[styles.letterContainer, { paddingVertical }]}>
         <Text style={styles.letter}>{number}</Text>
       </View>
-      <View style={styles.textContainer}>
+      <View
+        onLayout={(event) => {
+          calcPaddings(event)
+        }}
+        style={styles.textContainer}
+      >
         <Text style={styles.text}>{question}</Text>
       </View>
     </TouchableOpacity>
