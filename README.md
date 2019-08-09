@@ -61,7 +61,7 @@ Below are examples of those components and description of the props they are acc
 
 ## Tabbed Header
 
-![Tabbed Header Gif](./src/assets/images/readme_iosTabbedHeader.gif)
+![Tabbed Header Gif](./src/assets/images/readme_Tabbed.gif)
 
 | Property          | Type                  | Optional |  Default                                                                     | Description                                              |
 | :---------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
@@ -77,7 +77,7 @@ Below are examples of those components and description of the props they are acc
 
 ## Details Header
 
-![Details Header Gif](./src/assets/images/readme_iosDetailsHeader.gif)
+![Details Header Gif](./src/assets/images/readme_Details.gif)
 
 | Property              | Type                  | Optional |  Default                                                                     | Description                                              |
 | :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
@@ -100,7 +100,7 @@ Below are examples of those components and description of the props they are acc
 
 ### Avatar Header
 
-![Avatar Header Gif](./src/assets/images/readme_iosAvatarHeader.gif)
+![Avatar Header Gif](./src/assets/images/readme_Avatar.gif)
 
 | Property              | Type                  | Optional |  Default                                                                     | Description                                              |
 | :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
@@ -366,6 +366,8 @@ class TabScreen extends React.Component {
 }
 ```
 <h1 id="Demo">Demo</h1>
+<img alt="Logo"  src='./src/assets/images/readme_quizlogo.svg' width='60'/>
+
 If you want to test package without installation you can download our [showcase app](https://github.com/netguru/quiz-showcase-rn)
 
 ## Tips
@@ -380,9 +382,34 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
 
 <h1 id="Contributors">Contributors</h1>
 
-<a href="https://www.github.com/kolkol69">
-<img alt="Maks Kolodiy" src='https://pp.userapi.com/c857432/v857432546/261e9/FHIKcsfAndM.jpg' width='30'/>
+<img alt="Radoslaw" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_radoslaw@3x.png' width='60'/>
+
+<img alt="Krzysztof" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_krzysztof@3x.png' width='60'/>
+
+<img alt="Anna" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_anna@3x.png' width='60'/>
+
+<img alt="Damian" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_damian@3x.png' width='60'/>
+
+<a href="https://github.com/IdaszakDaniel">
+<img alt="Daniel" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_daniel@3x.png' width='60'/>
 </a>
+
+<img alt="Maria" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_maria@3x.png' width='60'/>
+
+<img alt="Mateusz" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_mateusz@3x.png' width='60'/>
+
+<img alt="Natalia Muryn" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_natalia@3x.png' width='60'/>
+
+<a href="https://github.com/Karniej">
+<img alt="Pawel" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_pawel@3x.png' width='60'/>
+</a>
+
+<a href="https://www.github.com/kolkol69">
+<img alt="Maks Kolodiy" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_maks@3x.png' width='60'/>
+</a>
+
+<div>
+
 
 # License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT). 
