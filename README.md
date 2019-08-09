@@ -5,12 +5,15 @@
   <h1>stickyheader.js</h1>
 </div>
 
-[![Build Status](https://app.bitrise.io/app/1ffc1637c8691f4f/status.svg?token=2vMEootz4cobIHmtr5UeYg&branch=develop)](https://app.bitrise.io/app/1ffc1637c8691f4f)
-[![npm version](https://badge.fury.io/js/survey-monkey-streams.svg)](//npmjs.com/package/react-native-sticky-parallax-header)
-[![Github All Releases](https://img.shields.io/github/downloads/netguru/sticky-parallax-header/total.svg)]()
+<div style="display: flex; justify-content: center">
+  <image src="https://app.bitrise.io/app/1ffc1637c8691f4f/status.svg?token=2vMEootz4cobIHmtr5UeYg&branch=develop"/>
+  <image src="https://badge.fury.io/js/survey-monkey-streams.svg"/>
+  <image src="https://img.shields.io/github/downloads/netguru/sticky-parallax-header/total.svg"/>
+</div>
+<div style="text-align: center">
+  <em>Brought with</em> ❤️ <em>by</em> &nbsp; <a href="https://www.netguru.com"><img alt="Netguru logo" src='./src/assets/images/readme_netguru_logo.png' width='30'/></a>
+</div>
 
-
-_Brought with_ :heart: _by_ &nbsp; <a href="https://www.netguru.com"><img alt="Netguru logo" src='./src/assets/images/readme_netguru_logo.png' width='30'/></a>
 
 # Introduction 
 
@@ -374,11 +377,12 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
 | React          | 16.8.6           |
 | React Native   | 0.59.8           |
 
+
 <h1 id="Contributors">Contributors</h1>
 
 <a href="https://www.github.com/kolkol69">
 <img alt="Maks Kolodiy" src='https://pp.userapi.com/c857432/v857432546/261e9/FHIKcsfAndM.jpg' width='30'/>
 </a>
 
-
-
+# License
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT). 
