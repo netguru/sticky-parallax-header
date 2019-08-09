@@ -1,7 +1,9 @@
 
 ![header img](./src/assets/images/readme_header_2.png)
 
-# stickyheader.js
+<div style="text-align: center">
+  <h1>stickyheader.js</h1>
+</div>
 
 [![Build Status](https://app.bitrise.io/app/1ffc1637c8691f4f/status.svg?token=2vMEootz4cobIHmtr5UeYg&branch=develop)](https://app.bitrise.io/app/1ffc1637c8691f4f)
 [![npm version](https://badge.fury.io/js/survey-monkey-streams.svg)](//npmjs.com/package/react-native-sticky-parallax-header)
@@ -12,16 +14,16 @@ _Brought with_ :heart: _by_ &nbsp; <a href="https://www.netguru.com"><img alt="N
 
 # Introduction 
 
-_React Native library for sticky header effect with a simple, yet powerful API. For the first time, designers can create and ship beautiful animations without an engineer painstakingly recreating it by hand._
+<div style="text-align: center; color: light-gray">
+  React Native library for sticky header effect with a simple, yet powerful API. For the first time, designers can create and ship beautiful animations without an engineer painstakingly recreating it by hand.
+</div>
 
-# Table of Content
-* [Preview](#Preview) 
-* [Getting Started](#Getting-Started) 
-* [Usage](#Usage)
-* [Demo](#Demo) 
-* [Contributors](#Contributors)
+<div style="display: flex; justify-content: center">
+  <a href="#Preview">Preview</a> &nbsp;|&nbsp; <a href="#Getting-Started">Getting Started</a> &nbsp;|&nbsp; <a href="#Usage">Usage</a> &nbsp;|&nbsp; <a href="#Demo">Demo</a>  &nbsp;|&nbsp; <a href="#Contributors">Contributors</a>
+</div>
 
 
+<h1 id="Preview">Preview</h1>
 # Preview
 ## Features
 Stickyheader.js ships with 3 different use cases for sticky headers and a possibility to create fully custom header!
@@ -54,7 +56,7 @@ export default TestScreen
 
 Below are examples of those components and description of the props they are accepting.
 
-### Tabbed Header
+## Tabbed Header
 
 ![Tabbed Header Gif](./src/assets/images/readme_iosTabbedHeader.gif)
 
@@ -70,7 +72,7 @@ Below are examples of those components and description of the props they are acc
 | `tabs`            | `arrayOf(shape({}))`  |    Yes   | `[{title: 'Popular',content: <RenderContent title="Popular Quizes" />},...]`,| Array with tabs names and content                        |
 
 
-### Details Header
+## Details Header
 
 ![Details Header Gif](./src/assets/images/readme_iosDetailsHeader.gif)
 
@@ -140,8 +142,7 @@ Below are examples of those components and description of the props they are acc
 | `tabsContainerBackgroundColor`   | `string`            | No         | -         | Background color of tab bar container                           |
 | `tabsWrapperStyle`               | `shape({})`         | No         | {}        | Tabs Wrapper styles                                             |
 
-
-# Getting Started
+<h1 id="Getting-Started">Getting Started</h1>
 
 ## Prerequisites
 * [React Native](https://facebook.github.io/react-native/docs/getting-started.html)
@@ -210,7 +211,7 @@ src/
 * Imports and exports inside `index.js` files eg. `screens/index.js`, `components/index.js` should be alfabetically
 * Style names in `ComponentName.styles.js` should be ordered alfabetically
 
-## Usage
+<h1 id="Usage">Usage</h1>
 
 Here is a basic example of how tou can create a custom header:)
 
@@ -361,7 +362,7 @@ class TabScreen extends React.Component {
   }
 }
 ```
-## Demo
+<h1 id="Demo">Demo</h1>
 If you want to test package without installation you can download our [showcase app](https://github.com/netguru/quiz-showcase-rn)
 
 ## Tips
@@ -373,7 +374,7 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
 | React          | 16.8.6           |
 | React Native   | 0.59.8           |
 
-# Contributors
+<h1 id="Contributors">Contributors</h1>
 
 <a href="https://www.github.com/kolkol69">
 <img alt="Maks Kolodiy" src='https://pp.userapi.com/c857432/v857432546/261e9/FHIKcsfAndM.jpg' width='30'/>
