@@ -27,8 +27,7 @@
 
 
 <h1 id="Preview">Preview</h1>
-# Preview
-## Features
+<h2> Features </h2>
 Stickyheader.js ships with 3 different use cases for sticky headers and a possibility to create fully custom header!
 
 | Tabbed Header | Avatar Header | Details Header| 
@@ -98,7 +97,7 @@ Below are examples of those components and description of the props they are acc
 | `iconNumber`          | `number`              |    Yes   | `10`                                                                         | Set amount of cards shown on icon                        |
 
 
-### Avatar Header
+## Avatar Header
 
 ![Avatar Header Gif](./src/assets/images/readme_Avatar.gif)
 
