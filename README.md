@@ -12,9 +12,9 @@
   <image src="https://badge.fury.io/js/survey-monkey-streams.svg"/>
   <image src="https://img.shields.io/github/downloads/netguru/sticky-parallax-header/total.svg"/>
 </div>
-<p align="center">
-  <em>Brought with</em> ❤️ <em>by</em> &nbsp; <a href="https://www.netguru.com"><img alt="Netguru logo" src='./src/assets/images/readme_netguru_logo.png' width='30'/></a>
-</p>
+<div align="center" style="display: flex; align-items: center; justify-content: center;">
+    <em>Brought with</em> &nbsp;❤️ <em>by</em> &nbsp;&nbsp; <a href="https://www.netguru.com"><img alt="Netguru logo" src='./src/assets/images/readme_netguru_logo.png' width='30'/></a>
+</div>
 
 
 # Introduction 
