@@ -1,5 +1,5 @@
 
-<image align="center" src="./src/assets/images/readme_header_2.png"/>
+<image align="center" src="./src/assets/images/readme_header.png"/>
 
 <div align="center">
   <h1>stickyheader.js</h1>
