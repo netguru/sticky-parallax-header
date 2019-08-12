@@ -1,7 +1,7 @@
 
 ![header img](./src/assets/images/readme_header_2.png)
 
-<div style="text-align: center">
+<div align="center">
   <h1>stickyheader.js</h1>
 </div>
 
@@ -10,16 +10,16 @@
   <image src="https://badge.fury.io/js/survey-monkey-streams.svg"/>
   <image src="https://img.shields.io/github/downloads/netguru/sticky-parallax-header/total.svg"/>
 </div>
-<div style="text-align: center">
+<p align="center">
   <em>Brought with</em> ❤️ <em>by</em> &nbsp; <a href="https://www.netguru.com"><img alt="Netguru logo" src='./src/assets/images/readme_netguru_logo.png' width='30'/></a>
-</div>
+</p>
 
 
 # Introduction 
 
-<div style="text-align: center; color: light-gray">
+<p style="text-align: center; color: lightgrey">
   React Native library for sticky header effect with a simple, yet powerful API. For the first time, designers can create and ship beautiful animations without an engineer painstakingly recreating it by hand.
-</div>
+</p>
 
 <div style="display: flex; justify-content: center">
   <a href="#Preview">Preview</a> &nbsp;|&nbsp; <a href="#Getting-Started">Getting Started</a> &nbsp;|&nbsp; <a href="#Usage">Usage</a> &nbsp;|&nbsp; <a href="#Demo">Demo</a>  &nbsp;|&nbsp; <a href="#Contributors">Contributors</a>
