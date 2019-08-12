@@ -381,6 +381,8 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
 
 <h1 id="Contributors">Contributors</h1>
 
+<div>
+
 <img alt="Radoslaw" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_radoslaw@3x.png' width='60'/>
 
 <img alt="Krzysztof" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_krzysztof@3x.png' width='60'/>
@@ -407,7 +409,7 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
 <img alt="Maks Kolodiy" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_maks@3x.png' width='60'/>
 </a>
 
-<div>
+</div>
 
 
 # License
