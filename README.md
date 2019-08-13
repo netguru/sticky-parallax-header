@@ -1,7 +1,7 @@
 
 
 <div align="center">
-  <image align="center" src="./src/assets/images/readme_header.png"/>
+  <image align="center" src="./src/assets/images/readme_header.svg"/>
 </div>
 <div align="center">
   <h1>stickyheader.js</h1>
