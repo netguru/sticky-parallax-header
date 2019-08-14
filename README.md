@@ -4,7 +4,7 @@
   <image align="center" src="./src/assets/images/readme_header.svg"/>
 </div>
 <div align="center">
-  <h1>stickyheader.js</h1>
+  <h1>Stickyheader.js</h1>
 </div>
 
 <div align="center">
@@ -22,7 +22,7 @@
 # Introduction 
 
 <p align="center">
-  React Native library for sticky header effect with a simple, yet powerful API. For the first time, designers can create and ship beautiful animations without an engineer painstakingly recreating it by hand.
+  Stickyheader.js is a simple React Native library, enabling to create a fully custom header for your iOS and Android apps.
 </p>
 
 <div align="center">
