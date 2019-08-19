@@ -7,7 +7,7 @@ import {
   ImagePropsBase
 } from 'react-native';
 
-interface HeaderSizeProps {
+export interface HeaderSizeProps {
   x: number;
 
   y: number;
@@ -17,7 +17,7 @@ interface HeaderSizeProps {
   height: number;
 }
 
-interface TabProps {
+export interface TabProps {
   i: number;
 
   from: number;
@@ -25,13 +25,13 @@ interface TabProps {
   ref: any;
 }
 
-interface TabsArray {
+export interface TabsArray {
   title: string;
 
   content: React.ReactElement;
 }
 
-interface SharedProps {
+export interface SharedProps {
   headerHeight?: number;
 
   backgroundImage?: ImageBackgroundProps;
@@ -39,7 +39,7 @@ interface SharedProps {
   snapToEdge?: boolean;
 }
 
-interface IconProps {
+export interface IconProps {
   leftTopIconOnPress?: () => void;
 
   rightTopIconOnPress?: () => void;
