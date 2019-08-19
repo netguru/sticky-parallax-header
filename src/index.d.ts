@@ -1,66 +1,142 @@
 import React from 'react';
-import { ScrollViewProps, TextStyle, ViewStyle } from 'react-native';
+import {
+  ScrollViewProps,
+  TextStyle,
+  ViewStyle,
+  ImageBackgroundProps,
+  ImagePropsBase
+} from 'react-native';
 
 interface HeaderSizeProps {
   x: number;
+
   y: number;
+
   width: number;
+
   height: number;
 }
 
 interface TabProps {
   i: number;
+
   from: number;
+
   ref: any;
 }
 
 interface TabsArray {
   title: string;
+
   content: React.ReactElement;
 }
 
-export interface StickyParallaxHeaderProps {
-  background: React.ReactElement;
+interface SharedProps {
+  headerHeight?: number;
+
+  backgroundImage?: ImageBackgroundProps;
+
+  snapToEdge?: boolean;
+}
+
+interface IconProps {
+  leftTopIconOnPress?: () => void;
+
+  rightTopIconOnPress?: () => void;
+
+  leftTopIcon?: ImagePropsBase;
+
+  rightTopIcon?: ImagePropsBase;
+}
+
+export interface TabbedHeaderProps extends SharedProps {
+  headerType: string;
+
+  backgroundColor?: string;
+
+  title?: string;
+
+  bounces?: boolean;
+
+  renderBody?: (title: string) => React.ReactElement;
+
+  tabs?: TabsArray[];
+}
+
+export interface DetailsHeaderProps extends SharedProps, IconProps {
+  headerType: string;
+
+  backgroundColor?: string;
+
+  title?: string;
+
+  tag?: string;
+
+  image?: ImagePropsBase;
+
+  renderBody?: (title: string) => React.ReactElement;
+
+  bounces?: boolean;
+
+  hasBorderRadius?: boolean;
+
+  iconNumber?: number;
+}
+
+export interface AvatarHeaderProps extends SharedProps, IconProps {
+  headerType: string;
+
+  backgroundColor?: string;
+
+  title?: string;
+
+  subtitle?: string;
+
+  image?: ImagePropsBase;
+
+  renderBody?: (title: string) => React.ReactElement;
+
+  bounces?: boolean;
+
+  hasBorderRadius?: boolean;
+}
+
+export interface CustomHeaderProps extends SharedProps {
+  background?: React.ReactElement;
 
   backgroundColor: string;
 
-  backgroundImage: React.ReactElement;
-
   bounces: boolean;
 
-  children: React.ReactElement;
+  children?: React.ReactElement;
 
   foreground: React.ReactElement;
 
   header: React.ReactElement;
 
-  headerHeight: number;
+  headerSize?: ({ x, y, width, height }: HeaderSizeProps) => void;
 
-  headerSize: ({ x, y, width, height }: HeaderSizeProps) => void;
+  initialPage?: number;
 
-  initialPage: number;
+  onChangeTab?: ({ i, ref, from }: TabProps) => void;
 
-  onChangeTab: ({ i, ref, from }: TabProps) => void;
+  onEndReached?: () => void;
 
-  onEndReached: () => void;
+  parallaxHeight?: number;
 
-  parallaxHeight: number;
+  scrollEvent?: ScrollViewProps['onScroll'];
 
-  scrollEvent: ScrollViewProps['onScroll'];
+  tabs?: TabsArray[];
 
-  snapToEdge: boolean;
+  tabTextStyle?: TextStyle;
 
-  tabTextActiveStyle: TextStyle;
+  tabTextActiveStyle?: TextStyle;
 
-  tabTextContainerActiveStyle: ViewStyle;
+  tabTextContainerStyle?: ViewStyle;
 
-  tabTextContainerStyle: ViewStyle;
+  tabTextContainerActiveStyle?: ViewStyle;
 
-  tabTextStyle: TextStyle;
+  tabsContainerBackgroundColor?: string;
 
-  tabs: TabsArray[];
-
-  tabsContainerBackgroundColor: string;
-
-  tabsWrapperStyle: ViewStyle;
+  tabsWrapperStyle?: ViewStyle;
 }
