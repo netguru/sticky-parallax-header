@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react-native-nested-scroll-view": "^8.0.0",
     "react-native-iphone-x-helper": "^1.2.0"
   },
   "devDependencies": {
