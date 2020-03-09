@@ -1,7 +1,7 @@
 module.exports = {
   parser: 'babel-eslint',
-  extends: 'airbnb',
-  plugins: ['react', 'react-native', 'jsx-a11y', 'import'],
+  extends: ['airbnb', 'prettier'],
+  plugins: ['react', 'react-native', 'jsx-a11y', 'import', 'prettier'],
   settings: {
     'import/resolver': {
       node: {
@@ -27,6 +27,7 @@ module.exports = {
     'no-unused-vars': [2, { argsIgnorePattern: '^_' }],
     'max-len': [2, 100],
     'global-require': 0,
+    'prettier/prettier': ['error'],
     'no-multiple-empty-lines': [
       'error',
       {

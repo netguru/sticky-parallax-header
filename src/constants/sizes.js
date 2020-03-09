@@ -1,5 +1,5 @@
 import { Platform } from 'react-native'
-import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { ifIphoneX } from '../utils'
 import constants from './constants'
 
 export default {

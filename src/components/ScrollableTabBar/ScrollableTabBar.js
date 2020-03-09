@@ -1,9 +1,8 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-return-assign */
 import React from 'react'
-import { Animated, Text, TouchableOpacity, View } from 'react-native'
+import { Animated, Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import { array, func, number, object, shape, string } from 'prop-types'
-import NestedScrollView from 'react-native-nested-scroll-view'
 import { constants } from '../../constants'
 import styles from './ScrollableTabBar.styles'
 
@@ -113,7 +112,7 @@ class ScrollableTabBar extends React.PureComponent {
           }
         ]}
       >
-        <NestedScrollView
+        <ScrollView
           style={styles.nestedStyle}
           contentContainerStyle={styles.contentContainer}
           ref={r => (this.scrollView = r)}
@@ -176,7 +175,7 @@ class ScrollableTabBar extends React.PureComponent {
               }
             ]}
           />
-        </NestedScrollView>
+        </ScrollView>
       </View>
     )
   }
