@@ -159,7 +159,7 @@ Below are examples of those components and description of the props they are acc
 ### For React Native >= 0.60.0 use version 0.0.60 and above, for previous React Native versions use 0.0.59
 ### Installation for React Native >= 0.60.0
 
-Add package
+Add latest package version
 ```bash
 $ yarn add react-native-sticky-parallax-header
 ```
@@ -171,9 +171,9 @@ $ react-native link react-native-sticky-parallax-header
 
 ### Installation for React Native < 0.60.0
 
-Add package
+Add package version 0.0.59
 ```bash
-$ yarn add react-native-sticky-parallax-header
+$ yarn add react-native-sticky-parallax-header@0.0.59
 ```
 
 In order to make tab bar work, we have to link react-native-nested-scroll-view package.
