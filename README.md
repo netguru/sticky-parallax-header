@@ -156,12 +156,27 @@ Below are examples of those components and description of the props they are acc
 * [node v10.9.0](https://github.com/creationix/nvm)
 
 ## Installation
+### For React Native >= 0.60.0 use version 0.0.60 and above, for previous React Native versions use 0.0.59
+### Installation for React Native >= 0.60.0
+
+Add package
+```bash
+$ yarn add react-native-sticky-parallax-header
+```
+
+Link fonts
+```bash
+$ react-native link react-native-sticky-parallax-header
+```
+
+### Installation for React Native < 0.60.0
+
+Add package
 ```bash
 $ yarn add react-native-sticky-parallax-header
 ```
 
 In order to make tab bar work, we have to link react-native-nested-scroll-view package.
-
 ```bash
 $ react-native link react-native-nested-scroll-view
 ```
@@ -170,6 +185,7 @@ Depending on the version of React Native you use, the package can be still makin
 ```bash
 $ yarn add patch-package postinstall-postinstall
 ```
+
 Then you add this script to your scripts:
 ```bash
  "scripts": {

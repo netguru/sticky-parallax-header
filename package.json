@@ -1,39 +1,29 @@
 {
   "name": "react-native-sticky-parallax-header",
-  "version": "0.0.58",
+  "version": "0.0.60",
   "main": "src/index.js",
   "repository": "https://github.com/netguru/sticky-parallax-header",
   "author": "IdaszakDaniel <idaszak1@gmail.com>",
   "license": "MIT",
-  "scripts": {
-    "test": "jest"
-  },
+  "scripts": {},
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "react-native-nested-scroll-view": "^8.0.0",
-    "react-native-iphone-x-helper": "^1.2.0"
+    "prop-types": "^15.7.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.6",
+    "react-native": ">=0.60.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.8.0",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.13.1",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
+    "@babel/core": "^7.8.4",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-import-resolver-reactnative": "^1.0.2",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-native": "^3.7.0",
-    "jest": "^24.8.0",
-    "metro-react-native-babel-preset": "^0.54.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-native": "^0.59.8"
-  },
-  "jest": {
-    "verbose": true,
-    "preset": "react-native"
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-native": "^3.8.1"
   }
 }
