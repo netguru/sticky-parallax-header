@@ -172,7 +172,7 @@ class StickyParallaxHeader extends Component {
             height: headerHeight,
             backgroundColor: isArray
               ? arrayHeaderStyle.backgroundColor
-              : backgroundColor || headerStyle.backgroundColor
+              : backgroundColor || headerStyle?.backgroundColor
           })
         }
       >
@@ -327,7 +327,7 @@ class StickyParallaxHeader extends Component {
                 {
                   backgroundColor: isArray
                     ? arrayHeaderStyle.backgroundColor
-                    : headerStyle.backgroundColor
+                    : headerStyle?.backgroundColor
                 }
               ]}
             />
