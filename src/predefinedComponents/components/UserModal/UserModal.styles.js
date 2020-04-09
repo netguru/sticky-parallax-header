@@ -25,8 +25,7 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     color: colors.white,
-    marginLeft: 12,
-    fontFamily: 'AvertaStd-Semibold'
+    marginLeft: 12
   },
   infoContainer: {
     flexDirection: 'row',
@@ -42,8 +41,7 @@ export default StyleSheet.create({
   infoText: {
     color: colors.white,
     fontSize: constants.normalizedFontSize(16),
-    lineHeight: 24,
-    fontFamily: 'AvertaStd-Regular'
+    lineHeight: 24
   },
   icon: {
     width: 16,
