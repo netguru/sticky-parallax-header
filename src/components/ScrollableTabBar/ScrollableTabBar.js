@@ -13,23 +13,21 @@ class ScrollableTabBar extends React.PureComponent {
     super(props)
     this.currentXPosition = 0
     this.state = {
-      tabUnderlineWidth: props.tabs.map(_ => 0),
+      tabUnderlineWidth: props.tabs.map((_) => 0),
       activeTab: this.props.activeTab
     }
   }
-  
-  componentDidUpdate(prevProps, prevState){
+
+  componentDidUpdate(prevProps, prevState) {
     const { activeTab } = this.state
-    if(prevState.activeTab !== activeTab){
+    if (prevState.activeTab !== activeTab) {
       this.scrollToTab(activeTab)
     }
   }
-  
-  static getDerivedStateFromProps(nextProps, prevState){
-    if(nextProps.activeTab !== prevState.activeTab)
-      return {activeTab: nextProps.activeTab}
-    else 
-      return null
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.activeTab !== prevState.activeTab) return { activeTab: nextProps.activeTab }
+    else return null
   }
 
   adjustPrevious = (page) => {
@@ -123,8 +121,8 @@ class ScrollableTabBar extends React.PureComponent {
         <ScrollView
           style={styles.nestedStyle}
           contentContainerStyle={styles.contentContainer}
-          ref={r => (this.scrollView = r)}
-          onScrollEndDrag={event => (this.currentXPosition = event.nativeEvent.contentOffset.x)}
+          ref={(r) => (this.scrollView = r)}
+          onScrollEndDrag={(event) => (this.currentXPosition = event.nativeEvent.contentOffset.x)}
           vertical={false}
           horizontal
           bounces={false}
@@ -143,13 +141,7 @@ class ScrollableTabBar extends React.PureComponent {
                 activeOpacity={0.9}
                 onPress={() => this.goToPage(page)}
               >
-                <View
-                  style={[
-                    styles.tabContainer,
-                    tabTextContainerStyle,
-                    isTabActive && tabTextContainerActiveStyle
-                  ]}
-                >
+                <View style={[styles.tabContainer, tabTextContainerStyle, isTabActive && tabTextContainerActiveStyle]}>
                   <Text
                     // eslint-disable-next-line no-return-assign
                     onLayout={({

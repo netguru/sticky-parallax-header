@@ -67,42 +67,42 @@ class StickyParallaxHeader extends Component {
       if (y > 0 && y < snapToEdgeTreshold) {
         return constants.isAndroid
           ? this.setState(
-            {
-              isFolded: false
-            },
-            scrollNode.scrollTo({ x: 0, y: 0, animated: true })
-          )
+              {
+                isFolded: false
+              },
+              scrollNode.scrollTo({ x: 0, y: 0, animated: true })
+            )
           : timing(snapToEdgeAnimatedValue, {
-            toValue: { x: 0, y: 0 },
-            duration: 400,
-            easing: Easing.out(Easing.cubic),
-            useNativeDriver: true
-          }).start(() => {
-            snapToEdgeAnimatedValue.removeListener(id)
-            this.setState({
-              isFolded: false
+              toValue: { x: 0, y: 0 },
+              duration: 400,
+              easing: Easing.out(Easing.cubic),
+              useNativeDriver: true
+            }).start(() => {
+              snapToEdgeAnimatedValue.removeListener(id)
+              this.setState({
+                isFolded: false
+              })
             })
-          })
       }
       if (y >= snapToEdgeTreshold && y < scrollHeight) {
         return constants.isAndroid
           ? this.setState(
-            {
-              isFolded: true
-            },
-            scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
-          )
+              {
+                isFolded: true
+              },
+              scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
+            )
           : timing(snapToEdgeAnimatedValue, {
-            toValue: { x: 0, y: scrollHeight },
-            duration: 400,
-            easing: Easing.out(Easing.cubic),
-            useNativeDriver: true
-          }).start(() => {
-            snapToEdgeAnimatedValue.removeListener(id)
-            this.setState({
-              isFolded: true
+              toValue: { x: 0, y: scrollHeight },
+              duration: 400,
+              easing: Easing.out(Easing.cubic),
+              useNativeDriver: true
+            }).start(() => {
+              snapToEdgeAnimatedValue.removeListener(id)
+              this.setState({
+                isFolded: true
+              })
             })
-          })
       }
     }
 
@@ -161,7 +161,7 @@ class StickyParallaxHeader extends Component {
     const isArray = Array.isArray(headerStyle)
     const arrayHeaderStyle = {}
     if (isArray) {
-      headerStyle.map(el => Object.assign(arrayHeaderStyle, el))
+      headerStyle.map((el) => Object.assign(arrayHeaderStyle, el))
     }
 
     return (
@@ -280,7 +280,7 @@ class StickyParallaxHeader extends Component {
     const isArray = Array.isArray(headerStyle)
     const arrayHeaderStyle = {}
     if (isArray) {
-      headerStyle.map(el => Object.assign(arrayHeaderStyle, el))
+      headerStyle.map((el) => Object.assign(arrayHeaderStyle, el))
     }
 
     const shouldRenderTabs = tabs && tabs.length > 0
@@ -320,26 +320,22 @@ class StickyParallaxHeader extends Component {
             }
           )}
         >
-          <View style={{ height: parallaxHeight }} onLayout={e => this.onLayout(e)}>
+          <View style={{ height: parallaxHeight }} onLayout={(e) => this.onLayout(e)}>
             <View
               style={[
                 styles.overScrollPadding,
                 {
-                  backgroundColor: isArray
-                    ? arrayHeaderStyle.backgroundColor
-                    : headerStyle?.backgroundColor
+                  backgroundColor: isArray ? arrayHeaderStyle.backgroundColor : headerStyle?.backgroundColor
                 }
               ]}
             />
-            {backgroundImage
-              ? this.renderImageBackground(scrollHeight)
-              : this.renderPlainBackground(scrollHeight)}
+            {backgroundImage ? this.renderImageBackground(scrollHeight) : this.renderPlainBackground(scrollHeight)}
             {this.renderForeground(scrollHeight)}
           </View>
           {shouldRenderTabs && this.renderTabs()}
           <ScrollableTabView
             initialPage={initialPage}
-            onChangeTab={i => this.onChangeTabHandler(i)}
+            onChangeTab={(i) => this.onChangeTabHandler(i)}
             tabs={tabs}
             page={currentPage}
             swipedPage={this.goToPage}
@@ -348,8 +344,8 @@ class StickyParallaxHeader extends Component {
             isHeaderFolded={isFolded}
           >
             {!tabs && children}
-            {tabs
-              && tabs.map(item => (
+            {tabs &&
+              tabs.map((item) => (
                 <View
                   tabLabel={item.title}
                   key={item.title}
