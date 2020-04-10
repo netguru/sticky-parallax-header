@@ -13,21 +13,15 @@ class ScrollableTabBar extends React.PureComponent {
     super(props)
     this.currentXPosition = 0
     this.state = {
-      tabUnderlineWidth: props.tabs.map((_) => 0),
-      activeTab: this.props.activeTab
+      tabUnderlineWidth: props.tabs.map((_) => 0)
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { activeTab } = this.state
-    if (prevState.activeTab !== activeTab) {
+  componentDidUpdate(prevProps) {
+    const { activeTab } = this.props
+    if (prevProps.activeTab !== activeTab) {
       this.scrollToTab(activeTab)
     }
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.activeTab !== prevState.activeTab) return { activeTab: nextProps.activeTab }
-    else return null
   }
 
   adjustPrevious = (page) => {

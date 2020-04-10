@@ -33,29 +33,19 @@ class ScrollableTabView extends React.Component {
       currentPage: initialPage,
       scrollXIOS,
       containerWidth: deviceWidth,
-      sceneKeys: this.newSceneKeys({ currentPage: initialPage }),
-      children: this.props.children
+      sceneKeys: this.newSceneKeys({ currentPage: initialPage })
     }
 
     scrollXIOS.addListener(({ value }) => callListeners(value / deviceWidth))
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    let update = {}
+  componentDidUpdate(prevProps) {
+    const { children, page } = this.props
+    const { currentPage } = this.state
 
-    if (nextProps.children !== prevState.children) update.children = nextProps.children
+    if (children !== prevProps.children) this.updateSceneKeys({ page: currentPage, children: children })
 
-    if (nextProps.page >= 0 && nextProps.page !== prevState.currentPage) update.currentPage = nextProps.page
-
-    return Object.keys(update).length ? update : null
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { children, currentPage } = this.state
-
-    if (prevState.children !== children) this.updateSceneKeys({ page: currentPage, children: children })
-
-    if (prevState.currentPage !== currentPage) this.goToPage(currentPage)
+    if (page !== currentPage && page >= 0) this.goToPage(page)
   }
 
   componentWillUnmount() {
