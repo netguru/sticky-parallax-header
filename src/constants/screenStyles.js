@@ -23,8 +23,7 @@ const screenStyles = StyleSheet.create({
     alignSelf: 'flex-start',
     letterSpacing: -0.2,
     paddingTop: 40,
-    paddingBottom: 20,
-    fontFamily: 'AvertaStd-Semibold'
+    paddingBottom: 20
   },
   foreground: {
     flex: 1,
@@ -53,8 +52,7 @@ const screenStyles = StyleSheet.create({
     color: colors.white,
     fontSize: constants.responsiveWidth(11),
     lineHeight: 48,
-    letterSpacing: -1,
-    fontFamily: 'AvertaStd-Semibold'
+    letterSpacing: -1
   },
   messageContainer: {
     paddingTop: 24,

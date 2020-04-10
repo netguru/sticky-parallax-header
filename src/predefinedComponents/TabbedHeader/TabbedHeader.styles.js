@@ -22,8 +22,7 @@ export default StyleSheet.create({
     lineHeight: 20,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    color: colors.white,
-    fontFamily: 'AvertaStd-Semibold'
+    color: colors.white
   },
   modalStyle: {
     margin: 0
