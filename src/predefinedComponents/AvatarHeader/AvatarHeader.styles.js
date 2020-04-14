@@ -30,7 +30,6 @@ export default StyleSheet.create({
     marginRight: 12
   },
   infoContainer: {
-    flex: 1,
     flexDirection: 'row',
     marginBottom: 16
   },
@@ -42,6 +41,7 @@ export default StyleSheet.create({
     width: 56
   },
   infoText: {
+    flexGrow: 1,
     color: colors.white,
     fontSize: constants.normalizedFontSize(16),
     lineHeight: 24
@@ -63,7 +63,6 @@ export default StyleSheet.create({
   },
   userModalMessageContainer: {
     marginTop: 12,
-    flex: 5,
     paddingBottom: 8
   },
   rightHeaderButton: { 
@@ -72,5 +71,8 @@ export default StyleSheet.create({
   },
   leftHeaderButton: {
     flex: 1,
+  },
+  foregroundTitle: {
+    flexGrow: 1,
   }
 })

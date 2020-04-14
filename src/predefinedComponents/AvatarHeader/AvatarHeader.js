@@ -133,7 +133,7 @@ class AvatarHeader extends React.Component {
             { opacity: authorOpacity }
           ]}
         >
-          <Text style={styles.message}>{title}</Text>
+          <Text numberOfLines={4} style={[styles.message, styles.foregroundTitle]}>{title}</Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: aboutOpacity }]}>
           <Text style={styles.infoText}>{subtitle}</Text>
