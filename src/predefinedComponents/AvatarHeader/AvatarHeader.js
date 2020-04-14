@@ -66,20 +66,20 @@ class AvatarHeader extends React.Component {
 
     return (
       <View style={[styles.headerWrapper, styles.userModalHeader, { backgroundColor }]}>
-        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
-          <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />
-        </TouchableOpacity>
         <View style={styles.headerMenu}>
+          <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress} style={styles.leftHeaderButton}>
+            <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />
+          </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
             <Animated.Image source={image} style={[styles.headerPic, { opacity: imageOpacity }]} />
-            <Animated.Text style={[styles.headerTitle, { opacity: nameOpacity }]}>
+            <Animated.Text numberOfLines={1} style={[styles.headerTitle, { opacity: nameOpacity }]}>
               {title}
             </Animated.Text>
           </View>
+          <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress} style={styles.rightHeaderBtn}>
+            <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
-          <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
-        </TouchableOpacity>
       </View>
     )
   }

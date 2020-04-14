@@ -17,20 +17,22 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   headerTitleContainer: {
+    flex: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: -(constants.deviceWidth / 3)
+    marginRight: 24
   },
   headerTitle: {
     fontSize: 16,
     lineHeight: 20,
     color: colors.white,
     marginLeft: 12,
-    fontFamily: 'AvertaStd-Semibold'
+    marginRight: 12
   },
   infoContainer: {
+    flex: 1,
     flexDirection: 'row',
-    paddingBottom: 32
+    marginBottom: 16
   },
   iconContainer: {
     flexDirection: 'row',
@@ -42,8 +44,7 @@ export default StyleSheet.create({
   infoText: {
     color: colors.white,
     fontSize: constants.normalizedFontSize(16),
-    lineHeight: 24,
-    fontFamily: 'AvertaStd-Regular'
+    lineHeight: 24
   },
   icon: {
     width: 16,
@@ -61,6 +62,15 @@ export default StyleSheet.create({
     borderRadius: 8
   },
   userModalMessageContainer: {
+    marginTop: 12,
+    flex: 5,
     paddingBottom: 8
+  },
+  rightHeaderButton: { 
+    flex: 1,
+    alignItems: 'flex-end' 
+  },
+  leftHeaderButton: {
+    flex: 1,
   }
 })

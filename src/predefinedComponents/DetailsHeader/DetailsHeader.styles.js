@@ -5,7 +5,6 @@ export default StyleSheet.create({
   ...screenStyles,
   foregroundText: {
     color: colors.white,
-    fontFamily: 'AvertaStd-Semibold',
     paddingHorizontal: 12
   },
   foregroundTitle: {
@@ -13,8 +12,7 @@ export default StyleSheet.create({
     alignSelf: 'flex-start',
     borderRadius: 18,
     alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'AvertaStd-Semibold'
+    justifyContent: 'center'
   },
   infoContainer: {
     flexDirection: 'row',
@@ -36,10 +34,10 @@ export default StyleSheet.create({
     color: colors.black,
     paddingLeft: 4,
     fontSize: 16,
-    lineHeight: 20,
-    fontFamily: 'AvertaStd-Semibold'
+    lineHeight: 20
   },
   footerContainer: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -54,20 +52,18 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     color: colors.white,
-    paddingLeft: 12,
-    fontFamily: 'AvertaStd-Semibold'
+    paddingLeft: 12
   },
   headerMenu: {
     flexDirection: 'row',
     alignItems: 'center'
   },
   headerTitleContainer: {
-    marginLeft: 24
+    flex: 8
   },
   headerTitle: {
     fontSize: 16,
     lineHeight: 20,
-    color: colors.white,
-    fontFamily: 'AvertaStd-Semibold'
+    color: colors.white
   }
 })
