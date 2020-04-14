@@ -74,5 +74,6 @@ export default StyleSheet.create({
   },
   foregroundTitle: {
     flexGrow: 1,
+    paddingRight: 12,
   }
 })

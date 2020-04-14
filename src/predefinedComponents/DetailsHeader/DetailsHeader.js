@@ -73,13 +73,14 @@ class DetailsHeader extends React.Component {
       extrapolate: 'clamp'
     })
 
+    
     return (
       <View style={styles.foreground}>
         <Animated.View style={[styles.foregroundTitle, { opacity: labelOpacity, labelColor }]}>
           <Text style={styles.foregroundText}>{tag}</Text>
         </Animated.View>
         <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
-          <Text style={styles.message}>{title}</Text>
+          <Text numberOfLines={3} style={styles.message}>{title}</Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: authorOpacity }]}>
           <View style={styles.iconContainer}>
@@ -88,7 +89,7 @@ class DetailsHeader extends React.Component {
           </View>
           <View style={styles.footerContainer}>
             <Image source={image} style={styles.authorPhoto} resizeMode="contain" />
-            <Text style={styles.authorName}>{user.author}</Text>
+            <Text numberOfLines={1} style={styles.authorName}>{user.author}</Text>
           </View>
         </Animated.View>
       </View>

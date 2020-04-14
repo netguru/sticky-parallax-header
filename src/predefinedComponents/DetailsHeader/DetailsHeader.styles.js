@@ -62,6 +62,7 @@ export default StyleSheet.create({
     flex: 8
   },
   headerTitle: {
+    paddingHorizontal: 12,
     fontSize: 16,
     lineHeight: 20,
     color: colors.white
