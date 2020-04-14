@@ -39,16 +39,13 @@ class ScrollableTabView extends React.Component {
     scrollXIOS.addListener(({ value }) => callListeners(value / deviceWidth))
   }
 
-  componentWillReceiveProps(props) {
-    const { children } = this.props
+  componentDidUpdate(prevProps) {
+    const { children, page } = this.props
     const { currentPage } = this.state
-    if (props.children !== children) {
-      this.updateSceneKeys({ page: currentPage, children: props.children })
-    }
 
-    if (props.page >= 0 && props.page !== currentPage) {
-      this.goToPage(props.page)
-    }
+    if (children !== prevProps.children) this.updateSceneKeys({ page: currentPage, children: children })
+
+    if (page !== currentPage && page >= 0) this.goToPage(page)
   }
 
   componentWillUnmount() {
@@ -83,8 +80,8 @@ class ScrollableTabView extends React.Component {
     const { scrollRef, scrollHeight, isHeaderFolded } = this.props
 
     return (
-      isHeaderFolded
-      && scrollRef.getNode().scrollTo({
+      isHeaderFolded &&
+      scrollRef.getNode().scrollTo({
         y: scrollHeight,
         duration: 1000
       })
@@ -102,24 +99,25 @@ class ScrollableTabView extends React.Component {
     })
   }
 
-  composeScenes = () => this.children().map((child, idx) => {
-    const key = this.makeSceneKey(child, idx)
-    const { currentPage, containerWidth, sceneKeys } = this.state
+  composeScenes = () =>
+    this.children().map((child, idx) => {
+      const key = this.makeSceneKey(child, idx)
+      const { currentPage, containerWidth, sceneKeys } = this.state
 
-    return (
-      <SceneComponent
-        key={child.key}
-        shouldUpdated={this.shouldRenderSceneKey(idx, currentPage)}
-        style={{ width: containerWidth }}
-      >
-        {this.keyExists(sceneKeys, key) ? child : null}
-      </SceneComponent>
-    )
-  })
+      return (
+        <SceneComponent
+          key={child.key}
+          shouldUpdated={this.shouldRenderSceneKey(idx, currentPage)}
+          style={{ width: containerWidth }}
+        >
+          {this.keyExists(sceneKeys, key) ? child : null}
+        </SceneComponent>
+      )
+    })
 
   makeSceneKey = (child, idx) => `${child.props.tabLabel}_${idx}`
 
-  keyExists = (sceneKeys, key) => sceneKeys.find(sceneKey => key === sceneKey)
+  keyExists = (sceneKeys, key) => sceneKeys.find((sceneKey) => key === sceneKey)
 
   // eslint-disable-next-line max-len
   shouldRenderSceneKey = (idx, currentPageKey) => idx < currentPageKey + 1 && idx > currentPageKey - 1
@@ -144,7 +142,7 @@ class ScrollableTabView extends React.Component {
     animatedValue.removeAllListeners = removeAllListeners
     /* eslint-disable no-param-reassign  */
 
-    return value => listeners.forEach(listener => listener({ value }))
+    return (value) => listeners.forEach((listener) => listener({ value }))
   }
 
   newSceneKeys = ({ previousKeys = [], currentPage = 0, children = this.props.children }) => {
@@ -202,7 +200,7 @@ class ScrollableTabView extends React.Component {
     })
   }
 
-  children = (children = this.props.children) => React.Children.map(children, child => child)
+  children = (children = this.props.children) => React.Children.map(children, (child) => child)
 
   renderScrollableContent() {
     const scenes = this.composeScenes()

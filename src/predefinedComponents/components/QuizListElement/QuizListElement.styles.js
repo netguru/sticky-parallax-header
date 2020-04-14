@@ -33,8 +33,7 @@ export default StyleSheet.create({
     lineHeight: 16,
     color: colors.greyishBrown,
     paddingHorizontal: 8,
-    paddingVertical: 4,
-    fontFamily: 'AvertaStd-Semibold'
+    paddingVertical: 4
   },
   iconContainer: {
     flexDirection: 'row',
@@ -59,16 +58,14 @@ export default StyleSheet.create({
     color: colors.white,
     paddingLeft: 5,
     fontSize: 16,
-    lineHeight: 20,
-    fontFamily: 'AvertaStd-Semibold'
+    lineHeight: 20
   },
   mainText: {
     fontSize: 24,
     lineHeight: 28,
     color: colors.black,
     letterSpacing: -0.2,
-    paddingTop: 8,
-    fontFamily: 'AvertaStd-Semibold'
+    paddingTop: 8
   },
   mainTextContainer: {},
   footerContainer: {
@@ -86,8 +83,7 @@ export default StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     color: colors.black,
-    paddingLeft: 8,
-    fontFamily: 'AvertaStd-Semibold'
+    paddingLeft: 8
   },
   authorWrapper: {
     flexDirection: 'row'

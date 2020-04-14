@@ -13,14 +13,14 @@ class ScrollableTabBar extends React.PureComponent {
     super(props)
     this.currentXPosition = 0
     this.state = {
-      tabUnderlineWidth: props.tabs.map(_ => 0)
+      tabUnderlineWidth: props.tabs.map((_) => 0)
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const { activeTab } = this.props
-    if (nextProps.activeTab !== activeTab) {
-      this.scrollToTab(nextProps.activeTab)
+    if (prevProps.activeTab !== activeTab) {
+      this.scrollToTab(activeTab)
     }
   }
 
@@ -115,8 +115,8 @@ class ScrollableTabBar extends React.PureComponent {
         <ScrollView
           style={styles.nestedStyle}
           contentContainerStyle={styles.contentContainer}
-          ref={r => (this.scrollView = r)}
-          onScrollEndDrag={event => (this.currentXPosition = event.nativeEvent.contentOffset.x)}
+          ref={(r) => (this.scrollView = r)}
+          onScrollEndDrag={(event) => (this.currentXPosition = event.nativeEvent.contentOffset.x)}
           vertical={false}
           horizontal
           bounces={false}
@@ -135,13 +135,7 @@ class ScrollableTabBar extends React.PureComponent {
                 activeOpacity={0.9}
                 onPress={() => this.goToPage(page)}
               >
-                <View
-                  style={[
-                    styles.tabContainer,
-                    tabTextContainerStyle,
-                    isTabActive && tabTextContainerActiveStyle
-                  ]}
-                >
+                <View style={[styles.tabContainer, tabTextContainerStyle, isTabActive && tabTextContainerActiveStyle]}>
                   <Text
                     // eslint-disable-next-line no-return-assign
                     onLayout={({

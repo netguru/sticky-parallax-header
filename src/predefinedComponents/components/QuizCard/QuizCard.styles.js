@@ -35,7 +35,6 @@ export default StyleSheet.create({
     color: colors.greyishBrown,
     paddingHorizontal: 8,
     paddingVertical: 4,
-    fontFamily: 'AvertaStd-Semibold',
     letterSpacing: 0.8
   },
   mainText: {
@@ -43,7 +42,6 @@ export default StyleSheet.create({
     lineHeight: 24,
     color: colors.black,
     paddingTop: 8,
-    paddingBottom: 20,
-    fontFamily: 'AvertaStd-Semibold'
+    paddingBottom: 20
   }
 })
