@@ -21,7 +21,7 @@ class AvatarHeader extends React.Component {
     this.scrollY = new ValueXY()
   }
 
-  setHeaderSize = headerLayout => this.setState({ headerLayout })
+  setHeaderSize = (headerLayout) => this.setState({ headerLayout })
 
   scrollPosition(value) {
     const {
@@ -89,10 +89,7 @@ class AvatarHeader extends React.Component {
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(12)
 
-    const [startImgAnimation, finishImgAnimation] = [
-      this.scrollPosition(27),
-      this.scrollPosition(31)
-    ]
+    const [startImgAnimation, finishImgAnimation] = [this.scrollPosition(27), this.scrollPosition(31)]
     const [startAuthorFade, finishAuthorFade] = [this.scrollPosition(40), this.scrollPosition(50)]
 
     const [startAboutFade, fininshAboutFade] = [this.scrollPosition(60), this.scrollPosition(70)]
@@ -121,19 +118,12 @@ class AvatarHeader extends React.Component {
     return (
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
-          <Animated.Image
-            source={image}
-            style={[styles.profilePic, { width: imageSize, height: imageSize }]}
-          />
+          <Animated.Image source={image} style={[styles.profilePic, { width: imageSize, height: imageSize }]} />
         </Animated.View>
-        <Animated.View
-          style={[
-            styles.messageContainer,
-            styles.userModalMessageContainer,
-            { opacity: authorOpacity }
-          ]}
-        >
-          <Text numberOfLines={2} style={[styles.message, styles.foregroundTitle]}>{title}</Text>
+        <Animated.View style={[styles.messageContainer, styles.userModalMessageContainer, { opacity: authorOpacity }]}>
+          <Text numberOfLines={2} style={[styles.message, styles.foregroundTitle]}>
+            {title}
+          </Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: aboutOpacity }]}>
           <Text style={styles.infoText}>{subtitle}</Text>
@@ -148,8 +138,9 @@ class AvatarHeader extends React.Component {
     } = this.state
     const { backgroundColor, hasBorderRadius } = this.props
 
-    const headerBorderRadius = hasBorderRadius
-      && this.scrollY.y.interpolate({
+    const headerBorderRadius =
+      hasBorderRadius &&
+      this.scrollY.y.interpolate({
         inputRange: [0, height],
         outputRange: [80, 0],
         extrapolate: 'extend'
@@ -169,14 +160,7 @@ class AvatarHeader extends React.Component {
   }
 
   render() {
-    const {
-      backgroundColor,
-      backgroundImage,
-      renderBody,
-      headerHeight,
-      snapToEdge,
-      bounces
-    } = this.props
+    const { backgroundColor, backgroundImage, renderBody, headerHeight, snapToEdge, bounces } = this.props
 
     return (
       <React.Fragment>
@@ -228,7 +212,7 @@ AvatarHeader.defaultProps = {
   title: Brandon.author,
   subtitle: Brandon.about,
   image: Brandon.image,
-  renderBody: user => <RenderContent user={user} />,
+  renderBody: (user) => <RenderContent user={user} />,
   bounces: true,
   snapToEdge: true,
   hasBorderRadius: true

@@ -29,7 +29,7 @@ export default class TabbedHeader extends React.Component {
     this.scrollY.y.removeListener()
   }
 
-  setHeaderSize = headerLayout => this.setState({ headerLayout })
+  setHeaderSize = (headerLayout) => this.setState({ headerLayout })
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state
@@ -42,11 +42,7 @@ export default class TabbedHeader extends React.Component {
 
     return (
       <View style={[styles.headerWrapper, { backgroundColor }]}>
-        <Image
-          resizeMode="contain"
-          source={require('../../assets/images/logo.png')}
-          style={styles.logo}
-        />
+        <Image resizeMode="contain" source={require('../../assets/images/logo.png')} style={styles.logo} />
       </View>
     )
   }
@@ -121,15 +117,7 @@ export default class TabbedHeader extends React.Component {
   }
 
   render() {
-    const {
-      tabs,
-      headerHeight,
-      backgroundColor,
-      backgroundImage,
-      bounces,
-      snapToEdge,
-      renderBody
-    } = this.props
+    const { tabs, headerHeight, backgroundColor, backgroundImage, bounces, snapToEdge, renderBody } = this.props
 
     return (
       <React.Fragment>
@@ -177,7 +165,7 @@ TabbedHeader.defaultProps = {
   title: "Mornin' Mark! \nReady for a quiz?",
   bounces: true,
   snapToEdge: true,
-  renderBody: title => <RenderContent title={title} />,
+  renderBody: (title) => <RenderContent title={title} />,
   tabs: [
     {
       title: 'Popular',
