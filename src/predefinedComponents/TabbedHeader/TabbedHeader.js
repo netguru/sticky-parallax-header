@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image, StatusBar, Animated } from 'react-native'
+import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native'
 import { arrayOf, bool, number, shape, string, func } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, colors, sizes } from '../../constants'
@@ -38,14 +38,14 @@ export default class TabbedHeader extends React.Component {
   }
 
   renderHeader = () => {
-    const { backgroundColor } = this.props
+    const { backgroundColor, logo, logoResizeMode, logoStyle, logoContainerStyle } = this.props
 
     return (
-      <View style={[styles.headerWrapper, { backgroundColor }]}>
+      <View style={[logoContainerStyle, { backgroundColor }]}>
         <Image
-          resizeMode="contain"
-          source={require('../../assets/images/logo.png')}
-          style={styles.logo}
+          resizeMode={logoResizeMode}
+          source={logo}
+          style={logoStyle}
         />
       </View>
     )
@@ -167,7 +167,11 @@ TabbedHeader.propTypes = {
   bounces: bool,
   snapToEdge: bool,
   tabs: arrayOf(shape({})),
-  renderBody: func
+  renderBody: func,
+  logo: func,
+  logoResizeMode: string,
+  logoStyle: ViewPropTypes.style,
+  logoContainerStyle: ViewPropTypes.style,
 }
 
 TabbedHeader.defaultProps = {
@@ -177,6 +181,10 @@ TabbedHeader.defaultProps = {
   title: "Mornin' Mark! \nReady for a quiz?",
   bounces: true,
   snapToEdge: true,
+  logo: require('../../assets/images/logo.png'),
+  logoResizeMode: "contain",
+  logoStyle: styles.logo,
+  logoContainerStyle: styles.headerWrapper,
   renderBody: title => <RenderContent title={title} />,
   tabs: [
     {
