@@ -17,19 +17,21 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   headerTitleContainer: {
+    flex: 8,
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: -(constants.deviceWidth / 3)
+    marginRight: 24
   },
   headerTitle: {
     fontSize: 16,
     lineHeight: 20,
     color: colors.white,
-    marginLeft: 12
+    marginLeft: 12,
+    marginRight: 12
   },
   infoContainer: {
     flexDirection: 'row',
-    paddingBottom: 32
+    marginBottom: 16
   },
   iconContainer: {
     flexDirection: 'row',
@@ -39,6 +41,7 @@ export default StyleSheet.create({
     width: 56
   },
   infoText: {
+    flexGrow: 1,
     color: colors.white,
     fontSize: constants.normalizedFontSize(16),
     lineHeight: 24
@@ -59,6 +62,18 @@ export default StyleSheet.create({
     borderRadius: 8
   },
   userModalMessageContainer: {
+    marginTop: 12,
     paddingBottom: 8
+  },
+  rightHeaderButton: { 
+    flex: 1,
+    alignItems: 'flex-end' 
+  },
+  leftHeaderButton: {
+    flex: 1,
+  },
+  foregroundTitle: {
+    flexGrow: 1,
+    paddingRight: 12,
   }
 })

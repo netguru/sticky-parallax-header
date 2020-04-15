@@ -29,7 +29,7 @@ export default class TabbedHeader extends React.Component {
     this.scrollY.y.removeListener()
   }
 
-  setHeaderSize = headerLayout => this.setState({ headerLayout })
+  setHeaderSize = (headerLayout) => this.setState({ headerLayout })
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state
@@ -121,15 +121,7 @@ export default class TabbedHeader extends React.Component {
   }
 
   render() {
-    const {
-      tabs,
-      headerHeight,
-      backgroundColor,
-      backgroundImage,
-      bounces,
-      snapToEdge,
-      renderBody
-    } = this.props
+    const { tabs, headerHeight, backgroundColor, backgroundImage, bounces, snapToEdge, renderBody } = this.props
 
     return (
       <React.Fragment>

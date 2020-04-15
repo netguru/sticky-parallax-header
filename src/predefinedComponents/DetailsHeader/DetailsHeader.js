@@ -20,7 +20,7 @@ class DetailsHeader extends React.Component {
     this.scrollY = new ValueXY()
   }
 
-  setHeaderSize = headerLayout => this.setState({ headerLayout })
+  setHeaderSize = (headerLayout) => this.setState({ headerLayout })
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state
@@ -29,13 +29,7 @@ class DetailsHeader extends React.Component {
   }
 
   renderHeader = (user) => {
-    const {
-      backgroundColor,
-      leftTopIconOnPress,
-      rightTopIconOnPress,
-      leftTopIcon,
-      rightTopIcon
-    } = this.props
+    const { backgroundColor, leftTopIconOnPress, rightTopIconOnPress, leftTopIcon, rightTopIcon } = this.props
 
     const opacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(60), this.scrollPosition(90)],
@@ -52,10 +46,10 @@ class DetailsHeader extends React.Component {
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
             <Text style={styles.headerTitle}>{user.label}</Text>
           </Animated.View>
+          <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
+            <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
-          <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
-        </TouchableOpacity>
       </View>
     )
   }
@@ -85,7 +79,9 @@ class DetailsHeader extends React.Component {
           <Text style={styles.foregroundText}>{tag}</Text>
         </Animated.View>
         <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
-          <Text style={styles.message}>{title}</Text>
+          <Text numberOfLines={3} style={styles.message}>
+            {title}
+          </Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: authorOpacity }]}>
           <View style={styles.iconContainer}>
@@ -94,7 +90,9 @@ class DetailsHeader extends React.Component {
           </View>
           <View style={styles.footerContainer}>
             <Image source={image} style={styles.authorPhoto} resizeMode="contain" />
-            <Text style={styles.authorName}>{user.author}</Text>
+            <Text numberOfLines={1} style={styles.authorName}>
+              {user.author}
+            </Text>
           </View>
         </Animated.View>
       </View>
@@ -106,8 +104,9 @@ class DetailsHeader extends React.Component {
     const {
       headerLayout: { height }
     } = this.state
-    const headerBorderRadius = hasBorderRadius
-      && this.scrollY.y.interpolate({
+    const headerBorderRadius =
+      hasBorderRadius &&
+      this.scrollY.y.interpolate({
         inputRange: [0, height],
         outputRange: [80, 0],
         extrapolate: 'extend'
@@ -128,14 +127,7 @@ class DetailsHeader extends React.Component {
 
   render() {
     const user = Brandon
-    const {
-      backgroundColor,
-      backgroundImage,
-      renderBody,
-      headerHeight,
-      snapToEdge,
-      bounces
-    } = this.props
+    const { backgroundColor, backgroundImage, renderBody, headerHeight, snapToEdge, bounces } = this.props
 
     return (
       <React.Fragment>

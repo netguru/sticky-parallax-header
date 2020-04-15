@@ -37,6 +37,7 @@ export default StyleSheet.create({
     lineHeight: 20
   },
   footerContainer: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -58,9 +59,10 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   headerTitleContainer: {
-    marginLeft: 24
+    flex: 1
   },
   headerTitle: {
+    paddingHorizontal: 12,
     fontSize: 16,
     lineHeight: 20,
     color: colors.white
