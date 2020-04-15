@@ -22,7 +22,7 @@ class UserModal extends React.Component {
     this.scrollY = new ValueXY()
   }
 
-  setHeaderSize = headerLayout => this.setState({ headerLayout })
+  setHeaderSize = (headerLayout) => this.setState({ headerLayout })
 
   renderHeader = () => {
     const { onPressCloseModal, user } = this.props
@@ -60,21 +60,12 @@ class UserModal extends React.Component {
         </TouchableOpacity>
         <View style={styles.headerMenu}>
           <View style={styles.headerTitleContainer}>
-            <Animated.Image
-              source={user.image}
-              style={[styles.headerPic, { opacity: imageOpacity }]}
-            />
-            <Animated.Text style={[styles.headerTitle, { opacity: nameOpacity }]}>
-              {user.author}
-            </Animated.Text>
+            <Animated.Image source={user.image} style={[styles.headerPic, { opacity: imageOpacity }]} />
+            <Animated.Text style={[styles.headerTitle, { opacity: nameOpacity }]}>{user.author}</Animated.Text>
           </View>
         </View>
         <TouchableOpacity hitSlop={sizes.hitSlop}>
-          <Image
-            style={styles.icon}
-            resizeMode="contain"
-            source={require('../../../assets/icons/Icon-Menu.png')}
-          />
+          <Image style={styles.icon} resizeMode="contain" source={require('../../../assets/icons/Icon-Menu.png')} />
         </TouchableOpacity>
       </View>
     )
@@ -85,10 +76,7 @@ class UserModal extends React.Component {
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(12)
 
-    const [startImgAnimation, finishImgAnimation] = [
-      this.scrollPosition(27),
-      this.scrollPosition(31)
-    ]
+    const [startImgAnimation, finishImgAnimation] = [this.scrollPosition(27), this.scrollPosition(31)]
     const [startAuthorFade, finishAuthorFade] = [this.scrollPosition(40), this.scrollPosition(50)]
 
     const [startAboutFade, fininshAboutFade] = [this.scrollPosition(60), this.scrollPosition(70)]
@@ -117,18 +105,9 @@ class UserModal extends React.Component {
     return (
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
-          <Animated.Image
-            source={user.image}
-            style={[styles.profilePic, { width: imageSize, height: imageSize }]}
-          />
+          <Animated.Image source={user.image} style={[styles.profilePic, { width: imageSize, height: imageSize }]} />
         </Animated.View>
-        <Animated.View
-          style={[
-            styles.messageContainer,
-            styles.userModalMessageContainer,
-            { opacity: authorOpacity }
-          ]}
-        >
+        <Animated.View style={[styles.messageContainer, styles.userModalMessageContainer, { opacity: authorOpacity }]}>
           <Text style={styles.message}>{user.author}</Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: aboutOpacity }]}>
@@ -223,7 +202,7 @@ class UserModal extends React.Component {
         ]}
       >
         <Text style={styles.contentText}>{title}</Text>
-        {cards.map(card => (
+        {cards.map((card) => (
           <QuizListElement
             key={card.id}
             elements={card.elements}
@@ -249,7 +228,7 @@ class UserModal extends React.Component {
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.userScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }])}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], { useNativeDriver: false })}
           headerSize={this.setHeaderSize}
           headerHeight={sizes.userModalHeaderHeight}
           background={this.renderBackground()}
