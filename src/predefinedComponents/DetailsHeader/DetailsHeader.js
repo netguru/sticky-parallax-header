@@ -137,7 +137,7 @@ class DetailsHeader extends React.Component {
           header={this.renderHeader(user)}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.cardScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }])}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false})}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           background={this.renderBackground(user)}

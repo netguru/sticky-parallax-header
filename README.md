@@ -75,7 +75,11 @@ Below are examples of those components and description of the props they are acc
 | `bounces`         | `bool`                |    Yes   | `true`                                                                       | Bounces on swiping up                                    |
 | `snapToEdge`      | `bool`                |    Yes   | `true`                                                                       | Boolean to fire the function for snap To Edge            |
 | `renderBody`      | `func`                |    Yes   | `title => <RenderContent title={title} />`                                   | Function that renders body of the header (can be empty)  |
-| `tabs`            | `arrayOf(shape({}))`  |    Yes   | `[{title: 'Popular',content: <RenderContent title="Popular Quizes" />},...]`,| Array with tabs names and content                        |
+| `tabs`            | `arrayOf(shape({}))`  |    Yes   | `[{title: 'Popular',content: <RenderContent title="Popular Quizes" />},...]`| Array with tabs names and content                        |
+| `logo`            | `func`  |    Yes   | `require('../../assets/images/logo.png')`| Set header logo                        |
+| `logoStyle`            | `style`  |    Yes   | `{ height: 24, width: 142 }`| Set header logo style                        |
+| `logoContainerStyle`            | `style`  |    Yes   | `{    width: '100%', paddingHorizontal: 24, paddingTop: Platform.select({ ios: ifIphoneX(50, 40), android: 55 }), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}`| Set header logo container style                        |
+| `logoResizeMode`            | `"contain", "cover", "stretch", "center", "repeat" `  |    Yes   | `"contain"`,| Set header logo resize mode                        |
 
 
 ## Details Header
