@@ -59,7 +59,7 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   headerTitleContainer: {
-    flex: 8
+    flex: 1
   },
   headerTitle: {
     paddingHorizontal: 12,
