@@ -9,6 +9,9 @@ import RenderContent from './defaultProps/defaultProps'
 
 const { event, ValueXY } = Animated
 
+const finishImgPosition = 31
+const startImgPosition = 27
+
 class AvatarHeader extends React.Component {
   constructor(props) {
     super(props)
@@ -89,7 +92,7 @@ class AvatarHeader extends React.Component {
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(12)
 
-    const [startImgAnimation, finishImgAnimation] = [this.scrollPosition(27), this.scrollPosition(31)]
+    const [startImgAnimation, finishImgAnimation] = [this.scrollPosition(startImgPosition), this.scrollPosition(finishImgPosition)]
     const [startAuthorFade, finishAuthorFade] = [this.scrollPosition(40), this.scrollPosition(50)]
 
     const [startAboutFade, fininshAboutFade] = [this.scrollPosition(60), this.scrollPosition(70)]
