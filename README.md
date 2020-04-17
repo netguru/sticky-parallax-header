@@ -1,7 +1,7 @@
 
 
 <div align="center">
-  <image align="center" src="./src/assets/images/readme_header.svg"/>
+  <image align="center" src="./assets/readme_header.svg"/>
 </div>
 <div align="center">
   <h1>Stickyheader.js</h1>
@@ -14,7 +14,7 @@
 </div>
 <div align="center">
     <br/><em>Brought with</em> &nbsp;❤️ <em>by</em> &nbsp; <a href="https://www.netguru.com">
-        <img align="center" alt="Netguru logo" src='./src/assets/images/readme_netguru_logo.png' width='30'/>
+        <img align="center" alt="Netguru logo" src='./assets/readme_netguru_logo.png' width='30'/>
       </a>
 </div>
 
@@ -36,7 +36,7 @@ Stickyheader.js ships with 3 different use cases for sticky headers and a possib
 
 | Tabbed Header | Avatar Header | Details Header| 
 | :------: | :------: | :------: |
-| ![Tabbed Header Gif](./src/assets/images/readme_TabbedHeader.gif) |![Avatar Header Gif](./src/assets/images/readme_AvatarHeader.gif)| ![Details Header Gif](./src/assets/images/readme_DetailsHeader.gif)|
+| ![Tabbed Header Gif](./assets/readme_TabbedHeader.gif) |![Avatar Header Gif](./assets/readme_AvatarHeader.gif)| ![Details Header Gif](./assets/readme_DetailsHeader.gif)|
 
 
 ## In Use
@@ -64,7 +64,7 @@ Below are examples of those components and description of the props they are acc
 
 ## Tabbed Header
 
-![Tabbed Header Gif](./src/assets/images/readme_Tabbed.gif)
+![Tabbed Header Gif](./assets/readme_Tabbed.gif)
 
 | Property          | Type                  | Optional |  Default                                                                     | Description                                              |
 | :---------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
@@ -84,7 +84,7 @@ Below are examples of those components and description of the props they are acc
 
 ## Details Header
 
-![Details Header Gif](./src/assets/images/readme_Details.gif)
+![Details Header Gif](./assets/readme_Details.gif)
 
 | Property              | Type                  | Optional |  Default                                                                     | Description                                              |
 | :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
@@ -107,7 +107,7 @@ Below are examples of those components and description of the props they are acc
 
 ## Avatar Header
 
-![Avatar Header Gif](./src/assets/images/readme_Avatar.gif)
+![Avatar Header Gif](./assets/readme_Avatar.gif)
 
 | Property              | Type                  | Optional |  Default                                                                     | Description                                              |
 | :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
@@ -389,7 +389,7 @@ class TabScreen extends React.Component {
 }
 ```
 <h1 id="Demo">Demo</h1>
-<img alt="Logo"  src='./src/assets/images/readme_quizlogo.svg' width='60'/>
+<img alt="Logo"  src='./assets/readme_quizlogo.svg' width='60'/>
 
 If you want to test package without installation you can download our [showcase app](https://github.com/netguru/quiz-showcase-rn)
 
@@ -407,30 +407,30 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
 
 <div>
 
-<img alt="Radoslaw" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_radoslaw@3x.png' width='60'/>
+<img alt="Radoslaw" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_radoslaw@3x.png' width='60'/>
 
-<img alt="Krzysztof" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_krzysztof@3x.png' width='60'/>
+<img alt="Krzysztof" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_krzysztof@3x.png' width='60'/>
 
-<img alt="Anna" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_anna@3x.png' width='60'/>
+<img alt="Anna" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_anna@3x.png' width='60'/>
 
-<img alt="Damian" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_damian@3x.png' width='60'/>
+<img alt="Damian" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_damian@3x.png' width='60'/>
 
 <a href="https://github.com/IdaszakDaniel">
-<img alt="Daniel" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_daniel@3x.png' width='60'/>
+<img alt="Daniel" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_daniel@3x.png' width='60'/>
 </a>
 
-<img alt="Maria" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_maria@3x.png' width='60'/>
+<img alt="Maria" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_maria@3x.png' width='60'/>
 
-<img alt="Mateusz" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_mateusz@3x.png' width='60'/>
+<img alt="Mateusz" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_mateusz@3x.png' width='60'/>
 
-<img alt="Natalia Muryn" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_natalia@3x.png' width='60'/>
+<img alt="Natalia Muryn" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_natalia@3x.png' width='60'/>
 
 <a href="https://github.com/Karniej">
-<img alt="Pawel" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_pawel@3x.png' width='60'/>
+<img alt="Pawel" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_pawel@3x.png' width='60'/>
 </a>
 
 <a href="https://www.github.com/kolkol69">
-<img alt="Maks Kolodiy" style="border-radius: 30px; margin-right: 5px" src='./src/assets/images/readme_maks@3x.png' width='60'/>
+<img alt="Maks Kolodiy" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_maks@3x.png' width='60'/>
 </a>
 
 </div>
