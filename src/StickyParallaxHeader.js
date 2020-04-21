@@ -38,7 +38,7 @@ class StickyParallaxHeader extends Component {
   }
 
   spring = () => {
-    const scrollNode = this.scroll.getNode()
+    const scrollNode = this.scroll
     scrollNode.scrollTo({ x: 0, y: 40, animated: true })
 
     return setTimeout(() => {
@@ -51,7 +51,7 @@ class StickyParallaxHeader extends Component {
 
   onScrollEndSnapToEdge = (scrollHeight) => {
     const { snapToEdge } = this.props
-    const scrollNode = this.scroll.getNode()
+    const scrollNode = this.scroll
     // eslint-disable-next-line no-underscore-dangle
     const scrollValue = this.scrollY.__getValue()
     const { y } = scrollValue
@@ -136,7 +136,7 @@ class StickyParallaxHeader extends Component {
       })
     }
     if (this.scrollView) {
-      this.scrollView.getNode().scrollTo({
+      this.scrollView.scrollTo({
         x: offset,
         y: 0,
         animated: true
