@@ -219,13 +219,14 @@ class StickyParallaxHeader extends Component {
   }
 
   renderForeground = (backgroundHeight) => {
-    const { foreground, tabsContainerBackgroundColor } = this.props
+    const { foreground, tabsContainerBackgroundColor, backgroundImage } = this.props
 
     return (
       <View
         style={{
           height: backgroundHeight,
-          backgroundColor: tabsContainerBackgroundColor
+          backgroundColor: tabsContainerBackgroundColor,
+          ...( backgroundImage && { position: 'absolute', left: 0, bottom: 0, backgroundColor: 'transparent'} )
         }}
       >
         {foreground}
