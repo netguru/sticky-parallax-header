@@ -53,7 +53,8 @@ export default class TabbedHeader extends React.Component {
   }
 
   renderForeground = (scrollY) => {
-    const { title, foregroundImage } = this.props
+    const { title, titleStyle, foregroundImage } = this.props
+    const messageStyle = titleStyle || styles.message
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(10)
     const [startImgFade, finishImgFade] = [this.scrollPosition(22), this.scrollPosition(27)]
@@ -97,7 +98,7 @@ export default class TabbedHeader extends React.Component {
       <View style={styles.foreground}>
         {renderImage()}
         <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
-          <Text style={styles.message}>{title}</Text>
+          <Text style={messageStyle}>{title}</Text>
         </Animated.View>
       </View>
     )
