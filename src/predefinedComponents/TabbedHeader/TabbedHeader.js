@@ -39,9 +39,16 @@ export default class TabbedHeader extends React.Component {
   }
 
   renderHeader = () => {
-    const { backgroundColor, logo, logoResizeMode, logoStyle, logoContainerStyle } = this.props
+    const {
+      backgroundColor,
+      logo,
+      logoResizeMode,
+      logoStyle,
+      logoContainerStyle,
+      header
+    } = this.props
 
-    return (
+    const renderLogoHeader = () => (
       <View style={[logoContainerStyle, { backgroundColor }]}>
         <Image
           resizeMode={logoResizeMode}
@@ -50,6 +57,9 @@ export default class TabbedHeader extends React.Component {
         />
       </View>
     )
+
+    const renderHeader = header ? header : renderLogoHeader
+    return renderHeader()
   }
 
   renderForeground = (scrollY) => {
