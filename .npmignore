@@ -1,1 +1,7 @@
 readme_*
+node_modules
+yarn-error.log
+.history
+.DS_Store
+assets
+
