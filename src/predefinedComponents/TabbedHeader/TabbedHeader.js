@@ -135,7 +135,18 @@ export default class TabbedHeader extends React.Component {
   }
 
   render() {
-    const { tabs, headerHeight, backgroundColor, backgroundImage, bounces, snapToEdge, renderBody } = this.props
+    const {
+      tabs,
+      headerHeight,
+      backgroundColor,
+      backgroundImage,
+      bounces,
+      snapToEdge,
+      renderBody,
+      tabText,
+      tabTextContainerStyle,
+      tabTextContainerActiveStyle
+    } = this.props
 
     return (
       <React.Fragment>
@@ -149,9 +160,9 @@ export default class TabbedHeader extends React.Component {
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           tabs={tabs}
-          tabTextStyle={styles.tabText}
-          tabTextContainerStyle={styles.tabTextContainerStyle}
-          tabTextContainerActiveStyle={styles.tabTextContainerActiveStyle}
+          tabTextStyle={tabText || styles.tabText}
+          tabTextContainerStyle={tabTextContainerStyle || styles.tabTextContainerStyle}
+          tabTextContainerActiveStyle={tabTextContainerActiveStyle || styles.tabTextContainerActiveStyle}
           tabsContainerBackgroundColor={backgroundColor}
           tabsWrapperStyle={styles.tabsWrapper}
           backgroundImage={backgroundImage}
