@@ -152,6 +152,7 @@ export default class TabbedHeader extends React.Component {
       backgroundImage,
       bounces,
       snapToEdge,
+      scrollEvent,
       renderBody,
       tabText,
       tabTextContainerStyle,
@@ -166,7 +167,7 @@ export default class TabbedHeader extends React.Component {
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.homeScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false})}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false, listener: e => scrollEvent(e)})}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           tabs={tabs}
