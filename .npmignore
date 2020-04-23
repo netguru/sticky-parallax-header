@@ -1,7 +1,7 @@
 readme_*
+example
 node_modules
 yarn-error.log
 .history
 .DS_Store
 assets
-
