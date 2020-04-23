@@ -155,6 +155,7 @@ export default class TabbedHeader extends React.Component {
       scrollEvent,
       renderBody,
       tabText,
+      tabTextActiveStyle,
       tabTextContainerStyle,
       tabTextContainerActiveStyle
     } = this.props
@@ -172,6 +173,7 @@ export default class TabbedHeader extends React.Component {
           headerHeight={headerHeight}
           tabs={tabs}
           tabTextStyle={tabText || styles.tabText}
+          tabTextActiveStyle={tabTextActiveStyle || styles.tabText}
           tabTextContainerStyle={tabTextContainerStyle || styles.tabTextContainerStyle}
           tabTextContainerActiveStyle={tabTextContainerActiveStyle || styles.tabTextContainerActiveStyle}
           tabsContainerBackgroundColor={backgroundColor}
