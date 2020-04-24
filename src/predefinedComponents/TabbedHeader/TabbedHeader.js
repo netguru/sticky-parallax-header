@@ -211,7 +211,10 @@ TabbedHeader.propTypes = {
   tabTextContainerActiveStyle: ViewPropTypes.style,
   scrollEvent: func,
   tabWrapperStyle: ViewPropTypes.style,
-  tabsContainerStyle: ViewPropTypes.style
+  tabsContainerStyle: ViewPropTypes.style,
+  foregroundImage: oneOfType([object, number]),
+  titleStyle: Text.propTypes.style,
+  header: func
 }
 
 TabbedHeader.defaultProps = {
