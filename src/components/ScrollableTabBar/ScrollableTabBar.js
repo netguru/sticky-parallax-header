@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-return-assign */
 import React from 'react'
-import { Animated, Text, TouchableOpacity, View, ScrollView } from 'react-native'
+import { Animated, Text, TouchableOpacity, View, ScrollView, ViewPropTypes } from 'react-native'
 import { array, func, number, object, shape, string } from 'prop-types'
 import { constants } from '../../constants'
 import styles from './ScrollableTabBar.styles'
@@ -82,7 +82,8 @@ class ScrollableTabBar extends React.PureComponent {
       tabTextContainerStyle,
       tabTextContainerActiveStyle,
       tabsContainerBackgroundColor,
-      tabsWrapperStyle
+      tabWrapperStyle,
+      tabsContainerStyle
     } = this.props
     const { tabUnderlineWidth } = this.state
 
@@ -114,7 +115,7 @@ class ScrollableTabBar extends React.PureComponent {
       >
         <ScrollView
           style={styles.nestedStyle}
-          contentContainerStyle={styles.contentContainer}
+          contentContainerStyle={[styles.contentContainer, tabsContainerStyle]}
           ref={(r) => (this.scrollView = r)}
           onScrollEndDrag={(event) => (this.currentXPosition = event.nativeEvent.contentOffset.x)}
           vertical={false}
@@ -129,7 +130,7 @@ class ScrollableTabBar extends React.PureComponent {
               <TouchableOpacity
                 key={tab.title}
                 accessible
-                style={tabsWrapperStyle}
+                style={tabWrapperStyle}
                 accessibilityLabel={tab.title}
                 accessibilityTraits="button"
                 activeOpacity={0.9}
@@ -185,6 +186,7 @@ ScrollableTabBar.propTypes = {
   tabTextContainerStyle: shape({}),
   tabTextContainerActiveStyle: shape({}),
   tabsContainerBackgroundColor: string,
-  tabsWrapperStyle: shape({})
+  tabWrapperStyle: ViewPropTypes.style,
+  tabsContainerStyle: ViewPropTypes.style
 }
 export default ScrollableTabBar
