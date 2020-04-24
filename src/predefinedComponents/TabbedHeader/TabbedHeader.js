@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native'
-import { arrayOf, bool, number, shape, string, func } from 'prop-types'
+import { arrayOf, bool, number, shape, string, func, oneOfType, object } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, colors, sizes } from '../../constants'
 import styles from './TabbedHeader.styles'
@@ -168,14 +168,14 @@ export default class TabbedHeader extends React.Component {
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.homeScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false, listener: e => scrollEvent(e)})}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false, listener: e => scrollEvent && scrollEvent(e)})}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           tabs={tabs}
-          tabTextStyle={tabText || styles.tabText}
-          tabTextActiveStyle={tabTextActiveStyle || styles.tabText}
-          tabTextContainerStyle={tabTextContainerStyle || styles.tabTextContainerStyle}
-          tabTextContainerActiveStyle={tabTextContainerActiveStyle || styles.tabTextContainerActiveStyle}
+          tabTextStyle={tabText}
+          tabTextActiveStyle={tabTextActiveStyle}
+          tabTextContainerStyle={tabTextContainerStyle}
+          tabTextContainerActiveStyle={tabTextContainerActiveStyle}
           tabsContainerBackgroundColor={backgroundColor}
           tabsWrapperStyle={styles.tabsWrapper}
           backgroundImage={backgroundImage}
@@ -192,16 +192,21 @@ export default class TabbedHeader extends React.Component {
 TabbedHeader.propTypes = {
   backgroundColor: string,
   headerHeight: number,
-  backgroundImage: number,
+  backgroundImage: oneOfType([object, number]),
   title: string,
   bounces: bool,
   snapToEdge: bool,
   tabs: arrayOf(shape({})),
   renderBody: func,
-  logo: func,
+  logo: number,
   logoResizeMode: string,
   logoStyle: ViewPropTypes.style,
   logoContainerStyle: ViewPropTypes.style,
+  tabText: Text.propTypes.style,
+  tabTextActiveStyle: Text.propTypes.style,
+  tabTextContainerStyle: ViewPropTypes.style,
+  tabTextContainerActiveStyle: ViewPropTypes.style,
+  scrollEvent: func
 }
 
 TabbedHeader.defaultProps = {
@@ -233,5 +238,9 @@ TabbedHeader.defaultProps = {
       title: 'Project Management',
       content: <RenderContent title="Project Management" />
     }
-  ]
+  ],
+  tabText: styles.tabText,
+  tabTextActiveStyle: styles.tabText,
+  tabTextContainerStyle: styles.tabTextContainerStyle,
+  tabTextContainerActiveStyle: styles.tabTextContainerActiveStyle
 }
