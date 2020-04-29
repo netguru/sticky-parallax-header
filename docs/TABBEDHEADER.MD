@@ -54,7 +54,7 @@ const renderContent = x => (
 
 When It comes to tab styling, in TabbedHeader there are seven props:
 
-`tabText` and `tabTextActiveStyle` to pass styles for tab text wheter is inactive or active
+`tabTextStyle` and `tabTextActiveStyle` to pass styles for tab text wheter is inactive or active
 
 `tabTextContainerStyle` and `tabTextContainerActiveStyle` to pass styles for tab containers
 
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   tabTextContainerActiveStyle: {
     backgroundColor: '#FFC106'
   },
-  tabText: {
+  tabTextStyle: {
     fontSize: 16,
     fontWeight: 'bold',
     lineHeight: 20,
@@ -103,7 +103,7 @@ return (
     headerType="TabbedHeader"
     tabTextContainerStyle={styles.tabTextContainerStyle}
     tabTextContainerActiveStyle={styles.tabTextContainerActiveStyle}
-    tabText={styles.tabText}
+    tabTextStyle={styles.tabTextStyle}
     tabTextActiveStyle={styles.tabTextActiveStyle}
     tabWrapperStyle={styles.tabWrapperStyle}
     tabsContainerStyle={styles.tabsContainerStyle}
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   tabTextContainerActiveStyle: {
     backgroundColor: '#FFC106'
   },
-  tabText: {
+  tabTextStyle: {
     fontSize: 16,
     fontWeight: 'bold',
     lineHeight: 20,
@@ -367,7 +367,7 @@ const CutomHeaderScreen = () => {
       ]}
       tabTextContainerStyle={styles.tabTextContainerStyle}
       tabTextContainerActiveStyle={styles.tabTextContainerActiveStyle}
-      tabText={styles.tabText}
+      tabTextStyle={styles.tabTextStyle}
       tabTextActiveStyle={styles.tabTextActiveStyle}
       tabWrapperStyle={styles.tabWrapperStyle}
       tabsContainerStyle={styles.tabsContainerStyle}

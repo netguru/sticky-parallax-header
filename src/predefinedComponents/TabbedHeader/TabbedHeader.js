@@ -154,7 +154,7 @@ export default class TabbedHeader extends React.Component {
       snapToEdge,
       scrollEvent,
       renderBody,
-      tabText,
+      tabTextStyle,
       tabTextActiveStyle,
       tabTextContainerStyle,
       tabTextContainerActiveStyle,
@@ -174,7 +174,7 @@ export default class TabbedHeader extends React.Component {
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           tabs={tabs}
-          tabTextStyle={tabText}
+          tabTextStyle={tabTextStyle}
           tabTextActiveStyle={tabTextActiveStyle}
           tabTextContainerStyle={tabTextContainerStyle}
           tabTextContainerActiveStyle={tabTextContainerActiveStyle}
@@ -205,7 +205,7 @@ TabbedHeader.propTypes = {
   logoResizeMode: string,
   logoStyle: ViewPropTypes.style,
   logoContainerStyle: ViewPropTypes.style,
-  tabText: Text.propTypes.style,
+  tabTextStyle: Text.propTypes.style,
   tabTextActiveStyle: Text.propTypes.style,
   tabTextContainerStyle: ViewPropTypes.style,
   tabTextContainerActiveStyle: ViewPropTypes.style,
@@ -247,7 +247,7 @@ TabbedHeader.defaultProps = {
       content: <RenderContent title="Project Management" />
     }
   ],
-  tabText: styles.tabText,
+  tabTextStyle: styles.tabText,
   tabTextActiveStyle: styles.tabText,
   tabTextContainerStyle: styles.tabTextContainerStyle,
   tabTextContainerActiveStyle: styles.tabTextContainerActiveStyle,
