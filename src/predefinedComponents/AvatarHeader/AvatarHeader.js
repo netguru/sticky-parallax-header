@@ -177,7 +177,8 @@ class AvatarHeader extends React.Component {
       renderBody,
       headerHeight,
       snapToEdge,
-      bounces
+      bounces,
+      scrollEvent
     } = this.props
 
     return (
@@ -188,7 +189,8 @@ class AvatarHeader extends React.Component {
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
-            useNativeDriver: false
+            useNativeDriver: false,
+            listener: (e) => scrollEvent && scrollEvent(e)
           })}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
