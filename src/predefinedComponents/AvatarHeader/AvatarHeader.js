@@ -42,7 +42,8 @@ class AvatarHeader extends React.Component {
       rightTopIconOnPress,
       image,
       backgroundColor,
-      title
+      title,
+      header
     } = this.props
 
     const [beforeFadeImg, startFadeImg, finishFadeImg] = [
@@ -67,7 +68,7 @@ class AvatarHeader extends React.Component {
       extrapolate: 'clamp'
     })
 
-    return (
+    const renderAvatarHeader = () => (
       <View style={[styles.headerWrapper, styles.userModalHeader, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress} style={styles.leftHeaderButton}>
@@ -85,6 +86,10 @@ class AvatarHeader extends React.Component {
         </View>
       </View>
     )
+
+    const renderHeader = header || renderAvatarHeader
+
+    return renderHeader()
   }
 
   renderForeground = () => {
@@ -92,7 +97,10 @@ class AvatarHeader extends React.Component {
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(12)
 
-    const [startImgAnimation, finishImgAnimation] = [this.scrollPosition(startImgPosition), this.scrollPosition(finishImgPosition)]
+    const [startImgAnimation, finishImgAnimation] = [
+      this.scrollPosition(startImgPosition),
+      this.scrollPosition(finishImgPosition)
+    ]
     const [startAuthorFade, finishAuthorFade] = [this.scrollPosition(40), this.scrollPosition(50)]
 
     const [startAboutFade, fininshAboutFade] = [this.scrollPosition(60), this.scrollPosition(70)]
@@ -163,17 +171,25 @@ class AvatarHeader extends React.Component {
   }
 
   render() {
-    const { backgroundColor, backgroundImage, renderBody, headerHeight, snapToEdge, bounces } = this.props
+    const {
+      backgroundColor,
+      backgroundImage,
+      renderBody,
+      headerHeight,
+      snapToEdge,
+      bounces
+    } = this.props
 
     return (
-      <React.Fragment>
+      <>
         <StatusBar backgroundColor={backgroundColor} barStyle="light-content" />
         <StickyParallaxHeader
           foreground={this.renderForeground()}
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
-          parallaxHeight={sizes.userScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false})}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
+            useNativeDriver: false
+          })}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           background={this.renderBackground()}
@@ -183,7 +199,7 @@ class AvatarHeader extends React.Component {
         >
           {renderBody(Brandon)}
         </StickyParallaxHeader>
-      </React.Fragment>
+      </>
     )
   }
 }
