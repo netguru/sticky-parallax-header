@@ -93,7 +93,7 @@ class AvatarHeader extends React.Component {
   }
 
   renderForeground = () => {
-    const { image, subtitle, title } = this.props
+    const { image, subtitle, title, foreground } = this.props
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(12)
 
@@ -126,7 +126,7 @@ class AvatarHeader extends React.Component {
       extrapolate: 'clamp'
     })
 
-    return (
+    const renderAvatarForeground = () => (
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
           <Animated.Image source={image} style={[styles.profilePic, { width: imageSize, height: imageSize }]} />
@@ -141,6 +141,10 @@ class AvatarHeader extends React.Component {
         </Animated.View>
       </View>
     )
+
+    const renderForeground = foreground || renderAvatarForeground
+
+    return renderForeground()
   }
 
   renderBackground = () => {
@@ -179,7 +183,8 @@ class AvatarHeader extends React.Component {
       snapToEdge,
       bounces,
       scrollEvent,
-      parallaxHeight
+      parallaxHeight,
+      foreground
     } = this.props
 
     return (
@@ -225,6 +230,8 @@ AvatarHeader.propTypes = {
   renderBody: func,
   scrollEvent: func,
   parralaxHeight: number,
+  foreground: func,
+  header: func
 }
 AvatarHeader.defaultProps = {
   leftTopIconOnPress: () => {},
