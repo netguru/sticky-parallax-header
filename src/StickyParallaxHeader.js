@@ -1,6 +1,23 @@
 import React, { Component } from 'react'
-import { arrayOf, bool, func, node, number, shape, string } from 'prop-types'
-import { Dimensions, ImageBackground, ScrollView, View, Animated, Easing } from 'react-native'
+import {
+  arrayOf,
+  bool,
+  func,
+  node,
+  number,
+  shape,
+  string
+} from 'prop-types'
+import {
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+  View,
+  Animated,
+  Easing,
+  ViewPropTypes,
+  Image
+} from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
@@ -219,13 +236,14 @@ class StickyParallaxHeader extends Component {
   }
 
   renderForeground = (backgroundHeight) => {
-    const { foreground, tabsContainerBackgroundColor } = this.props
+    const { foreground, tabsContainerBackgroundColor, backgroundImage } = this.props
 
     return (
       <View
         style={{
           height: backgroundHeight,
-          backgroundColor: tabsContainerBackgroundColor
+          backgroundColor: tabsContainerBackgroundColor,
+          ...( backgroundImage && styles.transparentBackground )
         }}
       >
         {foreground}
@@ -241,7 +259,8 @@ class StickyParallaxHeader extends Component {
       tabTextContainerStyle,
       tabTextContainerActiveStyle,
       tabsContainerBackgroundColor,
-      tabsWrapperStyle
+      tabWrapperStyle,
+      tabsContainerStyle
     } = this.props
     const { scrollValue, currentPage, containerWidth } = this.state
 
@@ -256,7 +275,8 @@ class StickyParallaxHeader extends Component {
       tabTextStyle,
       tabsContainerBackgroundColor,
       tabs,
-      tabsWrapperStyle
+      tabWrapperStyle,
+      tabsContainerStyle
     }
 
     return <ScrollableTabBar {...props} />
@@ -367,7 +387,7 @@ class StickyParallaxHeader extends Component {
 StickyParallaxHeader.propTypes = {
   background: node,
   backgroundColor: string,
-  backgroundImage: number,
+  backgroundImage: Image.propTypes.source,
   bounces: bool,
   children: node,
   foreground: node,
@@ -386,7 +406,8 @@ StickyParallaxHeader.propTypes = {
   tabTextStyle: shape({}),
   tabs: arrayOf(shape({})),
   tabsContainerBackgroundColor: string,
-  tabsWrapperStyle: shape({})
+  tabWrapperStyle: ViewPropTypes.style,
+  tabsContainerStyle: ViewPropTypes.style
 }
 
 StickyParallaxHeader.defaultProps = {
@@ -400,7 +421,7 @@ StickyParallaxHeader.defaultProps = {
   tabTextContainerActiveStyle: {},
   tabTextContainerStyle: {},
   tabTextStyle: {},
-  tabsWrapperStyle: {}
+  tabWrapperStyle: {}
 }
 
 export default StickyParallaxHeader
