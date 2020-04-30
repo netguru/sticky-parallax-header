@@ -1,6 +1,21 @@
 import React from 'react'
-import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native'
-import { arrayOf, bool, number, shape, string, func, oneOfType, object } from 'prop-types'
+import {
+  Text,
+  View,
+  Image,
+  StatusBar,
+  Animated,
+  ViewPropTypes,
+  Image
+} from 'react-native'
+import {
+  arrayOf,
+  bool,
+  number,
+  shape,
+  string,
+  func
+} from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, colors, sizes } from '../../constants'
 import styles from './TabbedHeader.styles'
@@ -195,7 +210,7 @@ export default class TabbedHeader extends React.Component {
 TabbedHeader.propTypes = {
   backgroundColor: string,
   headerHeight: number,
-  backgroundImage: oneOfType([object, number]),
+  backgroundImage: Image.propTypes.source,
   title: string,
   bounces: bool,
   snapToEdge: bool,
@@ -212,7 +227,7 @@ TabbedHeader.propTypes = {
   scrollEvent: func,
   tabWrapperStyle: ViewPropTypes.style,
   tabsContainerStyle: ViewPropTypes.style,
-  foregroundImage: oneOfType([object, number]),
+  foregroundImage: Image.propTypes.source,
   titleStyle: Text.propTypes.style,
   header: func
 }

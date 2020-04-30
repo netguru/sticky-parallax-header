@@ -1,6 +1,23 @@
 import React, { Component } from 'react'
-import { arrayOf, bool, func, node, number, shape, string, oneOfType, object } from 'prop-types'
-import { Dimensions, ImageBackground, ScrollView, View, Animated, Easing, ViewPropTypes } from 'react-native'
+import {
+  arrayOf,
+  bool,
+  func,
+  node,
+  number,
+  shape,
+  string
+} from 'prop-types'
+import {
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+  View,
+  Animated,
+  Easing,
+  ViewPropTypes,
+  Image
+} from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
@@ -370,7 +387,7 @@ class StickyParallaxHeader extends Component {
 StickyParallaxHeader.propTypes = {
   background: node,
   backgroundColor: string,
-  backgroundImage: oneOfType([object, number]),
+  backgroundImage: Image.propTypes.source,
   bounces: bool,
   children: node,
   foreground: node,
