@@ -178,7 +178,8 @@ class AvatarHeader extends React.Component {
       headerHeight,
       snapToEdge,
       bounces,
-      scrollEvent
+      scrollEvent,
+      parallaxHeight
     } = this.props
 
     return (
@@ -198,6 +199,7 @@ class AvatarHeader extends React.Component {
           backgroundImage={backgroundImage}
           bounces={bounces}
           snapToEdge={snapToEdge}
+          parallaxHeight={parallaxHeight}
         >
           {renderBody(Brandon)}
         </StickyParallaxHeader>
@@ -220,7 +222,9 @@ AvatarHeader.propTypes = {
   title: string,
   subtitle: string,
   image: number,
-  renderBody: func
+  renderBody: func,
+  scrollEvent: func,
+  parralaxHeight: number,
 }
 AvatarHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -236,7 +240,8 @@ AvatarHeader.defaultProps = {
   renderBody: (user) => <RenderContent user={user} />,
   bounces: true,
   snapToEdge: true,
-  hasBorderRadius: true
+  hasBorderRadius: true,
+  parallaxHeight: sizes.userScreenParallaxHeader
 }
 
 export default AvatarHeader
