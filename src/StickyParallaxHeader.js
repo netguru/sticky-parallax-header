@@ -66,14 +66,17 @@ class StickyParallaxHeader extends Component {
     }, 300)
   }
 
-  onScrollEndSnapToEdge = (scrollHeight) => {
+  onScrollEndSnapToEdge = (height) => {
+    const { snapStartTreshold, snapStopTreshold, snapValue } = this.props
+    const scrollHeight = snapStartTreshold || height
+    const snap = snapValue || height
     const { snapToEdge } = this.props
     const scrollNode = this.scroll
     // eslint-disable-next-line no-underscore-dangle
     const scrollValue = this.scrollY.__getValue()
     const { y } = scrollValue
     const snapToEdgeAnimatedValue = new ValueXY(scrollValue)
-    const snapToEdgeTreshold = scrollHeight / 2
+    const snapToEdgeTreshold = snapStopTreshold || height / 2
     const id = snapToEdgeAnimatedValue.addListener((value) => {
       scrollNode.scrollTo({ x: 0, y: value.y, animated: false })
     })
@@ -110,7 +113,7 @@ class StickyParallaxHeader extends Component {
               scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
             )
           : timing(snapToEdgeAnimatedValue, {
-              toValue: { x: 0, y: scrollHeight },
+              toValue: { x: 0, y: snap },
               duration: 400,
               easing: Easing.out(Easing.cubic),
               useNativeDriver: true
@@ -407,7 +410,10 @@ StickyParallaxHeader.propTypes = {
   tabs: arrayOf(shape({})),
   tabsContainerBackgroundColor: string,
   tabWrapperStyle: ViewPropTypes.style,
-  tabsContainerStyle: ViewPropTypes.style
+  tabsContainerStyle: ViewPropTypes.style,
+  snapStartTreshold: number,
+  snapStopTreshold: number,
+  snapValue: number
 }
 
 StickyParallaxHeader.defaultProps = {
