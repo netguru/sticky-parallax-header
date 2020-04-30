@@ -175,7 +175,7 @@ class StickyParallaxHeader extends Component {
   }
 
   renderHeader = () => {
-    const { header, headerHeight, backgroundColor } = this.props
+    const { header, headerHeight, backgroundColor, transparentHeader } = this.props
 
     const headerStyle = header.props.style
     const isArray = Array.isArray(headerStyle)
@@ -192,7 +192,8 @@ class StickyParallaxHeader extends Component {
             height: headerHeight,
             backgroundColor: isArray
               ? arrayHeaderStyle.backgroundColor
-              : backgroundColor || headerStyle?.backgroundColor
+              : backgroundColor || headerStyle?.backgroundColor,
+            ...( transparentHeader && styles.transparentHeader )
           })
         }
       >
@@ -413,7 +414,8 @@ StickyParallaxHeader.propTypes = {
   tabsContainerStyle: ViewPropTypes.style,
   snapStartTreshold: number,
   snapStopTreshold: number,
-  snapValue: number
+  snapValue: number,
+  transparentHeader: bool
 }
 
 StickyParallaxHeader.defaultProps = {
@@ -427,7 +429,8 @@ StickyParallaxHeader.defaultProps = {
   tabTextContainerActiveStyle: {},
   tabTextContainerStyle: {},
   tabTextStyle: {},
-  tabWrapperStyle: {}
+  tabWrapperStyle: {},
+  transparentHeader: false
 }
 
 export default StickyParallaxHeader
