@@ -153,20 +153,20 @@ class AvatarHeader extends React.Component {
     } = this.state
     const { backgroundColor, hasBorderRadius } = this.props
 
-    const headerBorderRadius =
-      hasBorderRadius &&
-      this.scrollY.y.interpolate({
+    const headerBorderRadius = this.scrollY.y.interpolate({
         inputRange: [0, height],
         outputRange: [80, 0],
         extrapolate: 'extend'
       })
+
+    const borderBottomRightRadius = hasBorderRadius ? headerBorderRadius : 0
 
     return (
       <Animated.View
         style={[
           styles.background,
           {
-            borderBottomRightRadius: headerBorderRadius,
+            borderBottomRightRadius,
             backgroundColor
           }
         ]}
