@@ -5,8 +5,7 @@ import {
   Image,
   StatusBar,
   Animated,
-  ViewPropTypes,
-  Image
+  ViewPropTypes
 } from 'react-native'
 import {
   arrayOf,
