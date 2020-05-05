@@ -69,7 +69,7 @@ class StickyParallaxHeader extends Component {
 
   onScrollEndSnapToEdge = (height) => {
     const { snapStartThreshold, snapStopThreshold, snapValue } = this.props
-    const scrollHeight = snapStartThreshold || height
+    const scrollHeight = snapStopThreshold || height
     const snap = snapValue || height
     const { snapToEdge } = this.props
     const scrollNode = this.scroll
@@ -77,7 +77,7 @@ class StickyParallaxHeader extends Component {
     const scrollValue = this.scrollY.__getValue()
     const { y } = scrollValue
     const snapToEdgeAnimatedValue = new ValueXY(scrollValue)
-    const snapToEdgeThreshold = snapStopThreshold || height / 2
+    const snapToEdgeThreshold = snapStartThreshold || height / 2
     const id = snapToEdgeAnimatedValue.addListener((value) => {
       scrollNode.scrollTo({ x: 0, y: value.y, animated: false })
     })
