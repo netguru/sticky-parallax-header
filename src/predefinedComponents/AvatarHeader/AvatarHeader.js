@@ -34,7 +34,7 @@ class AvatarHeader extends React.Component {
     return constants.scrollPosition(height, value)
   }
 
-  renderHeader = () => {
+  renderAvatarHeader = () => {
     const {
       leftTopIconOnPress,
       leftTopIcon,
@@ -42,8 +42,7 @@ class AvatarHeader extends React.Component {
       rightTopIconOnPress,
       image,
       backgroundColor,
-      title,
-      header
+      title
     } = this.props
 
     const [beforeFadeImg, startFadeImg, finishFadeImg] = [
@@ -68,7 +67,7 @@ class AvatarHeader extends React.Component {
       extrapolate: 'clamp'
     })
 
-    const renderAvatarHeader = () => (
+    return (
       <View style={[styles.headerWrapper, styles.userModalHeader, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress} style={styles.leftHeaderButton}>
@@ -86,14 +85,17 @@ class AvatarHeader extends React.Component {
         </View>
       </View>
     )
+  }
 
-    const renderHeader = header || renderAvatarHeader
+  renderHeader = () => {
+    const { header } = this.props
+    const renderHeader = header || this.renderAvatarHeader
 
     return renderHeader()
   }
 
-  renderForeground = () => {
-    const { image, subtitle, title, foreground } = this.props
+  renderAvatarForeground = () => {
+    const { image, subtitle, title } = this.props
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(12)
 
@@ -126,7 +128,7 @@ class AvatarHeader extends React.Component {
       extrapolate: 'clamp'
     })
 
-    const renderAvatarForeground = () => (
+    return (
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
           <Animated.Image source={image} style={[styles.profilePic, { width: imageSize, height: imageSize }]} />
@@ -141,8 +143,11 @@ class AvatarHeader extends React.Component {
         </Animated.View>
       </View>
     )
+  }
 
-    const renderForeground = foreground || renderAvatarForeground
+  renderForeground = () => {
+    const { foreground } = this.props
+    const renderForeground = foreground || this.renderAvatarForeground
 
     return renderForeground()
   }
