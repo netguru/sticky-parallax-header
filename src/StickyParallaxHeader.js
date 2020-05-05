@@ -67,8 +67,8 @@ class StickyParallaxHeader extends Component {
   }
 
   onScrollEndSnapToEdge = (height) => {
-    const { snapStartTreshold, snapStopTreshold, snapValue } = this.props
-    const scrollHeight = snapStartTreshold || height
+    const { snapStartThreshold, snapStopThreshold, snapValue } = this.props
+    const scrollHeight = snapStartThreshold || height
     const snap = snapValue || height
     const { snapToEdge } = this.props
     const scrollNode = this.scroll
@@ -76,7 +76,7 @@ class StickyParallaxHeader extends Component {
     const scrollValue = this.scrollY.__getValue()
     const { y } = scrollValue
     const snapToEdgeAnimatedValue = new ValueXY(scrollValue)
-    const snapToEdgeTreshold = snapStopTreshold || height / 2
+    const snapToEdgeThreshold = snapStopThreshold || height / 2
     const id = snapToEdgeAnimatedValue.addListener((value) => {
       scrollNode.scrollTo({ x: 0, y: value.y, animated: false })
     })
@@ -84,7 +84,7 @@ class StickyParallaxHeader extends Component {
     if (y < -20 && !constants.isAndroid) this.spring(y)
 
     if (snapToEdge) {
-      if (y > 0 && y < snapToEdgeTreshold) {
+      if (y > 0 && y < snapToEdgeThreshold) {
         return constants.isAndroid
           ? this.setState(
               {
@@ -104,7 +104,7 @@ class StickyParallaxHeader extends Component {
               })
             })
       }
-      if (y >= snapToEdgeTreshold && y < scrollHeight) {
+      if (y >= snapToEdgeThreshold && y < scrollHeight) {
         return constants.isAndroid
           ? this.setState(
               {
@@ -412,8 +412,8 @@ StickyParallaxHeader.propTypes = {
   tabsContainerBackgroundColor: string,
   tabWrapperStyle: ViewPropTypes.style,
   tabsContainerStyle: ViewPropTypes.style,
-  snapStartTreshold: number,
-  snapStopTreshold: number,
+  snapStartThreshold: number,
+  snapStopThreshold: number,
   snapValue: number,
   transparentHeader: bool
 }

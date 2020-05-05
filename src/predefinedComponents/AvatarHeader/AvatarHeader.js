@@ -184,8 +184,8 @@ class AvatarHeader extends React.Component {
       bounces,
       scrollEvent,
       parallaxHeight,
-      snapStartTreshold,
-      snapStopTreshold,
+      snapStartThreshold,
+      snapStopThreshold,
       snapValue,
       transparentHeader
     } = this.props
@@ -209,8 +209,8 @@ class AvatarHeader extends React.Component {
           snapToEdge={snapToEdge}
           parallaxHeight={parallaxHeight}
           transparentHeader={transparentHeader}
-          snapStartTreshold={snapStartTreshold}
-          snapStopTreshold={snapStopTreshold}
+          snapStartThreshold={snapStartThreshold}
+          snapStopThreshold={snapStopThreshold}
           snapValue={snapValue}
         >
           {renderBody(Brandon)}
@@ -239,8 +239,8 @@ AvatarHeader.propTypes = {
   parallaxHeight: number,
   foreground: func,
   header: func,
-  snapStartTreshold: number,
-  snapStopTreshold: number,
+  snapStartThreshold: number,
+  snapStopThreshold: number,
   snapValue: number,
   transparentHeader: bool
 }
