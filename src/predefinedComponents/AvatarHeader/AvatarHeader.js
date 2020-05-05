@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity, Animated, StatusBar } from 'react-native'
-import { func, string, number, bool } from 'prop-types'
+import { func, string, number, bool, oneOfType } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, sizes } from '../../constants'
 import styles from './AvatarHeader.styles'
@@ -239,9 +239,9 @@ AvatarHeader.propTypes = {
   parallaxHeight: number,
   foreground: func,
   header: func,
-  snapStartThreshold: number,
-  snapStopThreshold: number,
-  snapValue: number,
+  snapStartThreshold: oneOfType([ bool, number]),
+  snapStopThreshold: oneOfType([ bool, number]),
+  snapValue: oneOfType([ bool, number]),
   transparentHeader: bool
 }
 AvatarHeader.defaultProps = {
@@ -260,6 +260,9 @@ AvatarHeader.defaultProps = {
   snapToEdge: true,
   hasBorderRadius: true,
   parallaxHeight: sizes.userScreenParallaxHeader,
+  snapStartThreshold: false,
+  snapStopThreshold: false,
+  snapValue: false,
   transparentHeader: false
 }
 

@@ -138,8 +138,8 @@ Below are examples of those components and description of the props they are acc
 | `hasBorderRadius`     | `bool`                |    Yes   | `true`                                                                       | Adds radius to header's left bottom border               |
 | `parallaxHeight`      | `number`              |    Yes   |                                                                              | Set parallax header height                               |
 | `transparentHeader`   | `bool`                |    Yes   | `false`                                                                      | Set header transparency to render custom header          |
-| `snapStartTreshold`   | `number`              |    Yes   |                                                                              | Set start value treshold of snap                         |
-| `snapStopTreshold`    | `number`              |    Yes   |                                                                              | Set stop value treshold of snap                          |
+| `snapStartThreshold`   | `number`              |    Yes   |                                                                              | Set start value Threshold of snap                         |
+| `snapStopThreshold`    | `number`              |    Yes   |                                                                              | Set stop value Threshold of snap                          |
 | `snapValue`           | `number`              |    Yes   |                                                                              | Set value where header is closed                         |
 
 ## Custom Header 
