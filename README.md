@@ -98,7 +98,7 @@ Below are examples of those components and description of the props they are acc
 ![Details Header Gif](./assets/readme_Details.gif)
 
 | Property              | Type                  | Optional |  Default                                                                     | Description                                              |
-| :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
+| :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
 | `leftTopIconOnPress`  | `func`                |    Yes   | `() => {}`                                                                   | Define action on left top button press                   |
 | `rightTopIconOnPress` | `func`                |    Yes   | `() => {}`                                                                   | Define action on right top button press                  |
 | `leftTopIcon`         | `number`              |    Yes   | `require('../../assets/icons/iconCloseWhite.png')`                           | Set icon for left top button                             |
@@ -121,7 +121,7 @@ Below are examples of those components and description of the props they are acc
 ![Avatar Header Gif](./assets/readme_Avatar.gif)
 
 | Property              | Type                  | Optional |  Default                                                                     | Description                                              |
-| :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:| 
+| :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
 | `leftTopIconOnPress`  | `func`                |    Yes   | `() => {}`                                                                   | Define action on left top button press                   |
 | `rightTopIconOnPress` | `func`                |    Yes   | `() => {}`                                                                   | Define action on right top button press                  |
 | `leftTopIcon`         | `number`              |    Yes   | `require('../../assets/icons/iconCloseWhite.png')`                           | Set icon for left top button                             |
@@ -136,6 +136,11 @@ Below are examples of those components and description of the props they are acc
 | `bounces`             | `bool`                |    Yes   | `true`                                                                       | Bounces on swiping up                                    |
 | `snapToEdge`          | `bool`                |    Yes   | `true`                                                                       | Boolean to fire the function for snap To Edge            |
 | `hasBorderRadius`     | `bool`                |    Yes   | `true`                                                                       | Adds radius to header's left bottom border               |
+| `parallaxHeight`      | `number`              |    Yes   |                                                                              | Set parallax header height                               |
+| `transparentHeader`   | `bool`                |    Yes   | `false`                                                                      | Set header transparency to render custom header          |
+| `snapStartThreshold`   | `number`              |    Yes   |                                                                              | Set start value Threshold of snap                         |
+| `snapStopThreshold`    | `number`              |    Yes   |                                                                              | Set stop value Threshold of snap                          |
+| `snapValue`           | `number`              |    Yes   |                                                                              | Set value where header is closed                         |
 
 ## Custom Header 
 

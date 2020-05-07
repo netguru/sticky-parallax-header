@@ -6,7 +6,8 @@ import {
   node,
   number,
   shape,
-  string
+  string,
+  oneOfType
 } from 'prop-types'
 import {
   Dimensions,
@@ -66,14 +67,17 @@ class StickyParallaxHeader extends Component {
     }, 300)
   }
 
-  onScrollEndSnapToEdge = (scrollHeight) => {
+  onScrollEndSnapToEdge = (height) => {
+    const { snapStartThreshold, snapStopThreshold, snapValue } = this.props
+    const scrollHeight = snapStopThreshold || height
+    const snap = snapValue || height
     const { snapToEdge } = this.props
     const scrollNode = this.scroll
     // eslint-disable-next-line no-underscore-dangle
     const scrollValue = this.scrollY.__getValue()
     const { y } = scrollValue
     const snapToEdgeAnimatedValue = new ValueXY(scrollValue)
-    const snapToEdgeTreshold = scrollHeight / 2
+    const snapToEdgeThreshold = snapStartThreshold || height / 2
     const id = snapToEdgeAnimatedValue.addListener((value) => {
       scrollNode.scrollTo({ x: 0, y: value.y, animated: false })
     })
@@ -81,7 +85,7 @@ class StickyParallaxHeader extends Component {
     if (y < -20 && !constants.isAndroid) this.spring(y)
 
     if (snapToEdge) {
-      if (y > 0 && y < snapToEdgeTreshold) {
+      if (y > 0 && y < snapToEdgeThreshold) {
         return constants.isAndroid
           ? this.setState(
               {
@@ -101,7 +105,7 @@ class StickyParallaxHeader extends Component {
               })
             })
       }
-      if (y >= snapToEdgeTreshold && y < scrollHeight) {
+      if (y >= snapToEdgeThreshold && y < scrollHeight) {
         return constants.isAndroid
           ? this.setState(
               {
@@ -110,7 +114,7 @@ class StickyParallaxHeader extends Component {
               scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
             )
           : timing(snapToEdgeAnimatedValue, {
-              toValue: { x: 0, y: scrollHeight },
+              toValue: { x: 0, y: snap },
               duration: 400,
               easing: Easing.out(Easing.cubic),
               useNativeDriver: true
@@ -172,7 +176,7 @@ class StickyParallaxHeader extends Component {
   }
 
   renderHeader = () => {
-    const { header, headerHeight, backgroundColor } = this.props
+    const { header, headerHeight, backgroundColor, transparentHeader } = this.props
 
     const headerStyle = header.props.style
     const isArray = Array.isArray(headerStyle)
@@ -189,7 +193,8 @@ class StickyParallaxHeader extends Component {
             height: headerHeight,
             backgroundColor: isArray
               ? arrayHeaderStyle.backgroundColor
-              : backgroundColor || headerStyle?.backgroundColor
+              : backgroundColor || headerStyle?.backgroundColor,
+            ...( transparentHeader && styles.transparentHeader )
           })
         }
       >
@@ -407,7 +412,11 @@ StickyParallaxHeader.propTypes = {
   tabs: arrayOf(shape({})),
   tabsContainerBackgroundColor: string,
   tabWrapperStyle: ViewPropTypes.style,
-  tabsContainerStyle: ViewPropTypes.style
+  tabsContainerStyle: ViewPropTypes.style,
+  snapStartThreshold: oneOfType([ bool, number]),
+  snapStopThreshold: oneOfType([ bool, number]),
+  snapValue: oneOfType([ bool, number]),
+  transparentHeader: bool
 }
 
 StickyParallaxHeader.defaultProps = {
@@ -421,7 +430,11 @@ StickyParallaxHeader.defaultProps = {
   tabTextContainerActiveStyle: {},
   tabTextContainerStyle: {},
   tabTextStyle: {},
-  tabWrapperStyle: {}
+  tabWrapperStyle: {},
+  snapStartThreshold: false,
+  snapStopThreshold: false,
+  snapValue: false,
+  transparentHeader: false
 }
 
 export default StickyParallaxHeader

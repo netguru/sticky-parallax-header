@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity, Animated, StatusBar } from 'react-native'
-import { func, string, number, bool } from 'prop-types'
+import { func, string, number, bool, oneOfType } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, sizes } from '../../constants'
 import styles from './AvatarHeader.styles'
@@ -34,7 +34,7 @@ class AvatarHeader extends React.Component {
     return constants.scrollPosition(height, value)
   }
 
-  renderHeader = () => {
+  renderAvatarHeader = () => {
     const {
       leftTopIconOnPress,
       leftTopIcon,
@@ -87,12 +87,22 @@ class AvatarHeader extends React.Component {
     )
   }
 
-  renderForeground = () => {
+  renderHeader = () => {
+    const { header } = this.props
+    const renderHeader = header || this.renderAvatarHeader
+
+    return renderHeader()
+  }
+
+  renderAvatarForeground = () => {
     const { image, subtitle, title } = this.props
     const startSize = constants.responsiveWidth(18)
     const endSize = constants.responsiveWidth(12)
 
-    const [startImgAnimation, finishImgAnimation] = [this.scrollPosition(startImgPosition), this.scrollPosition(finishImgPosition)]
+    const [startImgAnimation, finishImgAnimation] = [
+      this.scrollPosition(startImgPosition),
+      this.scrollPosition(finishImgPosition)
+    ]
     const [startAuthorFade, finishAuthorFade] = [this.scrollPosition(40), this.scrollPosition(50)]
 
     const [startAboutFade, fininshAboutFade] = [this.scrollPosition(60), this.scrollPosition(70)]
@@ -135,26 +145,33 @@ class AvatarHeader extends React.Component {
     )
   }
 
+  renderForeground = () => {
+    const { foreground } = this.props
+    const renderForeground = foreground || this.renderAvatarForeground
+
+    return renderForeground()
+  }
+
   renderBackground = () => {
     const {
       headerLayout: { height }
     } = this.state
     const { backgroundColor, hasBorderRadius } = this.props
 
-    const headerBorderRadius =
-      hasBorderRadius &&
-      this.scrollY.y.interpolate({
+    const headerBorderRadius = this.scrollY.y.interpolate({
         inputRange: [0, height],
         outputRange: [80, 0],
         extrapolate: 'extend'
       })
+
+    const borderBottomRightRadius = hasBorderRadius ? headerBorderRadius : 0
 
     return (
       <Animated.View
         style={[
           styles.background,
           {
-            borderBottomRightRadius: headerBorderRadius,
+            borderBottomRightRadius,
             backgroundColor
           }
         ]}
@@ -163,27 +180,47 @@ class AvatarHeader extends React.Component {
   }
 
   render() {
-    const { backgroundColor, backgroundImage, renderBody, headerHeight, snapToEdge, bounces } = this.props
+    const {
+      backgroundColor,
+      backgroundImage,
+      renderBody,
+      headerHeight,
+      snapToEdge,
+      bounces,
+      scrollEvent,
+      parallaxHeight,
+      snapStartThreshold,
+      snapStopThreshold,
+      snapValue,
+      transparentHeader
+    } = this.props
 
     return (
-      <React.Fragment>
+      <>
         <StatusBar backgroundColor={backgroundColor} barStyle="light-content" />
         <StickyParallaxHeader
           foreground={this.renderForeground()}
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
-          parallaxHeight={sizes.userScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false})}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
+            useNativeDriver: false,
+            listener: (e) => scrollEvent && scrollEvent(e)
+          })}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           background={this.renderBackground()}
           backgroundImage={backgroundImage}
           bounces={bounces}
           snapToEdge={snapToEdge}
+          parallaxHeight={parallaxHeight}
+          transparentHeader={transparentHeader}
+          snapStartThreshold={snapStartThreshold}
+          snapStopThreshold={snapStopThreshold}
+          snapValue={snapValue}
         >
           {renderBody(Brandon)}
         </StickyParallaxHeader>
-      </React.Fragment>
+      </>
     )
   }
 }
@@ -202,7 +239,15 @@ AvatarHeader.propTypes = {
   title: string,
   subtitle: string,
   image: number,
-  renderBody: func
+  renderBody: func,
+  scrollEvent: func,
+  parallaxHeight: number,
+  foreground: func,
+  header: func,
+  snapStartThreshold: oneOfType([ bool, number]),
+  snapStopThreshold: oneOfType([ bool, number]),
+  snapValue: oneOfType([ bool, number]),
+  transparentHeader: bool
 }
 AvatarHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -218,7 +263,12 @@ AvatarHeader.defaultProps = {
   renderBody: (user) => <RenderContent user={user} />,
   bounces: true,
   snapToEdge: true,
-  hasBorderRadius: true
+  hasBorderRadius: true,
+  parallaxHeight: sizes.userScreenParallaxHeader,
+  snapStartThreshold: false,
+  snapStopThreshold: false,
+  snapValue: false,
+  transparentHeader: false
 }
 
 export default AvatarHeader
