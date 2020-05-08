@@ -166,11 +166,6 @@ $ yarn add react-native-sticky-parallax-header
 
 [Installation steps for React Native < 0.60.0](docs/INSTALLATION.md)
 
-<h1 id="Demo">Demo</h1>
-<img alt="Logo"  src='./assets/readme_quizlogo.svg' width='60'/>
-
-If you want to test package without installation you can download our [showcase app](https://github.com/netguru/quiz-showcase-rn)
-
 <h1 id="Contributing">Contributing</h1>
 
 [Contributing guidelines](docs/CONTRIBUTING.md)
