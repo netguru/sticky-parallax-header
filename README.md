@@ -9,7 +9,7 @@
 
 <div align="center">
   <image src="https://app.bitrise.io/app/1ffc1637c8691f4f/status.svg?token=2vMEootz4cobIHmtr5UeYg&branch=develop"/>
-  <image src="https://badge.fury.io/js/survey-monkey-streams.svg"/>
+  <image src="https://badge.fury.io/js/react-native-sticky-parallax-header.svg"/>
   <image src="https://img.shields.io/github/downloads/netguru/sticky-parallax-header/total.svg"/>
 </div>
 <div align="center">
