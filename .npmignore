@@ -5,3 +5,4 @@ yarn-error.log
 .history
 .DS_Store
 assets
+!example/src/assets
