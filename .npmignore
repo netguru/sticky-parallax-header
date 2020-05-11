@@ -4,5 +4,5 @@ node_modules
 yarn-error.log
 .history
 .DS_Store
-assets
-!example/src/assets
+/assets
+!src/assets
