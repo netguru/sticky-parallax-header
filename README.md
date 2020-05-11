@@ -9,8 +9,8 @@
 
 <div align="center">
   <image src="https://app.bitrise.io/app/1ffc1637c8691f4f/status.svg?token=2vMEootz4cobIHmtr5UeYg&branch=develop"/>
-  <image src="https://badge.fury.io/js/survey-monkey-streams.svg"/>
-  <image src="https://img.shields.io/github/downloads/netguru/sticky-parallax-header/total.svg"/>
+  <image src="https://badge.fury.io/js/react-native-sticky-parallax-header.svg"/>
+  <image src="https://img.shields.io/npm/dt/react-native-sticky-parallax-header"/>
 </div>
 <div align="center">
     <br/><em>Brought with</em> &nbsp;❤️ <em>by</em> &nbsp; <a href="https://www.netguru.com">
@@ -26,7 +26,7 @@
 </p>
 
 <div align="center">
-  <a href="#Preview">Preview</a> &nbsp;|&nbsp; <a href="#Getting-Started">Getting Started</a> &nbsp;|&nbsp; <a href="#Usage">Usage</a> &nbsp;|&nbsp; <a href="#Demo">Demo</a>  &nbsp;|&nbsp; <a href="#Contributors">Contributors</a>
+  <a href="#Preview">Preview</a> &nbsp;|&nbsp; <a href="#Getting-Started">Getting Started</a> &nbsp;|&nbsp; <a href="#Contributing">Contributing</a> &nbsp;|&nbsp; <a href="#Contributors">Contributors</a>
 </div>
 
 
@@ -91,7 +91,7 @@ Below are examples of those components and description of the props they are acc
 | `header`                      |`func`                                                 |    Yes   |                                                                                                                                                                                                | Fuction that renders custom header                       |
 | `scrollEvent`                 |`func`                                                 |    Yes   |                                                                                                                                                                                                | Scroll event to apply custom animations                  |
 
-[Check how to customise Tabbed Header example](docs/TABBEDHEADER.md)
+[Check how to customise Tabbed Header example](docs/TABBEDHEADER.MD)
 
 ## Details Header
 
@@ -165,11 +165,6 @@ $ yarn add react-native-sticky-parallax-header
 ### Installation for React Native < 0.60.0
 
 [Installation steps for React Native < 0.60.0](docs/INSTALLATION.md)
-
-<h1 id="Demo">Demo</h1>
-<img alt="Logo"  src='./assets/readme_quizlogo.svg' width='60'/>
-
-If you want to test package without installation you can download our [showcase app](https://github.com/netguru/quiz-showcase-rn)
 
 <h1 id="Contributing">Contributing</h1>
 
