@@ -91,7 +91,7 @@ Below are examples of those components and description of the props they are acc
 | `header`                      |`func`                                                 |    Yes   |                                                                                                                                                                                                | Fuction that renders custom header                       |
 | `scrollEvent`                 |`func`                                                 |    Yes   |                                                                                                                                                                                                | Scroll event to apply custom animations                  |
 
-[Check how to customise Tabbed Header example](docs/TABBEDHEADER.md)
+[Check how to customise Tabbed Header example](docs/TABBEDHEADER.MD)
 
 ## Details Header
 
