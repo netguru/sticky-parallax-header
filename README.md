@@ -10,7 +10,7 @@
 <div align="center">
   <image src="https://app.bitrise.io/app/1ffc1637c8691f4f/status.svg?token=2vMEootz4cobIHmtr5UeYg&branch=develop"/>
   <image src="https://badge.fury.io/js/react-native-sticky-parallax-header.svg"/>
-  <image src="https://img.shields.io/github/downloads/netguru/sticky-parallax-header/total.svg"/>
+  <image src="https://img.shields.io/npm/dt/react-native-sticky-parallax-header"/>
 </div>
 <div align="center">
     <br/><em>Brought with</em> &nbsp;❤️ <em>by</em> &nbsp; <a href="https://www.netguru.com">
