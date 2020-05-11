@@ -1,6 +1,6 @@
 {
   "name": "react-native-sticky-parallax-header",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "src/index.js",
   "repository": "https://github.com/netguru/sticky-parallax-header",
   "author": "IdaszakDaniel <idaszak1@gmail.com>",
