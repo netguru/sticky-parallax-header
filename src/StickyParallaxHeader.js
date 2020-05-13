@@ -13,6 +13,7 @@ import {
   Dimensions,
   ImageBackground,
   ScrollView,
+  Text,
   View,
   Animated,
   Easing,
@@ -57,13 +58,13 @@ class StickyParallaxHeader extends Component {
 
   spring = () => {
     const scrollNode = this.scroll
-    scrollNode.scrollTo({ x: 0, y: 40, animated: true })
+    scrollNode.getNode().scrollTo({ x: 0, y: 40, animated: true })
 
     return setTimeout(() => {
       setTimeout(() => {
-        scrollNode.scrollTo({ x: 0, y: 25, animated: true })
+        scrollNode.getNode().scrollTo({ x: 0, y: 25, animated: true })
       }, 200)
-      scrollNode.scrollTo({ x: 0, y: 0, animated: true })
+      scrollNode.getNode().scrollTo({ x: 0, y: 0, animated: true })
     }, 300)
   }
 
@@ -79,7 +80,7 @@ class StickyParallaxHeader extends Component {
     const snapToEdgeAnimatedValue = new ValueXY(scrollValue)
     const snapToEdgeThreshold = snapStartThreshold || height / 2
     const id = snapToEdgeAnimatedValue.addListener((value) => {
-      scrollNode.scrollTo({ x: 0, y: value.y, animated: false })
+      scrollNode.getNode().scrollTo({ x: 0, y: value.y, animated: false })
     })
 
     if (y < -20 && !constants.isAndroid) this.spring(y)
@@ -91,7 +92,7 @@ class StickyParallaxHeader extends Component {
               {
                 isFolded: false
               },
-              scrollNode.scrollTo({ x: 0, y: 0, animated: true })
+              scrollNode.getNode().scrollTo({ x: 0, y: 0, animated: true })
             )
           : timing(snapToEdgeAnimatedValue, {
               toValue: { x: 0, y: 0 },
@@ -111,7 +112,7 @@ class StickyParallaxHeader extends Component {
               {
                 isFolded: true
               },
-              scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
+              scrollNode.getNode().scrollTo({ x: 0, y: scrollHeight, animated: true })
             )
           : timing(snapToEdgeAnimatedValue, {
               toValue: { x: 0, y: snap },
@@ -149,6 +150,7 @@ class StickyParallaxHeader extends Component {
   }
 
   goToPage = (pageNumber) => {
+    console.log('pageNumber :>> ', pageNumber);
     const { containerWidth, currentPage } = this.state
     const offset = pageNumber * containerWidth
     if (currentPage !== pageNumber) {

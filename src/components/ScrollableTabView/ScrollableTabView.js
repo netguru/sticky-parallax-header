@@ -81,7 +81,7 @@ class ScrollableTabView extends React.Component {
 
     return (
       isHeaderFolded &&
-      scrollRef.scrollTo({
+      scrollRef.getNode().scrollTo({
         y: scrollHeight,
         duration: 1000
       })
@@ -167,7 +167,7 @@ class ScrollableTabView extends React.Component {
     const { containerWidth } = this.state
     const offset = pageNumber * containerWidth
     if (this.scrollView) {
-      this.scrollView.scrollTo({ x: offset, y: 0, animated: true })
+      this.scrollView.getNode().scrollTo({ x: offset, y: 0, animated: true })
     }
 
     const { currentPage } = this.state
