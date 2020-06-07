@@ -2,30 +2,35 @@
 
 ## Custom Header Props
 
-| Property                         | Type                | Required   | Default   | Description                                                     | 
-| :------------------------------: | :-----------------: | :--------: | :-------: | :-------------------------------------------------------------: |
-| `background`                     | `node`              | No         | -         | This renders background component                               |
-| `backgroundImage`                | `number`            | No         | -         | This renders background image instead of background component   |
-| `backgroundColor`                | `string`            | Yes        |`""`       | Header background color                                         |
-| `bounces`                        | `bool`              | Yes        | `true`    | Bounces on swiping up                                           |
-| `children`                       | `node`              | No         | -         | This renders all the children inside the component              |
-| `foreground`                     | `node`              | Yes        | -         | This renders foreground component                               |
-| `header`                         | `node`              | Yes        | -         | This renders header component                                   |
-| `headerHeight`                   | `number`            | No         | `92`      | Sets height of folded header                                    |
-| `headerSize`                     | `func`              | No         | -         | Returns size of header for current device                       |
-| `initialPage`                    | `number`            | No         | `0`       | Set initial page of tab bar                                     |
-| `onChangeTab`                    | `func`              | No         | -         | Tab change event                                                |
-| `onEndReached`                   | `func`              | No         | -         | Tab change event                                                |
-| `parallaxHeight`                 | `number`            | No         | `0`       | Sets height of opened header                                    |
-| `snapToEdge`                     | `bool`              | No         | `true`    | Boolean to fire the function for snap To Edge                   |
-| `scrollEvent`                    | `func`              | No         | -         | Returns offset of header to apply custom animations             |
-| `tabs`                           | `arrayOf(string)`   | No         | -         | Array of tab names                                              |
-| `tabTextStyle`                   | `shape({})`         | No         | {}        | Text styles of tab                                              |
-| `tabTextActiveStyle`             | `shape({})`         | No         | {}        | Text styles of active tab                                       |
-| `tabTextContainerStyle`          | `shape({})`         | No         | {}        | Container styles of tab                                         |
-| `tabTextContainerActiveStyle`    | `shape({})`         | No         | {}        | Container styles of active tab                                  |
-| `tabsContainerBackgroundColor`   | `string`            | No         | -         | Background color of tab bar container                           |
-| `tabsWrapperStyle`               | `shape({})`         | No         | {}        | Tabs Wrapper styles                                             |
+| Property                         | Type                                                                  | Required   | Default   | Description                                                     | 
+| :------------------------------: | :-------------------------------------------------------------------: | :--------: | :-------: | :-------------------------------------------------------------: |
+| `backgroundColor`                | `string`                                                              |     Yes    | `""`       | Header background color                                        |
+| `backgroundImage`                | `ImageSourcePropType`                                                 |     No     | -         | This renders background image instead of background component   |
+| `background`                     | `ReactElement`                                                        |     No     | -         | This renders background component                               |
+| `bounces`                        | `boolean`                                                             |     Yes    | `true`    | Bounces on swiping up                                           |
+| `children`                       | `ReactElement`                                                        |     No     | -         | This renders all the children inside the component              |
+| `foreground`                     | `ReactElement`                                                        |     Yes    | -         | This renders foreground component                               |
+| `headerHeight`                   | `number`                                                              |     No     | `92`      | Sets height of folded header                                    |
+| `headerSize`                     | `({ x, y, width, height }: HeaderSizeProps) => void`                  |     No     | -         | Handler that is called when header's size changes               |
+| `header`                         | `ReactElement`                                                        |     Yes    | -         | This renders header component                                   |
+| `initialPage`                    | `number`                                                              |     No     | `0`       | Set initial page of tab bar                                     |
+| `onChangeTab`                    | `({ i, ref, from }: { from: number; i: number; ref: any; }) => void;` |     No     | -         | Tab change event                                                |
+| `onEndReached`                   | `() => void`                                                          |     No     | -         | Tab change event                                                |
+| `parallaxHeight`                 | `number`                                                              |     No     | `0`       | Sets height of opened header                                    |
+| `scrollEvent`                    | `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`            |     No     | -         | Returns offset of header to apply custom animations             |
+| `snapStartThreshold`             | `number`                                                              |     No     | -         | Set start value Threshold of snap                               |
+| `snapStopThreshold`              | `number`                                                              |     No     | -         | Set stop value Threshold of snap                                |
+| `snapToEdge`                     | `boolean`                                                             |     No     | `true`    | Boolean to fire the function for snap To Edge                   |
+| `snapValue`                      | `number`                                                              |     No     | -         | Set value where header is closed                                |
+| `tabTextActiveStyle`             | `TextStyle`                                                           |     No     | {}        | Text styles of active tab                                       |
+| `tabTextContainerActiveStyle`    | `ViewStyle`                                                           |     No     | {}        | Container styles of active tab                                  |
+| `tabTextContainerStyle`          | `ViewStyle`                                                           |     No     | {}        | Container styles of tab                                         |
+| `tabTextStyle`                   | `TextStyle`                                                           |     No     | {}        | Text styles of tab                                              |
+| `tabsContainerBackgroundColor`   | `ViewStyle`                                                           |     No     | -         | Background color of tab bar container                           |
+| `tabsWrapperStyle`               | `ViewStyle`                                                           |     No     | {}        | Tabs Wrapper styles                                             |
+| `tabs`                           | `{ content: ReactElement; title: string; }[]`                         |     No     | -         | Array of tab names                                              |
+| `tabsContainerStyle`             | `ViewStyle`                                                           |     No     | -         | Set whole tab bar container style                               |
+| `transparentHeader`              | `boolean`                                                             |     No     | `false`   | Set header transparency to render custom header                 |
 
 <h1 id="Usage">Usage</h1>
 

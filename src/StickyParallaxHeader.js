@@ -7,7 +7,6 @@ import {
   number,
   shape,
   string,
-  oneOfType
 } from 'prop-types'
 import {
   Dimensions,
@@ -413,9 +412,9 @@ StickyParallaxHeader.propTypes = {
   tabsContainerBackgroundColor: string,
   tabWrapperStyle: ViewPropTypes.style,
   tabsContainerStyle: ViewPropTypes.style,
-  snapStartThreshold: oneOfType([ bool, number]),
-  snapStopThreshold: oneOfType([ bool, number]),
-  snapValue: oneOfType([ bool, number]),
+  snapStartThreshold: number,
+  snapStopThreshold: number,
+  snapValue: number,
   transparentHeader: bool
 }
 
@@ -431,9 +430,6 @@ StickyParallaxHeader.defaultProps = {
   tabTextContainerStyle: {},
   tabTextStyle: {},
   tabWrapperStyle: {},
-  snapStartThreshold: false,
-  snapStopThreshold: false,
-  snapValue: false,
   transparentHeader: false
 }
 

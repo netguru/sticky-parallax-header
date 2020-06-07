@@ -1,11 +1,5 @@
-import React from 'react';
-import {
-  ImageSourcePropType,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  TextStyle,
-  ViewStyle,
-} from 'react-native';
+import React, {ReactElement} from 'react';
+import { ImageSourcePropType, NativeScrollEvent, NativeSyntheticEvent, TextStyle, ViewStyle, ImageResizeMode } from 'react-native';
 
 export interface HeaderTypeProp {
   type?: 'TabbedHeader' | 'DetailsHeader' | 'AvatarHeader'
@@ -28,14 +22,11 @@ export interface Tab {
   content: React.ReactElement;
   title: string;
 }
-
 export interface SharedProps {
-  backgroundColor: string;
   backgroundImage?: ImageSourcePropType;
   headerHeight?: number;
   snapToEdge?: boolean;
-  bounces: boolean;
-
+  bounces?: boolean;
 }
 
 export interface IconProps {
@@ -57,59 +48,63 @@ export interface TabsSharedProps {
 
 
 export interface TabbedHeaderProps extends SharedProps, TabsSharedProps {
-  foregroundImage: ImageSourcePropType;
-  header: () => React.ReactElement;
-  logo: ImageSourcePropType;
-  logoContainerStyle: ViewStyle;
-  logoResizeMode: string;
-  logoStyle: ViewStyle;
-  renderBody: (title: string) => React.ReactElement;
-  scrollEvent: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  title: string;
-  titleStyle: TextStyle;
+  backgroundColor?: string;
+  foregroundImage?: ImageSourcePropType;
+  header?: () => ReactElement;
+  logo?: ImageSourcePropType;
+  logoContainerStyle?: ViewStyle;
+  logoResizeMode?: ImageResizeMode;
+  logoStyle?: ViewStyle;
+  renderBody?: (title: string) => ReactElement;
+  scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  title?: string;
+  titleStyle?: TextStyle; 
 }
 
 export interface DetailsHeaderProps extends SharedProps, IconProps {
-  hasBorderRadius: boolean;
-  iconNumber: number;
-  image: number;
-  renderBody: (title: string) => React.ReactElement;
-  tag: string;
-  title: string;
+  backgroundColor?: string;
+  hasBorderRadius?: boolean;
+  iconNumber?: number;
+  image?: number;
+  renderBody?: (title: string) => ReactElement;
+  tag?: string;
+  title?: string;
 }
 
 export interface AvatarHeaderProps extends SharedProps, IconProps {
-  foreground: () => React.ReactElement;
-  hasBorderRadius: boolean;
-  header: () => React.ReactElement;
-  image: number;
-  parallaxHeight: number;
-  renderBody: (title: string) => React.ReactElement;
-  scrollEvent: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  snapStartThreshold: boolean | number;
-  snapStopThreshold: boolean | number;
-  snapValue: boolean | number;
-  subtitle: string;
-  title: string;
-  transparentHeader: boolean;
+  backgroundColor?: string;
+  foreground?: () => ReactElement;
+  hasBorderRadius?: boolean;
+  header?: () => ReactElement;
+  image?: number;
+  parallaxHeight?: number;
+  renderBody?: (title: string) => ReactElement;
+  scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  snapStartThreshold?: number;
+  snapStopThreshold?: number;
+  snapValue?: number;
+  subtitle?: string;
+  title?: string;
+  transparentHeader?: boolean;
 }
 
 export interface CustomHeaderProps extends SharedProps, TabsSharedProps {
-  background: React.ReactElement;
-  children: React.ReactElement;
-  foreground: React.ReactElement;
-  header: React.ReactElement;
+  background: ReactElement;
+  backgroundColor: string;
+  children?: ReactElement;
+  foreground?: ReactElement;
+  header: ReactElement;
   headerSize?: ({ x, y, width, height }: HeaderSizeProps) => void;
-  initialPage: number;
+  initialPage?: number;
   onChangeTab?: ({ i, ref, from }: OnChangeTabArguments) => void;
   onEndReached?: () => void;
-  parallaxHeight: number;
-  scrollEvent: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  snapStartThreshold: boolean | number;
-  snapStopThreshold: boolean | number;
-  snapValue: boolean | number;
-  tabsContainerBackgroundColor: string;
-  transparentHeader: boolean;
+  parallaxHeight?: number;
+  scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  snapStartThreshold?: number;
+  snapStopThreshold?: number;
+  snapValue?: number;
+  tabsContainerBackgroundColor?: string;
+  transparentHeader?: boolean;
 }
 
 type StickyParallaxHeaderProps = HeaderTypeProp & (DetailsHeaderProps | AvatarHeaderProps | TabbedHeaderProps | CustomHeaderProps)
