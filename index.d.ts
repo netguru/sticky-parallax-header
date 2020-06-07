@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react';
+import {ReactElement, Component} from 'react';
 import { ImageSourcePropType, NativeScrollEvent, NativeSyntheticEvent, TextStyle, ViewStyle, ImageResizeMode } from 'react-native';
 
 export interface HeaderTypeProp {
@@ -19,7 +19,7 @@ export interface OnChangeTabArguments {
 }
 
 export interface Tab {
-  content: React.ReactElement;
+  content: ReactElement;
   title: string;
 }
 export interface SharedProps {
@@ -113,4 +113,4 @@ export type CustomHeaderProps = SharedProps & TabsSharedProps & {
 
 type StickyParallaxHeaderProps = HeaderTypeProp & (DetailsHeaderProps | AvatarHeaderProps | TabbedHeaderProps | CustomHeaderProps)
 
-export default class StickyParallaxHeader extends React.Component<StickyParallaxHeaderProps, any> { }
+export default class StickyParallaxHeader extends Component<StickyParallaxHeaderProps, any> { }
