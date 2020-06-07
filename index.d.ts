@@ -47,7 +47,8 @@ export interface TabsSharedProps {
 }
 
 
-export interface TabbedHeaderProps extends SharedProps, TabsSharedProps {
+export type TabbedHeaderProps = SharedProps & TabsSharedProps & {
+  type: 'TabbedHeader';
   backgroundColor?: string;
   foregroundImage?: ImageSourcePropType;
   header?: () => ReactElement;
@@ -61,7 +62,8 @@ export interface TabbedHeaderProps extends SharedProps, TabsSharedProps {
   titleStyle?: TextStyle; 
 }
 
-export interface DetailsHeaderProps extends SharedProps, IconProps {
+export type DetailsHeaderProps = SharedProps & IconProps & {
+  type: 'DetailsHeader';
   backgroundColor?: string;
   hasBorderRadius?: boolean;
   iconNumber?: number;
@@ -71,7 +73,8 @@ export interface DetailsHeaderProps extends SharedProps, IconProps {
   title?: string;
 }
 
-export interface AvatarHeaderProps extends SharedProps, IconProps {
+export type AvatarHeaderProps = SharedProps & IconProps & {
+  type: 'AvatarHeader';
   backgroundColor?: string;
   foreground?: () => ReactElement;
   hasBorderRadius?: boolean;
@@ -88,7 +91,8 @@ export interface AvatarHeaderProps extends SharedProps, IconProps {
   transparentHeader?: boolean;
 }
 
-export interface CustomHeaderProps extends SharedProps, TabsSharedProps {
+export type CustomHeaderProps = SharedProps & TabsSharedProps & {
+  type: undefined;
   background: ReactElement;
   backgroundColor: string;
   children?: ReactElement;
