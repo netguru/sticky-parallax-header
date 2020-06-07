@@ -2,7 +2,7 @@ import { ReactElement, Component } from 'react';
 import { ImageSourcePropType, NativeScrollEvent, NativeSyntheticEvent, TextStyle, ViewStyle, ImageResizeMode } from 'react-native';
 
 export interface HeaderTypeProp {
-  type?: 'TabbedHeader' | 'DetailsHeader' | 'AvatarHeader'
+  headerType?: 'TabbedHeader' | 'DetailsHeader' | 'AvatarHeader'
 }
 
 export interface HeaderSizeProps {
@@ -48,7 +48,7 @@ export interface TabsSharedProps {
 
 
 export type TabbedHeaderProps = SharedProps & TabsSharedProps & {
-  type: 'TabbedHeader';
+  headerType: 'TabbedHeader';
   backgroundColor?: string;
   foregroundImage?: ImageSourcePropType;
   header?: () => ReactElement;
@@ -63,7 +63,7 @@ export type TabbedHeaderProps = SharedProps & TabsSharedProps & {
 }
 
 export type DetailsHeaderProps = SharedProps & IconProps & {
-  type: 'DetailsHeader';
+  headerType: 'DetailsHeader';
   backgroundColor?: string;
   hasBorderRadius?: boolean;
   iconNumber?: number;
@@ -74,7 +74,7 @@ export type DetailsHeaderProps = SharedProps & IconProps & {
 }
 
 export type AvatarHeaderProps = SharedProps & IconProps & {
-  type: 'AvatarHeader';
+  headerType: 'AvatarHeader';
   backgroundColor?: string;
   foreground?: () => ReactElement;
   hasBorderRadius?: boolean;
@@ -92,7 +92,7 @@ export type AvatarHeaderProps = SharedProps & IconProps & {
 }
 
 export type CustomHeaderProps = SharedProps & TabsSharedProps & {
-  type: undefined;
+  headerType: undefined;
   background: ReactElement;
   backgroundColor: string;
   children?: ReactElement;
