@@ -1,4 +1,4 @@
-import {ReactElement, Component} from 'react';
+import { ReactElement, Component } from 'react';
 import { ImageSourcePropType, NativeScrollEvent, NativeSyntheticEvent, TextStyle, ViewStyle, ImageResizeMode } from 'react-native';
 
 export interface HeaderTypeProp {
@@ -59,7 +59,7 @@ export type TabbedHeaderProps = SharedProps & TabsSharedProps & {
   renderBody?: (title: string) => ReactElement;
   scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   title?: string;
-  titleStyle?: TextStyle; 
+  titleStyle?: TextStyle;
 }
 
 export type DetailsHeaderProps = SharedProps & IconProps & {
