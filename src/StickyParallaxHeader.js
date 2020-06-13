@@ -57,13 +57,13 @@ class StickyParallaxHeader extends Component {
 
   spring = () => {
     const scrollNode = this.scroll
-    scrollNode.scrollTo({ x: 0, y: 40, animated: true })
+    scrollNode.getNode().scrollTo({ x: 0, y: 40, animated: true })
 
     return setTimeout(() => {
       setTimeout(() => {
-        scrollNode.scrollTo({ x: 0, y: 25, animated: true })
+        scrollNode.getNode().scrollTo({ x: 0, y: 25, animated: true })
       }, 200)
-      scrollNode.scrollTo({ x: 0, y: 0, animated: true })
+      scrollNode.getNode().scrollTo({ x: 0, y: 0, animated: true })
     }, 300)
   }
 
@@ -79,7 +79,7 @@ class StickyParallaxHeader extends Component {
     const snapToEdgeAnimatedValue = new ValueXY(scrollValue)
     const snapToEdgeThreshold = snapStartThreshold || height / 2
     const id = snapToEdgeAnimatedValue.addListener((value) => {
-      scrollNode.scrollTo({ x: 0, y: value.y, animated: false })
+      scrollNode.getNode().scrollTo({ x: 0, y: value.y, animated: false })
     })
 
     if (y < -20 && !constants.isAndroid) this.spring(y)
@@ -88,42 +88,42 @@ class StickyParallaxHeader extends Component {
       if (y > 0 && y < snapToEdgeThreshold) {
         return constants.isAndroid
           ? this.setState(
-              {
-                isFolded: false
-              },
-              scrollNode.scrollTo({ x: 0, y: 0, animated: true })
-            )
+            {
+              isFolded: false
+            },
+            scrollNode.getNode().scrollTo({ x: 0, y: 0, animated: true })
+          )
           : timing(snapToEdgeAnimatedValue, {
-              toValue: { x: 0, y: 0 },
-              duration: 400,
-              easing: Easing.out(Easing.cubic),
-              useNativeDriver: true
-            }).start(() => {
-              snapToEdgeAnimatedValue.removeListener(id)
-              this.setState({
-                isFolded: false
-              })
+            toValue: { x: 0, y: 0 },
+            duration: 400,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true
+          }).start(() => {
+            snapToEdgeAnimatedValue.removeListener(id)
+            this.setState({
+              isFolded: false
             })
+          })
       }
       if (y >= snapToEdgeThreshold && y < scrollHeight) {
         return constants.isAndroid
           ? this.setState(
-              {
-                isFolded: true
-              },
-              scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
-            )
+            {
+              isFolded: true
+            },
+            scrollNode.getNode().scrollTo({ x: 0, y: scrollHeight, animated: true })
+          )
           : timing(snapToEdgeAnimatedValue, {
-              toValue: { x: 0, y: snap },
-              duration: 400,
-              easing: Easing.out(Easing.cubic),
-              useNativeDriver: true
-            }).start(() => {
-              snapToEdgeAnimatedValue.removeListener(id)
-              this.setState({
-                isFolded: true
-              })
+            toValue: { x: 0, y: snap },
+            duration: 400,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true
+          }).start(() => {
+            snapToEdgeAnimatedValue.removeListener(id)
+            this.setState({
+              isFolded: true
             })
+          })
       }
     }
 
@@ -157,7 +157,7 @@ class StickyParallaxHeader extends Component {
       })
     }
     if (this.scrollView) {
-      this.scrollView.scrollTo({
+      this.scrollView.getNode().scrollTo({
         x: offset,
         y: 0,
         animated: true
@@ -194,7 +194,7 @@ class StickyParallaxHeader extends Component {
             backgroundColor: isArray
               ? arrayHeaderStyle.backgroundColor
               : backgroundColor || headerStyle?.backgroundColor,
-            ...( transparentHeader && styles.transparentHeader )
+            ...(transparentHeader && styles.transparentHeader)
           })
         }
       >
@@ -248,7 +248,7 @@ class StickyParallaxHeader extends Component {
         style={{
           height: backgroundHeight,
           backgroundColor: tabsContainerBackgroundColor,
-          ...( backgroundImage && styles.transparentBackground )
+          ...(backgroundImage && styles.transparentBackground)
         }}
       >
         {foreground}
@@ -413,9 +413,9 @@ StickyParallaxHeader.propTypes = {
   tabsContainerBackgroundColor: string,
   tabWrapperStyle: ViewPropTypes.style,
   tabsContainerStyle: ViewPropTypes.style,
-  snapStartThreshold: oneOfType([ bool, number]),
-  snapStopThreshold: oneOfType([ bool, number]),
-  snapValue: oneOfType([ bool, number]),
+  snapStartThreshold: oneOfType([bool, number]),
+  snapStopThreshold: oneOfType([bool, number]),
+  snapValue: oneOfType([bool, number]),
   transparentHeader: bool
 }
 
