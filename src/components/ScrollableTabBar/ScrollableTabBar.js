@@ -152,7 +152,7 @@ class ScrollableTabBar extends React.PureComponent {
                     }}
                     style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}
                   >
-                    {tab.title}
+                    {tab.title}test
                   </Text>
                 </View>
               </TouchableOpacity>
