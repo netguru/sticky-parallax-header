@@ -105,10 +105,10 @@ export default class TabbedHeader extends React.Component {
 
     const renderImage = () => {
       const logo = isUndefined(foregroundImage)
-      ? require('../../assets/images/photosPortraitMe.png')
-      : foregroundImage
+        ? require('../../assets/images/photosPortraitMe.png')
+        : foregroundImage
 
-      if(foregroundImage !== null){
+      if (foregroundImage !== null) {
         return (
           <Animated.View style={{ opacity: imageOpacity }}>
             <Animated.Image
@@ -186,7 +186,7 @@ export default class TabbedHeader extends React.Component {
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.homeScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false, listener: e => scrollEvent && scrollEvent(e)})}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], { useNativeDriver: false, listener: e => scrollEvent && scrollEvent(e) })}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           tabs={tabs}
@@ -237,7 +237,7 @@ TabbedHeader.defaultProps = {
   backgroundColor: colors.primaryGreen,
   headerHeight: sizes.headerHeight,
   backgroundImage: null,
-  title: "Mornin' Mark! \nReady for a quiz?",
+  title: "Mornin' Chris! \nReady for a quizz?",
   bounces: true,
   snapToEdge: true,
   logo: require('../../assets/images/logo.png'),
