@@ -175,7 +175,8 @@ export default class TabbedHeader extends React.Component {
       tabTextContainerStyle,
       tabTextContainerActiveStyle,
       tabWrapperStyle,
-      tabsContainerStyle
+      tabsContainerStyle,
+      fixedTabCount //jkl
     } = this.props
 
     return (
@@ -200,6 +201,7 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
+          fixedTabCount={fixedTabCount} // jkl
         >
           {renderBody('Popular Quizes')}
         </StickyParallaxHeader>
@@ -230,7 +232,8 @@ TabbedHeader.propTypes = {
   tabsContainerStyle: ViewPropTypes.style,
   foregroundImage: Image.propTypes.source,
   titleStyle: Text.propTypes.style,
-  header: func
+  header: func,
+  fixedTabCount: bool //jkl
 }
 
 TabbedHeader.defaultProps = {
@@ -267,5 +270,6 @@ TabbedHeader.defaultProps = {
   tabTextActiveStyle: styles.tabText,
   tabTextContainerStyle: styles.tabTextContainerStyle,
   tabTextContainerActiveStyle: styles.tabTextContainerActiveStyle,
-  tabWrapperStyle: styles.tabsWrapper
+  tabWrapperStyle: styles.tabsWrapper,
+  fixedTabCount: false // jkl
 }

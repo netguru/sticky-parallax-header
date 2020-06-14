@@ -265,7 +265,8 @@ class StickyParallaxHeader extends Component {
       tabTextContainerActiveStyle,
       tabsContainerBackgroundColor,
       tabWrapperStyle,
-      tabsContainerStyle
+      tabsContainerStyle,
+      fixedTabCount //jkl
     } = this.props
     const { scrollValue, currentPage, containerWidth } = this.state
 
@@ -281,7 +282,8 @@ class StickyParallaxHeader extends Component {
       tabsContainerBackgroundColor,
       tabs,
       tabWrapperStyle,
-      tabsContainerStyle
+      tabsContainerStyle,
+      fixedTabCount //jkl
     }
 
     return <ScrollableTabBar {...props} />
@@ -416,7 +418,8 @@ StickyParallaxHeader.propTypes = {
   snapStartThreshold: oneOfType([bool, number]),
   snapStopThreshold: oneOfType([bool, number]),
   snapValue: oneOfType([bool, number]),
-  transparentHeader: bool
+  transparentHeader: bool,
+  fixedTabCount: bool //jkl
 }
 
 StickyParallaxHeader.defaultProps = {
