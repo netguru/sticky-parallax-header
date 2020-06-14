@@ -105,10 +105,10 @@ export default class TabbedHeader extends React.Component {
 
     const renderImage = () => {
       const logo = isUndefined(foregroundImage)
-      ? require('../../assets/images/photosPortraitMe.png')
-      : foregroundImage
+        ? require('../../assets/images/photosPortraitMe.png')
+        : foregroundImage
 
-      if(foregroundImage !== null){
+      if (foregroundImage !== null) {
         return (
           <Animated.View style={{ opacity: imageOpacity }}>
             <Animated.Image
@@ -175,7 +175,8 @@ export default class TabbedHeader extends React.Component {
       tabTextContainerStyle,
       tabTextContainerActiveStyle,
       tabWrapperStyle,
-      tabsContainerStyle
+      tabsContainerStyle,
+      fixedTabCount //jkl
     } = this.props
 
     return (
@@ -186,7 +187,7 @@ export default class TabbedHeader extends React.Component {
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.homeScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false, listener: e => scrollEvent && scrollEvent(e)})}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], { useNativeDriver: false, listener: e => scrollEvent && scrollEvent(e) })}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           tabs={tabs}
@@ -200,6 +201,7 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
+          fixedTabCount={fixedTabCount} // jkl
         >
           {renderBody('Popular Quizes')}
         </StickyParallaxHeader>
@@ -230,14 +232,15 @@ TabbedHeader.propTypes = {
   tabsContainerStyle: ViewPropTypes.style,
   foregroundImage: Image.propTypes.source,
   titleStyle: Text.propTypes.style,
-  header: func
+  header: func,
+  fixedTabCount: bool //jkl
 }
 
 TabbedHeader.defaultProps = {
   backgroundColor: colors.primaryGreen,
   headerHeight: sizes.headerHeight,
   backgroundImage: null,
-  title: "Mornin' Mark! \nReady for a quiz?",
+  title: "Mornin' Chris! \nReady for a quizz?",
   bounces: true,
   snapToEdge: true,
   logo: require('../../assets/images/logo.png'),
@@ -267,5 +270,6 @@ TabbedHeader.defaultProps = {
   tabTextActiveStyle: styles.tabText,
   tabTextContainerStyle: styles.tabTextContainerStyle,
   tabTextContainerActiveStyle: styles.tabTextContainerActiveStyle,
-  tabWrapperStyle: styles.tabsWrapper
+  tabWrapperStyle: styles.tabsWrapper,
+  fixedTabCount: false // jkl
 }

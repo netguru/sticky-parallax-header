@@ -83,7 +83,8 @@ class ScrollableTabBar extends React.PureComponent {
       tabTextContainerActiveStyle,
       tabsContainerBackgroundColor,
       tabWrapperStyle,
-      tabsContainerStyle
+      tabsContainerStyle,
+      fixedTabCount //jkl
     } = this.props
     const { tabUnderlineWidth } = this.state
 
@@ -130,14 +131,14 @@ class ScrollableTabBar extends React.PureComponent {
               <TouchableOpacity
                 key={tab.title}
                 accessible
-                style={tabWrapperStyle}
+                style={[tabWrapperStyle, fixedTabCount && styles.tabWrapperFixedTabCount]} //jkl
                 accessibilityLabel={tab.title}
                 accessibilityTraits="button"
                 activeOpacity={0.9}
                 onPress={() => this.goToPage(page)}
               >
                 <View style={[styles.tabContainer, tabTextContainerStyle, isTabActive && tabTextContainerActiveStyle]}>
-                  <Text
+                  {tab.title ? <Text
                     // eslint-disable-next-line no-return-assign
                     onLayout={({
                       nativeEvent: {
@@ -153,7 +154,7 @@ class ScrollableTabBar extends React.PureComponent {
                     style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}
                   >
                     {tab.title}
-                  </Text>
+                  </Text> : tab.icon}
                 </View>
               </TouchableOpacity>
             )

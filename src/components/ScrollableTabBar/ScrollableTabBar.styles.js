@@ -7,7 +7,8 @@ export default StyleSheet.create({
   },
   contentContainer: {
     alignItems: 'center',
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    width: '100%' //jkl
   },
   tabContainer: {
     alignItems: 'center',
@@ -24,6 +25,10 @@ export default StyleSheet.create({
     fontSize: 16
   },
   nestedStyle: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    width: '100%' //jkl
+  },
+  tabWrapperFixedTabCount: {
+    flex: 1
   }
 })
