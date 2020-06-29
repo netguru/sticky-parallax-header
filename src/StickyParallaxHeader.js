@@ -4,6 +4,7 @@ import { Dimensions, ImageBackground, ScrollView, View, Animated, Easing, ViewPr
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
+import { getSafelyScrollNode } from './utils'
 
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
@@ -38,7 +39,7 @@ class StickyParallaxHeader extends Component {
   }
 
   spring = () => {
-    const scrollNode = this.scroll && this.scroll.scrollTo ? this.scroll : this.scroll.getNode()
+    const scrollNode = getSafelyScrollNode(this.scroll)
     scrollNode.scrollTo({ x: 0, y: 40, animated: true })
 
     return setTimeout(() => {
@@ -54,7 +55,8 @@ class StickyParallaxHeader extends Component {
     const scrollHeight = snapStopThreshold || height
     const snap = snapValue || height
     const { snapToEdge } = this.props
-    const scrollNode = this.scroll && this.scroll.scrollTo ? this.scroll : this.scroll.getNode()
+
+    const scrollNode = getSafelyScrollNode(this.scroll)
     // eslint-disable-next-line no-underscore-dangle
     const scrollValue = this.scrollY.__getValue()
     const { y } = scrollValue
