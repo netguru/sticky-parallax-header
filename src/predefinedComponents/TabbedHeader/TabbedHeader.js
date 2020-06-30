@@ -1,20 +1,6 @@
 import React from 'react'
-import {
-  Text,
-  View,
-  Image,
-  StatusBar,
-  Animated,
-  ViewPropTypes
-} from 'react-native'
-import {
-  arrayOf,
-  bool,
-  number,
-  shape,
-  string,
-  func
-} from 'prop-types'
+import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native'
+import { arrayOf, bool, number, shape, string, func } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, colors, sizes } from '../../constants'
 import styles from './TabbedHeader.styles'
@@ -53,21 +39,11 @@ export default class TabbedHeader extends React.Component {
   }
 
   renderLogoHeader = () => {
-    const {
-      backgroundColor,
-      logo,
-      logoResizeMode,
-      logoStyle,
-      logoContainerStyle
-    } = this.props
+    const { backgroundColor, logo, logoResizeMode, logoStyle, logoContainerStyle } = this.props
 
     return (
       <View style={[logoContainerStyle, { backgroundColor }]}>
-        <Image
-          resizeMode={logoResizeMode}
-          source={logo}
-          style={logoStyle}
-        />
+        <Image resizeMode={logoResizeMode} source={logo} style={logoStyle} />
       </View>
     )
   }
@@ -104,17 +80,12 @@ export default class TabbedHeader extends React.Component {
     })
 
     const renderImage = () => {
-      const logo = isUndefined(foregroundImage)
-      ? require('../../assets/images/photosPortraitMe.png')
-      : foregroundImage
+      const logo = isUndefined(foregroundImage) ? require('../../assets/images/photosPortraitMe.png') : foregroundImage
 
-      if(foregroundImage !== null){
+      if (foregroundImage !== null) {
         return (
           <Animated.View style={{ opacity: imageOpacity }}>
-            <Animated.Image
-              source={logo}
-              style={[styles.profilePic, { width: imageSize, height: imageSize }]}
-            />
+            <Animated.Image source={logo} style={[styles.profilePic, { width: imageSize, height: imageSize }]} />
           </Animated.View>
         )
       }
@@ -186,7 +157,10 @@ export default class TabbedHeader extends React.Component {
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.homeScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false, listener: e => scrollEvent && scrollEvent(e)})}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
+            useNativeDriver: false,
+            listener: (e) => scrollEvent && scrollEvent(e)
+          })}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           tabs={tabs}
@@ -217,7 +191,7 @@ TabbedHeader.propTypes = {
   snapToEdge: bool,
   tabs: arrayOf(shape({})),
   renderBody: func,
-  logo: number,
+  logo: Image.propTypes.source,
   logoResizeMode: string,
   logoStyle: ViewPropTypes.style,
   logoContainerStyle: ViewPropTypes.style,
@@ -241,10 +215,10 @@ TabbedHeader.defaultProps = {
   bounces: true,
   snapToEdge: true,
   logo: require('../../assets/images/logo.png'),
-  logoResizeMode: "contain",
+  logoResizeMode: 'contain',
   logoStyle: styles.logo,
   logoContainerStyle: styles.headerWrapper,
-  renderBody: title => <RenderContent title={title} />,
+  renderBody: (title) => <RenderContent title={title} />,
   tabs: [
     {
       title: 'Popular',

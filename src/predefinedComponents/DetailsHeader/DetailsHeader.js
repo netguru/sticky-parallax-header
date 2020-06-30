@@ -130,14 +130,14 @@ class DetailsHeader extends React.Component {
     const { backgroundColor, backgroundImage, renderBody, headerHeight, snapToEdge, bounces } = this.props
 
     return (
-      <React.Fragment>
+      <>
         <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
           foreground={this.renderForeground(user)}
           header={this.renderHeader(user)}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.cardScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {useNativeDriver: false})}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], { useNativeDriver: false })}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           background={this.renderBackground(user)}
@@ -147,7 +147,7 @@ class DetailsHeader extends React.Component {
         >
           {renderBody(user)}
         </StickyParallaxHeader>
-      </React.Fragment>
+      </>
     )
   }
 }
@@ -159,10 +159,10 @@ DetailsHeader.propTypes = {
   rightTopIcon: number,
   backgroundColor: string,
   headerHeight: number,
-  backgroundImage: number,
+  backgroundImage: Image.propTypes.source,
   title: string,
   tag: string,
-  image: number,
+  image: Image.propTypes.source,
   renderBody: func,
   bounces: bool,
   snapToEdge: bool,
