@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity, Animated, StatusBar } from 'react-native'
-import { func, string, number, bool } from 'prop-types'
+import { func, string, number, bool, oneOfType } from 'prop-types'
 import StickyParallaxHeader from '../../index'
 import { constants, sizes } from '../../constants'
 import styles from './AvatarHeader.styles'
@@ -159,10 +159,10 @@ class AvatarHeader extends React.Component {
     const { backgroundColor, hasBorderRadius } = this.props
 
     const headerBorderRadius = this.scrollY.y.interpolate({
-        inputRange: [0, height],
-        outputRange: [80, 0],
-        extrapolate: 'extend'
-      })
+      inputRange: [0, height],
+      outputRange: [80, 0],
+      extrapolate: 'extend'
+    })
 
     const borderBottomRightRadius = hasBorderRadius ? headerBorderRadius : 0
 
@@ -235,18 +235,18 @@ AvatarHeader.propTypes = {
   rightTopIcon: number,
   backgroundColor: string,
   headerHeight: number,
-  backgroundImage: number,
+  backgroundImage: Image.propTypes.source,
   title: string,
   subtitle: string,
-  image: number,
+  image: Image.propTypes.source,
   renderBody: func,
   scrollEvent: func,
   parallaxHeight: number,
   foreground: func,
   header: func,
-  snapStartThreshold: number,
-  snapStopThreshold: number,
-  snapValue: number,
+  snapStartThreshold: oneOfType([bool, number]),
+  snapStopThreshold: oneOfType([bool, number]),
+  snapValue: oneOfType([bool, number]),
   transparentHeader: bool
 }
 AvatarHeader.defaultProps = {

@@ -1,26 +1,10 @@
 import React, { Component } from 'react'
-import {
-  arrayOf,
-  bool,
-  func,
-  node,
-  number,
-  shape,
-  string,
-} from 'prop-types'
-import {
-  Dimensions,
-  ImageBackground,
-  ScrollView,
-  View,
-  Animated,
-  Easing,
-  ViewPropTypes,
-  Image
-} from 'react-native'
+import { arrayOf, bool, func, node, number, shape, string, oneOfType } from 'prop-types'
+import { Dimensions, ImageBackground, ScrollView, View, Animated, Easing, ViewPropTypes, Image } from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
+import { getSafelyScrollNode } from './utils'
 
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
@@ -55,7 +39,7 @@ class StickyParallaxHeader extends Component {
   }
 
   spring = () => {
-    const scrollNode = this.scroll
+    const scrollNode = getSafelyScrollNode(this.scroll)
     scrollNode.scrollTo({ x: 0, y: 40, animated: true })
 
     return setTimeout(() => {
@@ -71,7 +55,8 @@ class StickyParallaxHeader extends Component {
     const scrollHeight = snapStopThreshold || height
     const snap = snapValue || height
     const { snapToEdge } = this.props
-    const scrollNode = this.scroll
+
+    const scrollNode = getSafelyScrollNode(this.scroll)
     // eslint-disable-next-line no-underscore-dangle
     const scrollValue = this.scrollY.__getValue()
     const { y } = scrollValue
@@ -193,7 +178,7 @@ class StickyParallaxHeader extends Component {
             backgroundColor: isArray
               ? arrayHeaderStyle.backgroundColor
               : backgroundColor || headerStyle?.backgroundColor,
-            ...( transparentHeader && styles.transparentHeader )
+            ...(transparentHeader && styles.transparentHeader)
           })
         }
       >
@@ -247,7 +232,7 @@ class StickyParallaxHeader extends Component {
         style={{
           height: backgroundHeight,
           backgroundColor: tabsContainerBackgroundColor,
-          ...( backgroundImage && styles.transparentBackground )
+          ...(backgroundImage && styles.transparentBackground)
         }}
       >
         {foreground}
@@ -412,9 +397,9 @@ StickyParallaxHeader.propTypes = {
   tabsContainerBackgroundColor: string,
   tabWrapperStyle: ViewPropTypes.style,
   tabsContainerStyle: ViewPropTypes.style,
-  snapStartThreshold: number,
-  snapStopThreshold: number,
-  snapValue: number,
+  snapStartThreshold: oneOfType([bool, number]),
+  snapStopThreshold: oneOfType([bool, number]),
+  snapValue: oneOfType([bool, number]),
   transparentHeader: bool
 }
 
