@@ -415,9 +415,6 @@ StickyParallaxHeader.defaultProps = {
   tabTextContainerStyle: {},
   tabTextStyle: {},
   tabWrapperStyle: {},
-  snapStartThreshold: false,
-  snapStopThreshold: false,
-  snapValue: false,
   transparentHeader: false
 }
 

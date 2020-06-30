@@ -265,9 +265,6 @@ AvatarHeader.defaultProps = {
   snapToEdge: true,
   hasBorderRadius: true,
   parallaxHeight: sizes.userScreenParallaxHeader,
-  snapStartThreshold: false,
-  snapStopThreshold: false,
-  snapValue: false,
   transparentHeader: false
 }
 
