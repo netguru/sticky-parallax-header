@@ -4,6 +4,7 @@ import { Animated, StyleSheet, View } from 'react-native'
 import { func, node, number, shape, bool } from 'prop-types'
 import SceneComponent from './SceneComponent'
 import constants from '../../constants/constants'
+import { getSafelyScrollNode } from '../../utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -78,10 +79,10 @@ class ScrollableTabView extends React.Component {
 
   scrollToTop = () => {
     const { scrollRef, scrollHeight, isHeaderFolded } = this.props
-
+    const scrollNode = getSafelyScrollNode(scrollRef)
     return (
       isHeaderFolded &&
-      scrollRef.scrollTo({
+      scrollNode.scrollTo({
         y: scrollHeight,
         duration: 1000
       })
@@ -166,8 +167,9 @@ class ScrollableTabView extends React.Component {
   goToPage = (pageNumber) => {
     const { containerWidth } = this.state
     const offset = pageNumber * containerWidth
-    if (this.scrollView) {
-      this.scrollView.scrollTo({ x: offset, y: 0, animated: true })
+    const scrollNode = getSafelyScrollNode(this.scrollView);
+    if (scrollNode) {
+      scrollNode.scrollTo({ x: offset, y: 0, animated: true })
     }
 
     const { currentPage } = this.state
