@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import { arrayOf, bool, func, node, number, shape, string, oneOfType } from 'prop-types'
-import { Dimensions, ImageBackground, ScrollView, View, Animated, Easing, ViewPropTypes, Image } from 'react-native'
+import {
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+  View,
+  Animated,
+  Easing,
+  ViewPropTypes,
+  Image
+} from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
@@ -32,10 +41,12 @@ class StickyParallaxHeader extends Component {
   componentDidMount() {
     // eslint-disable-next-line
     this.scrollY.addListener(({ value }) => (this._value = value))
+    this.props.onRef?.(this)
   }
 
   componentWillUnmount() {
     this.scrollY.removeAllListeners()
+    this.props.onRef?.(null)
   }
 
   spring = () => {
@@ -334,11 +345,15 @@ class StickyParallaxHeader extends Component {
               style={[
                 styles.overScrollPadding,
                 {
-                  backgroundColor: isArray ? arrayHeaderStyle.backgroundColor : headerStyle?.backgroundColor
+                  backgroundColor: isArray
+                    ? arrayHeaderStyle.backgroundColor
+                    : headerStyle?.backgroundColor
                 }
               ]}
             />
-            {backgroundImage ? this.renderImageBackground(scrollHeight) : this.renderPlainBackground(scrollHeight)}
+            {backgroundImage
+              ? this.renderImageBackground(scrollHeight)
+              : this.renderPlainBackground(scrollHeight)}
             {this.renderForeground(scrollHeight)}
           </View>
           {shouldRenderTabs && this.renderTabs()}
@@ -400,7 +415,8 @@ StickyParallaxHeader.propTypes = {
   snapStartThreshold: oneOfType([bool, number]),
   snapStopThreshold: oneOfType([bool, number]),
   snapValue: oneOfType([bool, number]),
-  transparentHeader: bool
+  transparentHeader: bool,
+  onRef: func
 }
 
 StickyParallaxHeader.defaultProps = {
@@ -418,7 +434,8 @@ StickyParallaxHeader.defaultProps = {
   snapStartThreshold: false,
   snapStopThreshold: false,
   snapValue: false,
-  transparentHeader: false
+  transparentHeader: false,
+  onRef: null
 }
 
 export default StickyParallaxHeader
