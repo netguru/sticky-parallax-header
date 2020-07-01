@@ -98,50 +98,53 @@ Below are examples of those components and description of the props they are acc
 
 ![Details Header Gif](./assets/readme_Details.gif)
 
-| Property              | Type                  | Optional |  Default                                                                     | Description                                              |
-| :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
-| `leftTopIconOnPress`  | `func`                |    Yes   | `() => {}`                                                                   | Define action on left top button press                   |
-| `rightTopIconOnPress` | `func`                |    Yes   | `() => {}`                                                                   | Define action on right top button press                  |
-| `leftTopIcon`         | `number`              |    Yes   | `require('../../assets/icons/iconCloseWhite.png')`                           | Set icon for left top button                             |
-| `rightTopIcon`        | `number`              |    Yes   | `require('../../assets/icons/Icon-Menu.png') `                               | Set icon for right top button                            |
-| `backgroundColor`     | `string`              |    Yes   | `#1ca75d`                                                                    | Header background color                                  |
-| `headerHeight`        | `number`              |    Yes   | `ifIphoneX(92, constants.responsiveHeight(13))`                              | Sets height of folded header                             |
-| `backgroundImage`     | `number`              |    Yes   | `null`                                                                       | Sets header background image                             |
-| `tag`                 | `string`              |    Yes   | `"Product Designer"`                                                         | Sets header tag name                                     |
-| `title`               | `string`              |    Yes   | `"Design System"`                                                            | Sets header title                                        |
-| `image`               | `number`              |    Yes   | `require('../../assets/images/photosPortraitBrandon.png')`                   | Sets header image                                        |
-| `renderBody`          | `func`                |    Yes   | `title => <RenderContent title={title} />`                                   | Function that renders body of the header (can be empty)  |
-| `bounces`             | `bool`                |    Yes   | `true`                                                                       | Bounces on swiping up                                    |
-| `snapToEdge`          | `bool`                |    Yes   | `true`                                                                       | Boolean to fire the function for snap To Edge            |
-| `hasBorderRadius`     | `bool`                |    Yes   | `true`                                                                       | Adds radius to header's left bottom border               |
-| `iconNumber`          | `number`              |    Yes   | `10`                                                                         | Set amount of cards shown on icon                        |
+| Property              | Type                              | Required |  Default                                                                     | Description                                              |
+| :-------------------: | :--------------------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
+| `backgroundColor`     | `string`                          |    No    | `#1ca75d`                                                                    | Header background color                                  |
+| `backgroundImage`     | `ImageSourcePropType`             |    No    | `null`                                                                       | Sets header background image                             |
+| `bounces`             | `boolean`                         |    No    | `true`                                                                       | Bounces on swiping up                                    |
+| `hasBorderRadius`     | `boolean`                         |    No    | `true`                                                                       | Adds radius to header's left bottom border               |
+| `headerHeight`        | `number`                          |    No    | `ifIphoneX(92, constants.responsiveHeight(13))`                              | Sets height of folded header                             |
+| `iconNumber`          | `number`                          |    No    | `10`                                                                         | Set amount of cards shown on icon                        |
+| `image`               | `ImageSourcePropType`             |    No    | `require('../../assets/images/photosPortraitBrandon.png')`                   | Sets header image                                        |
+| `leftTopIconOnPress`  | `() => void`                      |    No    | `() => {}`                                                                   | Define action on left top button press                   |
+| `leftTopIcon`         | `ImageSourcePropType`             |    No    | `require('../../assets/icons/iconCloseWhite.png')`                           | Set icon for left top button                             |
+| `renderBody`          | `(title: string) => ReactElement` |    No    | `title => <RenderContent title={title} />`                                   | Function that renders body of the header (can be empty)  |
+| `rightTopIconOnPress` | `() => void`                      |    No    | `() => {}`                                                                   | Define action on right top button press                  |
+| `rightTopIcon`        | `ImageSourcePropType`             |    No    | `require('../../assets/icons/Icon-Menu.png') `                               | Set icon for right top button                            |
+| `snapToEdge`          | `boolean`                         |    No    | `true`                                                                       | Boolean to fire the function for snap To Edge            |
+| `tag`                 | `string`                          |    No    | `"Product Designer"`                                                         | Sets header tag name                                     |
+| `title`               | `string`                          |    No    | `"Design System"`                                                            | Sets header title                                        |
 
 
 ## Avatar Header
 
 ![Avatar Header Gif](./assets/readme_Avatar.gif)
 
-| Property              | Type                  | Optional |  Default                                                                     | Description                                              |
-| :-------------------: | :--------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
-| `leftTopIconOnPress`  | `func`                |    Yes   | `() => {}`                                                                   | Define action on left top button press                   |
-| `rightTopIconOnPress` | `func`                |    Yes   | `() => {}`                                                                   | Define action on right top button press                  |
-| `leftTopIcon`         | `number`              |    Yes   | `require('../../assets/icons/iconCloseWhite.png')`                           | Set icon for left top button                             |
-| `rightTopIcon`        | `number`              |    Yes   | `require('../../assets/icons/Icon-Menu.png') `                               | Set icon for right top button                            |
-| `backgroundColor`     | `string`              |    Yes   | `#1ca75d`                                                                    | Header background color                                  |
-| `headerHeight`        | `number`              |    Yes   | `ifIphoneX(92, constants.responsiveHeight(13))`                              | Sets height of folded header                             |
-| `backgroundImage`     | `number`              |    Yes   | `null`                                                                       | Sets header background image                             |
-| `title`               | `string`              |    Yes   | `"Brandon`                                                                   | Sets header title                                        |
-| `subtitle`            | `string`              |    Yes   | `"Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer."`| Sets description(subtitle) section                       |
-| `image`               | `number`              |    Yes   | `require('../../assets/images/photosPortraitBrandon.png')`                   | Sets header image                                        |
-| `renderBody`          | `func`                |    Yes   | `title => <RenderContent title={title} />`                                   | Function that renders body of the header (can be empty)  |
-| `bounces`             | `bool`                |    Yes   | `true`                                                                       | Bounces on swiping up                                    |
-| `snapToEdge`          | `bool`                |    Yes   | `true`                                                                       | Boolean to fire the function for snap To Edge            |
-| `hasBorderRadius`     | `bool`                |    Yes   | `true`                                                                       | Adds radius to header's left bottom border               |
-| `parallaxHeight`      | `number`              |    Yes   |                                                                              | Set parallax header height                               |
-| `transparentHeader`   | `bool`                |    Yes   | `false`                                                                      | Set header transparency to render custom header          |
-| `snapStartThreshold`   | `number`              |    Yes   |                                                                              | Set start value Threshold of snap                         |
-| `snapStopThreshold`    | `number`              |    Yes   |                                                                              | Set stop value Threshold of snap                          |
-| `snapValue`           | `number`              |    Yes   |                                                                              | Set value where header is closed                         |
+| Property              | Type                                                       | Optional |  Default                                                                     | Description                                              |
+| :-------------------: | :---------------------------------------------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
+| `backgroundColor`     | `string`                                                   |    No    | `#1ca75d`                                                                    | Header background color                                  |
+| `backgroundImage`     | `ImageSourcePropType`                                      |    No    | `null`                                                                       | Sets header background image                             |
+| `bounces`             | `boolean`                                                  |    No    | `true`                                                                       | Bounces on swiping up                                    |
+| `foreground`          | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders the foreground of the header       |
+| `hasBorderRadius`     | `boolean`                                                  |    No    | `true`                                                                       | Adds radius to header's left bottom border               |
+| `headerHeight`        | `number`                                                   |    No    | `ifIphoneX(92, constants.responsiveHeight(13))`                              | Sets height of folded header                             |
+| `header`              | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders custom header                      |
+| `image`               | `ImageSourcePropType`                                      |    No    | `require('../../assets/images/photosPortraitBrandon.png')`                   | Sets header image                                        |
+| `leftTopIconOnPress`  | `() => void`                                               |    No    | `() => {}`                                                                   | Define action on left top button press                   |
+| `leftTopIcon`         | `ImageSourcePropType`                                      |    No    | `require('../../assets/icons/iconCloseWhite.png')`                           | Set icon for left top button                             |
+| `parallaxHeight`      | `number`                                                   |    No    | -                                                                            | Set parallax header height                               |
+| `renderBody`          | `(title: string) => ReactElement`                          |    No    | `title => <RenderContent title={title} />`                                   | Function that renders body of the header (can be empty)  |
+| `rightTopIconOnPress` | `() => void`                                               |    No    | `() => {}`                                                                   | Define action on right top button press                  |
+| `rightTopIcon`        | `ImageSourcePropType`                                      |    No    | `require('../../assets/icons/Icon-Menu.png') `                               | Set icon for right top button                            |
+| `scrollEvent`         | `(event: NativeSyntheticEvent<NativeScrollEvent>) => void` |    No    | `require('../../assets/icons/Icon-Menu.png') `                               | Scroll event to apply custom animations                  |
+| `snapStartThreshold`  | `number`                                                   |    No    | -                                                                            | Set start value Threshold of snap                        |
+| `snapStopThreshold`   | `number`                                                   |    No    | -                                                                            | Set stop value Threshold of snap                         |
+| `snapToEdge`          | `boolean`                                                  |    No    | `true`                                                                       | Boolean to fire the function for snap To Edge            |
+| `snapValue`           | `number`                                                   |    No    | -                                                                            | Set value where header is closed                         |
+| `subtitle`            | `string`                                                   |    No    | `"Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer."`| Sets description(subtitle) section                       |
+| `title`               | `string`                                                   |    No    | `"Brandon`                                                                   | Sets header title                                        |
+| `transparentHeader`   | `boolean`                                                  |    No    | `false`                                                                      | Set header transparency to render custom header          |
 
 ## Custom Header 
 
