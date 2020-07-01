@@ -28,7 +28,8 @@ const RenderContent = ({ title }) => {
         return marginBottom
       }
 
-      marginBottom = constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title]
+      marginBottom =
+        constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title]
 
       return marginBottom
     }
@@ -38,21 +39,22 @@ const RenderContent = ({ title }) => {
   const marginBottom = Platform.select({ ios: calcMargin(title), android: 0 })
 
   return (
-    <View style={[styles.content, { marginBottom }]} onLayout={e => onLayoutContent(e, title)}>
+    <View style={[styles.content, { marginBottom }]} onLayout={(e) => onLayoutContent(e, title)}>
       <Text style={styles.contentText}>{title}</Text>
       {users.map(
-        user => (title === 'Popular Quizes' || title === user.type) && (
-        <QuizListElement
-          key={JSON.stringify(user)}
-          elements={user.cardsAmount}
-          authorName={user.author}
-          mainText={user.label}
-          labelText={user.type}
-          imageSource={user.image}
-          onPress={() => {}}
-          pressUser={() => {}}
-        />
-        )
+        (user) =>
+          (title === 'Popular Quizes' || title === user.type) && (
+            <QuizListElement
+              key={JSON.stringify(user)}
+              elements={user.cardsAmount}
+              authorName={user.author}
+              mainText={user.label}
+              labelText={user.type}
+              imageSource={user.image}
+              onPress={() => {}}
+              pressUser={() => {}}
+            />
+          )
       )}
     </View>
   )

@@ -80,12 +80,17 @@ export default class TabbedHeader extends React.Component {
     })
 
     const renderImage = () => {
-      const logo = isUndefined(foregroundImage) ? require('../../assets/images/photosPortraitMe.png') : foregroundImage
+      const logo = isUndefined(foregroundImage)
+        ? require('../../assets/images/photosPortraitMe.png')
+        : foregroundImage
 
       if (foregroundImage !== null) {
         return (
           <Animated.View style={{ opacity: imageOpacity }}>
-            <Animated.Image source={logo} style={[styles.profilePic, { width: imageSize, height: imageSize }]} />
+            <Animated.Image
+              source={logo}
+              style={[styles.profilePic, { width: imageSize, height: imageSize }]}
+            />
           </Animated.View>
         )
       }
@@ -123,7 +128,8 @@ export default class TabbedHeader extends React.Component {
         return marginBottom
       }
 
-      marginBottom = constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title]
+      marginBottom =
+        constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title]
 
       return marginBottom
     }
@@ -146,11 +152,12 @@ export default class TabbedHeader extends React.Component {
       tabTextContainerStyle,
       tabTextContainerActiveStyle,
       tabWrapperStyle,
-      tabsContainerStyle
+      tabsContainerStyle,
+      onRef
     } = this.props
 
     return (
-      <React.Fragment>
+      <>
         <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
           foreground={this.renderForeground(this.scrollY)}
@@ -174,10 +181,11 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
+          onRef={onRef}
         >
           {renderBody('Popular Quizes')}
         </StickyParallaxHeader>
-      </React.Fragment>
+      </>
     )
   }
 }
@@ -204,7 +212,8 @@ TabbedHeader.propTypes = {
   tabsContainerStyle: ViewPropTypes.style,
   foregroundImage: Image.propTypes.source,
   titleStyle: Text.propTypes.style,
-  header: func
+  header: func,
+  onRef: func
 }
 
 TabbedHeader.defaultProps = {
@@ -241,5 +250,6 @@ TabbedHeader.defaultProps = {
   tabTextActiveStyle: styles.tabText,
   tabTextContainerStyle: styles.tabTextContainerStyle,
   tabTextContainerActiveStyle: styles.tabTextContainerActiveStyle,
-  tabWrapperStyle: styles.tabsWrapper
+  tabWrapperStyle: styles.tabsWrapper,
+  onRef: null
 }
