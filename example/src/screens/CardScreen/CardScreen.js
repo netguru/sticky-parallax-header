@@ -1,5 +1,14 @@
 import React from 'react'
-import { Text, View, Image, TouchableOpacity, StatusBar, Animated } from 'react-native'
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+  Animated,
+  FlatList,
+  Platform,
+} from 'react-native'
 import StickyParallaxHeader from 'react-native-sticky-parallax-header'
 import { withNavigation } from 'react-navigation'
 import { constants, sizes, colors } from '../../constants'
@@ -12,9 +21,14 @@ class CardScreen extends React.Component {
     super(props)
     this.state = {
       headerLayout: {
-        height: 0
-      }
-    }
+        height: 0,
+      },
+
+      topReached: true,
+      endReached: false,
+      stickyHeaderEndReached: false,
+      stickyHeaderTopReached: true,
+    };
 
     this.scrollY = new ValueXY()
   }
@@ -125,6 +139,52 @@ class CardScreen extends React.Component {
     )
   }
 
+  shouldBeEnabled = () => {
+    const {
+      endReached,
+      stickyHeaderEndReached,
+      topReached,
+      stickyHeaderTopReached
+    } = this.state
+    const bottomCondition =
+      endReached && stickyHeaderEndReached
+    const topCondition =
+      topReached && stickyHeaderTopReached
+    return bottomCondition || topCondition
+  }
+
+  onScroll = ({nativeEvent}) => {
+    const {contentOffset, layoutMeasurement, contentSize} = nativeEvent;
+    if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 20) {
+      this.setState({endReached: true, topReached: false})
+    }
+
+    if (contentOffset.y <= 0) {
+      this.setState({topReached: true, endReached: false})
+    }
+  }
+
+  renderFlatlistContent = (user) => (
+    <View style={styles.flatlistContainer}>
+      <FlatList
+        data={user.cards}
+        renderItem={({item, index}) => (
+          <QuizCard
+            data={item}
+            num={index}
+            key={item.question}
+            cardsAmount={100}
+          />
+        )}
+        onScroll={this.onScroll}
+        scrollEnabled={
+          Platform.OS === 'android' ? true : this.shouldBeEnabled()
+        }
+        nestedScrollEnabled
+      />
+    </View>
+  )
+
   renderContent = user => (
     <View style={styles.content}>
       {user.cards.map((data, i, arr) => (
@@ -132,6 +192,20 @@ class CardScreen extends React.Component {
       ))}
     </View>
   )
+
+  stickyHeaderEndReached = () => {
+    this.setState({
+      stickyHeaderEndReached: true,
+      stickyHeaderTopReached: false,
+    })
+  }
+
+  stickyHeaderTopReached = () => {
+    this.setState({
+      stickyHeaderTopReached: true,
+      stickyHeaderEndReached: false,
+    })
+  }
 
   render() {
     const { navigation } = this.props
@@ -149,8 +223,10 @@ class CardScreen extends React.Component {
           headerSize={this.setHeaderSize}
           headerHeight={sizes.cardScreenHeaderHeight}
           background={this.renderBackground(user)}
-        >
-          {this.renderContent(user)}
+          onEndReached={this.stickyHeaderEndReached}
+          onTopReached={this.stickyHeaderTopReached}>
+          {/* {this.renderContent(user)} */}
+         {this.renderFlatlistContent(user)}
         </StickyParallaxHeader>
       </React.Fragment>
     )
