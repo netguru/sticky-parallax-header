@@ -15,7 +15,8 @@
 | `header`                         | `ReactElement`                                                        |     Yes    | -         | This renders header component                                   |
 | `initialPage`                    | `number`                                                              |     No     | `0`       | Set initial page of tab bar                                     |
 | `onChangeTab`                    | `({ i, ref, from }: { from: number; i: number; ref: any; }) => void;` |     No     | -         | Tab change event                                                |
-| `onEndReached`                   | `() => void`                                                          |     No     | -         | Tab change event                                                |
+| `onEndReached`                   | `() => void`                                                          |     No     | -         | Reached end event    
+| `onTopReached`                   | `() => void`                                                          |     No     | -         | Reached top event                                               |
 | `parallaxHeight`                 | `number`                                                              |     No     | `0`       | Sets height of opened header                                    |
 | `scrollEvent`                    | `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`            |     No     | -         | Returns offset of header to apply custom animations             |
 | `snapStartThreshold`             | `number`                                                              |     No     | -         | Set start value Threshold of snap                               |
@@ -185,4 +186,55 @@ class TabScreen extends React.Component {
 ```
 
 ## Tips
-In order to nest scrollable component use `scrollEnabled={false}` on it and move all the logic to the header eg. by using `onEndReached` prop.
+In order to nest scrollable component use `scrollEnabled={false}` on it and move all the logic to the header eg. by using `onEndReached` and `onTopReached` props. You can find example in CardScreen.js it's really basic so probably you will want to extend it somehow:
+
+```jsx
+
+  shouldBeEnabled = () => {
+    const {
+      endReached,
+      stickyHeaderEndReached,
+      topReached,
+      stickyHeaderTopReached
+    } = this.state
+    const bottomCondition =
+      endReached && stickyHeaderEndReached
+    const topCondition =
+      topReached && stickyHeaderTopReached
+    return bottomCondition || topCondition
+  }
+
+  onScroll = ({nativeEvent}) => {
+    const {contentOffset, layoutMeasurement, contentSize} = nativeEvent;
+    if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 20) {
+      this.setState({endReached: true, topReached: false})
+    }
+
+    if (contentOffset.y <= 0) {
+      this.setState({topReached: true, endReached: false})
+    }
+  }
+
+  renderFlatlistContent = (user) => (
+    <View style={styles.flatlistContainer}>
+      <FlatList
+        data={user.cards}
+        renderItem={({item, index}) => (
+          <QuizCard
+            data={item}
+            num={index}
+            key={item.question}
+            cardsAmount={100}
+          />
+        )}
+        onScroll={this.onScroll}
+        scrollEnabled={
+          Platform.OS === 'android' ? true : this.shouldBeEnabled()
+        }
+        nestedScrollEnabled
+      />
+    </View>
+  )
+  ```
+
+
