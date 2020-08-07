@@ -44,6 +44,21 @@ class StickyParallaxHeader extends Component {
     this.props.onRef?.(this)
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { headerHeight, parallaxHeight, tabs } = this.props
+    const prevPage = prevState.currentPage
+    const { currentPage, isFolded } = this.state
+    const isRenderingTabs = tabs && tabs.length > 0
+
+    if (isRenderingTabs && prevPage !== currentPage && isFolded) {
+      const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
+      setTimeout(() => {
+        const scrollNode = getSafelyScrollNode(this.scroll)
+        scrollNode.scrollTo({ y: scrollHeight, duration: 1000 })
+      }, 250)
+    }
+  }
+
   componentWillUnmount() {
     this.scrollY.removeAllListeners()
     this.props.onRef?.(null)
@@ -303,6 +318,9 @@ class StickyParallaxHeader extends Component {
       headerStyle.map((el) => Object.assign(arrayHeaderStyle, el))
     }
 
+    const scrollViewMinHeight = Dimensions.get('window').height + parallaxHeight - headerHeight
+    const innerScrollHeight = Dimensions.get('window').height - headerHeight - parallaxHeight
+
     const shouldRenderTabs = tabs && tabs.length > 0
 
     return (
@@ -317,6 +335,7 @@ class StickyParallaxHeader extends Component {
           ref={(c) => {
             this.scroll = c
           }}
+          contentContainerStyle={{ minHeight: scrollViewMinHeight }}
           onScrollEndDrag={() => this.onScrollEndSnapToEdge(scrollHeight)}
           scrollEventThrottle={1}
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
@@ -366,6 +385,7 @@ class StickyParallaxHeader extends Component {
             scrollRef={this.scroll}
             scrollHeight={scrollHeight}
             isHeaderFolded={isFolded}
+            minScrollHeight={innerScrollHeight}
           >
             {!tabs && children}
             {tabs &&
