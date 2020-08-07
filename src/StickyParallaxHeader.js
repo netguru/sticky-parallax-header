@@ -46,10 +46,11 @@ class StickyParallaxHeader extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { headerHeight, parallaxHeight, tabs } = this.props
+    const prevPage = prevState.currentPage
     const { currentPage, isFolded } = this.state
     const isRenderingTabs = tabs && tabs.length > 0
 
-    if (isRenderingTabs && prevState.currentPage !== currentPage && isFolded) {
+    if (isRenderingTabs && prevPage !== currentPage && isFolded) {
       const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
       setTimeout(() => {
         const scrollNode = getSafelyScrollNode(this.scroll)
