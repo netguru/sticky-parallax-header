@@ -92,16 +92,17 @@ class ScrollableTabView extends React.Component {
     this.children().map((child, idx) => {
       const key = this.makeSceneKey(child, idx)
       const { currentPage, containerWidth, sceneKeys } = this.state
-      const {minViewportHeight } = this.props
+      const { minScrollHeight } = this.props
 
       return (
         <SceneComponent
           key={child.key}
           shouldUpdated={this.shouldRenderSceneKey(idx, currentPage)}
+          /* eslint-disable-next-line react-native/no-inline-styles */
           style={{
             width: containerWidth,
-            minHeight: minViewportHeight,
-            maxHeight: idx === currentPage ? null : minViewportHeight
+            minHeight: minScrollHeight,
+            maxHeight: idx === currentPage ? null : minScrollHeight
           }}
         >
           {this.keyExists(sceneKeys, key) ? child : null}
