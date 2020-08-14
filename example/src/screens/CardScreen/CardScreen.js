@@ -23,7 +23,6 @@ class CardScreen extends React.Component {
       headerLayout: {
         height: 0,
       },
-
       topReached: true,
       endReached: false,
       stickyHeaderEndReached: false,
