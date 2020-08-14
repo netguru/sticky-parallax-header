@@ -7,7 +7,6 @@ import {
   StatusBar,
   Animated,
   FlatList,
-  Platform,
 } from 'react-native'
 import StickyParallaxHeader from 'react-native-sticky-parallax-header'
 import { withNavigation } from 'react-navigation'
@@ -177,7 +176,7 @@ class CardScreen extends React.Component {
         )}
         onScroll={this.onScroll}
         scrollEnabled={
-          Platform.OS === 'android' ? true : this.shouldBeEnabled()
+          constants.isAndroid ? true : this.shouldBeEnabled()
         }
         nestedScrollEnabled
       />
