@@ -25,6 +25,7 @@ class StickyParallaxHeader extends Component {
     const { width } = Dimensions.get('window')
     const scrollXIOS = new Value(initialPage * width)
     const containerWidthAnimatedValue = new Value(width)
+    this.tabsScrollPosition = []
 
     // eslint-disable-next-line no-underscore-dangle
     containerWidthAnimatedValue.__makeNative()
@@ -45,16 +46,24 @@ class StickyParallaxHeader extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { headerHeight, parallaxHeight, tabs } = this.props
+    const { headerHeight, parallaxHeight, tabs, rememberTabScrollPosition } = this.props
     const prevPage = prevState.currentPage
     const { currentPage, isFolded } = this.state
     const isRenderingTabs = tabs && tabs.length > 0
 
     if (isRenderingTabs && prevPage !== currentPage && isFolded) {
+      const currentScrollPosition = this.scrollY.__getValue().y
       const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
+
+      this.tabsScrollPosition[prevPage] = currentScrollPosition
+
       setTimeout(() => {
+        const scrollTargetPosition =
+          rememberTabScrollPosition && this.tabsScrollPosition[currentPage]
+            ? this.tabsScrollPosition[currentPage]
+            : scrollHeight
         const scrollNode = getSafelyScrollNode(this.scroll)
-        scrollNode.scrollTo({ y: scrollHeight, duration: 1000 })
+        scrollNode.scrollTo({ y: scrollTargetPosition, duration: 1000 })
       }, 250)
     }
   }
@@ -422,6 +431,7 @@ StickyParallaxHeader.propTypes = {
   onChangeTab: func,
   onEndReached: func,
   parallaxHeight: number,
+  rememberTabScrollPosition: bool,
   scrollEvent: func,
   snapToEdge: bool,
   tabTextActiveStyle: shape({}),
@@ -451,6 +461,7 @@ StickyParallaxHeader.defaultProps = {
   tabTextContainerStyle: {},
   tabTextStyle: {},
   tabWrapperStyle: {},
+  rememberTabScrollPosition: false,
   snapStartThreshold: false,
   snapStopThreshold: false,
   snapValue: false,
