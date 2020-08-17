@@ -183,6 +183,14 @@ class CardScreen extends React.Component {
     </View>
   )
 
+  renderContent = user => (
+    <View style={styles.content}>
+      {user.cards.map((data, i, arr) => (
+        <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+      ))}
+    </View>
+  )
+
   stickyHeaderEndReached = () => {
     this.setState({
       stickyHeaderEndReached: true,
@@ -215,6 +223,7 @@ class CardScreen extends React.Component {
           background={this.renderBackground(user)}
           onEndReached={this.stickyHeaderEndReached}
           onTopReached={this.stickyHeaderTopReached}>
+          {/* {this.renderContent(user)} */}
          {this.renderFlatlistContent(user)}
         </StickyParallaxHeader>
       </React.Fragment>
