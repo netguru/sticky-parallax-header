@@ -151,6 +151,11 @@ Below are examples of those components and description of the props they are acc
 
 [Custom header props and example](docs/CUSTOM.md)
 
+## Handling nested scrollables 
+
+[Handling nested flatlist props and example](docs/CUSTOM.md#Tips)
+
+
 <h1 id="Getting-Started">Getting Started</h1>
 
 ## Prerequisites

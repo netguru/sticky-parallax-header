@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
-import { arrayOf, bool, func, node, number, shape, string, oneOfType } from 'prop-types'
+import {
+  arrayOf,
+  bool,
+  func,
+  node,
+  number,
+  shape,
+  string,
+  oneOfType
+} from 'prop-types'
 import {
   Dimensions,
   ImageBackground,
@@ -194,6 +203,15 @@ class StickyParallaxHeader extends Component {
     return null
   }
 
+  isCloseToTop = ({contentOffset}) => {
+    const { onTopReached } = this.props
+    if (contentOffset.y <= 0) {
+      return onTopReached && onTopReached()
+    }
+
+    return null
+  }
+
   renderHeader = () => {
     const { header, headerHeight, backgroundColor, transparentHeader } = this.props
 
@@ -363,6 +381,7 @@ class StickyParallaxHeader extends Component {
               useNativeDriver: true,
               listener: (e) => {
                 this.isCloseToBottom(e.nativeEvent)
+                this.isCloseToTop(e.nativeEvent)
                 scrollEvent(e)
               }
             }
@@ -446,7 +465,8 @@ StickyParallaxHeader.propTypes = {
   snapStopThreshold: oneOfType([bool, number]),
   snapValue: oneOfType([bool, number]),
   transparentHeader: bool,
-  onRef: func
+  onRef: func,
+  onTopReached: func
 }
 
 StickyParallaxHeader.defaultProps = {

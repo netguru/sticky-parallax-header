@@ -1,5 +1,5 @@
 import { StyleSheet, Platform } from 'react-native'
-import { ifIphoneX } from '../constants/utils'
+import { ifIphoneX } from './utils'
 import colors from './colors'
 import constants from './constants'
 
@@ -12,6 +12,13 @@ const screenStyles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 24
+  },
+  flatlistContainer: {
+    width: constants.deviceWidth,
+    height: constants.deviceHeight - 80,
     alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 24
