@@ -148,7 +148,7 @@ class CardScreen extends React.Component {
       endReached && stickyHeaderEndReached
     const topCondition =
       topReached && stickyHeaderTopReached
-    return bottomCondition || topCondition
+    return bottomCondition || !topCondition
   }
 
   onScroll = ({nativeEvent}) => {
@@ -158,7 +158,7 @@ class CardScreen extends React.Component {
     }
 
     if (contentOffset.y <= 0) {
-      this.setState({topReached: true, endReached: false})
+      this.setState({topReached: true, endReached: false, stickyHeaderTopReached:true})
     }
   }
 
