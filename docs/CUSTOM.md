@@ -201,7 +201,7 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
       endReached && stickyHeaderEndReached
     const topCondition =
       topReached && stickyHeaderTopReached
-    return bottomCondition || topCondition
+    return bottomCondition || !topCondition
   }
 
   onScroll = ({nativeEvent}) => {
@@ -211,7 +211,7 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
     }
 
     if (contentOffset.y <= 0) {
-      this.setState({topReached: true, endReached: false})
+      this.setState({topReached: true, endReached: false, stickyHeaderTopReached:true})
     }
   }
 
