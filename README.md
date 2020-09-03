@@ -19,7 +19,7 @@
 </div>
 
 
-# Introduction 
+# Introduction
 
 <p align="center">
   Stickyheader.js is a simple React Native library, enabling to create a fully custom header for your iOS and Android apps.
@@ -34,7 +34,7 @@
 <h2> Features </h2>
 Stickyheader.js ships with 3 different use cases for sticky headers and a possibility to create fully custom header!
 
-| Tabbed Header | Avatar Header | Details Header| 
+| Tabbed Header | Avatar Header | Details Header|
 | :------: | :------: | :------: |
 | ![Tabbed Header Gif](./assets/readme_TabbedHeader.gif) |![Avatar Header Gif](./assets/readme_AvatarHeader.gif)| ![Details Header Gif](./assets/readme_DetailsHeader.gif)|
 
@@ -69,6 +69,7 @@ Below are examples of those components and description of the props they are acc
 | Property                      | Type                                                  | Optional |  Default                                                                                                                                                                                       | Description                                              |
 | :---------------------------: | :---------------------------------------------------: | :-------:| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------:|
 | `backgroundColor`             | `string`                                              |    Yes   | `#1ca75d`                                                                                                                                                                                      | Header background color                                  |
+| `contentContainerStyles`                  | `View.propTypes.style`                                 |    Yes   |                                                                                                                                                                                                | Set style for content container                         |
 | `headerHeight`                | `number`                                              |    Yes   | `ifIphoneX(92, constants.responsiveHeight(13))`                                                                                                                                                | Sets height of folded header                             |
 | `backgroundImage`             | `number`                                              |    Yes   | `null`                                                                                                                                                                                         | Sets header background image                             |
 | `title`                       | `string`                                              |    Yes   | `"Mornin' Mark! \nReady for a quiz?"`                                                                                                                                                          | Sets header title                                        |
@@ -104,6 +105,7 @@ Below are examples of those components and description of the props they are acc
 | `backgroundColor`     | `string`                          |    No    | `#1ca75d`                                                                    | Header background color                                  |
 | `backgroundImage`     | `ImageSourcePropType`             |    No    | `null`                                                                       | Sets header background image                             |
 | `bounces`             | `boolean`                         |    No    | `true`                                                                       | Bounces on swiping up                                    |
+| `contentContainerStyles`                  | `View.propTypes.style`                                 |    Yes   |                                                                                                                                                                                                | Set style for content container                         |
 | `hasBorderRadius`     | `boolean`                         |    No    | `true`                                                                       | Adds radius to header's right bottom border               |
 | `headerHeight`        | `number`                          |    No    | `ifIphoneX(92, constants.responsiveHeight(13))`                              | Sets height of folded header                             |
 | `iconNumber`          | `number`                          |    No    | `10`                                                                         | Set amount of cards shown on icon                        |
@@ -127,6 +129,7 @@ Below are examples of those components and description of the props they are acc
 | `backgroundColor`     | `string`                                                   |    No    | `#1ca75d`                                                                    | Header background color                                  |
 | `backgroundImage`     | `ImageSourcePropType`                                      |    No    | `null`                                                                       | Sets header background image                             |
 | `bounces`             | `boolean`                                                  |    No    | `true`                                                                       | Bounces on swiping up                                    |
+| `contentContainerStyles`                  | `View.propTypes.style`                                 |    Yes   |                                                                                                                                                                                                | Set style for content container                         |
 | `foreground`          | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders the foreground of the header       |
 | `hasBorderRadius`     | `boolean`                                                  |    No    | `true`                                                                       | Adds radius to header's right bottom border               |
 | `headerHeight`        | `number`                                                   |    No    | `ifIphoneX(92, constants.responsiveHeight(13))`                              | Sets height of folded header                             |
@@ -147,11 +150,11 @@ Below are examples of those components and description of the props they are acc
 | `title`               | `string`                                                   |    No    | `"Brandon`                                                                   | Sets header title                                        |
 | `transparentHeader`   | `boolean`                                                  |    No    | `false`                                                                      | Set header transparency to render custom header          |
 
-## Custom Header 
+## Custom Header
 
 [Custom header props and example](docs/CUSTOM.md)
 
-## Handling nested scrollables 
+## Handling nested scrollables
 
 [Handling nested flatlist props and example](docs/CUSTOM.md#Tips)
 
@@ -214,4 +217,4 @@ $ yarn add react-native-sticky-parallax-header
 
 
 # License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT). 
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
