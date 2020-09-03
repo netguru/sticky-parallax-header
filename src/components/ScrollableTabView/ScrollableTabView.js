@@ -1,6 +1,11 @@
 /* eslint-disable react/destructuring-assignment  */
 import React from 'react'
-import { Animated, StyleSheet, View } from 'react-native'
+import {
+  Animated,
+  StyleSheet,
+  View,
+  ViewPropTypes
+} from 'react-native'
 import { func, node, number, shape, bool } from 'prop-types'
 import SceneComponent from './SceneComponent'
 import constants from '../../constants/constants'
@@ -92,18 +97,20 @@ class ScrollableTabView extends React.Component {
     this.children().map((child, idx) => {
       const key = this.makeSceneKey(child, idx)
       const { currentPage, containerWidth, sceneKeys } = this.state
-      const { minScrollHeight } = this.props
+      const { contentContainerStyles, minScrollHeight } = this.props
 
       return (
         <SceneComponent
           key={child.key}
           shouldUpdated={this.shouldRenderSceneKey(idx, currentPage)}
           /* eslint-disable-next-line react-native/no-inline-styles */
-          style={{
+          style={[{
             width: containerWidth,
             minHeight: minScrollHeight,
-            maxHeight: idx === currentPage ? null : minScrollHeight
-          }}
+            maxHeight: idx === currentPage ? null : minScrollHeight,
+          },
+            contentContainerStyles
+          ]}
         >
           {this.keyExists(sceneKeys, key) ? child : null}
         </SceneComponent>
@@ -152,7 +159,7 @@ class ScrollableTabView extends React.Component {
     return newKeys
   }
 
-  updateSceneKeys = ({ page, children = this.props.children, callback = () => {} }) => {
+  updateSceneKeys = ({ page, children = this.props.children, callback = () => { } }) => {
     const { sceneKeys } = this.state
     const newKeys = this.newSceneKeys({ previousKeys: sceneKeys, currentPage: page, children })
     this.setState({ currentPage: page, sceneKeys: newKeys }, callback)
@@ -241,6 +248,7 @@ class ScrollableTabView extends React.Component {
 
 ScrollableTabView.propTypes = {
   children: node,
+  contentContainerStyles: ViewPropTypes.style,
   initialPage: number,
   page: number,
   onChangeTab: func,
@@ -252,9 +260,10 @@ ScrollableTabView.propTypes = {
 }
 
 ScrollableTabView.defaultProps = {
+  contentContainerStyles: {},
   initialPage: 0,
   page: -1,
-  onChangeTab: () => {}
+  onChangeTab: () => { }
 }
 
 export default ScrollableTabView

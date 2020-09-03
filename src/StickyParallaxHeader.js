@@ -116,42 +116,42 @@ class StickyParallaxHeader extends Component {
       if (y > 0 && y < snapToEdgeThreshold) {
         return constants.isAndroid
           ? this.setState(
-              {
-                isFolded: false
-              },
-              scrollNode.scrollTo({ x: 0, y: 0, animated: true })
-            )
+            {
+              isFolded: false
+            },
+            scrollNode.scrollTo({ x: 0, y: 0, animated: true })
+          )
           : timing(snapToEdgeAnimatedValue, {
-              toValue: { x: 0, y: 0 },
-              duration: 400,
-              easing: Easing.out(Easing.cubic),
-              useNativeDriver: true
-            }).start(() => {
-              snapToEdgeAnimatedValue.removeListener(id)
-              this.setState({
-                isFolded: false
-              })
+            toValue: { x: 0, y: 0 },
+            duration: 400,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true
+          }).start(() => {
+            snapToEdgeAnimatedValue.removeListener(id)
+            this.setState({
+              isFolded: false
             })
+          })
       }
       if (y >= snapToEdgeThreshold && y < scrollHeight) {
         return constants.isAndroid
           ? this.setState(
-              {
-                isFolded: true
-              },
-              scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
-            )
+            {
+              isFolded: true
+            },
+            scrollNode.scrollTo({ x: 0, y: scrollHeight, animated: true })
+          )
           : timing(snapToEdgeAnimatedValue, {
-              toValue: { x: 0, y: snap },
-              duration: 400,
-              easing: Easing.out(Easing.cubic),
-              useNativeDriver: true
-            }).start(() => {
-              snapToEdgeAnimatedValue.removeListener(id)
-              this.setState({
-                isFolded: true
-              })
+            toValue: { x: 0, y: snap },
+            duration: 400,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true
+          }).start(() => {
+            snapToEdgeAnimatedValue.removeListener(id)
+            this.setState({
+              isFolded: true
             })
+          })
       }
     }
 
@@ -203,7 +203,7 @@ class StickyParallaxHeader extends Component {
     return null
   }
 
-  isCloseToTop = ({contentOffset}) => {
+  isCloseToTop = ({ contentOffset }) => {
     const { onTopReached } = this.props
     if (contentOffset.y <= 0) {
       return onTopReached && onTopReached()
@@ -328,6 +328,7 @@ class StickyParallaxHeader extends Component {
     const {
       backgroundImage,
       children,
+      contentContainerStyles,
       header,
       headerHeight,
       initialPage,
@@ -349,6 +350,9 @@ class StickyParallaxHeader extends Component {
     const innerScrollHeight = Dimensions.get('window').height - headerHeight - parallaxHeight
 
     const shouldRenderTabs = tabs && tabs.length > 0
+    const shouldUseBgColor = contentContainerStyles && contentContainerStyles.backgroundColor
+
+    console.warn(shouldUseBgColor, contentContainerStyles)
 
     return (
       <View style={styles.container}>
@@ -362,7 +366,7 @@ class StickyParallaxHeader extends Component {
           ref={(c) => {
             this.scroll = c
           }}
-          contentContainerStyle={{ minHeight: scrollViewMinHeight }}
+          contentContainerStyle={{ minHeight: scrollViewMinHeight, backgroundColor: shouldUseBgColor }}
           onScrollEndDrag={() => this.onScrollEndSnapToEdge(scrollHeight)}
           scrollEventThrottle={1}
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
@@ -405,6 +409,7 @@ class StickyParallaxHeader extends Component {
           </View>
           {shouldRenderTabs && this.renderTabs()}
           <ScrollableTabView
+            contentContainerStyles={contentContainerStyles}
             initialPage={initialPage}
             onChangeTab={(i) => this.onChangeTabHandler(i)}
             tabs={tabs}
@@ -442,6 +447,7 @@ StickyParallaxHeader.propTypes = {
   backgroundImage: Image.propTypes.source,
   bounces: bool,
   children: node,
+  contentContainerStyles: ViewPropTypes.style,
   foreground: node,
   header: node,
   headerHeight: number,
@@ -471,6 +477,7 @@ StickyParallaxHeader.propTypes = {
 
 StickyParallaxHeader.defaultProps = {
   bounces: true,
+  contentContainerStyles: {},
   headerHeight: 92,
   backgroundColor: '',
   initialPage: 0,
