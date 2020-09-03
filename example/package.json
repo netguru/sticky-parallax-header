@@ -16,7 +16,7 @@
     "react-native-gesture-handler": "^1.2.1",
     "react-native-iphone-x-helper": "^1.2.1",
     "react-native-screens": "^2.5.0",
-    "react-native-sticky-parallax-header": "^0.2.1",
+    "react-native-sticky-parallax-header": "^0.3.0",
     "react-navigation": "^3.0.9"
   },
   "devDependencies": {

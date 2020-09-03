@@ -5058,10 +5058,10 @@ react-native-screens@^2.5.0:
   dependencies:
     debounce "^1.2.0"
 
-react-native-sticky-parallax-header@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-sticky-parallax-header/-/react-native-sticky-parallax-header-0.2.1.tgz#ac399e685d01997a8dd0d5d94db1580602cf23f1"
-  integrity sha512-fbIySVvr4fa6b6JPHgtphAxqZyV8mmQIbpJkXwxuD89Qj/VjKpjhQfsnBDOJ3wDDvngs1PRcyVv7gs1lZYehEw==
+react-native-sticky-parallax-header@^0.3.0:
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/react-native-sticky-parallax-header/-/react-native-sticky-parallax-header-0.3.1.tgz#6946ed62ef916859108aba013e4652e3a4c6c3fa"
+  integrity sha512-6tDOu2N9UzjDyHpOXQXWmNWhQjfC/qtddGwu1k04zr1vCYbF6ws+HaySK8k3Da2m9YRd0MHxem9UAI5zOL7fQw==
   dependencies:
     prop-types "^15.7.2"
 
