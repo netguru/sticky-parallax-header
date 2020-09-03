@@ -352,8 +352,6 @@ class StickyParallaxHeader extends Component {
     const shouldRenderTabs = tabs && tabs.length > 0
     const shouldUseBgColor = contentContainerStyles && contentContainerStyles.backgroundColor
 
-    console.warn(shouldUseBgColor, contentContainerStyles)
-
     return (
       <View style={styles.container}>
         {header && this.renderHeader()}
