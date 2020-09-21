@@ -6,7 +6,7 @@ import {
   View,
   ViewPropTypes
 } from 'react-native'
-import { func, node, number, shape, bool } from 'prop-types'
+import { func, node, number, shape, bool, oneOf } from 'prop-types'
 import SceneComponent from './SceneComponent'
 import constants from '../../constants/constants'
 import { getSafelyScrollNode } from '../../utils'
@@ -207,10 +207,11 @@ class ScrollableTabView extends React.Component {
     const scenes = this.composeScenes()
     const { initialPage } = this.props
     const { containerWidth, scrollXIOS } = this.state
-    const { minScrollHeight } = this.props
+    const { minScrollHeight, keyboardShouldPersistTaps } = this.props
 
     return (
       <Animated.ScrollView
+        keyboardShouldPersistTaps={keyboardShouldPersistTaps}
         horizontal
         pagingEnabled
         contentContainerStyle={{ minHeight: minScrollHeight }}
@@ -256,14 +257,16 @@ ScrollableTabView.propTypes = {
   scrollHeight: number,
   minScrollHeight: number,
   isHeaderFolded: bool,
-  scrollRef: shape({})
+  scrollRef: shape({}),
+  keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined])
 }
 
 ScrollableTabView.defaultProps = {
   contentContainerStyles: {},
   initialPage: 0,
   page: -1,
-  onChangeTab: () => { }
+  onChangeTab: () => { },
+  keyboardShouldPersistTaps: undefined
 }
 
 export default ScrollableTabView
