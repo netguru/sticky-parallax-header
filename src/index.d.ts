@@ -1,5 +1,5 @@
 import { ReactElement, Component } from 'react';
-import { ImageSourcePropType,HeaderTypeProp, ScrollView, NativeScrollEvent, NativeSyntheticEvent, TextStyle, ViewStyle, ImageResizeMode } from 'react-native';
+import { ImageSourcePropType, HeaderTypeProp, ScrollView, NativeScrollEvent, NativeSyntheticEvent, TextStyle, ViewStyle, ImageResizeMode } from 'react-native';
 
 export interface HeaderTypeProp {
   headerType?: 'TabbedHeader' | 'DetailsHeader' | 'AvatarHeader';
