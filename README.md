@@ -75,7 +75,7 @@ Below are examples of those components and description of the props they are acc
 | `headerHeight`                | `number`                                              |    Yes   | `ifIphoneX(92, constants.responsiveHeight(13))`                                                                                                                                                |
 | `renderBody`                  | `func`                                                |    Yes   | `title => <RenderContent title={title} />`                                                                                                                                                     | Function that renders body of the header (can be empty)  |
 | `snapToEdge`                  | `bool`                                                |    Yes   | `true`                                                                                                                                                                                         | Boolean to fire the function for snap To Edge            |
-| `scrollRef`                   | `func or object`                                      |    Yes   | `null`                                                                                                                                                                                         | ScrollView body ref.           |
+| `scrollRef`                   | `func or object`                                      |    Yes   | `null`                                                                                                                                                                                         | ScrollView body ref. Allows programmatically scroll body [ScrollView](https://reactnative.dev/docs/scrollview#methods)           |
 
 ### Details Header, Avatar Header
 
@@ -146,6 +146,35 @@ Below are examples of those components and description of the props they are acc
 ## Custom Header
 
 [Custom header props and example](docs/CUSTOM.md)
+
+## Handling StickyParallaxHeader body ScrollView reference
+### As callback function
+```
+<StickyParallaxHeader
+  scrollRef={(ref) => {
+    paralaxScrollRef.current = ref;
+  }}
+  foreground={this.renderForeground()}
+  header={this.renderHeader()}
+/>
+  {renderBody()}
+<StickyParallaxHeader/>
+```
+
+### As useRef value
+```
+const paralaxScrollRef = useRef(null);
+
+<StickyParallaxHeader
+  scrollRef={paralaxScrollRef}
+  foreground={this.renderForeground()}
+  header={this.renderHeader()}
+/>
+  {renderBody()}
+<StickyParallaxHeader/>
+```
+
+
 
 ## Handling nested scrollables
 
