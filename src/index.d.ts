@@ -3,7 +3,7 @@ import { ImageSourcePropType, HeaderTypeProp, ScrollView, NativeScrollEvent, Nat
 
 export interface HeaderTypeProp {
   headerType?: 'TabbedHeader' | 'DetailsHeader' | 'AvatarHeader';
-  scrollRef?:(ref:ScrollView)=>void;
+  scrollRef?:(ref:ScrollView)=>void | object;
 }
 
 export interface HeaderSizeProps {
