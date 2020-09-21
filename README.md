@@ -75,6 +75,7 @@ Below are examples of those components and description of the props they are acc
 | `headerHeight`                | `number`                                              |    Yes   | `ifIphoneX(92, constants.responsiveHeight(13))`                                                                                                                                                |
 | `renderBody`                  | `func`                                                |    Yes   | `title => <RenderContent title={title} />`                                                                                                                                                     | Function that renders body of the header (can be empty)  |
 | `snapToEdge`                  | `bool`                                                |    Yes   | `true`                                                                                                                                                                                         | Boolean to fire the function for snap To Edge            |
+| `scrollRef`                   | `func or object`                                      |    Yes   | `null`                                                                                                                                                                                         | ScrollView body ref.           |
 
 ### Details Header, Avatar Header
 

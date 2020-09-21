@@ -7,7 +7,8 @@ import {
   number,
   shape,
   string,
-  oneOfType
+  oneOfType,
+  instanceOf
 } from 'prop-types'
 import {
   Dimensions,
@@ -22,7 +23,7 @@ import {
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
-import { getSafelyScrollNode } from './utils'
+import { getSafelyScrollNode, setRef } from './utils'
 
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
@@ -335,7 +336,8 @@ class StickyParallaxHeader extends Component {
       parallaxHeight,
       tabs,
       bounces,
-      scrollEvent
+      scrollEvent,
+      scrollRef
     } = this.props
     const { currentPage, isFolded } = this.state
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
@@ -363,6 +365,7 @@ class StickyParallaxHeader extends Component {
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c
+            setRef(scrollRef, c)
           }}
           contentContainerStyle={{ minHeight: scrollViewMinHeight, backgroundColor: shouldUseBgColor }}
           onScrollEndDrag={() => this.onScrollEndSnapToEdge(scrollHeight)}
@@ -470,7 +473,8 @@ StickyParallaxHeader.propTypes = {
   snapValue: oneOfType([bool, number]),
   transparentHeader: bool,
   onRef: func,
-  onTopReached: func
+  onTopReached: func,
+  scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
 }
 
 StickyParallaxHeader.defaultProps = {
@@ -491,7 +495,8 @@ StickyParallaxHeader.defaultProps = {
   snapStopThreshold: false,
   snapValue: false,
   transparentHeader: false,
-  onRef: null
+  onRef: null,
+  scrollRef: null,
 }
 
 export default StickyParallaxHeader

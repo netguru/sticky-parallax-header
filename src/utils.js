@@ -24,3 +24,11 @@ export function getSafelyScrollNode(scrollNode) {
   // before react-native 0.62
   return scrollNode.getNode()
 }
+
+export function setRef(ref, value) {
+  if (typeof ref === 'function') {
+    ref(value);
+  } else if (ref !== null) {
+    ref.current = value;
+  }
+}
