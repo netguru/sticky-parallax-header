@@ -2,6 +2,7 @@ import { Dimensions, Platform } from 'react-native';
 
 export function isIphoneX() {
   const dimen = Dimensions.get('window');
+
   return (
     Platform.OS === 'ios' &&
     !Platform.isPad &&
@@ -14,6 +15,7 @@ export function ifIphoneX(iphoneXStyle, regularStyle) {
   if (isIphoneX()) {
     return iphoneXStyle;
   }
+
   return regularStyle;
 }
 
@@ -29,6 +31,7 @@ export function setRef(ref, value) {
   if (typeof ref === 'function') {
     ref(value);
   } else if (ref !== null) {
+    // eslint-disable-next-line no-param-reassign
     ref.current = value;
   }
 }

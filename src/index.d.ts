@@ -1,7 +1,6 @@
 import { ReactElement, Component } from 'react';
 import {
   ImageSourcePropType,
-  HeaderTypeProp,
   ScrollView,
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -113,9 +112,9 @@ export type CustomHeaderProps = SharedProps &
     children?: ReactElement;
     foreground?: ReactElement;
     header: ReactElement;
-    headerSize?: ({ x, y, width, height }: HeaderSizeProps) => void;
+    headerSize?: (headerSizeProps: HeaderSizeProps) => void;
     initialPage?: number;
-    onChangeTab?: ({ i, ref, from }: OnChangeTabArguments) => void;
+    onChangeTab?: (changeTabArguments: OnChangeTabArguments) => void;
     onEndReached?: () => void;
     parallaxHeight?: number;
     scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;

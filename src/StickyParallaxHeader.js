@@ -103,7 +103,6 @@ class StickyParallaxHeader extends Component {
     const { snapToEdge } = this.props;
 
     const scrollNode = getSafelyScrollNode(this.scroll);
-    // eslint-disable-next-line no-underscore-dangle
     const scrollValue = this.scrollY.__getValue();
     const { y } = scrollValue;
     const snapToEdgeAnimatedValue = new ValueXY(scrollValue);

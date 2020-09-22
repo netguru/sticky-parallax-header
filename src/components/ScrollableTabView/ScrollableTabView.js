@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment  */
 import React from 'react';
 import { Animated, StyleSheet, View, ViewPropTypes } from 'react-native';
-import { func, node, number, shape, bool, oneOf } from 'prop-types';
+import { func, node, number, oneOf } from 'prop-types';
 import SceneComponent from './SceneComponent';
 import constants from '../../constants/constants';
 import { getSafelyScrollNode } from '../../utils';
@@ -98,8 +98,9 @@ class ScrollableTabView extends React.Component {
         <SceneComponent
           key={child.key}
           shouldUpdated={this.shouldRenderSceneKey(idx, currentPage)}
-          /* eslint-disable-next-line react-native/no-inline-styles */
           style={[
+            // used to calculate current height of scroll
+            // eslint-disable-next-line react-native/no-inline-styles
             {
               width: containerWidth,
               minHeight: minScrollHeight,
@@ -249,10 +250,7 @@ ScrollableTabView.propTypes = {
   page: number,
   onChangeTab: func,
   swipedPage: func,
-  scrollHeight: number,
   minScrollHeight: number,
-  isHeaderFolded: bool,
-  scrollRef: shape({}),
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
 };
 
