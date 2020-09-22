@@ -1,26 +1,23 @@
-import React from 'react'
-import {
-  bool,
-  node
-} from 'prop-types'
+import React from 'react';
+import { bool, node } from 'prop-types';
 
 class StaticContainer extends React.Component {
-  shouldComponentUpdate = nextProps => !!nextProps.shouldUpdate
+  shouldComponentUpdate = (nextProps) => !!nextProps.shouldUpdate;
 
   render() {
-    const { children } = this.props
-    const child = children
+    const { children } = this.props;
+    const child = children;
     if (child === null || child === false) {
-      return null
+      return null;
     }
 
-    return React.Children.only(child)
+    return React.Children.only(child);
   }
 }
 
 StaticContainer.propTypes = {
   children: node,
-  shouldUpdate: bool
-}
+  shouldUpdate: bool,
+};
 
-export default StaticContainer
+export default StaticContainer;

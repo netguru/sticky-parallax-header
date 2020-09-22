@@ -1,42 +1,42 @@
-import React, { useState } from 'react'
-import { string } from 'prop-types'
-import { View, Text, Platform } from 'react-native'
-import { QuizListElement } from '../../components'
-import { Brandon, Jennifer, Ewa } from '../../../assets/data/cards'
-import styles from '../TabbedHeader.styles'
-import { constants, sizes } from '../../../constants'
+import React, { useState } from 'react';
+import { string } from 'prop-types';
+import { View, Text, Platform } from 'react-native';
+import { QuizListElement } from '../../components';
+import { Brandon, Jennifer, Ewa } from '../../../assets/data/cards';
+import styles from '../TabbedHeader.styles';
+import { constants, sizes } from '../../../constants';
 
 const RenderContent = ({ title }) => {
-  const [contentHeight, setcontentHeight] = useState({})
-  const users = [Brandon, Jennifer, Ewa]
+  const [contentHeight, setcontentHeight] = useState({});
+  const users = [Brandon, Jennifer, Ewa];
 
   const onLayoutContent = (e) => {
-    const contentHeightTmp = { ...contentHeight }
-    contentHeightTmp[title] = e.nativeEvent.layout.height
+    const contentHeightTmp = { ...contentHeight };
+    contentHeightTmp[title] = e.nativeEvent.layout.height;
 
-    setcontentHeight({ ...contentHeightTmp })
-  }
+    setcontentHeight({ ...contentHeightTmp });
+  };
 
   const calcMargin = () => {
-    let marginBottom = 50
+    let marginBottom = 50;
 
     if (contentHeight[title]) {
-      const padding = 24
-      const isBigContent = constants.deviceHeight - contentHeight[title] < 0
+      const padding = 24;
+      const isBigContent = constants.deviceHeight - contentHeight[title] < 0;
 
       if (isBigContent) {
-        return marginBottom
+        return marginBottom;
       }
 
       marginBottom =
-        constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title]
+        constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title];
 
-      return marginBottom
+      return marginBottom;
     }
 
-    return marginBottom
-  }
-  const marginBottom = Platform.select({ ios: calcMargin(title), android: 0 })
+    return marginBottom;
+  };
+  const marginBottom = Platform.select({ ios: calcMargin(title), android: 0 });
 
   return (
     <View style={[styles.content, { marginBottom }]} onLayout={(e) => onLayoutContent(e, title)}>
@@ -57,15 +57,15 @@ const RenderContent = ({ title }) => {
           )
       )}
     </View>
-  )
-}
+  );
+};
 
 RenderContent.propTypes = {
-  title: string
-}
+  title: string,
+};
 
 RenderContent.defaultProps = {
-  title: 'Popular Quizes'
-}
+  title: 'Popular Quizes',
+};
 
-export default RenderContent
+export default RenderContent;
