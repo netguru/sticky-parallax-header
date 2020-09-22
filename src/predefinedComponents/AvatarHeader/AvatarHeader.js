@@ -79,7 +79,7 @@ class AvatarHeader extends React.Component {
               {title}
             </Animated.Text>
           </View>
-          <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress} style={styles.rightHeaderBtn}>
+          <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress} style={styles.rightHeaderButton}>
             <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
           </TouchableOpacity>
         </View>
