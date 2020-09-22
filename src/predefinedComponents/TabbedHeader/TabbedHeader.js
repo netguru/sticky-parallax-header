@@ -5,7 +5,6 @@ import StickyParallaxHeader from '../../index';
 import { constants, colors, sizes } from '../../constants';
 import styles from './TabbedHeader.styles';
 import RenderContent from './defaultProps/defaultProps';
-import isUndefined from 'lodash/isUndefined';
 
 const { event, ValueXY } = Animated;
 export default class TabbedHeader extends React.Component {
@@ -50,7 +49,8 @@ export default class TabbedHeader extends React.Component {
 
   renderHeader = () => {
     const { header } = this.props;
-    const renderHeader = header ? header : this.renderLogoHeader;
+    const renderHeader = header || this.renderLogoHeader;
+
     return renderHeader();
   };
 
@@ -80,9 +80,10 @@ export default class TabbedHeader extends React.Component {
     });
 
     const renderImage = () => {
-      const logo = isUndefined(foregroundImage)
-        ? require('../../assets/images/photosPortraitMe.png')
-        : foregroundImage;
+      const logo =
+        foregroundImage === undefined
+          ? require('../../assets/images/photosPortraitMe.png')
+          : foregroundImage;
 
       if (foregroundImage !== null) {
         return (
@@ -94,6 +95,8 @@ export default class TabbedHeader extends React.Component {
           </Animated.View>
         );
       }
+
+      return null;
     };
 
     return (

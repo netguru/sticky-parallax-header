@@ -154,7 +154,7 @@ const Brandon = {
   cards: cardsDesign,
   color: 'rgb(78,15,255)',
   labelColor: 'rgb(89,80,249)',
-  image: require('../../assets/images/photosPortraitBrandon.png'),
+  image: require('../images/photosPortraitBrandon.png'),
   about: 'Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer.',
 };
 
@@ -166,7 +166,7 @@ const Ewa = {
   cards: cardsAgile,
   color: 'rgb(138,85,192)',
   labelColor: 'rgb(163,109,217)',
-  image: require('../../assets/images/photosPortraitEwa.png'),
+  image: require('../images/photosPortraitEwa.png'),
   about: 'Wannabe entrepreneur. Reader. Devoted organizer. Social media lover. Analyst.',
 };
 
@@ -178,7 +178,7 @@ const Jennifer = {
   cards: cardsReact,
   color: 'rgb(255,94,107)',
   labelColor: 'rgb(255,130,140)',
-  image: require('../../assets/images/photosPortraitJennifer.png'),
+  image: require('../images/photosPortraitJennifer.png'),
   about: 'Web nerd. Alcohol trailblazer. Organizer. Hipster-friendly explorer.',
 };
 
