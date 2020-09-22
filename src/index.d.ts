@@ -3,6 +3,7 @@ import { ImageSourcePropType, HeaderTypeProp, ScrollView, NativeScrollEvent, Nat
 
 export interface HeaderTypeProp {
   headerType?: 'TabbedHeader' | 'DetailsHeader' | 'AvatarHeader';
+  keyboardShouldPersistTaps?: 'always' | 'never' | 'handled' | false | true;
   scrollRef?:(ref:ScrollView)=>void | object;
 }
 
