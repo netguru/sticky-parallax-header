@@ -1,9 +1,10 @@
 import { ReactElement, Component } from 'react';
-import { ImageSourcePropType, NativeScrollEvent, NativeSyntheticEvent, TextStyle, ViewStyle, ImageResizeMode } from 'react-native';
+import { ImageSourcePropType, HeaderTypeProp, ScrollView, NativeScrollEvent, NativeSyntheticEvent, TextStyle, ViewStyle, ImageResizeMode } from 'react-native';
 
 export interface HeaderTypeProp {
   headerType?: 'TabbedHeader' | 'DetailsHeader' | 'AvatarHeader';
   keyboardShouldPersistTaps?: 'always' | 'never' | 'handled' | false | true;
+  scrollRef?:(ref:ScrollView)=>void | object;
 }
 
 export interface HeaderSizeProps {

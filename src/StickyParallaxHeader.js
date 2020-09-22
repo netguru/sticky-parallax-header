@@ -8,7 +8,8 @@ import {
   shape,
   string,
   oneOfType,
-  oneOf
+  oneOf,
+  instanceOf
 } from 'prop-types'
 import {
   Dimensions,
@@ -23,7 +24,7 @@ import {
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
 import styles from './styles'
-import { getSafelyScrollNode } from './utils'
+import { getSafelyScrollNode, setRef } from './utils'
 
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated
 const AnimatedScrollView = createAnimatedComponent(ScrollView)
@@ -337,7 +338,8 @@ class StickyParallaxHeader extends Component {
       tabs,
       bounces,
       scrollEvent,
-      keyboardShouldPersistTaps
+      keyboardShouldPersistTaps,
+      scrollRef
     } = this.props
     const { currentPage, isFolded } = this.state
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
@@ -365,6 +367,7 @@ class StickyParallaxHeader extends Component {
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c
+            setRef(scrollRef, c)
           }}
           contentContainerStyle={{ minHeight: scrollViewMinHeight, backgroundColor: shouldUseBgColor }}
           onScrollEndDrag={() => this.onScrollEndSnapToEdge(scrollHeight)}
@@ -475,6 +478,7 @@ StickyParallaxHeader.propTypes = {
   transparentHeader: bool,
   onRef: func,
   onTopReached: func,
+  scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined])
 }
 
@@ -497,6 +501,7 @@ StickyParallaxHeader.defaultProps = {
   snapValue: false,
   transparentHeader: false,
   onRef: null,
+  scrollRef: null,
   keyboardShouldPersistTaps: undefined
 }
 
