@@ -7,7 +7,8 @@ import {
   number,
   shape,
   string,
-  oneOfType
+  oneOfType,
+  oneOf
 } from 'prop-types'
 import {
   Dimensions,
@@ -335,7 +336,8 @@ class StickyParallaxHeader extends Component {
       parallaxHeight,
       tabs,
       bounces,
-      scrollEvent
+      scrollEvent,
+      keyboardShouldPersistTaps
     } = this.props
     const { currentPage, isFolded } = this.state
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
@@ -369,6 +371,7 @@ class StickyParallaxHeader extends Component {
           scrollEventThrottle={1}
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps={keyboardShouldPersistTaps}
           onScroll={event(
             [
               {
@@ -417,6 +420,7 @@ class StickyParallaxHeader extends Component {
             scrollHeight={scrollHeight}
             isHeaderFolded={isFolded}
             minScrollHeight={innerScrollHeight}
+            keyboardShouldPersistTaps={keyboardShouldPersistTaps}
           >
             {!tabs && children}
             {tabs &&
@@ -470,7 +474,8 @@ StickyParallaxHeader.propTypes = {
   snapValue: oneOfType([bool, number]),
   transparentHeader: bool,
   onRef: func,
-  onTopReached: func
+  onTopReached: func,
+  keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined])
 }
 
 StickyParallaxHeader.defaultProps = {
@@ -491,7 +496,8 @@ StickyParallaxHeader.defaultProps = {
   snapStopThreshold: false,
   snapValue: false,
   transparentHeader: false,
-  onRef: null
+  onRef: null,
+  keyboardShouldPersistTaps: undefined
 }
 
 export default StickyParallaxHeader
