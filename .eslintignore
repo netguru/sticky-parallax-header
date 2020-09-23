@@ -1,2 +1,3 @@
 /examples/**
+**/metro.config.js
 .eslintrc.js

@@ -17,10 +17,10 @@
     "react-native-gesture-handler": "^1.2.1",
     "react-native-iphone-x-helper": "^1.2.1",
     "react-native-screens": "^2.5.0",
-    "react-native-sticky-parallax-header": "^0.3.1",
     "react-navigation": "^3.0.9"
   },
   "devDependencies": {
+    "babel-plugin-module-resolver": "^4.0.0",
     "prettier": "^2.1.2",
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
