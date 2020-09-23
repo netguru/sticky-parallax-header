@@ -1,17 +1,17 @@
-import { createAppContainer, createStackNavigator } from 'react-navigation'
-import { HomeScreen, CardScreen } from '../screens'
+import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { HomeScreen, CardScreen } from '../screens';
 
 export default createAppContainer(
   createStackNavigator(
     {
       Home: HomeScreen,
-      Card: CardScreen
+      Card: CardScreen,
     },
     {
       initialRouteName: 'Home',
       defaultNavigationOptions: {
-        header: null
-      }
+        header: null,
+      },
     }
   )
-)
+);
