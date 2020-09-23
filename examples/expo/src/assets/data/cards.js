@@ -1,7 +1,6 @@
 export const cardsReact = [
   {
-    question:
-      'We can go for keys when there is possibility that our user could change the data.',
+    question: 'We can go for keys when there is possibility that our user could change the data.',
     cards: [
       {
         number: 'A',
@@ -53,8 +52,7 @@ export const cardsReact = [
     ],
   },
   {
-    question:
-      'Which of the following needs to be updated to achieve dynamic UI updates?',
+    question: 'Which of the following needs to be updated to achieve dynamic UI updates?',
     cards: [
       {
         number: 'A',
@@ -272,8 +270,7 @@ const Brandon = {
   color: 'rgb(78,15,255)',
   labelColor: 'rgb(89,80,249)',
   image: require('../images/photosPortraitBrandon.png'),
-  about:
-    'Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer.',
+  about: 'Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer.',
 };
 
 const Ewa = {
@@ -286,8 +283,7 @@ const Ewa = {
   color: 'rgb(138,85,192)',
   labelColor: 'rgb(163,109,217)',
   image: require('../images/photosPortraitEwa.png'),
-  about:
-    'Wannabe entrepreneur. Reader. Devoted organizer. Social media lover. Analyst.',
+  about: 'Wannabe entrepreneur. Reader. Devoted organizer. Social media lover. Analyst.',
 };
 
 const Jennifer = {
