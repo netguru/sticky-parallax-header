@@ -31,7 +31,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'import/no-cycle': [1, { maxDepth: 1 }],
     'import/no-unresolved': ['error', { ignore: ['react', 'react-native'] }],
-    'import/no-extraneous-dependencies': ['error', { packageDir: './' }],
+    'import/no-extraneous-dependencies': ['warn', { packageDir: ['./'] }],
     'no-unused-vars': [2, { argsIgnorePattern: '^_' }],
     'no-underscore-dangle': 0,
     'max-len': [1, 100],
