@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "main": "src/index.js",
   "types": "src/index.d.ts",
+  "source": "src/index",
   "repository": "https://github.com/netguru/sticky-parallax-header",
   "author": "IdaszakDaniel <idaszak1@gmail.com>",
   "license": "MIT",
@@ -14,8 +15,9 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "react": ">=16.8.6",
-    "react-native": ">=0.60.0"
+    "react": "*",
+    "react-native": "*"
+
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -37,6 +39,8 @@
     "eslint-plugin-react-native": "^3.9.1",
     "husky": "^4.2.3",
     "prettier": "^2.1.2",
+    "react": "16.11.0",
+    "react-native": "0.62.2",
     "release-it": "^13.5.1"
   },
   "husky": {
