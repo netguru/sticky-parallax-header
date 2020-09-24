@@ -8,11 +8,7 @@ const QuizCard = ({ data: { question, cards }, num, onPress, cardsAmount }) => {
   const [revealed, setRevealed] = useState(false);
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={styles.container}
-      activeOpacity={0.95}
-    >
+    <TouchableOpacity onPress={onPress} style={styles.container} activeOpacity={0.95}>
       <View style={styles.labelContainer}>
         <View style={styles.labelTextContainer}>
           <Text style={styles.labelText}>{`${num + 1}/${cardsAmount}`}</Text>

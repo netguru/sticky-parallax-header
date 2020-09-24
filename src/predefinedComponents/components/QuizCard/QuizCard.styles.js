@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { colors } from '../../../constants'
+import { StyleSheet } from 'react-native';
+import { colors } from '../../../constants';
 
 export default StyleSheet.create({
   container: {
@@ -7,7 +7,7 @@ export default StyleSheet.create({
     shadowColor: colors.shadowColor,
     shadowOffset: {
       width: 2,
-      heght: 2
+      heght: 2,
     },
     shadowRadius: 40,
     shadowOpacity: 0.08,
@@ -17,17 +17,17 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 24,
     paddingHorizontal: 20,
-    paddingVertical: 16
+    paddingVertical: 16,
   },
   labelContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 8
+    paddingBottom: 8,
   },
   labelTextContainer: {
     backgroundColor: colors.paleGrey,
-    borderRadius: 16
+    borderRadius: 16,
   },
   labelText: {
     fontSize: 12,
@@ -35,13 +35,13 @@ export default StyleSheet.create({
     color: colors.greyishBrown,
     paddingHorizontal: 8,
     paddingVertical: 4,
-    letterSpacing: 0.8
+    letterSpacing: 0.8,
   },
   mainText: {
     fontSize: 20,
     lineHeight: 24,
     color: colors.black,
     paddingTop: 8,
-    paddingBottom: 20
-  }
-})
+    paddingBottom: 20,
+  },
+});

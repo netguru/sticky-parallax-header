@@ -1,6 +1,6 @@
-import { Platform } from 'react-native'
-import { ifIphoneX } from '../constants/utils'
-import constants from './constants'
+import { Platform } from 'react-native';
+import { ifIphoneX } from './utils';
+import constants from './constants';
 
 export default {
   toolbarHeight: 100,
@@ -23,6 +23,6 @@ export default {
     top: 15,
     left: 15,
     bottom: 15,
-    right: 15
-  }
-}
+    right: 15,
+  },
+};

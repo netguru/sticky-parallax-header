@@ -1,23 +1,7 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Animated,
-  StatusBar,
-  Platform,
-} from 'react-native';
+import { Text, View, Image, TouchableOpacity, Animated, StatusBar, Platform } from 'react-native';
 import StickyParallaxHeader from 'react-native-sticky-parallax-header';
-import {
-  func,
-  shape,
-  string,
-  oneOfType,
-  object,
-  array,
-  number,
-} from 'prop-types';
+import { func, shape, string, oneOfType, object, array, number } from 'prop-types';
 import { constants, sizes } from '../../constants';
 import styles from './UserModal.styles';
 import QuizListElement from '../QuizListElement/QuizListElement';
@@ -65,13 +49,7 @@ class UserModal extends React.Component {
     });
 
     return (
-      <View
-        style={[
-          styles.headerWrapper,
-          styles.userModalHeader,
-          { backgroundColor: user.color },
-        ]}
-      >
+      <View style={[styles.headerWrapper, styles.userModalHeader, { backgroundColor: user.color }]}>
         <TouchableOpacity hitSlop={sizes.hitSlop} onPress={onPressCloseModal}>
           <Image
             style={styles.icon}
@@ -85,9 +63,7 @@ class UserModal extends React.Component {
               source={user.image}
               style={[styles.headerPic, { opacity: imageOpacity }]}
             />
-            <Animated.Text
-              style={[styles.headerTitle, { opacity: nameOpacity }]}
-            >
+            <Animated.Text style={[styles.headerTitle, { opacity: nameOpacity }]}>
               {user.author}
             </Animated.Text>
           </View>
@@ -112,15 +88,9 @@ class UserModal extends React.Component {
       this.scrollPosition(27),
       this.scrollPosition(31),
     ];
-    const [startAuthorFade, finishAuthorFade] = [
-      this.scrollPosition(40),
-      this.scrollPosition(50),
-    ];
+    const [startAuthorFade, finishAuthorFade] = [this.scrollPosition(40), this.scrollPosition(50)];
 
-    const [startAboutFade, fininshAboutFade] = [
-      this.scrollPosition(60),
-      this.scrollPosition(70),
-    ];
+    const [startAboutFade, fininshAboutFade] = [this.scrollPosition(60), this.scrollPosition(70)];
 
     const imageOpacity = this.scrollY.y.interpolate({
       inputRange: [0, startImgAnimation, finishImgAnimation],
@@ -156,13 +126,10 @@ class UserModal extends React.Component {
             styles.messageContainer,
             styles.userModalMessageContainer,
             { opacity: authorOpacity },
-          ]}
-        >
+          ]}>
           <Text style={styles.message}>{user.author}</Text>
         </Animated.View>
-        <Animated.View
-          style={[styles.infoContainer, { opacity: aboutOpacity }]}
-        >
+        <Animated.View style={[styles.infoContainer, { opacity: aboutOpacity }]}>
           <Text style={styles.infoText}>{user.about}</Text>
         </Animated.View>
       </View>
@@ -205,8 +172,7 @@ class UserModal extends React.Component {
         return marginBottom;
       }
 
-      marginBottom =
-        constants.deviceHeight - sizes.headerHeight - contentHeight;
+      marginBottom = constants.deviceHeight - sizes.headerHeight - contentHeight;
 
       return marginBottom;
     }
@@ -259,8 +225,7 @@ class UserModal extends React.Component {
             marginBottom,
             paddingBottom: sizes.userScreenParallaxHeader,
           },
-        ]}
-      >
+        ]}>
         <Text style={styles.contentText}>{title}</Text>
         {cards.map((card) => (
           <QuizListElement
@@ -292,24 +257,22 @@ class UserModal extends React.Component {
     const { user } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <StatusBar backgroundColor={user.color} barStyle="light-content" />
         <StickyParallaxHeader
           foreground={this.renderForeground()}
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.userScreenParallaxHeader}
-          scrollEvent={event(
-            [{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }],
-            { useNativeDriver: false }
-          )}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
+            useNativeDriver: false,
+          })}
           headerSize={this.setHeaderSize}
           headerHeight={sizes.userModalHeaderHeight}
-          background={this.renderBackground()}
-        >
+          background={this.renderBackground()}>
           {this.renderContent()}
         </StickyParallaxHeader>
-      </React.Fragment>
+      </>
     );
   }
 }
