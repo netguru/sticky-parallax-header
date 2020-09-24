@@ -10,6 +10,7 @@ import {
   oneOfType,
   oneOf,
   instanceOf,
+  element,
 } from 'prop-types';
 import {
   Dimensions,
@@ -100,7 +101,7 @@ class StickyParallaxHeader extends Component {
     const { snapStartThreshold, snapStopThreshold, snapValue } = this.props;
     const scrollHeight = snapStopThreshold || height;
     const snap = snapValue || height;
-    const { snapToEdge } = this.props;
+    const { snapToEdge, refreshControl } = this.props;
 
     const scrollNode = getSafelyScrollNode(this.scroll);
     const scrollValue = this.scrollY.__getValue();
@@ -111,7 +112,7 @@ class StickyParallaxHeader extends Component {
       scrollNode.scrollTo({ x: 0, y: value.y, animated: false });
     });
 
-    if (y < -20 && !constants.isAndroid) this.spring(y);
+    if (y < -20 && !constants.isAndroid && !refreshControl) this.spring(y);
 
     if (snapToEdge) {
       if (y > 0 && y < snapToEdgeThreshold) {
@@ -335,6 +336,7 @@ class StickyParallaxHeader extends Component {
       scrollEvent,
       keyboardShouldPersistTaps,
       scrollRef,
+      refreshControl,
     } = this.props;
     const { currentPage, isFolded } = this.state;
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);
@@ -357,6 +359,7 @@ class StickyParallaxHeader extends Component {
         <AnimatedScrollView
           bounces={bounces}
           overScrollMode="never"
+          refreshControl={refreshControl}
           bouncesZoom
           decelerationRate="fast"
           nestedScrollEnabled
@@ -475,6 +478,7 @@ StickyParallaxHeader.propTypes = {
   onTopReached: func,
   scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
+  refreshControl: element,
 };
 
 StickyParallaxHeader.defaultProps = {
@@ -498,6 +502,7 @@ StickyParallaxHeader.defaultProps = {
   onRef: null,
   scrollRef: null,
   keyboardShouldPersistTaps: undefined,
+  refreshControl: undefined,
 };
 
 export default StickyParallaxHeader;

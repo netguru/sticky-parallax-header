@@ -1,5 +1,14 @@
 import React from 'react';
-import { Text, View, Image, StatusBar, Modal, Animated, Platform } from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  StatusBar,
+  Modal,
+  Animated,
+  Platform,
+  RefreshControl,
+} from 'react-native';
 import StickyParallaxHeader from 'react-native-sticky-parallax-header';
 import { QuizListElement, UserModal } from '../../components';
 import { constants, colors, sizes } from '../../constants';
@@ -17,6 +26,7 @@ export default class HomeScreen extends React.Component {
       },
       contentHeight: {},
       modalVisible: false,
+      refreshing: false,
     };
     this.scrollY = new ValueXY();
   }
@@ -181,11 +191,38 @@ export default class HomeScreen extends React.Component {
     );
   };
 
+  onRefresh = () => {
+    const wait = (timeout) =>
+      new Promise((resolve) => {
+        setTimeout(resolve, timeout);
+      });
+
+    this.setState({ refreshing: true });
+
+    wait(2000).then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
+
   render() {
+    const { refreshing } = this.state;
+
     return (
       <>
         <StatusBar barStyle="light-content" backgroundColor={colors.primaryGreen} translucent />
         <StickyParallaxHeader
+          refreshControl={
+            <RefreshControl
+              //  z Index is required on IOS, to refresh indicator be visible
+              /* eslint-disable-next-line react-native/no-inline-styles */
+              style={{ zIndex: 1 }}
+              refreshing={refreshing}
+              titleColor="white"
+              tintColor="white"
+              title="Refreshing"
+              onRefresh={this.onRefresh}
+            />
+          }
           foreground={this.renderForeground()}
           header={this.renderHeader()}
           tabs={[
