@@ -180,6 +180,9 @@ const paralaxScrollRef = useRef(null);
 ## Handling nested scrollables
 
 [Handling nested flatlist props and example](docs/CUSTOM.md#Tips)
+## Changing Statusbar style
+
+[Changing StatusBar style](docs/CUSTOM.md#changing-statusbar-style)
 
 
 <h1 id="Getting-Started">Getting Started</h1>
