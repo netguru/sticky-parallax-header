@@ -10,10 +10,8 @@ const breakpoints = {
   bigPhoneWidth: 480,
 };
 const isSmallScreen =
-  width <= breakpoints.smallPhoneWidth ||
-  height <= breakpoints.smallPhoneHeight;
-const isNormalScreen =
-  width > breakpoints.smallPhoneWidth && width < breakpoints.mediumPhoneWidth;
+  width <= breakpoints.smallPhoneWidth || height <= breakpoints.smallPhoneHeight;
+const isNormalScreen = width > breakpoints.smallPhoneWidth && width < breakpoints.mediumPhoneWidth;
 const isBigScreen = width >= breakpoints.mediumPhoneWidth;
 const isBiggestPhoneScreen = width >= breakpoints.bigPhoneWidth;
 const deviceWidth = width;

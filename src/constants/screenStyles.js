@@ -1,20 +1,20 @@
-import { StyleSheet, Platform } from 'react-native'
-import { ifIphoneX } from '../utils'
-import colors from './colors'
-import constants from './constants'
+import { StyleSheet, Platform } from 'react-native';
+import { ifIphoneX } from '../utils';
+import colors from './colors';
+import constants from './constants';
 
 const screenStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   content: {
     flex: 1,
     paddingHorizontal: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 24
+    paddingBottom: 24,
   },
   contentText: {
     fontSize: 24,
@@ -23,18 +23,18 @@ const screenStyles = StyleSheet.create({
     alignSelf: 'flex-start',
     letterSpacing: -0.2,
     paddingTop: 40,
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   foreground: {
     flex: 1,
     paddingHorizontal: 24,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   background: {
     width: '100%',
     justifyContent: 'flex-end',
     backgroundColor: colors.primaryGreen,
-    height: '100%'
+    height: '100%',
   },
   headerWrapper: {
     width: '100%',
@@ -42,30 +42,30 @@ const screenStyles = StyleSheet.create({
     paddingTop: Platform.select({ ios: ifIphoneX(50, 40), android: 55 }),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   logo: {
     height: 24,
-    width: 142
+    width: 142,
   },
   message: {
     color: colors.white,
     fontSize: constants.responsiveWidth(11),
     lineHeight: 48,
-    letterSpacing: -1
+    letterSpacing: -1,
   },
   messageContainer: {
     paddingTop: 24,
-    paddingBottom: 24
+    paddingBottom: 24,
   },
   profilePic: {
     width: constants.responsiveWidth(18),
     height: constants.responsiveWidth(18),
-    borderRadius: constants.responsiveWidth(4.5)
+    borderRadius: constants.responsiveWidth(4.5),
   },
   foregroundText: {
-    color: colors.white
-  }
-})
+    color: colors.white,
+  },
+});
 
-export default screenStyles
+export default screenStyles;

@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { colors, constants } from '../../constants'
+import { StyleSheet } from 'react-native';
+import { colors, constants } from '../../constants';
 
 export default StyleSheet.create({
   container: {
@@ -10,10 +10,10 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 4,
-    marginBottom: 4
+    marginBottom: 4,
   },
   letter: {
-    color: colors.black
+    color: colors.black,
   },
   letterContainer: {
     alignItems: 'center',
@@ -22,19 +22,19 @@ export default StyleSheet.create({
     width: 36,
     borderRadius: 17.5,
     backgroundColor: colors.white,
-    margin: 6
+    margin: 6,
   },
   textContainer: {
     width: '80%',
     alignContent: 'center',
     justifyContent: 'center',
     paddingLeft: 7,
-    paddingVertical: 5
+    paddingVertical: 5,
   },
   text: {
     fontSize: 16,
     lineHeight: 24,
     color: colors.black,
-    fontFamily: 'AvertaStd-Regular'
-  }
-})
+    fontFamily: 'AvertaStd-Regular',
+  },
+});

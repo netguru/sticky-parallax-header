@@ -1,76 +1,77 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-return-assign */
-import React from 'react'
-import { Animated, Text, TouchableOpacity, View, ScrollView, ViewPropTypes } from 'react-native'
-import { array, func, number, object, shape, string } from 'prop-types'
-import { constants } from '../../constants'
-import styles from './ScrollableTabBar.styles'
+import React from 'react';
+import { Animated, Text, TouchableOpacity, View, ScrollView, ViewPropTypes } from 'react-native';
+import { array, func, number, object, shape, string } from 'prop-types';
+import { constants } from '../../constants';
+import styles from './ScrollableTabBar.styles';
 
-const UNDERLINE_PADDING = 16
+const UNDERLINE_PADDING = 16;
 
 class ScrollableTabBar extends React.PureComponent {
   constructor(props) {
-    super(props)
-    this.currentXPosition = 0
+    super(props);
+    this.currentXPosition = 0;
     this.state = {
-      tabUnderlineWidth: props.tabs.map((_) => 0)
-    }
+      tabUnderlineWidth: props.tabs.map((_) => 0),
+    };
   }
 
   componentDidUpdate(prevProps) {
-    const { activeTab } = this.props
+    const { activeTab } = this.props;
     if (prevProps.activeTab !== activeTab) {
-      this.scrollToTab(activeTab)
+      this.scrollToTab(activeTab);
     }
   }
 
   adjustPrevious = (page) => {
-    const lastHidden = Math.floor(this.currentXPosition / (constants.deviceWidth * 0.3))
+    const lastHidden = Math.floor(this.currentXPosition / (constants.deviceWidth * 0.3));
     if (page <= lastHidden) {
-      this.currentXPosition = constants.deviceWidth * 0.3 * page
+      this.currentXPosition = constants.deviceWidth * 0.3 * page;
       this.scrollView.scrollTo({
-        x: this.currentXPosition
-      })
+        x: this.currentXPosition,
+      });
     }
-  }
+  };
 
   adjustNext = (page) => {
     // eslint-disable-next-line max-len
-    const invisibleX = constants.deviceWidth + this.currentXPosition - constants.deviceWidth * 0.3 * (page + 1)
+    const invisibleX =
+      constants.deviceWidth + this.currentXPosition - constants.deviceWidth * 0.3 * (page + 1);
 
     if (invisibleX < 0) {
-      this.currentXPosition = this.currentXPosition - invisibleX
+      this.currentXPosition = this.currentXPosition - invisibleX;
       this.scrollView.scrollTo({
-        x: this.currentXPosition
-      })
+        x: this.currentXPosition,
+      });
     }
-  }
+  };
 
   scrollToTab = (page) => {
-    const { tabs } = this.props
+    const { tabs } = this.props;
 
     if (tabs.length > 3) {
       if (page === 0) {
         this.scrollView.scrollTo({
-          x: 0
-        })
-        this.currentXPosition = 0
+          x: 0,
+        });
+        this.currentXPosition = 0;
       } else if (page !== tabs.length - 1) {
-        this.adjustPrevious(page - 1)
-        this.adjustNext(page + 1)
+        this.adjustPrevious(page - 1);
+        this.adjustNext(page + 1);
       } else {
-        this.scrollView.scrollToEnd()
-        this.currentXPosition = constants.deviceWidth * 0.3 * tabs.length - constants.deviceWidth
+        this.scrollView.scrollToEnd();
+        this.currentXPosition = constants.deviceWidth * 0.3 * tabs.length - constants.deviceWidth;
       }
     }
-  }
+  };
 
   goToPage = (page) => {
-    const { goToPage } = this.props
-    this.scrollToTab(page)
+    const { goToPage } = this.props;
+    this.scrollToTab(page);
 
-    return goToPage(page)
-  }
+    return goToPage(page);
+  };
 
   render() {
     const {
@@ -83,11 +84,11 @@ class ScrollableTabBar extends React.PureComponent {
       tabTextContainerActiveStyle,
       tabsContainerBackgroundColor,
       tabWrapperStyle,
-      tabsContainerStyle
-    } = this.props
-    const { tabUnderlineWidth } = this.state
+      tabsContainerStyle,
+    } = this.props;
+    const { tabUnderlineWidth } = this.state;
 
-    const tabWidth = tabs.length > 3 ? constants.deviceWidth * 0.3 : constants.deviceWidth * 0.33
+    const tabWidth = tabs.length > 3 ? constants.deviceWidth * 0.3 : constants.deviceWidth * 0.33;
 
     const tabUnderlineStyle = {
       position: 'absolute',
@@ -96,23 +97,22 @@ class ScrollableTabBar extends React.PureComponent {
       marginRight: (tabWidth - tabUnderlineWidth[activeTab] - 2 * UNDERLINE_PADDING) / 2,
       bottom: 0,
       borderRadius: 6,
-      height: 3
-    }
+      height: 3,
+    };
 
     const translateX = scrollValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, tabWidth]
-    })
+      outputRange: [0, tabWidth],
+    });
 
     return (
       <View
         style={[
           styles.container,
           {
-            backgroundColor: tabsContainerBackgroundColor
-          }
-        ]}
-      >
+            backgroundColor: tabsContainerBackgroundColor,
+          },
+        ]}>
         <ScrollView
           style={styles.nestedStyle}
           contentContainerStyle={[styles.contentContainer, tabsContainerStyle]}
@@ -121,10 +121,9 @@ class ScrollableTabBar extends React.PureComponent {
           vertical={false}
           horizontal
           bounces={false}
-          showsHorizontalScrollIndicator={false}
-        >
+          showsHorizontalScrollIndicator={false}>
           {tabs.map((tab, page) => {
-            const isTabActive = activeTab === page
+            const isTabActive = activeTab === page;
 
             return (
               <TouchableOpacity
@@ -134,29 +133,32 @@ class ScrollableTabBar extends React.PureComponent {
                 accessibilityLabel={tab.title}
                 accessibilityTraits="button"
                 activeOpacity={0.9}
-                onPress={() => this.goToPage(page)}
-              >
-                <View style={[styles.tabContainer, tabTextContainerStyle, isTabActive && tabTextContainerActiveStyle]}>
+                onPress={() => this.goToPage(page)}>
+                <View
+                  style={[
+                    styles.tabContainer,
+                    tabTextContainerStyle,
+                    isTabActive && tabTextContainerActiveStyle,
+                  ]}>
                   <Text
                     // eslint-disable-next-line no-return-assign
                     onLayout={({
                       nativeEvent: {
-                        layout: { width }
-                      }
+                        layout: { width },
+                      },
                     }) => {
-                      const newWidth = [...tabUnderlineWidth]
-                      newWidth[page] = width
+                      const newWidth = [...tabUnderlineWidth];
+                      newWidth[page] = width;
                       this.setState({
-                        tabUnderlineWidth: newWidth
-                      })
+                        tabUnderlineWidth: newWidth,
+                      });
                     }}
-                    style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}
-                  >
+                    style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}>
                     {tab.title}
                   </Text>
                 </View>
               </TouchableOpacity>
-            )
+            );
           })}
           <Animated.View
             style={[
@@ -164,15 +166,15 @@ class ScrollableTabBar extends React.PureComponent {
               {
                 transform: [
                   {
-                    translateX
-                  }
-                ]
-              }
+                    translateX,
+                  },
+                ],
+              },
             ]}
           />
         </ScrollView>
       </View>
-    )
+    );
   }
 }
 
@@ -187,6 +189,6 @@ ScrollableTabBar.propTypes = {
   tabTextContainerActiveStyle: shape({}),
   tabsContainerBackgroundColor: string,
   tabWrapperStyle: ViewPropTypes.style,
-  tabsContainerStyle: ViewPropTypes.style
-}
-export default ScrollableTabBar
+  tabsContainerStyle: ViewPropTypes.style,
+};
+export default ScrollableTabBar;
