@@ -5,6 +5,10 @@
   - [ ] feature request
   - [ ] support request
   
+* **If bug, used module version**
+
+    1.0.0
+  
 * **Platform**
   - [ ] ios
   - [ ] android
