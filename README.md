@@ -77,6 +77,7 @@ Below are examples of those components and description of the props they are acc
 | `snapToEdge`                  | `bool`                                                |    Yes   | `true`                                                                                                                                                                                         | Boolean to fire the function for snap To Edge            |
 | `scrollRef`                   | `func or object`                                      |    Yes   | `null`                                                                                                                                                                                         | ScrollView body ref. Allows programmatically scroll body [ScrollView](https://reactnative.dev/docs/scrollview#methods)           |
 | `keyboardShouldPersistTaps`   | `'always', 'never', 'handled', false, true`           |    Yes   | `undefined`                                                                                                                                                                                    | Determines when the keyboard should stay visible after a tap.|
+| `refreshControl`              | `RefreshControl`           |    Yes   | `undefined`                                                                                                                                                                                    | Props used to add pull to refresh functionality.|
 
 ### Details Header, Avatar Header
 

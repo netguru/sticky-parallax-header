@@ -237,4 +237,23 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
   )
   ```
 
+### Pull to Refresh
+```
+ <StickyParallaxHeader
+  refreshControl={
+    <RefreshControl
+      //  z Index is required on IOS, to refresh indicator be visible
+      style={{ zIndex: 1 }}
+      refreshing={refreshing}
+      titleColor="white"
+      tintColor="white"
+      title="Refreshing"
+      onRefresh={this.onRefresh}
+    />
+  }
+  ...
+  >
+...
+```
+
 
