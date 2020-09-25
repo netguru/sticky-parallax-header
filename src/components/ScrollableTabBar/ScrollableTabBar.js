@@ -134,13 +134,14 @@ class ScrollableTabBar extends React.PureComponent {
           showsHorizontalScrollIndicator={false}>
           {tabs.map((tab, page) => {
             const isTabActive = activeTab === page;
+            const tabKey = tab.title || `tab ${page}`;
 
             return (
               <TouchableOpacity
-                key={tab.title}
+                key={tabKey}
                 accessible
                 style={tabWrapperStyle}
-                accessibilityLabel={tab.title}
+                accessibilityLabel={tabKey}
                 accessibilityTraits="button"
                 activeOpacity={0.9}
                 onPress={() => this.goToPage(page)}>
@@ -151,22 +152,24 @@ class ScrollableTabBar extends React.PureComponent {
                     isTabActive && tabTextContainerActiveStyle,
                   ]}>
                   {this.renderIcon(tab.icon, page)}
-                  <Text
-                    // eslint-disable-next-line no-return-assign
-                    onLayout={({
-                      nativeEvent: {
-                        layout: { width },
-                      },
-                    }) => {
-                      const newWidth = [...tabUnderlineWidth];
-                      newWidth[page] = width;
-                      this.setState({
-                        tabUnderlineWidth: newWidth,
-                      });
-                    }}
-                    style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}>
-                    {tab.title}
-                  </Text>
+                  {tab.title && (
+                    <Text
+                      // eslint-disable-next-line no-return-assign
+                      onLayout={({
+                        nativeEvent: {
+                          layout: { width },
+                        },
+                      }) => {
+                        const newWidth = [...tabUnderlineWidth];
+                        newWidth[page] = width;
+                        this.setState({
+                          tabUnderlineWidth: newWidth,
+                        });
+                      }}
+                      style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}>
+                      {tab.title}
+                    </Text>
+                  )}
                 </View>
               </TouchableOpacity>
             );

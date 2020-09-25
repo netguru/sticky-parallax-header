@@ -30,7 +30,7 @@ export interface OnChangeTabArguments {
 
 export interface Tab {
   content: ReactElement;
-  title: string;
+  title?: string;
   icon?: ReactElement | ((isActive: boolean) => ReactElement);
 }
 export interface SharedProps {
