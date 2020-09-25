@@ -2,7 +2,7 @@
 /* eslint-disable no-return-assign */
 import React from 'react';
 import { Animated, Text, TouchableOpacity, View, ScrollView, ViewPropTypes } from 'react-native';
-import { array, func, number, object, shape, string } from 'prop-types';
+import { arrayOf, func, number, object, shape, string, element, oneOfType } from 'prop-types';
 import { constants } from '../../constants';
 import styles from './ScrollableTabBar.styles';
 
@@ -73,6 +73,16 @@ class ScrollableTabBar extends React.PureComponent {
     return goToPage(page);
   };
 
+  renderIcon = (icon, page) => {
+    const { activeTab } = this.props;
+    const isActive = activeTab === page;
+    if (typeof icon === 'function') {
+      return icon(isActive);
+    }
+
+    return icon;
+  };
+
   render() {
     const {
       activeTab,
@@ -124,13 +134,14 @@ class ScrollableTabBar extends React.PureComponent {
           showsHorizontalScrollIndicator={false}>
           {tabs.map((tab, page) => {
             const isTabActive = activeTab === page;
+            const tabKey = tab.title || `tab ${page}`;
 
             return (
               <TouchableOpacity
-                key={tab.title}
+                key={tabKey}
                 accessible
                 style={tabWrapperStyle}
-                accessibilityLabel={tab.title}
+                accessibilityLabel={tabKey}
                 accessibilityTraits="button"
                 activeOpacity={0.9}
                 onPress={() => this.goToPage(page)}>
@@ -140,22 +151,25 @@ class ScrollableTabBar extends React.PureComponent {
                     tabTextContainerStyle,
                     isTabActive && tabTextContainerActiveStyle,
                   ]}>
-                  <Text
-                    // eslint-disable-next-line no-return-assign
-                    onLayout={({
-                      nativeEvent: {
-                        layout: { width },
-                      },
-                    }) => {
-                      const newWidth = [...tabUnderlineWidth];
-                      newWidth[page] = width;
-                      this.setState({
-                        tabUnderlineWidth: newWidth,
-                      });
-                    }}
-                    style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}>
-                    {tab.title}
-                  </Text>
+                  {this.renderIcon(tab.icon, page)}
+                  {tab.title && (
+                    <Text
+                      // eslint-disable-next-line no-return-assign
+                      onLayout={({
+                        nativeEvent: {
+                          layout: { width },
+                        },
+                      }) => {
+                        const newWidth = [...tabUnderlineWidth];
+                        newWidth[page] = width;
+                        this.setState({
+                          tabUnderlineWidth: newWidth,
+                        });
+                      }}
+                      style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}>
+                      {tab.title}
+                    </Text>
+                  )}
                 </View>
               </TouchableOpacity>
             );
@@ -182,7 +196,7 @@ ScrollableTabBar.propTypes = {
   activeTab: number,
   goToPage: func,
   scrollValue: object,
-  tabs: array,
+  tabs: arrayOf(shape({ content: element, title: string, icon: oneOfType([element, func]) })),
   tabTextStyle: shape({}),
   tabTextActiveStyle: shape({}),
   tabTextContainerStyle: shape({}),
