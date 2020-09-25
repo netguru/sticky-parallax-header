@@ -182,6 +182,9 @@ const paralaxScrollRef = useRef(null);
 
 [Handling nested flatlist props and example](docs/CUSTOM.md#Tips)
 
+## Pull to refresh
+
+[Pull to refresh](docs/CUSTOM.md#Pull-to-Refresh)
 
 <h1 id="Getting-Started">Getting Started</h1>
 
