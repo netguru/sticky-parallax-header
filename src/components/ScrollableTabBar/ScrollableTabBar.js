@@ -2,7 +2,7 @@
 /* eslint-disable no-return-assign */
 import React from 'react';
 import { Animated, Text, TouchableOpacity, View, ScrollView, ViewPropTypes } from 'react-native';
-import { array, func, number, object, shape, string } from 'prop-types';
+import { arrayOf, func, number, object, shape, string, element, oneOfType } from 'prop-types';
 import { constants } from '../../constants';
 import styles from './ScrollableTabBar.styles';
 
@@ -73,6 +73,16 @@ class ScrollableTabBar extends React.PureComponent {
     return goToPage(page);
   };
 
+  renderIcon = (icon, page) => {
+    const { activeTab } = this.props;
+    const isActive = activeTab === page;
+    if (typeof icon === 'function') {
+      return icon(isActive);
+    }
+
+    return icon;
+  };
+
   render() {
     const {
       activeTab,
@@ -140,6 +150,7 @@ class ScrollableTabBar extends React.PureComponent {
                     tabTextContainerStyle,
                     isTabActive && tabTextContainerActiveStyle,
                   ]}>
+                  {this.renderIcon(tab.icon, page)}
                   <Text
                     // eslint-disable-next-line no-return-assign
                     onLayout={({
@@ -182,7 +193,7 @@ ScrollableTabBar.propTypes = {
   activeTab: number,
   goToPage: func,
   scrollValue: object,
-  tabs: array,
+  tabs: arrayOf(shape({ content: element, title: string, icon: oneOfType([element, func]) })),
   tabTextStyle: shape({}),
   tabTextActiveStyle: shape({}),
   tabTextContainerStyle: shape({}),

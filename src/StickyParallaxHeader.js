@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  arrayOf,
   bool,
   func,
   node,
@@ -466,7 +465,7 @@ StickyParallaxHeader.propTypes = {
   tabTextContainerActiveStyle: shape({}),
   tabTextContainerStyle: shape({}),
   tabTextStyle: shape({}),
-  tabs: arrayOf(shape({})),
+  tabs: ScrollableTabBar.propTypes.tabs,
   tabsContainerBackgroundColor: string,
   tabWrapperStyle: ViewPropTypes.style,
   tabsContainerStyle: ViewPropTypes.style,
