@@ -51,7 +51,7 @@ const screenStyles = StyleSheet.create({
   message: {
     color: colors.white,
     fontSize: constants.responsiveWidth(11),
-    lineHeight: 48,
+    lineHeight: constants.responsiveWidth(11) * 1.2,
     letterSpacing: -1,
   },
   messageContainer: {
