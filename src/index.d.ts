@@ -48,13 +48,13 @@ export interface IconProps {
 }
 
 export interface TabsSharedProps {
-  tabTextActiveStyle: TextStyle;
-  tabTextContainerActiveStyle: ViewStyle;
-  tabTextContainerStyle: ViewStyle;
-  tabTextStyle: TextStyle;
-  tabWrapperStyle: ViewStyle;
-  tabs: Tab[];
-  tabsContainerStyle: ViewStyle;
+  tabTextActiveStyle?: TextStyle;
+  tabTextContainerActiveStyle?: ViewStyle;
+  tabTextContainerStyle?: ViewStyle;
+  tabTextStyle?: TextStyle;
+  tabWrapperStyle?: ViewStyle;
+  tabs?: Tab[];
+  tabsContainerStyle?: ViewStyle;
 }
 
 export type TabbedHeaderProps = SharedProps &
