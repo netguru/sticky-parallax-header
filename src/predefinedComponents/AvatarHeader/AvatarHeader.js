@@ -85,7 +85,7 @@ class AvatarHeader extends React.Component {
           <TouchableOpacity
             hitSlop={sizes.hitSlop}
             onPress={rightTopIconOnPress}
-            style={styles.rightHeaderBtn}>
+            style={styles.rightHeaderButton}>
             <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
           </TouchableOpacity>
         </View>
