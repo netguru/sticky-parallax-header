@@ -1,6 +1,9 @@
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, PixelRatio, Platform } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
+
+// based on iphone 5s's scale
+const scale = width / 320;
 
 const deviceWidth = width;
 const deviceHeight = height;
@@ -19,6 +22,15 @@ const isBigScreen = width >= breakpoints.mediumPhoneWidth;
 const isBiggestPhoneScreen = width >= breakpoints.bigPhoneWidth;
 const isAndroid = Platform.OS === 'android';
 
+const getResponsiveFontSize = (fontSize) => {
+  const newSize = fontSize * scale;
+  if (Platform.OS === 'ios') {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  }
+
+  return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+};
+
 const normalizedFontSize = (basicFontSize) => {
   if (isSmallScreen) {
     return basicFontSize - 6;
@@ -36,6 +48,7 @@ const normalizedFontSize = (basicFontSize) => {
 const scrollPosition = (scrollHeight, x) => x * 0.01 * scrollHeight;
 
 export default {
+  getResponsiveFontSize,
   normalizedFontSize,
   scrollPosition,
   deviceWidth,

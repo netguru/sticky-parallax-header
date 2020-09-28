@@ -1,6 +1,10 @@
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, PixelRatio, Platform } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
+
+// based on iphone 5s's scale
+const scale = width / 320;
+
 const responsiveHeight = (h) => height * (h / 100);
 const responsiveWidth = (w) => width * (w / 100);
 const breakpoints = {
@@ -32,6 +36,15 @@ const normalizedFontSize = (basicFontSize) => {
   return basicFontSize;
 };
 
+const getResponsiveFontSize = (fontSize) => {
+  const newSize = fontSize * scale;
+  if (Platform.OS === 'ios') {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  }
+
+  return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+};
+
 const scrollPosition = (scrollHeight, x) => x * 0.01 * scrollHeight;
 
 export default {
@@ -46,4 +59,5 @@ export default {
   isBiggestPhoneScreen,
   normalizedFontSize,
   scrollPosition,
+  getResponsiveFontSize,
 };
