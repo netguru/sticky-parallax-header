@@ -8,6 +8,7 @@
   "author": "IdaszakDaniel <idaszak1@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "test": "jest",
     "release": "release-it",
     "lint": "eslint ."
   },
@@ -17,7 +18,6 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
-
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -25,6 +25,7 @@
     "@commitlint/config-conventional": "^8.3.4",
     "@react-native-community/eslint-config": "^2.0.0",
     "@release-it/conventional-changelog": "^1.1.0",
+    "@testing-library/react-native": "^7.0.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb": "^18.2.0",
@@ -38,13 +39,26 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-react-native": "^3.9.1",
     "husky": "^4.2.3",
+    "jest": "^26.4.2",
     "prettier": "^2.1.2",
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-test-renderer": "^16.13.1",
     "release-it": "^13.5.1"
+  },
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/examples/",
+      "<rootDir>/lib/"
+    ],
+    "setupFilesAfterEnv": [
+      "./jest/setupTests.js"
+    ]
   },
   "husky": {
     "hooks": {
+      "pre-push": "yarn test && yarn lint",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
