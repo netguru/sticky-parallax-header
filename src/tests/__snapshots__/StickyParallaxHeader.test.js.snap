@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StickyParallaxHeader empty Snapshot for default 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": undefined,
+        "height": 92,
+      }
+    }
+  />
+  <RCTScrollView
+    bounces={true}
+    bouncesZoom={true}
+    contentContainerStyle={
+      Object {
+        "backgroundColor": undefined,
+        "minHeight": 1242,
+      }
+    }
+    decelerationRate="fast"
+    forwardedRef={[Function]}
+    nestedScrollEnabled={true}
+    onScroll={[Function]}
+    onScrollEndDrag={[Function]}
+    overScrollMode="never"
+    scrollEventThrottle={1}
+    showsVerticalScrollIndicator={false}
+    stickyHeaderIndices={Array []}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={
+          Object {
+            "height": 0,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "height": 300,
+                "left": 0,
+                "overflow": "scroll",
+                "position": "absolute",
+                "right": 0,
+                "top": -300,
+              },
+              Object {
+                "backgroundColor": undefined,
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "justifyContent": "flex-end",
+                "left": 0,
+                "marginBottom": 5,
+                "paddingBottom": 3,
+                "position": "absolute",
+                "top": 0,
+                "width": 750.5,
+              },
+              Object {
+                "height": 184,
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Object {
+              "backgroundColor": undefined,
+              "height": 184,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <RCTScrollView
+          alwaysBounceVertical={false}
+          automaticallyAdjustContentInsets={false}
+          contentContainerStyle={
+            Object {
+              "minHeight": 1242,
+            }
+          }
+          contentOffset={
+            Object {
+              "x": 0,
+            }
+          }
+          directionalLockEnabled={true}
+          forwardedRef={[Function]}
+          horizontal={true}
+          keyboardDismissMode="on-drag"
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          pagingEnabled={true}
+          scrollEnabled={true}
+          scrollEventThrottle={16}
+          scrollsToTop={false}
+          showsHorizontalScrollIndicator={false}
+        >
+          <View />
+        </RCTScrollView>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
