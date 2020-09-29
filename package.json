@@ -8,9 +8,10 @@
   "author": "IdaszakDaniel <idaszak1@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "lint": "eslint .",
+    "prepush": "yarn test && yarn lint",
     "release": "release-it",
-    "lint": "eslint ."
+    "test": "jest"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
@@ -46,19 +47,9 @@
     "react-test-renderer": "^16.13.1",
     "release-it": "^13.5.1"
   },
-  "jest": {
-    "preset": "react-native",
-    "modulePathIgnorePatterns": [
-      "<rootDir>/examples/",
-      "<rootDir>/lib/"
-    ],
-    "setupFilesAfterEnv": [
-      "./jest/setupTests.js"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-push": "yarn test && yarn lint",
+      "pre-push": "yarn prepush",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
