@@ -29,7 +29,7 @@ const QuizListElement = ({
         ]}
       >
         <Image
-          source={require('../../assets/icons/cards.png')}
+          source={require('../../../assets/icons/cards.png')}
           style={styles.icon}
         />
         <Text style={[styles.number, elements < 10 && styles.iconCardElement]}>
