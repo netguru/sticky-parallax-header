@@ -40,6 +40,11 @@ Stickyheader.js ships with 3 different use cases for sticky headers and a possib
 
 
 ## In Use
+d
+Check the live demo on Expo Snack [here](https://snack.expo.io/@maciejbudzinsking/sticky-parallax-header-by-netguru).
+
+<div data-snack-id="@maciejbudzinsking/sticky-parallax-header-by-netguru" data-snack-platform="mydevice" data-snack-preview="true" data-snack-theme="light" style="overflow:hidden;background:#fafafa;border:1px solid rgba(0,0,0,.08);border-radius:4px;height:505px;width:100%"></div><script async src="https://snack.expo.io/embed.js"></script>
+
 Predefined headers can be accessed through `headerType="HeaderName"` property, each header can be configured according to your demands using the wide amount of properties. You can change all of them, or use it right out of the box with as little changes as possible to use it for your needs
 
 This is how you can add them in your app:
