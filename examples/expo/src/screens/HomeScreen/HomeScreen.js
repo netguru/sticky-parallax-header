@@ -57,7 +57,7 @@ export default class HomeScreen extends React.Component {
     <View style={[styles.headerWrapper, styles.homeScreenHeader]}>
       <Image
         resizeMode="contain"
-        source={require('../../assets/images/logo.png')}
+        source={require('../../../assets/images/logo.png')}
         style={styles.logo}
       />
     </View>
@@ -100,7 +100,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
           <Animated.Image
-            source={require('../../assets/images/photosPortraitMe.png')}
+            source={require('../../../assets/images/photosPortraitMe.png')}
             style={[styles.profilePic, { width: imageSize, height: imageSize }]}
           />
         </Animated.View>
