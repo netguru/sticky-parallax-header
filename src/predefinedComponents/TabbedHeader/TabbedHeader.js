@@ -1,88 +1,89 @@
-import React from 'react'
-import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native'
-import { arrayOf, bool, number, shape, string, func } from 'prop-types'
-import StickyParallaxHeader from '../../index'
-import { constants, colors, sizes } from '../../constants'
-import styles from './TabbedHeader.styles'
-import RenderContent from './defaultProps/defaultProps'
-import isUndefined from 'lodash/isUndefined'
+import React from 'react';
+import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native';
+import { arrayOf, bool, number, shape, string, func } from 'prop-types';
+import StickyParallaxHeader from '../../index';
+import { constants, colors, sizes } from '../../constants';
+import styles from './TabbedHeader.styles';
+import RenderContent from './defaultProps/defaultProps';
 
-const { event, ValueXY } = Animated
+const { event, ValueXY } = Animated;
 export default class TabbedHeader extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       contentHeight: {},
       headerLayout: {
-        height: 0
-      }
-    }
-    this.scrollY = new ValueXY()
+        height: 0,
+      },
+    };
+    this.scrollY = new ValueXY();
   }
 
   componentDidMount() {
     // eslint-disable-next-line
-    this.scrollY.y.addListener(({ value }) => (this._value = value))
+    this.scrollY.y.addListener(({ value }) => (this._value = value));
   }
 
   componentWillUnmount() {
-    this.scrollY.y.removeListener()
+    this.scrollY.y.removeListener();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout })
+  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
 
   scrollPosition = (value) => {
-    const { headerLayout } = this.state
+    const { headerLayout } = this.state;
 
-    return constants.scrollPosition(headerLayout.height, value)
-  }
+    return constants.scrollPosition(headerLayout.height, value);
+  };
 
   renderLogoHeader = () => {
-    const { backgroundColor, logo, logoResizeMode, logoStyle, logoContainerStyle } = this.props
+    const { backgroundColor, logo, logoResizeMode, logoStyle, logoContainerStyle } = this.props;
 
     return (
       <View style={[logoContainerStyle, { backgroundColor }]}>
         <Image resizeMode={logoResizeMode} source={logo} style={logoStyle} />
       </View>
-    )
-  }
+    );
+  };
 
   renderHeader = () => {
-    const { header } = this.props
-    const renderHeader = header ? header : this.renderLogoHeader
-    return renderHeader()
-  }
+    const { header } = this.props;
+    const renderHeader = header || this.renderLogoHeader;
+
+    return renderHeader();
+  };
 
   renderForeground = (scrollY) => {
-    const { title, titleStyle, foregroundImage } = this.props
-    const messageStyle = titleStyle || styles.message
-    const startSize = constants.responsiveWidth(18)
-    const endSize = constants.responsiveWidth(10)
-    const [startImgFade, finishImgFade] = [this.scrollPosition(22), this.scrollPosition(27)]
-    const [startImgSize, finishImgSize] = [this.scrollPosition(20), this.scrollPosition(30)]
-    const [startTitleFade, finishTitleFade] = [this.scrollPosition(25), this.scrollPosition(45)]
+    const { title, titleStyle, foregroundImage } = this.props;
+    const messageStyle = titleStyle || styles.message;
+    const startSize = constants.responsiveWidth(18);
+    const endSize = constants.responsiveWidth(10);
+    const [startImgFade, finishImgFade] = [this.scrollPosition(22), this.scrollPosition(27)];
+    const [startImgSize, finishImgSize] = [this.scrollPosition(20), this.scrollPosition(30)];
+    const [startTitleFade, finishTitleFade] = [this.scrollPosition(25), this.scrollPosition(45)];
 
     const imageOpacity = scrollY.y.interpolate({
       inputRange: [0, startImgFade, finishImgFade],
       outputRange: [1, 1, 0],
-      extrapolate: 'clamp'
-    })
+      extrapolate: 'clamp',
+    });
     const imageSize = scrollY.y.interpolate({
       inputRange: [0, startImgSize, finishImgSize],
       outputRange: [startSize, startSize, endSize],
-      extrapolate: 'clamp'
-    })
+      extrapolate: 'clamp',
+    });
     const titleOpacity = scrollY.y.interpolate({
       inputRange: [0, startTitleFade, finishTitleFade],
       outputRange: [1, 1, 0],
-      extrapolate: 'clamp'
-    })
+      extrapolate: 'clamp',
+    });
 
     const renderImage = () => {
-      const logo = isUndefined(foregroundImage)
-        ? require('../../assets/images/photosPortraitMe.png')
-        : foregroundImage
+      const logo =
+        foregroundImage === undefined
+          ? require('../../assets/images/photosPortraitMe.png')
+          : foregroundImage;
 
       if (foregroundImage !== null) {
         return (
@@ -92,9 +93,11 @@ export default class TabbedHeader extends React.Component {
               style={[styles.profilePic, { width: imageSize, height: imageSize }]}
             />
           </Animated.View>
-        )
+        );
       }
-    }
+
+      return null;
+    };
 
     return (
       <View style={styles.foreground}>
@@ -103,39 +106,39 @@ export default class TabbedHeader extends React.Component {
           <Text style={messageStyle}>{title}</Text>
         </Animated.View>
       </View>
-    )
-  }
+    );
+  };
 
   onLayoutContent = (e, title) => {
-    const { contentHeight } = this.state
-    const contentHeightTmp = { ...contentHeight }
-    contentHeightTmp[title] = e.nativeEvent.layout.height
+    const { contentHeight } = this.state;
+    const contentHeightTmp = { ...contentHeight };
+    contentHeightTmp[title] = e.nativeEvent.layout.height;
 
     this.setState({
-      contentHeight: { ...contentHeightTmp }
-    })
-  }
+      contentHeight: { ...contentHeightTmp },
+    });
+  };
 
   calcMargin = (title) => {
-    const { contentHeight } = this.state
-    let marginBottom = 50
+    const { contentHeight } = this.state;
+    let marginBottom = 50;
 
     if (contentHeight[title]) {
-      const padding = 24
-      const isBigContent = constants.deviceHeight - contentHeight[title] < 0
+      const padding = 24;
+      const isBigContent = constants.deviceHeight - contentHeight[title] < 0;
 
       if (isBigContent) {
-        return marginBottom
+        return marginBottom;
       }
 
       marginBottom =
-        constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title]
+        constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title];
 
-      return marginBottom
+      return marginBottom;
     }
 
-    return marginBottom
-  }
+    return marginBottom;
+  };
 
   render() {
     const {
@@ -153,8 +156,8 @@ export default class TabbedHeader extends React.Component {
       tabTextContainerActiveStyle,
       tabWrapperStyle,
       tabsContainerStyle,
-      onRef
-    } = this.props
+      onRef,
+    } = this.props;
 
     return (
       <>
@@ -166,7 +169,7 @@ export default class TabbedHeader extends React.Component {
           parallaxHeight={sizes.homeScreenParallaxHeader}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
-            listener: (e) => scrollEvent && scrollEvent(e)
+            listener: (e) => scrollEvent && scrollEvent(e),
           })}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
@@ -181,12 +184,11 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
-          onRef={onRef}
-        >
+          onRef={onRef}>
           {renderBody('Popular Quizes')}
         </StickyParallaxHeader>
       </>
-    )
+    );
   }
 }
 
@@ -213,8 +215,8 @@ TabbedHeader.propTypes = {
   foregroundImage: Image.propTypes.source,
   titleStyle: Text.propTypes.style,
   header: func,
-  onRef: func
-}
+  onRef: func,
+};
 
 TabbedHeader.defaultProps = {
   backgroundColor: colors.primaryGreen,
@@ -231,25 +233,25 @@ TabbedHeader.defaultProps = {
   tabs: [
     {
       title: 'Popular',
-      content: <RenderContent title="Popular Quizes" />
+      content: <RenderContent title="Popular Quizes" />,
     },
     {
       title: 'Product Design',
-      content: <RenderContent title="Product Design" />
+      content: <RenderContent title="Product Design" />,
     },
     {
       title: 'Development',
-      content: <RenderContent title="Development" />
+      content: <RenderContent title="Development" />,
     },
     {
       title: 'Project Management',
-      content: <RenderContent title="Project Management" />
-    }
+      content: <RenderContent title="Project Management" />,
+    },
   ],
   tabTextStyle: styles.tabText,
   tabTextActiveStyle: styles.tabText,
   tabTextContainerStyle: styles.tabTextContainerStyle,
   tabTextContainerActiveStyle: styles.tabTextContainerActiveStyle,
   tabWrapperStyle: styles.tabsWrapper,
-  onRef: null
-}
+  onRef: null,
+};

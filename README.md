@@ -78,6 +78,9 @@ Below are examples of those components and description of the props they are acc
 | `headerHeight`                | `number`                                              |    Yes   | `ifIphoneX(92, constants.responsiveHeight(13))`                                                                                                                                                |
 | `renderBody`                  | `func`                                                |    Yes   | `title => <RenderContent title={title} />`                                                                                                                                                     | Function that renders body of the header (can be empty)  |
 | `snapToEdge`                  | `bool`                                                |    Yes   | `true`                                                                                                                                                                                         | Boolean to fire the function for snap To Edge            |
+| `scrollRef`                   | `func or object`                                      |    Yes   | `null`                                                                                                                                                                                         | ScrollView body ref. Allows programmatically scroll body [ScrollView](https://reactnative.dev/docs/scrollview#methods)           |
+| `keyboardShouldPersistTaps`   | `'always', 'never', 'handled', false, true`           |    Yes   | `undefined`                                                                                                                                                                                    | Determines when the keyboard should stay visible after a tap.|
+| `refreshControl`              | `RefreshControl`           |    Yes   | `undefined`                                                                                                                                                                                    | Props used to add pull to refresh functionality.|
 
 ### Details Header, Avatar Header
 
@@ -105,8 +108,8 @@ Below are examples of those components and description of the props they are acc
 | `onRef`                 |`func`                                                 |    Yes   |                                                                                                                                                                                                | Reference callback. You can call goToPage(pageNumber) method through ref to programmatically navigate to given tab                |
 | `rememberTabScrollPosition`   |`bool`                                                 |    Yes   |`false`                                                                                                                                                                                         | When switching between tabs remember current scroll position                        |
 | `scrollEvent`                 |`func`                                                 |    Yes   |                                                                                                                                                                                                | Scroll event to apply custom animations                  |
-| `tabs`                        | `arrayOf(shape({}))`                                  |    Yes   | `[{title: 'Popular',content: <RenderContent title="Popular Quizes" />},...]`                                                                                                                   | Array with tabs names and content                        |
-| `tabText`                     |`Text.propTypes.style`                                 |    Yes   |`{fontSize: 16, lineHeight: 20, paddingHorizontal: 12, paddingVertical: 8, color: colors.white}`                                                                                                | Set inactive tab style                                   |
+| `tabs`                        |`{ content: ReactElement;title?: string;icon?: ReactElement` &#124; `(isActive: boolean) => ReactElement);`                                |    Yes   | `[{title: 'Popular',content: <RenderContent title="Popular Quizes" />},...]`                                                                                                                   | Array with tabs names, icons and content                        |
+| `tabTextStyle`                |`Text.propTypes.style`                                 |    Yes   |`{fontSize: 16, lineHeight: 20, paddingHorizontal: 12, paddingVertical: 8, color: colors.white}`                                                                                                | Set inactive tab style                                   |
 | `tabTextActiveStyle`          |`Text.propTypes.style`                                 |    Yes   |`{fontSize: 16, lineHeight: 20, paddingHorizontal: 12, paddingVertical: 8, color: colors.white}`                                                                                                | Set active tab stylee                                    |
 | `tabTextContainerStyle`       |`ViewPropTypes.style`                                  |    Yes   |`{backgroundColor: colors.transparent, borderRadius: 18}`                                                                                                                                       | Set inactive tab container style                         |
 | `tabTextContainerActiveStyle` |`ViewPropTypes.style`                                  |    Yes   |`{backgroundColor: colors.darkMint}`                                                                                                                                                            | Set active tab container style                           |
@@ -149,9 +152,49 @@ Below are examples of those components and description of the props they are acc
 
 [Custom header props and example](docs/CUSTOM.md)
 
+## Handling StickyParallaxHeader body ScrollView reference
+### As callback function
+```
+<StickyParallaxHeader
+  scrollRef={(ref) => {
+    paralaxScrollRef.current = ref;
+  }}
+  foreground={this.renderForeground()}
+  header={this.renderHeader()}
+/>
+  {renderBody()}
+<StickyParallaxHeader/>
+```
+
+### As useRef value
+```
+const paralaxScrollRef = useRef(null);
+
+<StickyParallaxHeader
+  scrollRef={paralaxScrollRef}
+  foreground={this.renderForeground()}
+  header={this.renderHeader()}
+/>
+  {renderBody()}
+<StickyParallaxHeader/>
+```
+
+
+
 ## Handling nested scrollables
 
 [Handling nested flatlist props and example](docs/CUSTOM.md#Tips)
+## Changing Statusbar style
+
+[Changing StatusBar style](docs/CUSTOM.md#changing-statusbar-style)
+
+## Pull to refresh
+
+[Pull to refresh](docs/CUSTOM.md#Pull-to-Refresh)
+
+## Rendering icons in tabs
+
+[Icons in tabs](docs/CUSTOM.md#Icons-in-tabs)
 
 
 <h1 id="Getting-Started">Getting Started</h1>

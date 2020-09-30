@@ -7,6 +7,7 @@ import {
   Modal,
   Animated,
   Platform,
+  RefreshControl,
 } from 'react-native';
 import StickyParallaxHeader from 'react-native-sticky-parallax-header';
 import { QuizListElement, UserModal } from '../../components';
@@ -25,11 +26,13 @@ export default class HomeScreen extends React.Component {
       },
       contentHeight: {},
       modalVisible: false,
+      refreshing: false,
     };
     this.scrollY = new ValueXY();
   }
 
   componentDidMount() {
+    // eslint-disable-next-line
     this.scrollY.y.addListener(({ value }) => (this._value = value));
   }
 
@@ -67,18 +70,9 @@ export default class HomeScreen extends React.Component {
     const message = "Mornin' Mark! \nReady for a quiz?";
     const startSize = constants.responsiveWidth(18);
     const endSize = constants.responsiveWidth(10);
-    const [startImgFade, finishImgFade] = [
-      this.scrollPosition(22),
-      this.scrollPosition(27),
-    ];
-    const [startImgSize, finishImgSize] = [
-      this.scrollPosition(20),
-      this.scrollPosition(30),
-    ];
-    const [startTitleFade, finishTitleFade] = [
-      this.scrollPosition(25),
-      this.scrollPosition(45),
-    ];
+    const [startImgFade, finishImgFade] = [this.scrollPosition(22), this.scrollPosition(27)];
+    const [startImgSize, finishImgSize] = [this.scrollPosition(20), this.scrollPosition(30)];
+    const [startTitleFade, finishTitleFade] = [this.scrollPosition(25), this.scrollPosition(45)];
 
     const imageOpacity = this.scrollY.y.interpolate({
       inputRange: [0, startImgFade, finishImgFade],
@@ -104,9 +98,7 @@ export default class HomeScreen extends React.Component {
             style={[styles.profilePic, { width: imageSize, height: imageSize }]}
           />
         </Animated.View>
-        <Animated.View
-          style={[styles.messageContainer, { opacity: titleOpacity }]}
-        >
+        <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
           <Text style={styles.message}>{message}</Text>
         </Animated.View>
       </View>
@@ -149,10 +141,7 @@ export default class HomeScreen extends React.Component {
       }
 
       marginBottom =
-        constants.deviceHeight -
-        padding * 2 -
-        sizes.headerHeight -
-        contentHeight[title];
+        constants.deviceHeight - padding * 2 - sizes.headerHeight - contentHeight[title];
 
       return marginBottom > 0 ? marginBottom : 0;
     }
@@ -171,16 +160,12 @@ export default class HomeScreen extends React.Component {
   };
 
   renderContent = (title) => {
-    const marginBottom = Platform.select({
-      ios: this.calcMargin(title),
-      android: 0,
-    });
+    const marginBottom = Platform.select({ ios: this.calcMargin(title), android: 0 });
 
     return (
       <View
         onLayout={(e) => this.onLayoutContent(e, title)}
-        style={[styles.content, { marginBottom }]}
-      >
+        style={[styles.content, { marginBottom }]}>
         {this.renderModal()}
         <Text style={styles.contentText}>{title}</Text>
         {this.renderQuizElements(title)}
@@ -193,12 +178,7 @@ export default class HomeScreen extends React.Component {
     const { navigation } = this.props;
 
     return (
-      <Modal
-        animationType="slide"
-        transparent
-        visible={modalVisible}
-        style={styles.modalStyle}
-      >
+      <Modal animationType="slide" transparent visible={modalVisible} style={styles.modalStyle}>
         <View style={styles.modalContentContainer}>
           <UserModal
             setModalVisible={this.setModalVisible}
@@ -211,15 +191,38 @@ export default class HomeScreen extends React.Component {
     );
   };
 
+  onRefresh = () => {
+    const wait = (timeout) =>
+      new Promise((resolve) => {
+        setTimeout(resolve, timeout);
+      });
+
+    this.setState({ refreshing: true });
+
+    wait(2000).then(() => {
+      this.setState({ refreshing: false });
+    });
+  };
+
   render() {
+    const { refreshing } = this.state;
+
     return (
-      <React.Fragment>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor={colors.primaryGreen}
-          translucent
-        />
+      <>
+        <StatusBar barStyle="light-content" backgroundColor={colors.primaryGreen} translucent />
         <StickyParallaxHeader
+          refreshControl={
+            <RefreshControl
+              //  z Index is required on IOS, to refresh indicator be visible
+              /* eslint-disable-next-line react-native/no-inline-styles */
+              style={{ zIndex: 1 }}
+              refreshing={refreshing}
+              titleColor="white"
+              tintColor="white"
+              title="Refreshing"
+              onRefresh={this.onRefresh}
+            />
+          }
           foreground={this.renderForeground()}
           header={this.renderHeader()}
           tabs={[
@@ -242,21 +245,19 @@ export default class HomeScreen extends React.Component {
           ]}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.homeScreenParallaxHeader}
-          scrollEvent={event(
-            [{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }],
-            { useNativeDriver: false }
-          )}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
+            useNativeDriver: false,
+          })}
           headerSize={this.setHeaderSize}
           headerHeight={sizes.headerHeight}
           tabTextStyle={styles.tabText}
           tabTextContainerStyle={styles.tabTextContainerStyle}
           tabTextContainerActiveStyle={styles.tabTextContainerActiveStyle}
           tabsContainerBackgroundColor={colors.primaryGreen}
-          tabsWrapperStyle={styles.tabsWrapper}
-        >
+          tabsWrapperStyle={styles.tabsWrapper}>
           {this.renderContent('Popular Quizes')}
         </StickyParallaxHeader>
-      </React.Fragment>
+      </>
     );
   }
 }

@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  StatusBar,
-  Animated,
-  FlatList,
-} from 'react-native';
+import { Text, View, Image, TouchableOpacity, StatusBar, Animated, FlatList } from 'react-native';
 import StickyParallaxHeader from 'react-native-sticky-parallax-header';
+import { shape } from 'prop-types';
 import { constants, sizes, colors } from '../../constants';
 import { QuizCard } from '../../components';
 import styles from './CardScreen.styles';
@@ -49,10 +42,7 @@ class CardScreen extends React.Component {
     return (
       <View style={[styles.headerWrapper, { backgroundColor: user.color }]}>
         <View style={styles.headerMenu}>
-          <TouchableOpacity
-            hitSlop={sizes.hitSlop}
-            onPress={() => navigation.goBack()}
-          >
+          <TouchableOpacity hitSlop={sizes.hitSlop} onPress={() => navigation.goBack()}>
             <Image
               style={styles.icon}
               resizeMode="contain"
@@ -93,34 +83,19 @@ class CardScreen extends React.Component {
     return (
       <View style={styles.foreground}>
         <Animated.View
-          style={[
-            styles.foregroundTitle,
-            { opacity: labelOpacity, backgroundColor: labelColor },
-          ]}
-        >
+          style={[styles.foregroundTitle, { opacity: labelOpacity, backgroundColor: labelColor }]}>
           <Text style={styles.foregroundText}>{user.type}</Text>
         </Animated.View>
-        <Animated.View
-          style={[styles.messageContainer, { opacity: titleOpacity }]}
-        >
+        <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
           <Text style={styles.message}>{user.label}</Text>
         </Animated.View>
-        <Animated.View
-          style={[styles.infoContainer, { opacity: authorOpacity }]}
-        >
+        <Animated.View style={[styles.infoContainer, { opacity: authorOpacity }]}>
           <View style={styles.iconContainer}>
-            <Image
-              source={require('../../../assets/icons/cards_black.png')}
-              style={styles.icon}
-            />
+            <Image source={require('../../../assets/icons/cards_black.png')} style={styles.icon} />
             <Text style={styles.number}>{cardsAmount}</Text>
           </View>
           <View style={styles.footerContainer}>
-            <Image
-              source={user.image}
-              style={styles.authorPhoto}
-              resizeMode="contain"
-            />
+            <Image source={user.image} style={styles.authorPhoto} resizeMode="contain" />
             <Text style={styles.authorName}>{user.author}</Text>
           </View>
         </Animated.View>
@@ -152,12 +127,7 @@ class CardScreen extends React.Component {
   };
 
   shouldBeEnabled = () => {
-    const {
-      endReached,
-      stickyHeaderEndReached,
-      topReached,
-      stickyHeaderTopReached,
-    } = this.state;
+    const { endReached, stickyHeaderEndReached, topReached, stickyHeaderTopReached } = this.state;
     const bottomCondition = endReached && stickyHeaderEndReached;
     const topCondition = topReached && stickyHeaderTopReached;
 
@@ -183,9 +153,7 @@ class CardScreen extends React.Component {
     <View style={styles.flatlistContainer}>
       <FlatList
         data={user.cards}
-        renderItem={({ item, index }) => (
-          <QuizCard data={item} num={index} cardsAmount={100} />
-        )}
+        renderItem={({ item, index }) => <QuizCard data={item} num={index} cardsAmount={100} />}
         keyExtractor={(item) => item.question}
         onScroll={this.onScroll}
         scrollEnabled={constants.isAndroid ? true : this.shouldBeEnabled()}
@@ -197,12 +165,7 @@ class CardScreen extends React.Component {
   renderContent = (user) => (
     <View style={styles.content}>
       {user.cards.map((data, i, arr) => (
-        <QuizCard
-          data={data}
-          num={i}
-          key={data.question}
-          cardsAmount={arr.length}
-        />
+        <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
       ))}
     </View>
   );
@@ -227,31 +190,27 @@ class CardScreen extends React.Component {
 
     return (
       <>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor={colors.transparent}
-          translucent
-        />
+        <StatusBar barStyle="light-content" backgroundColor={colors.transparent} translucent />
         <StickyParallaxHeader
           foreground={this.renderForeground(user)}
           header={this.renderHeader(user)}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.cardScreenParallaxHeader}
-          scrollEvent={event(
-            [{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }],
-            { useNativeDriver: false }
-          )}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
+            useNativeDriver: false,
+          })}
           headerSize={this.setHeaderSize}
           headerHeight={sizes.cardScreenHeaderHeight}
           background={this.renderBackground(user)}
           onEndReached={this.stickyHeaderEndReached}
-          onTopReached={this.stickyHeaderTopReached}
-        >
+          onTopReached={this.stickyHeaderTopReached}>
           {this.renderFlatlistContent(user)}
         </StickyParallaxHeader>
       </>
     );
   }
 }
+CardScreen.propTypes = { route: shape({ user: {} }) };
+CardScreen.defaultProps = { route: {} };
 
 export default CardScreen;

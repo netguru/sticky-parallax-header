@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
@@ -15,6 +16,7 @@
     "expo-blur": "~8.1.2",
     "expo-font": "~8.2.1",
     "expo-status-bar": "^1.0.2",
+    "prop-types": "^15.7.2",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
@@ -22,14 +24,25 @@
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
-    "react-native-sticky-parallax-header": "^0.3.1",
     "react-native-web": "~0.11.7"
   },
   "devDependencies": {
+    "babel-plugin-module-resolver": "^4.0.0",
     "@babel/core": "^7.8.6",
     "@react-native-community/eslint-config": "^2.0.0",
     "babel-preset-expo": "~8.1.0",
-    "eslint": "^7.8.1"
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-import-resolver-reactnative": "^1.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^24.0.2",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "eslint-plugin-react-native": "^3.9.1",
+    "prettier": "^2.1.2"
   },
   "private": true
 }

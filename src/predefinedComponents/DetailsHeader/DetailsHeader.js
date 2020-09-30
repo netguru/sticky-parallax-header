@@ -1,41 +1,47 @@
-import React from 'react'
-import { Text, View, Image, TouchableOpacity, StatusBar, Animated } from 'react-native'
-import { bool, number, func, string } from 'prop-types'
-import StickyParallaxHeader from '../../index'
-import { constants, sizes } from '../../constants'
-import { Brandon } from '../../assets/data/cards'
-import styles from './DetailsHeader.styles'
-import { renderContent } from './defaultProps/defaultProps'
+import React from 'react';
+import { Text, View, Image, TouchableOpacity, StatusBar, Animated } from 'react-native';
+import { bool, number, func, string } from 'prop-types';
+import StickyParallaxHeader from '../../index';
+import { constants, sizes } from '../../constants';
+import { Brandon } from '../../assets/data/cards';
+import styles from './DetailsHeader.styles';
+import { renderContent } from './defaultProps/defaultProps';
 
-const { event, ValueXY } = Animated
+const { event, ValueXY } = Animated;
 class DetailsHeader extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       headerLayout: {
-        height: 0
-      }
-    }
+        height: 0,
+      },
+    };
 
-    this.scrollY = new ValueXY()
+    this.scrollY = new ValueXY();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout })
+  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
 
   scrollPosition = (value) => {
-    const { headerLayout } = this.state
+    const { headerLayout } = this.state;
 
-    return constants.scrollPosition(headerLayout.height, value)
-  }
+    return constants.scrollPosition(headerLayout.height, value);
+  };
 
   renderHeader = (user) => {
-    const { backgroundColor, leftTopIconOnPress, rightTopIconOnPress, leftTopIcon, rightTopIcon } = this.props
+    const {
+      backgroundColor,
+      leftTopIconOnPress,
+      rightTopIconOnPress,
+      leftTopIcon,
+      rightTopIcon,
+    } = this.props;
 
     const opacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(60), this.scrollPosition(90)],
       outputRange: [0, 0, 1],
-      extrapolate: 'clamp'
-    })
+      extrapolate: 'clamp',
+    });
 
     return (
       <View style={[styles.headerWrapper, { backgroundColor }]}>
@@ -51,27 +57,27 @@ class DetailsHeader extends React.Component {
           </TouchableOpacity>
         </View>
       </View>
-    )
-  }
+    );
+  };
 
   renderForeground = (user) => {
-    const { labelColor } = user
-    const { image, title, tag, iconNumber } = this.props
+    const { labelColor } = user;
+    const { image, title, tag, iconNumber } = this.props;
     const labelOpacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(19), this.scrollPosition(25)],
       outputRange: [1, 0.8, 0],
-      extrapolate: 'clamp'
-    })
+      extrapolate: 'clamp',
+    });
     const titleOpacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(45), this.scrollPosition(55)],
       outputRange: [1, 0.8, 0],
-      extrapolate: 'clamp'
-    })
+      extrapolate: 'clamp',
+    });
     const authorOpacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(55), this.scrollPosition(70)],
       outputRange: [1, 0.8, 0],
-      extrapolate: 'clamp'
-    })
+      extrapolate: 'clamp',
+    });
 
     return (
       <View style={styles.foreground}>
@@ -96,21 +102,21 @@ class DetailsHeader extends React.Component {
           </View>
         </Animated.View>
       </View>
-    )
-  }
+    );
+  };
 
   renderBackground = () => {
-    const { hasBorderRadius, backgroundColor } = this.props
+    const { hasBorderRadius, backgroundColor } = this.props;
     const {
-      headerLayout: { height }
-    } = this.state
+      headerLayout: { height },
+    } = this.state;
     const headerBorderRadius =
       hasBorderRadius &&
       this.scrollY.y.interpolate({
         inputRange: [0, height],
         outputRange: [80, 0],
-        extrapolate: 'extend'
-      })
+        extrapolate: 'extend',
+      });
 
     return (
       <Animated.View
@@ -118,16 +124,23 @@ class DetailsHeader extends React.Component {
           styles.background,
           {
             borderBottomRightRadius: headerBorderRadius,
-            backgroundColor
-          }
+            backgroundColor,
+          },
         ]}
       />
-    )
-  }
+    );
+  };
 
   render() {
-    const user = Brandon
-    const { backgroundColor, backgroundImage, renderBody, headerHeight, snapToEdge, bounces } = this.props
+    const user = Brandon;
+    const {
+      backgroundColor,
+      backgroundImage,
+      renderBody,
+      headerHeight,
+      snapToEdge,
+      bounces,
+    } = this.props;
 
     return (
       <>
@@ -137,18 +150,19 @@ class DetailsHeader extends React.Component {
           header={this.renderHeader(user)}
           deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.cardScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], { useNativeDriver: false })}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
+            useNativeDriver: false,
+          })}
           headerSize={this.setHeaderSize}
           headerHeight={headerHeight}
           background={this.renderBackground(user)}
           snapToEdge={snapToEdge}
           bounces={bounces}
-          backgroundImage={backgroundImage}
-        >
+          backgroundImage={backgroundImage}>
           {renderBody(user)}
         </StickyParallaxHeader>
       </>
-    )
+    );
   }
 }
 
@@ -167,8 +181,8 @@ DetailsHeader.propTypes = {
   bounces: bool,
   snapToEdge: bool,
   hasBorderRadius: bool,
-  iconNumber: number
-}
+  iconNumber: number,
+};
 DetailsHeader.defaultProps = {
   leftTopIconOnPress: () => {},
   rightTopIconOnPress: () => {},
@@ -184,7 +198,7 @@ DetailsHeader.defaultProps = {
   bounces: true,
   snapToEdge: true,
   hasBorderRadius: true,
-  iconNumber: Brandon.cardsAmount
-}
+  iconNumber: Brandon.cardsAmount,
+};
 
-export default DetailsHeader
+export default DetailsHeader;
