@@ -4,8 +4,8 @@ import AppNavigator from './src/navigation/AppNavigator';
 
 const App = () => {
   const [loaded] = useFonts({
-    'AvertaStd-Semibold': require('./src/assets/fonts/AvertaStd-Semibold.otf'),
-    'AvertaStd-Regular': require('./src/assets/fonts/AvertaStd-Regular.otf'),
+    'AvertaStd-Semibold': require('./assets/fonts/AvertaStd-Semibold.otf'),
+    'AvertaStd-Regular': require('./assets/fonts/AvertaStd-Regular.otf'),
   });
 
   if (!loaded) {

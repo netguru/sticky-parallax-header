@@ -54,7 +54,7 @@ class UserModal extends React.Component {
           <Image
             style={styles.icon}
             resizeMode="contain"
-            source={require('../../assets/icons/iconCloseWhite.png')}
+            source={require('../../../assets/icons/iconCloseWhite.png')}
           />
         </TouchableOpacity>
         <View style={styles.headerMenu}>
@@ -72,7 +72,7 @@ class UserModal extends React.Component {
           <Image
             style={styles.icon}
             resizeMode="contain"
-            source={require('../../assets/icons/Icon-Menu.png')}
+            source={require('../../../assets/icons/Icon-Menu.png')}
           />
         </TouchableOpacity>
       </View>
