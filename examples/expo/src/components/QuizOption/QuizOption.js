@@ -17,10 +17,10 @@ const QuizOption = ({ reveal, revealed, card: { number, question, value } }) => 
 
   const renderValue = () => {
     if (value) {
-      return <Image source={require('../../assets/icons/Check.png')} />;
+      return <Image source={require('../../../assets/icons/Check.png')} />;
     }
 
-    return <Image source={require('../../assets/icons/Close.png')} />;
+    return <Image source={require('../../../assets/icons/Close.png')} />;
   };
 
   if (revealed) {

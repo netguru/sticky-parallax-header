@@ -46,7 +46,7 @@ class CardScreen extends React.Component {
             <Image
               style={styles.icon}
               resizeMode="contain"
-              source={require('../../assets/icons/Icon-Arrow.png')}
+              source={require('../../../assets/icons/Icon-Arrow.png')}
             />
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
@@ -56,7 +56,7 @@ class CardScreen extends React.Component {
         <Image
           style={styles.icon}
           resizeMode="contain"
-          source={require('../../assets/icons/Icon-Menu.png')}
+          source={require('../../../assets/icons/Icon-Menu.png')}
         />
       </View>
     );
@@ -91,7 +91,7 @@ class CardScreen extends React.Component {
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: authorOpacity }]}>
           <View style={styles.iconContainer}>
-            <Image source={require('../../assets/icons/cards_black.png')} style={styles.icon} />
+            <Image source={require('../../../assets/icons/cards_black.png')} style={styles.icon} />
             <Text style={styles.number}>{cardsAmount}</Text>
           </View>
           <View style={styles.footerContainer}>

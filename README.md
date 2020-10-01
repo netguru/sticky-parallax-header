@@ -40,6 +40,9 @@ Stickyheader.js ships with 3 different use cases for sticky headers and a possib
 
 
 ## In Use
+
+**Check the live demo on Expo Snack [here](https://snack.expo.io/@maciejbudzinsking/sticky-parallax-header-by-netguru).**
+
 Predefined headers can be accessed through `headerType="HeaderName"` property, each header can be configured according to your demands using the wide amount of properties. You can change all of them, or use it right out of the box with as little changes as possible to use it for your needs
 
 This is how you can add them in your app:
