@@ -169,8 +169,8 @@ class DetailsHeader extends React.Component {
 DetailsHeader.propTypes = {
   leftTopIconOnPress: func,
   rightTopIconOnPress: func,
-  leftTopIcon: number,
-  rightTopIcon: number,
+  leftTopIcon: Image.propTypes.source,
+  rightTopIcon: Image.propTypes.source,
   backgroundColor: string,
   headerHeight: number,
   backgroundImage: Image.propTypes.source,
