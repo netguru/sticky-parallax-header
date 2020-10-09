@@ -1,11 +1,10 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, StatusBar, Animated } from 'react-native';
-import { bool, number, func, string } from 'prop-types';
+import { bool, number, func, string, node } from 'prop-types';
 import StickyParallaxHeader from '../../index';
 import { constants, sizes } from '../../constants';
 import { Brandon } from '../../assets/data/cards';
 import styles from './DetailsHeader.styles';
-import { renderContent } from './defaultProps/defaultProps';
 
 const { event, ValueXY } = Animated;
 class DetailsHeader extends React.Component {
@@ -136,7 +135,7 @@ class DetailsHeader extends React.Component {
     const {
       backgroundColor,
       backgroundImage,
-      renderBody,
+      children,
       headerHeight,
       snapToEdge,
       bounces,
@@ -159,7 +158,7 @@ class DetailsHeader extends React.Component {
           snapToEdge={snapToEdge}
           bounces={bounces}
           backgroundImage={backgroundImage}>
-          {renderBody(user)}
+          {children}
         </StickyParallaxHeader>
       </>
     );
@@ -177,7 +176,7 @@ DetailsHeader.propTypes = {
   title: string,
   tag: string,
   image: Image.propTypes.source,
-  renderBody: func,
+  children: node,
   bounces: bool,
   snapToEdge: bool,
   hasBorderRadius: bool,
@@ -194,7 +193,6 @@ DetailsHeader.defaultProps = {
   tag: Brandon.type,
   title: Brandon.label,
   image: Brandon.image,
-  renderBody: renderContent,
   bounces: true,
   snapToEdge: true,
   hasBorderRadius: true,
