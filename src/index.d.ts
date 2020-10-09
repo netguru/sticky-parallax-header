@@ -40,6 +40,7 @@ export interface SharedProps {
   bounces?: boolean;
   contentContainerStyles?: ViewStyle;
   refreshControl?: ReactElement;
+  children?: ReactElement;
 }
 
 export interface IconProps {
@@ -70,7 +71,6 @@ export type TabbedHeaderProps = SharedProps &
     logoResizeMode?: ImageResizeMode;
     logoStyle?: ViewStyle;
     rememberTabScrollPosition?: boolean;
-    renderBody?: (title: string) => ReactElement;
     scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
     title?: string;
     titleStyle?: TextStyle;
@@ -83,7 +83,6 @@ export type DetailsHeaderProps = SharedProps &
     hasBorderRadius?: boolean;
     iconNumber?: number;
     image?: number;
-    renderBody?: (title: string) => ReactElement;
     tag?: string;
     title?: string;
   };
@@ -97,7 +96,6 @@ export type AvatarHeaderProps = SharedProps &
     header?: () => ReactElement;
     image?: number;
     parallaxHeight?: number;
-    renderBody?: (title: string) => ReactElement;
     scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
     snapStartThreshold?: number;
     snapStopThreshold?: number;
