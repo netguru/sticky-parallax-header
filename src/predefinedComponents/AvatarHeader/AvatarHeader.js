@@ -1,11 +1,10 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, Animated, StatusBar, ViewPropTypes, ScrollView } from 'react-native';
-import { func, string, number, bool, oneOfType, oneOf, instanceOf, element, shape } from 'prop-types';
+import { func, string, number, bool, oneOfType, oneOf, instanceOf, element, shape, node } from 'prop-types';
 import StickyParallaxHeader from '../../index';
 import { constants, sizes } from '../../constants';
 import styles from './AvatarHeader.styles';
 import { Brandon } from '../../assets/data/cards';
-import RenderContent from './defaultProps/defaultProps';
 
 const { event, ValueXY } = Animated;
 
@@ -198,7 +197,7 @@ class AvatarHeader extends React.Component {
       backgroundColor,
       backgroundImage,
       contentContainerStyles,
-      renderBody,
+      children,
       headerHeight,
       snapToEdge,
       bounces,
@@ -239,7 +238,7 @@ class AvatarHeader extends React.Component {
           scrollRef={scrollRef}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
           refreshControl={refreshControl}>
-          {renderBody(Brandon)}
+          {children}
         </StickyParallaxHeader>
       </>
     );
@@ -261,7 +260,7 @@ AvatarHeader.propTypes = {
   title: string,
   subtitle: string,
   image: Image.propTypes.source,
-  renderBody: func,
+  children: node,
   scrollEvent: func,
   parallaxHeight: number,
   foreground: func,
@@ -286,7 +285,6 @@ AvatarHeader.defaultProps = {
   title: Brandon.author,
   subtitle: Brandon.about,
   image: Brandon.image,
-  renderBody: (user) => <RenderContent user={user} />,
   bounces: true,
   snapToEdge: true,
   hasBorderRadius: true,
