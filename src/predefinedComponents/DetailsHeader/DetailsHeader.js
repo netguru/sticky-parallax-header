@@ -5,6 +5,7 @@ import StickyParallaxHeader from '../../index';
 import { constants, sizes } from '../../constants';
 import { Brandon } from '../../assets/data/cards';
 import styles from './DetailsHeader.styles';
+import { renderContent } from './defaultProps/defaultProps';
 
 const { event, ValueXY } = Animated;
 class DetailsHeader extends React.Component {
@@ -135,11 +136,16 @@ class DetailsHeader extends React.Component {
     const {
       backgroundColor,
       backgroundImage,
+      renderBody,
       children,
       headerHeight,
       snapToEdge,
       bounces,
     } = this.props;
+
+    if (renderBody) {
+      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
+    }
 
     return (
       <>
@@ -158,7 +164,7 @@ class DetailsHeader extends React.Component {
           snapToEdge={snapToEdge}
           bounces={bounces}
           backgroundImage={backgroundImage}>
-          {children}
+          {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
     );
@@ -177,6 +183,7 @@ DetailsHeader.propTypes = {
   tag: string,
   image: Image.propTypes.source,
   children: node,
+  renderBody: func,
   bounces: bool,
   snapToEdge: bool,
   hasBorderRadius: bool,
@@ -193,6 +200,7 @@ DetailsHeader.defaultProps = {
   tag: Brandon.type,
   title: Brandon.label,
   image: Brandon.image,
+  children: renderContent(Brandon),
   bounces: true,
   snapToEdge: true,
   hasBorderRadius: true,

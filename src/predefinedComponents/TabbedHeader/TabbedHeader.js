@@ -149,6 +149,7 @@ export default class TabbedHeader extends React.Component {
       bounces,
       snapToEdge,
       scrollEvent,
+      renderBody,
       children,
       tabTextStyle,
       tabTextActiveStyle,
@@ -158,6 +159,10 @@ export default class TabbedHeader extends React.Component {
       tabsContainerStyle,
       onRef,
     } = this.props;
+
+    if (renderBody) {
+      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
+    }
 
     return (
       <>
@@ -185,7 +190,7 @@ export default class TabbedHeader extends React.Component {
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
           onRef={onRef}>
-          {children}
+          {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
     );
@@ -200,6 +205,7 @@ TabbedHeader.propTypes = {
   bounces: bool,
   snapToEdge: bool,
   tabs: arrayOf(shape({})),
+  renderBody: func,
   children: node,
   logo: Image.propTypes.source,
   logoResizeMode: string,
@@ -229,6 +235,7 @@ TabbedHeader.defaultProps = {
   logoResizeMode: 'contain',
   logoStyle: styles.logo,
   logoContainerStyle: styles.headerWrapper,
+  children: <RenderContent title="Popular Quizes" />,
   tabs: [
     {
       title: 'Popular',

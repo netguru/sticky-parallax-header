@@ -5,6 +5,7 @@ import StickyParallaxHeader from '../../index';
 import { constants, sizes } from '../../constants';
 import styles from './AvatarHeader.styles';
 import { Brandon } from '../../assets/data/cards';
+import RenderContent from './defaultProps/defaultProps';
 
 const { event, ValueXY } = Animated;
 
@@ -198,6 +199,7 @@ class AvatarHeader extends React.Component {
       backgroundImage,
       contentContainerStyles,
       children,
+      renderBody,
       headerHeight,
       snapToEdge,
       bounces,
@@ -211,6 +213,10 @@ class AvatarHeader extends React.Component {
       keyboardShouldPersistTaps,
       refreshControl,
     } = this.props;
+
+    if (renderBody) {
+      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
+    }
 
     return (
       <>
@@ -238,7 +244,7 @@ class AvatarHeader extends React.Component {
           scrollRef={scrollRef}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
           refreshControl={refreshControl}>
-          {children}
+          {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
     );
@@ -261,6 +267,7 @@ AvatarHeader.propTypes = {
   subtitle: string,
   image: Image.propTypes.source,
   children: node,
+  renderBody: func,
   scrollEvent: func,
   parallaxHeight: number,
   foreground: func,
@@ -285,6 +292,7 @@ AvatarHeader.defaultProps = {
   title: Brandon.author,
   subtitle: Brandon.about,
   image: Brandon.image,
+  children: <RenderContent user={Brandon} />,
   bounces: true,
   snapToEdge: true,
   hasBorderRadius: true,
