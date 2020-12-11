@@ -30,7 +30,9 @@ HeaderBackgroundImage.propTypes = {
 };
 
 const headerImagesAreEqual = (prevProps, props) =>
-  prevProps.backgroundImage.uri === props.backgroundImage.uri;
+  prevProps.backgroundImage.uri === props.backgroundImage.uri &&
+  prevProps.backgroundHeight === props.backgroundHeight &&
+  prevProps.background === props.background;
 
 const MemoHeaderBackgroundImage = React.memo(HeaderBackgroundImage, headerImagesAreEqual);
 
