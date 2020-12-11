@@ -11,52 +11,14 @@ import {
   instanceOf,
   element,
 } from 'prop-types';
-import {
-  Dimensions,
-  ImageBackground,
-  ScrollView,
-  View,
-  Animated,
-  Easing,
-  ViewPropTypes,
-  Image,
-} from 'react-native';
-import { ScrollableTabBar, ScrollableTabView } from './components';
+import { Dimensions, ScrollView, View, Animated, Easing, ViewPropTypes, Image } from 'react-native';
+import { ScrollableTabBar, ScrollableTabView, HeaderBackgroundImage } from './components';
 import { constants } from './constants';
 import styles from './styles';
 import { getSafelyScrollNode, setRef } from './utils';
 
 const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated;
 const AnimatedScrollView = createAnimatedComponent(ScrollView);
-
-const HeaderBackgroundImage = (props) => {
-  const { backgroundHeight, backgroundImage, background } = props;
-  const AnimatedImageBackground = createAnimatedComponent(ImageBackground);
-
-  return (
-    <AnimatedImageBackground
-      style={[
-        styles.headerStyle,
-        {
-          height: backgroundHeight,
-        },
-      ]}
-      source={backgroundImage}>
-      {background}
-    </AnimatedImageBackground>
-  );
-};
-
-HeaderBackgroundImage.propTypes = {
-  background: node,
-  backgroundHeight: number,
-  backgroundImage: Image.propTypes.source,
-};
-
-const headerImagesAreEqual = (prevProps, props) =>
-  prevProps.backgroundImage.uri === props.backgroundImage.uri;
-
-const MemoHeaderImageBackground = React.memo(HeaderBackgroundImage, headerImagesAreEqual);
 
 class StickyParallaxHeader extends Component {
   constructor(props) {
@@ -333,6 +295,7 @@ class StickyParallaxHeader extends Component {
 
   render() {
     const {
+      background,
       backgroundImage,
       children,
       contentContainerStyles,
@@ -416,10 +379,10 @@ class StickyParallaxHeader extends Component {
               ]}
             />
             {backgroundImage ? (
-              <MemoHeaderImageBackground
+              <HeaderBackgroundImage
                 backgroundHeight={scrollHeight}
-                backgroundImage={this.props.backgroundImage}
-                background={this.props.background}
+                backgroundImage={backgroundImage}
+                background={background}
               />
             ) : (
               this.renderPlainBackground(scrollHeight)
