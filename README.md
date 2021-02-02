@@ -161,9 +161,9 @@ Below are examples of those components and description of the props they are acc
   }}
   foreground={this.renderForeground()}
   header={this.renderHeader()}
-/>
+>
   {renderBody()}
-<StickyParallaxHeader/>
+</StickyParallaxHeader>
 ```
 
 ### As useRef value
@@ -174,9 +174,9 @@ const paralaxScrollRef = useRef(null);
   scrollRef={paralaxScrollRef}
   foreground={this.renderForeground()}
   header={this.renderHeader()}
-/>
+>
   {renderBody()}
-<StickyParallaxHeader/>
+</StickyParallaxHeader>
 ```
 
 
