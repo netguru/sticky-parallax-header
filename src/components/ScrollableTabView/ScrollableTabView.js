@@ -211,6 +211,7 @@ class ScrollableTabView extends React.Component {
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
         horizontal
         pagingEnabled
+        bounces={false}
         contentContainerStyle={{ minHeight: minScrollHeight }}
         automaticallyAdjustContentInsets={false}
         contentOffset={{ x: initialPage * containerWidth }}
