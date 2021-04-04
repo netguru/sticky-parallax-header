@@ -1,6 +1,6 @@
 {
   "name": "react-native-sticky-parallax-header",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "source": "src/index",

@@ -363,7 +363,7 @@ class StickyParallaxHeader extends Component {
           overScrollMode="never"
           refreshControl={refreshControl}
           bouncesZoom
-          decelerationRate="fast"
+          decelerationRate="normal"
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c;
