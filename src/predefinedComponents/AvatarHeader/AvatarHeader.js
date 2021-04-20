@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, Animated, StatusBar, ViewPropTypes, ScrollView } from 'react-native';
 import { func, string, number, bool, oneOfType, oneOf, instanceOf, element, shape } from 'prop-types';
-import StickyParallaxHeader from '../../index';
+import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, sizes } from '../../constants';
 import styles from './AvatarHeader.styles';
 import { Brandon } from '../../assets/data/cards';
