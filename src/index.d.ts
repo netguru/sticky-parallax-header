@@ -42,6 +42,7 @@ export interface SharedProps {
   refreshControl?: ReactElement;
   decelerationRate: number | string;
   children?: ReactElement;
+  parallaxHeight?: number;
 }
 
 export interface IconProps {
@@ -98,7 +99,6 @@ export type AvatarHeaderProps = SharedProps &
     hasBorderRadius?: boolean;
     header?: () => ReactElement;
     image?: number;
-    parallaxHeight?: number;
     renderBody?: (title: string) => ReactElement;
     scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
     snapStartThreshold?: number;
@@ -121,7 +121,6 @@ export type CustomHeaderProps = SharedProps &
     initialPage?: number;
     onChangeTab?: (changeTabArguments: OnChangeTabArguments) => void;
     onEndReached?: () => void;
-    parallaxHeight?: number;
     scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
     snapStartThreshold?: number;
     snapStopThreshold?: number;

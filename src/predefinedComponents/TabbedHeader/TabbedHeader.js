@@ -163,6 +163,7 @@ export default class TabbedHeader extends React.Component {
       contentContainerStyles,
       refreshControl,
       rememberTabScrollPosition,
+      parallaxHeight
     } = this.props;
 
     if (renderBody) {
@@ -181,7 +182,7 @@ export default class TabbedHeader extends React.Component {
           foreground={this.renderForeground(this.scrollY)}
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
-          parallaxHeight={sizes.homeScreenParallaxHeader}
+          parallaxHeight={parallaxHeight}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
             listener: (e) => scrollEvent && scrollEvent(e),
@@ -237,6 +238,7 @@ TabbedHeader.propTypes = {
   titleStyle: Text.propTypes.style,
   header: func,
   onRef: func,
+  parallaxHeight: number
 };
 
 TabbedHeader.defaultProps = {
@@ -280,4 +282,5 @@ TabbedHeader.defaultProps = {
   refreshControl: undefined,
   scrollRef: null,
   onRef: null,
+  parallaxHeight: sizes.homeScreenParallaxHeader
 };

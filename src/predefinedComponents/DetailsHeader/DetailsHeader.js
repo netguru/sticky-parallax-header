@@ -141,6 +141,7 @@ class DetailsHeader extends React.Component {
       headerHeight,
       snapToEdge,
       bounces,
+      parallaxHeight
     } = this.props;
 
     if (renderBody) {
@@ -154,7 +155,7 @@ class DetailsHeader extends React.Component {
           foreground={this.renderForeground(user)}
           header={this.renderHeader(user)}
           deviceWidth={constants.deviceWidth}
-          parallaxHeight={sizes.cardScreenParallaxHeader}
+          parallaxHeight={parallaxHeight}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
           })}
@@ -188,6 +189,7 @@ DetailsHeader.propTypes = {
   snapToEdge: bool,
   hasBorderRadius: bool,
   iconNumber: number,
+  parallaxHeight: number
 };
 DetailsHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -205,6 +207,7 @@ DetailsHeader.defaultProps = {
   snapToEdge: true,
   hasBorderRadius: true,
   iconNumber: Brandon.cardsAmount,
+  parallaxHeight: sizes.cardScreenParallaxHeader
 };
 
 export default DetailsHeader;
