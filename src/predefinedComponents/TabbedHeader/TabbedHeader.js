@@ -200,7 +200,8 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
-          onRef={onRef}>
+          onRef={onRef}
+          transparentHeader={transparentHeader}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
@@ -238,7 +239,8 @@ TabbedHeader.propTypes = {
   titleStyle: Text.propTypes.style,
   header: func,
   onRef: func,
-  parallaxHeight: number
+  parallaxHeight: number,
+  transparentHeader: bool,
 };
 
 TabbedHeader.defaultProps = {
@@ -282,5 +284,6 @@ TabbedHeader.defaultProps = {
   refreshControl: undefined,
   scrollRef: null,
   onRef: null,
-  parallaxHeight: sizes.homeScreenParallaxHeader
+  parallaxHeight: sizes.homeScreenParallaxHeader,
+  transparentHeader: false
 };

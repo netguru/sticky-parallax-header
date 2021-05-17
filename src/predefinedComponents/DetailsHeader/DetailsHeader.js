@@ -141,7 +141,8 @@ class DetailsHeader extends React.Component {
       headerHeight,
       snapToEdge,
       bounces,
-      parallaxHeight
+      parallaxHeight,
+      transparentHeader
     } = this.props;
 
     if (renderBody) {
@@ -164,7 +165,8 @@ class DetailsHeader extends React.Component {
           background={this.renderBackground(user)}
           snapToEdge={snapToEdge}
           bounces={bounces}
-          backgroundImage={backgroundImage}>
+          backgroundImage={backgroundImage}
+          transparentHeader={transparentHeader}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
@@ -189,7 +191,8 @@ DetailsHeader.propTypes = {
   snapToEdge: bool,
   hasBorderRadius: bool,
   iconNumber: number,
-  parallaxHeight: number
+  parallaxHeight: number,
+  transparentHeader: bool,
 };
 DetailsHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -207,7 +210,8 @@ DetailsHeader.defaultProps = {
   snapToEdge: true,
   hasBorderRadius: true,
   iconNumber: Brandon.cardsAmount,
-  parallaxHeight: sizes.cardScreenParallaxHeader
+  parallaxHeight: sizes.cardScreenParallaxHeader,
+  transparentHeader: false
 };
 
 export default DetailsHeader;

@@ -43,6 +43,7 @@ export interface SharedProps {
   decelerationRate: number | string;
   children?: ReactElement;
   parallaxHeight?: number;
+  transparentHeader?: boolean;
 }
 
 export interface IconProps {
@@ -106,7 +107,6 @@ export type AvatarHeaderProps = SharedProps &
     snapValue?: number;
     subtitle?: string;
     title?: string;
-    transparentHeader?: boolean;
   };
 
 export type CustomHeaderProps = SharedProps &
@@ -126,7 +126,6 @@ export type CustomHeaderProps = SharedProps &
     snapStopThreshold?: number;
     snapValue?: number;
     tabsContainerBackgroundColor?: string;
-    transparentHeader?: boolean;
   };
 
 type StickyParallaxHeaderProps = HeaderTypeProp &
