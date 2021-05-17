@@ -60,7 +60,7 @@ export interface TabsSharedProps {
   tabsContainerStyle?: ViewStyle;
 }
 
-export type TabbedHeaderProps = SharedProps &
+export type TabbedHeaderProps = HeaderTypeProp & SharedProps &
   TabsSharedProps & {
     headerType: 'TabbedHeader';
     backgroundColor?: string;

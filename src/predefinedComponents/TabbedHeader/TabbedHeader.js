@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native';
-import { arrayOf, bool, number, shape, string, func, node } from 'prop-types';
+import { arrayOf, bool, number, shape, string, func, node, element, oneOfType, oneOf, instanceOf } from 'prop-types';
 import StickyParallaxHeader from '../../index';
 import { constants, colors, sizes } from '../../constants';
 import styles from './TabbedHeader.styles';
@@ -158,6 +158,11 @@ export default class TabbedHeader extends React.Component {
       tabWrapperStyle,
       tabsContainerStyle,
       onRef,
+      keyboardShouldPersistTaps,
+      scrollRef,
+      contentContainerStyles,
+      refreshControl,
+      rememberTabScrollPosition,
     } = this.props;
 
     if (renderBody) {
@@ -168,6 +173,11 @@ export default class TabbedHeader extends React.Component {
       <>
         <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
+          rememberTabScrollPosition={rememberTabScrollPosition}
+          refreshControl={refreshControl}
+          contentContainerStyles={contentContainerStyles}
+          keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+          scrollRef={scrollRef}
           foreground={this.renderForeground(this.scrollY)}
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
@@ -219,6 +229,11 @@ TabbedHeader.propTypes = {
   tabWrapperStyle: ViewPropTypes.style,
   tabsContainerStyle: ViewPropTypes.style,
   foregroundImage: Image.propTypes.source,
+  contentContainerStyles: ViewPropTypes.style,
+  scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
+  keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
+  refreshControl: element,
+  rememberTabScrollPosition: bool,
   titleStyle: Text.propTypes.style,
   header: func,
   onRef: func,
@@ -259,5 +274,10 @@ TabbedHeader.defaultProps = {
   tabTextContainerStyle: styles.tabTextContainerStyle,
   tabTextContainerActiveStyle: styles.tabTextContainerActiveStyle,
   tabWrapperStyle: styles.tabsWrapper,
+  contentContainerStyles: {},
+  rememberTabScrollPosition: false,
+  keyboardShouldPersistTaps: undefined,
+  refreshControl: undefined,
+  scrollRef: null,
   onRef: null,
 };
