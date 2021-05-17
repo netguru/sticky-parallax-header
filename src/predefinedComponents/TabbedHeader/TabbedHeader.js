@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native';
 import { arrayOf, bool, number, shape, string, func, node, element, oneOfType, oneOf, instanceOf } from 'prop-types';
-import StickyParallaxHeader from '../../index';
+import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, colors, sizes } from '../../constants';
 import styles from './TabbedHeader.styles';
 import RenderContent from './defaultProps/defaultProps';
