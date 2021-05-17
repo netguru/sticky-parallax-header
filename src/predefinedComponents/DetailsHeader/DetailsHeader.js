@@ -20,7 +20,13 @@ class DetailsHeader extends React.Component {
     this.scrollY = new ValueXY();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
+  setHeaderSize = (headerLayout) => {
+    const {
+      headerSize
+    } = this.props;
+    if (headerSize) headerSize(headerLayout)
+    this.setState({ headerLayout });
+  }
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state;
@@ -200,7 +206,8 @@ DetailsHeader.propTypes = {
   iconNumber: number,
   parallaxHeight: number,
   transparentHeader: bool,
-  foreground: func
+  foreground: func,
+  headerSize: func
 };
 DetailsHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -219,7 +226,8 @@ DetailsHeader.defaultProps = {
   hasBorderRadius: true,
   iconNumber: Brandon.cardsAmount,
   parallaxHeight: sizes.cardScreenParallaxHeader,
-  transparentHeader: false
+  transparentHeader: false,
+  headerSize: undefined
 };
 
 export default DetailsHeader;

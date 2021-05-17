@@ -29,7 +29,13 @@ export default class TabbedHeader extends React.Component {
     this.scrollY.y.removeListener();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
+  setHeaderSize = (headerLayout) => {
+    const {
+      headerSize
+    } = this.props;
+    if (headerSize) headerSize(headerLayout)
+    this.setState({ headerLayout });
+  }
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state;
@@ -249,7 +255,8 @@ TabbedHeader.propTypes = {
   onRef: func,
   parallaxHeight: number,
   transparentHeader: bool,
-  foreground: func
+  foreground: func,
+  headerSize: func
 };
 
 TabbedHeader.defaultProps = {
@@ -294,5 +301,6 @@ TabbedHeader.defaultProps = {
   scrollRef: null,
   onRef: null,
   parallaxHeight: sizes.homeScreenParallaxHeader,
-  transparentHeader: false
+  transparentHeader: false,
+  headerSize: undefined
 };

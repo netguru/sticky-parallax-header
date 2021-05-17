@@ -24,7 +24,13 @@ class AvatarHeader extends React.Component {
     this.scrollY = new ValueXY();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
+  setHeaderSize = (headerLayout) => {
+    const {
+      headerSize
+    } = this.props;
+    if (headerSize) headerSize(headerLayout)
+    this.setState({ headerLayout });
+  }
 
   scrollPosition(value) {
     const {
@@ -279,6 +285,7 @@ AvatarHeader.propTypes = {
   scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
   refreshControl: element,
+  headerSize: func
 };
 AvatarHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -301,6 +308,7 @@ AvatarHeader.defaultProps = {
   scrollRef: null,
   keyboardShouldPersistTaps: undefined,
   refreshControl: undefined,
+  headerSize: undefined
 };
 
 export default AvatarHeader;
