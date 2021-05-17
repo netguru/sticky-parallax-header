@@ -309,6 +309,7 @@ class StickyParallaxHeader extends Component {
       keyboardShouldPersistTaps,
       scrollRef,
       refreshControl,
+      decelerationRate,
     } = this.props;
     const { currentPage, isFolded } = this.state;
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);
@@ -336,7 +337,7 @@ class StickyParallaxHeader extends Component {
           overScrollMode="never"
           refreshControl={refreshControl}
           bouncesZoom
-          decelerationRate="fast"
+          decelerationRate={decelerationRate}
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c;
@@ -485,6 +486,7 @@ StickyParallaxHeader.defaultProps = {
   scrollRef: null,
   keyboardShouldPersistTaps: undefined,
   refreshControl: undefined,
+  decelerationRate: "fast",
 };
 
 export default StickyParallaxHeader;
