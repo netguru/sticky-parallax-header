@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment  */
 import React from 'react';
 import { Animated, StyleSheet, View, ViewPropTypes } from 'react-native';
-import { func, node, number, oneOf } from 'prop-types';
+import { bool, func, node, number, oneOf } from 'prop-types';
 import SceneComponent from './SceneComponent';
 import constants from '../../constants/constants';
 import { getSafelyScrollNode } from '../../utils';
@@ -202,7 +202,7 @@ class ScrollableTabView extends React.Component {
 
   renderScrollableContent() {
     const scenes = this.composeScenes();
-    const { initialPage } = this.props;
+    const { initialPage, scrollEnabled } = this.props;
     const { containerWidth, scrollXIOS } = this.state;
     const { minScrollHeight, keyboardShouldPersistTaps } = this.props;
 
@@ -225,7 +225,7 @@ class ScrollableTabView extends React.Component {
         scrollEventThrottle={16}
         scrollsToTop={false}
         showsHorizontalScrollIndicator={false}
-        scrollEnabled
+        scrollEnabled={scrollEnabled}
         directionalLockEnabled
         alwaysBounceVertical={false}
         keyboardDismissMode="on-drag">
@@ -252,6 +252,7 @@ ScrollableTabView.propTypes = {
   swipedPage: func,
   minScrollHeight: number,
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
+  scrollEnabled: bool.isRequired,
 };
 
 ScrollableTabView.defaultProps = {

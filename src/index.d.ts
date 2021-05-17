@@ -40,6 +40,7 @@ export interface SharedProps {
   bounces?: boolean;
   contentContainerStyles?: ViewStyle;
   refreshControl?: ReactElement;
+  children?: ReactElement;
 }
 
 export interface IconProps {

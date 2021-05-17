@@ -11,17 +11,8 @@ import {
   instanceOf,
   element,
 } from 'prop-types';
-import {
-  Dimensions,
-  ImageBackground,
-  ScrollView,
-  View,
-  Animated,
-  Easing,
-  ViewPropTypes,
-  Image,
-} from 'react-native';
-import { ScrollableTabBar, ScrollableTabView } from './components';
+import { Dimensions, ScrollView, View, Animated, Easing, ViewPropTypes, Image } from 'react-native';
+import { ScrollableTabBar, ScrollableTabView, HeaderBackgroundImage } from './components';
 import { constants } from './constants';
 import styles from './styles';
 import { getSafelyScrollNode, setRef } from './utils';
@@ -240,25 +231,6 @@ class StickyParallaxHeader extends Component {
     );
   };
 
-  renderImageBackground = (backgroundHeight) => {
-    const { backgroundImage, background } = this.props;
-
-    const AnimatedImageBackground = createAnimatedComponent(ImageBackground);
-
-    return (
-      <AnimatedImageBackground
-        style={[
-          styles.headerStyle,
-          {
-            height: backgroundHeight,
-          },
-        ]}
-        source={backgroundImage}>
-        {background}
-      </AnimatedImageBackground>
-    );
-  };
-
   renderPlainBackground = (backgroundHeight) => {
     const { background } = this.props;
 
@@ -323,6 +295,7 @@ class StickyParallaxHeader extends Component {
 
   render() {
     const {
+      background,
       backgroundImage,
       children,
       contentContainerStyles,
@@ -351,6 +324,9 @@ class StickyParallaxHeader extends Component {
 
     const shouldRenderTabs = tabs && tabs.length > 0;
     const shouldUseBgColor = contentContainerStyles && contentContainerStyles.backgroundColor;
+
+    const hasSingleTab = tabs?.length === 1 || false;
+    const hasSingleElement = hasSingleTab || (!tabs && children !== undefined);
 
     return (
       <View style={styles.container}>
@@ -405,9 +381,15 @@ class StickyParallaxHeader extends Component {
                 },
               ]}
             />
-            {backgroundImage
-              ? this.renderImageBackground(scrollHeight)
-              : this.renderPlainBackground(scrollHeight)}
+            {backgroundImage ? (
+              <HeaderBackgroundImage
+                backgroundHeight={scrollHeight}
+                backgroundImage={backgroundImage}
+                background={background}
+              />
+            ) : (
+              this.renderPlainBackground(scrollHeight)
+            )}
             {this.renderForeground(scrollHeight)}
           </View>
           {shouldRenderTabs && this.renderTabs()}
@@ -422,6 +404,7 @@ class StickyParallaxHeader extends Component {
             scrollHeight={scrollHeight}
             isHeaderFolded={isFolded}
             minScrollHeight={innerScrollHeight}
+            scrollEnabled={!hasSingleElement}
             keyboardShouldPersistTaps={keyboardShouldPersistTaps}>
             {!tabs && children}
             {tabs &&
