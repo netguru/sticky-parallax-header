@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, StatusBar, Animated } from 'react-native';
-import { bool, number, func, string } from 'prop-types';
+import { bool, number, func, string, node } from 'prop-types';
 import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, sizes } from '../../constants';
 import { Brandon } from '../../assets/data/cards';
@@ -137,10 +137,15 @@ class DetailsHeader extends React.Component {
       backgroundColor,
       backgroundImage,
       renderBody,
+      children,
       headerHeight,
       snapToEdge,
       bounces,
     } = this.props;
+
+    if (renderBody) {
+      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
+    }
 
     return (
       <>
@@ -159,7 +164,7 @@ class DetailsHeader extends React.Component {
           snapToEdge={snapToEdge}
           bounces={bounces}
           backgroundImage={backgroundImage}>
-          {renderBody(user)}
+          {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
     );
@@ -177,6 +182,7 @@ DetailsHeader.propTypes = {
   title: string,
   tag: string,
   image: Image.propTypes.source,
+  children: node,
   renderBody: func,
   bounces: bool,
   snapToEdge: bool,
@@ -194,7 +200,7 @@ DetailsHeader.defaultProps = {
   tag: Brandon.type,
   title: Brandon.label,
   image: Brandon.image,
-  renderBody: renderContent,
+  children: renderContent(Brandon),
   bounces: true,
   snapToEdge: true,
   hasBorderRadius: true,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, Animated, StatusBar, ViewPropTypes, ScrollView } from 'react-native';
-import { func, string, number, bool, oneOfType, oneOf, instanceOf, element, shape } from 'prop-types';
+import { func, string, number, bool, oneOfType, oneOf, instanceOf, element, shape, node } from 'prop-types';
 import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, sizes } from '../../constants';
 import styles from './AvatarHeader.styles';
@@ -198,6 +198,7 @@ class AvatarHeader extends React.Component {
       backgroundColor,
       backgroundImage,
       contentContainerStyles,
+      children,
       renderBody,
       headerHeight,
       snapToEdge,
@@ -212,6 +213,10 @@ class AvatarHeader extends React.Component {
       keyboardShouldPersistTaps,
       refreshControl,
     } = this.props;
+
+    if (renderBody) {
+      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
+    }
 
     return (
       <>
@@ -239,7 +244,7 @@ class AvatarHeader extends React.Component {
           scrollRef={scrollRef}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
           refreshControl={refreshControl}>
-          {renderBody(Brandon)}
+          {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
     );
@@ -261,6 +266,7 @@ AvatarHeader.propTypes = {
   title: string,
   subtitle: string,
   image: Image.propTypes.source,
+  children: node,
   renderBody: func,
   scrollEvent: func,
   parallaxHeight: number,
@@ -286,7 +292,7 @@ AvatarHeader.defaultProps = {
   title: Brandon.author,
   subtitle: Brandon.about,
   image: Brandon.image,
-  renderBody: (user) => <RenderContent user={user} />,
+  children: <RenderContent user={Brandon} />,
   bounces: true,
   snapToEdge: true,
   hasBorderRadius: true,
