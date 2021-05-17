@@ -41,6 +41,7 @@ export interface SharedProps {
   contentContainerStyles?: ViewStyle;
   refreshControl?: ReactElement;
   decelerationRate: number | string;
+  children?: ReactElement;
 }
 
 export interface IconProps {
@@ -60,7 +61,7 @@ export interface TabsSharedProps {
   tabsContainerStyle?: ViewStyle;
 }
 
-export type TabbedHeaderProps = SharedProps &
+export type TabbedHeaderProps = HeaderTypeProp & SharedProps &
   TabsSharedProps & {
     headerType: 'TabbedHeader';
     backgroundColor?: string;

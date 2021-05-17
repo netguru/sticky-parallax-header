@@ -1,0 +1,631 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "rgb(78,15,255)",
+        "height": 75,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingHorizontal": 24,
+            "paddingTop": 40,
+            "width": "100%",
+          },
+          Object {
+            "paddingTop": 30,
+          },
+          Object {
+            "backgroundColor": "rgb(78,15,255)",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          hitSlop={
+            Object {
+              "bottom": 15,
+              "left": 15,
+              "right": 15,
+              "top": 15,
+            }
+          }
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "flex": 1,
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/iconCloseWhite.png",
+              }
+            }
+            style={
+              Object {
+                "height": 16,
+                "width": 16,
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 8,
+              "flexDirection": "row",
+              "marginRight": 24,
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "testUri": "../../../src/assets/images/photosPortraitBrandon.png",
+              }
+            }
+            style={
+              Object {
+                "borderRadius": 8,
+                "height": 32,
+                "opacity": 0,
+                "width": 32,
+              }
+            }
+          />
+          <Text
+            numberOfLines={1}
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 16,
+                "lineHeight": 20,
+                "marginLeft": 12,
+                "marginRight": 12,
+                "opacity": 0,
+              }
+            }
+          >
+            Brandon
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          hitSlop={
+            Object {
+              "bottom": 15,
+              "left": 15,
+              "right": 15,
+              "top": 15,
+            }
+          }
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flex": 1,
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={
+              Object {
+                "testUri": "../../../src/assets/icons/Icon-Menu.png",
+              }
+            }
+            style={
+              Object {
+                "height": 16,
+                "width": 16,
+              }
+            }
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+  <RCTScrollView
+    bounces={true}
+    bouncesZoom={true}
+    contentContainerStyle={
+      Object {
+        "backgroundColor": undefined,
+        "minHeight": 1966.02,
+      }
+    }
+    decelerationRate="fast"
+    forwardedRef={[Function]}
+    nestedScrollEnabled={true}
+    onScroll={[Function]}
+    onScrollEndDrag={[Function]}
+    overScrollMode="never"
+    scrollEventThrottle={1}
+    showsVerticalScrollIndicator={false}
+    stickyHeaderIndices={Array []}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={
+          Object {
+            "height": 707.02,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "height": 300,
+                "left": 0,
+                "overflow": "scroll",
+                "position": "absolute",
+                "right": 0,
+                "top": -300,
+              },
+              Object {
+                "backgroundColor": "rgb(78,15,255)",
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            Array [
+              Object {
+                "justifyContent": "flex-end",
+                "left": 0,
+                "marginBottom": 5,
+                "paddingBottom": 3,
+                "position": "absolute",
+                "top": 0,
+                "width": 750.5,
+              },
+              Object {
+                "height": 707.02,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "rgb(78,15,255)",
+                "borderBottomRightRadius": 80,
+                "height": "100%",
+                "justifyContent": "flex-end",
+                "width": "100%",
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": undefined,
+              "height": 707.02,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "flex": 1,
+                "justifyContent": "flex-end",
+                "paddingHorizontal": 24,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../src/assets/images/photosPortraitBrandon.png",
+                  }
+                }
+                style={
+                  Object {
+                    "borderRadius": 33.75,
+                    "height": 135,
+                    "width": 135,
+                  }
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "marginTop": 12,
+                  "opacity": 1,
+                  "paddingBottom": 8,
+                  "paddingTop": 24,
+                }
+              }
+            >
+              <Text
+                numberOfLines={2}
+                style={
+                  Array [
+                    Object {
+                      "color": "white",
+                      "fontSize": 75,
+                      "letterSpacing": -1,
+                      "lineHeight": 90,
+                    },
+                    Object {
+                      "flexGrow": 1,
+                      "paddingRight": 12,
+                    },
+                  ]
+                }
+              >
+                Brandon
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "marginBottom": 16,
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "white",
+                    "flexGrow": 1,
+                    "fontSize": 17,
+                    "lineHeight": 24,
+                  }
+                }
+              >
+                Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer.
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <RCTScrollView
+          alwaysBounceVertical={false}
+          automaticallyAdjustContentInsets={false}
+          contentContainerStyle={
+            Object {
+              "minHeight": 551.98,
+            }
+          }
+          contentOffset={
+            Object {
+              "x": 0,
+            }
+          }
+          directionalLockEnabled={true}
+          forwardedRef={[Function]}
+          horizontal={true}
+          keyboardDismissMode="on-drag"
+          onMomentumScrollEnd={[Function]}
+          onScroll={[Function]}
+          pagingEnabled={true}
+          scrollEnabled={false}
+          scrollEventThrottle={16}
+          scrollsToTop={false}
+          showsHorizontalScrollIndicator={false}
+        >
+          <View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "maxHeight": null,
+                    "minHeight": 551.98,
+                    "width": 750,
+                  },
+                  Object {},
+                ]
+              }
+            >
+              <View
+                onLayout={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "flex": 1,
+                      "justifyContent": "center",
+                      "paddingBottom": 24,
+                      "paddingHorizontal": 24,
+                    },
+                    Object {
+                      "marginBottom": 0,
+                      "paddingBottom": 707.02,
+                    },
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "alignSelf": "flex-start",
+                      "color": "black",
+                      "fontSize": 24,
+                      "letterSpacing": -0.2,
+                      "lineHeight": 28,
+                      "paddingBottom": 20,
+                      "paddingTop": 40,
+                    }
+                  }
+                >
+                  Author's Quizes
+                </Text>
+                <View
+                  accessible={true}
+                  focusable={false}
+                  onClick={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "backgroundColor": "white",
+                      "borderColor": "rgb(246,245,248)",
+                      "borderRadius": 24,
+                      "borderWidth": 0,
+                      "marginTop": 12,
+                      "opacity": 1,
+                      "paddingHorizontal": 20,
+                      "paddingVertical": 16,
+                      "shadowColor": "rgb(35,35,35)",
+                      "shadowOffset": Object {
+                        "heght": 2,
+                        "width": 2,
+                      },
+                      "shadowOpacity": 0.08,
+                      "shadowRadius": 40,
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "alignItems": "flex-start",
+                        "flexDirection": "row",
+                        "justifyContent": "space-between",
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "backgroundColor": "rgb(246,245,248)",
+                          "borderRadius": 16,
+                        }
+                      }
+                    >
+                      <Text
+                        style={
+                          Object {
+                            "color": "rgb(71,71,71)",
+                            "fontSize": 12,
+                            "lineHeight": 16,
+                            "paddingHorizontal": 8,
+                            "paddingVertical": 4,
+                          }
+                        }
+                      >
+                        Product Design
+                      </Text>
+                    </View>
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "alignItems": "center",
+                            "backgroundColor": "rgb(78, 15, 255)",
+                            "borderRadius": 8,
+                            "flexDirection": "row",
+                            "padding": 8,
+                            "shadowColor": "rgb(35,35,35)",
+                            "shadowOffset": Object {
+                              "heght": 2,
+                              "width": 0,
+                            },
+                            "shadowOpacity": 0.016,
+                            "shadowRadius": 32,
+                            "width": 56,
+                          },
+                          false,
+                        ]
+                      }
+                    >
+                      <Image
+                        source={
+                          Object {
+                            "testUri": "../../../src/assets/icons/cards.png",
+                          }
+                        }
+                        style={
+                          Object {
+                            "height": 16,
+                            "width": 16,
+                          }
+                        }
+                      />
+                      <Text
+                        style={
+                          Array [
+                            Object {
+                              "color": "white",
+                              "fontSize": 16,
+                              "lineHeight": 20,
+                              "paddingLeft": 5,
+                            },
+                            false,
+                          ]
+                        }
+                      >
+                        10
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    style={Object {}}
+                  >
+                    <Text
+                      style={
+                        Object {
+                          "color": "black",
+                          "fontSize": 24,
+                          "letterSpacing": -0.2,
+                          "lineHeight": 28,
+                          "paddingTop": 8,
+                        }
+                      }
+                    >
+                      Design System
+                    </Text>
+                  </View>
+                  <View
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <View
+                      accessible={true}
+                      focusable={false}
+                      onClick={[Function]}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      style={
+                        Object {
+                          "opacity": 1,
+                          "paddingRight": 40,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "flexDirection": "row",
+                            "justifyContent": "flex-start",
+                            "paddingTop": 22,
+                          }
+                        }
+                      >
+                        <Image
+                          resizeMode="contain"
+                          source={
+                            Object {
+                              "testUri": "../../../src/assets/images/photosPortraitBrandon.png",
+                            }
+                          }
+                          style={
+                            Object {
+                              "borderRadius": 8,
+                              "height": 24,
+                              "width": 24,
+                            }
+                          }
+                        />
+                        <Text
+                          style={
+                            Object {
+                              "color": "black",
+                              "fontSize": 12,
+                              "lineHeight": 16,
+                              "paddingLeft": 8,
+                            }
+                          }
+                        >
+                          Brandon
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      style={
+                        Object {
+                          "width": "38%",
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
