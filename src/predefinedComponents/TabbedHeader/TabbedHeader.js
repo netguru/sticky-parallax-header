@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native';
-import { arrayOf, bool, number, shape, string, func } from 'prop-types';
+import { arrayOf, bool, number, shape, string, func, node } from 'prop-types';
 import StickyParallaxHeader from '../../index';
 import { constants, colors, sizes } from '../../constants';
 import styles from './TabbedHeader.styles';
@@ -150,6 +150,7 @@ export default class TabbedHeader extends React.Component {
       snapToEdge,
       scrollEvent,
       renderBody,
+      children,
       tabTextStyle,
       tabTextActiveStyle,
       tabTextContainerStyle,
@@ -158,6 +159,10 @@ export default class TabbedHeader extends React.Component {
       tabsContainerStyle,
       onRef,
     } = this.props;
+
+    if (renderBody) {
+      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
+    }
 
     return (
       <>
@@ -185,7 +190,7 @@ export default class TabbedHeader extends React.Component {
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
           onRef={onRef}>
-          {renderBody('Popular Quizes')}
+          {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
     );
@@ -201,6 +206,7 @@ TabbedHeader.propTypes = {
   snapToEdge: bool,
   tabs: arrayOf(shape({})),
   renderBody: func,
+  children: node,
   logo: Image.propTypes.source,
   logoResizeMode: string,
   logoStyle: ViewPropTypes.style,
@@ -229,7 +235,7 @@ TabbedHeader.defaultProps = {
   logoResizeMode: 'contain',
   logoStyle: styles.logo,
   logoContainerStyle: styles.headerWrapper,
-  renderBody: (title) => <RenderContent title={title} />,
+  children: <RenderContent title="Popular Quizes" />,
   tabs: [
     {
       title: 'Popular',
