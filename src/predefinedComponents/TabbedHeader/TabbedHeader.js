@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native';
+import { Text, View, Image, StatusBar, Animated, ViewPropTypes, ScrollView } from 'react-native';
 import { arrayOf, bool, number, shape, string, func, node, element, oneOfType, oneOf, instanceOf } from 'prop-types';
 import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, colors, sizes } from '../../constants';
@@ -54,7 +54,7 @@ export default class TabbedHeader extends React.Component {
     return renderHeader();
   };
 
-  renderForeground = (scrollY) => {
+  renderTabbedForeground = (scrollY) => () => {
     const { title, titleStyle, foregroundImage } = this.props;
     const messageStyle = titleStyle || styles.message;
     const startSize = constants.responsiveWidth(18);
@@ -107,6 +107,13 @@ export default class TabbedHeader extends React.Component {
         </Animated.View>
       </View>
     );
+  };
+
+  renderForeground = (scrollY) => {
+    const { foreground } = this.props;
+    const renderForeground = foreground || this.renderTabbedForeground(scrollY);
+
+    return renderForeground();
   };
 
   onLayoutContent = (e, title) => {
@@ -163,7 +170,8 @@ export default class TabbedHeader extends React.Component {
       contentContainerStyles,
       refreshControl,
       rememberTabScrollPosition,
-      parallaxHeight
+      parallaxHeight,
+      transparentHeader
     } = this.props;
 
     if (renderBody) {
@@ -241,6 +249,7 @@ TabbedHeader.propTypes = {
   onRef: func,
   parallaxHeight: number,
   transparentHeader: bool,
+  foreground: func
 };
 
 TabbedHeader.defaultProps = {

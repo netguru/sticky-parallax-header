@@ -60,7 +60,7 @@ class DetailsHeader extends React.Component {
     );
   };
 
-  renderForeground = (user) => {
+  renderDetailsForeground = (user) => () => {
     const { labelColor } = user;
     const { image, title, tag, iconNumber } = this.props;
     const labelOpacity = this.scrollY.y.interpolate({
@@ -105,6 +105,13 @@ class DetailsHeader extends React.Component {
     );
   };
 
+  renderForeground = (user) => {
+    const { foreground } = this.props;
+    const renderForeground = foreground || this.renderDetailsForeground(user);
+
+    return renderForeground(user);
+  };
+
   renderBackground = () => {
     const { hasBorderRadius, backgroundColor } = this.props;
     const {
@@ -142,7 +149,7 @@ class DetailsHeader extends React.Component {
       snapToEdge,
       bounces,
       parallaxHeight,
-      transparentHeader
+      transparentHeader,
     } = this.props;
 
     if (renderBody) {
@@ -193,6 +200,7 @@ DetailsHeader.propTypes = {
   iconNumber: number,
   parallaxHeight: number,
   transparentHeader: bool,
+  foreground: func
 };
 DetailsHeader.defaultProps = {
   leftTopIconOnPress: () => {},
