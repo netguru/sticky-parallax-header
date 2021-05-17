@@ -44,6 +44,7 @@ export interface SharedProps {
   children?: ReactElement;
   parallaxHeight?: number;
   transparentHeader?: boolean;
+  foreground?: () => ReactElement;
 }
 
 export interface IconProps {
@@ -96,7 +97,6 @@ export type AvatarHeaderProps = SharedProps &
   IconProps & {
     headerType: 'AvatarHeader';
     backgroundColor?: string;
-    foreground?: () => ReactElement;
     hasBorderRadius?: boolean;
     header?: () => ReactElement;
     image?: number;
@@ -115,7 +115,6 @@ export type CustomHeaderProps = SharedProps &
     background: ReactElement;
     backgroundColor: string;
     children?: ReactElement;
-    foreground?: ReactElement;
     header: ReactElement;
     headerSize?: (headerSizeProps: HeaderSizeProps) => void;
     initialPage?: number;
