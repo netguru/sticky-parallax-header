@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, StatusBar, Animated } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StatusBar, Animated, ScrollView } from 'react-native';
 import { bool, number, func, string, node } from 'prop-types';
 import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, sizes } from '../../constants';
@@ -179,7 +179,8 @@ class DetailsHeader extends React.Component {
           snapToEdge={snapToEdge}
           bounces={bounces}
           backgroundImage={backgroundImage}
-          transparentHeader={transparentHeader}>
+          transparentHeader={transparentHeader}
+          scrollRef={scrollRef}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
@@ -207,7 +208,8 @@ DetailsHeader.propTypes = {
   parallaxHeight: number,
   transparentHeader: bool,
   foreground: func,
-  headerSize: func
+  headerSize: func,
+  scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
 };
 DetailsHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -227,7 +229,8 @@ DetailsHeader.defaultProps = {
   iconNumber: Brandon.cardsAmount,
   parallaxHeight: sizes.cardScreenParallaxHeader,
   transparentHeader: false,
-  headerSize: undefined
+  headerSize: undefined,
+  scrollRef: null,
 };
 
 export default DetailsHeader;
