@@ -310,6 +310,8 @@ class StickyParallaxHeader extends Component {
       scrollRef,
       refreshControl,
       decelerationRate,
+      onMomentumScrollEnd,
+      onMomentumScrollBegin,
     } = this.props;
     const { currentPage, isFolded } = this.state;
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);
@@ -352,6 +354,8 @@ class StickyParallaxHeader extends Component {
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+          onMomentumScrollEnd={onMomentumScrollEnd}
+          onMomentumScrollBegin={onMomentumScrollBegin}
           onScroll={event(
             [
               {
@@ -462,6 +466,8 @@ StickyParallaxHeader.propTypes = {
   scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
   refreshControl: element,
+  onMomentumScrollEnd: func, 
+  onMomentumScrollBegin: func,
 };
 
 StickyParallaxHeader.defaultProps = {
@@ -487,6 +493,8 @@ StickyParallaxHeader.defaultProps = {
   keyboardShouldPersistTaps: undefined,
   refreshControl: undefined,
   decelerationRate: "fast",
+  onMomentumScrollEnd: undefined, 
+  onMomentumScrollBegin: undefined,
 };
 
 export default StickyParallaxHeader;

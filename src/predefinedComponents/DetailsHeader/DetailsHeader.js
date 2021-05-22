@@ -156,6 +156,9 @@ class DetailsHeader extends React.Component {
       bounces,
       parallaxHeight,
       transparentHeader,
+      onMomentumScrollEnd,
+      onMomentumScrollBegin,
+      scrollRef
     } = this.props;
 
     if (renderBody) {
@@ -180,7 +183,9 @@ class DetailsHeader extends React.Component {
           bounces={bounces}
           backgroundImage={backgroundImage}
           transparentHeader={transparentHeader}
-          scrollRef={scrollRef}>
+          scrollRef={scrollRef}
+          onMomentumScrollEnd={onMomentumScrollEnd} 
+          onMomentumScrollBegin={onMomentumScrollBegin}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
@@ -210,6 +215,8 @@ DetailsHeader.propTypes = {
   foreground: func,
   headerSize: func,
   scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
+  onMomentumScrollEnd: func, 
+  onMomentumScrollBegin: func,
 };
 DetailsHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -231,6 +238,8 @@ DetailsHeader.defaultProps = {
   transparentHeader: false,
   headerSize: undefined,
   scrollRef: null,
+  onMomentumScrollEnd: undefined, 
+  onMomentumScrollBegin: undefined,
 };
 
 export default DetailsHeader;

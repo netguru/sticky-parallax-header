@@ -218,6 +218,8 @@ class AvatarHeader extends React.Component {
       scrollRef,
       keyboardShouldPersistTaps,
       refreshControl,
+      onMomentumScrollEnd,
+      onMomentumScrollBegin,
     } = this.props;
 
     if (renderBody) {
@@ -249,7 +251,9 @@ class AvatarHeader extends React.Component {
           snapValue={snapValue}
           scrollRef={scrollRef}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-          refreshControl={refreshControl}>
+          refreshControl={refreshControl}
+          onMomentumScrollEnd={onMomentumScrollEnd} 
+          onMomentumScrollBegin={onMomentumScrollBegin}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
@@ -285,7 +289,9 @@ AvatarHeader.propTypes = {
   scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
   refreshControl: element,
-  headerSize: func
+  headerSize: func,
+  onMomentumScrollEnd: func, 
+  onMomentumScrollBegin: func,
 };
 AvatarHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -308,7 +314,9 @@ AvatarHeader.defaultProps = {
   scrollRef: null,
   keyboardShouldPersistTaps: undefined,
   refreshControl: undefined,
-  headerSize: undefined
+  headerSize: undefined,
+  onMomentumScrollEnd: undefined, 
+  onMomentumScrollBegin: undefined,
 };
 
 export default AvatarHeader;
