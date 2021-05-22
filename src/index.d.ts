@@ -43,7 +43,6 @@ export interface SharedProps {
   decelerationRate: number | string;
   children?: ReactElement;
   parallaxHeight?: number;
-  transparentHeader?: boolean;
   foreground?: () => ReactElement;
   headerSize?: (headerSizeProps: HeaderSizeProps) => void;
 }
@@ -93,6 +92,7 @@ export type DetailsHeaderProps = SharedProps &
     renderBody?: (title: string) => ReactElement;
     tag?: string;
     title?: string;
+    transparentHeader?: boolean;
   };
 
 export type AvatarHeaderProps = SharedProps &
@@ -109,6 +109,7 @@ export type AvatarHeaderProps = SharedProps &
     snapValue?: number;
     subtitle?: string;
     title?: string;
+    transparentHeader?: boolean;
   };
 
 export type CustomHeaderProps = SharedProps &

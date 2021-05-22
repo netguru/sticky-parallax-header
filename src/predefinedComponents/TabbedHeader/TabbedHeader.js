@@ -187,7 +187,6 @@ export default class TabbedHeader extends React.Component {
       refreshControl,
       rememberTabScrollPosition,
       parallaxHeight,
-      transparentHeader,
       onMomentumScrollEnd,
       onMomentumScrollBegin,
     } = this.props;
@@ -227,7 +226,6 @@ export default class TabbedHeader extends React.Component {
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
           onRef={onRef}
-          transparentHeader={transparentHeader}
           onMomentumScrollEnd={onMomentumScrollEnd}
           onMomentumScrollBegin={onMomentumScrollBegin}>
           {renderBody ? renderBody() : children}
@@ -268,7 +266,6 @@ TabbedHeader.propTypes = {
   header: func,
   onRef: func,
   parallaxHeight: number,
-  transparentHeader: bool,
   foreground: func,
   headerSize: func,
   onMomentumScrollEnd: func,
@@ -317,7 +314,6 @@ TabbedHeader.defaultProps = {
   scrollRef: null,
   onRef: null,
   parallaxHeight: sizes.homeScreenParallaxHeader,
-  transparentHeader: false,
   headerSize: undefined,
   onMomentumScrollEnd: undefined,
   onMomentumScrollBegin: undefined,
