@@ -83,6 +83,9 @@ Below are examples of those components and description of the props they are acc
 | `keyboardShouldPersistTaps`   | `'always', 'never', 'handled', false, true`           |    Yes   | `undefined`                                                                                                                                                                                    | Determines when the keyboard should stay visible after a tap.|
 | `refreshControl`              | `RefreshControl`           |    Yes   | `undefined`                                                                                                                                                                                    | Props used to add pull to refresh functionality.|
 |     `decelerationRate`      |             `number or string`              |   Yes    |                    `"fast"`                     |                                     Set the deceleration rate for the ScrollView. 
+| `parallaxHeight`      | `number`                                                   |    No    | -                                                                            | Set parallax header height                               |
+| `foreground`          | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders the foreground of the header       |
+| `headerSize`          | `func`                                                     |    Yes   | -                                                                            | Get current size of header                               |
 
 ### Details Header, Avatar Header
 
@@ -131,6 +134,7 @@ Below are examples of those components and description of the props they are acc
  | `iconNumber`          | `number`                          |    No    | `10`                                                                         | Set amount of cards shown on icon                        |
 | `tag`                 | `string`                          |    No    | `"Product Designer"`                                                         | Sets header tag name                                     |
 | `title`               | `string`                          |    No    | `"Design System"`                                                            | Sets header title                                        |
+| `transparentHeader`   | `boolean`                                                  |    No    | `false`                                                                      | Set header transparency to render custom header          |
 
 
 ## Avatar Header
@@ -139,9 +143,7 @@ Below are examples of those components and description of the props they are acc
 
 | Property              | Type                                                       | Optional |  Default                                                                     | Description                                              |
 | :-------------------: | :---------------------------------------------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
- | `foreground`          | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders the foreground of the header       |
 | `header`              | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders custom header                      |
-| `parallaxHeight`      | `number`                                                   |    No    | -                                                                            | Set parallax header height                               |
  | `scrollEvent`         | `(event: NativeSyntheticEvent<NativeScrollEvent>) => void` |    No    | `require('../../assets/icons/Icon-Menu.png') `                               | Scroll event to apply custom animations                  |
 | `snapStartThreshold`  | `number`                                                   |    No    | -                                                                            | Set start value Threshold of snap                        |
  | `snapStopThreshold`   | `number`                                                   |    No    | -                                                                            | Set stop value Threshold of snap                         |
