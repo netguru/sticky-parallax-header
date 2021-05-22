@@ -45,6 +45,7 @@ export interface SharedProps {
   parallaxHeight?: number;
   transparentHeader?: boolean;
   foreground?: () => ReactElement;
+  headerSize?: (headerSizeProps: HeaderSizeProps) => void;
 }
 
 export interface IconProps {
@@ -64,7 +65,8 @@ export interface TabsSharedProps {
   tabsContainerStyle?: ViewStyle;
 }
 
-export type TabbedHeaderProps = HeaderTypeProp & SharedProps &
+export type TabbedHeaderProps = HeaderTypeProp &
+  SharedProps &
   TabsSharedProps & {
     headerType: 'TabbedHeader';
     backgroundColor?: string;
@@ -116,7 +118,6 @@ export type CustomHeaderProps = SharedProps &
     backgroundColor: string;
     children?: ReactElement;
     header: ReactElement;
-    headerSize?: (headerSizeProps: HeaderSizeProps) => void;
     initialPage?: number;
     onChangeTab?: (changeTabArguments: OnChangeTabArguments) => void;
     onEndReached?: () => void;
