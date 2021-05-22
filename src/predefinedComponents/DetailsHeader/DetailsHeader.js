@@ -21,12 +21,10 @@ class DetailsHeader extends React.Component {
   }
 
   setHeaderSize = (headerLayout) => {
-    const {
-      headerSize
-    } = this.props;
-    if (headerSize) headerSize(headerLayout)
+    const { headerSize } = this.props;
+    if (headerSize) headerSize(headerLayout);
     this.setState({ headerLayout });
-  }
+  };
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state;
@@ -158,7 +156,7 @@ class DetailsHeader extends React.Component {
       transparentHeader,
       onMomentumScrollEnd,
       onMomentumScrollBegin,
-      scrollRef
+      scrollRef,
     } = this.props;
 
     if (renderBody) {
@@ -184,7 +182,7 @@ class DetailsHeader extends React.Component {
           backgroundImage={backgroundImage}
           transparentHeader={transparentHeader}
           scrollRef={scrollRef}
-          onMomentumScrollEnd={onMomentumScrollEnd} 
+          onMomentumScrollEnd={onMomentumScrollEnd}
           onMomentumScrollBegin={onMomentumScrollBegin}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
@@ -215,7 +213,7 @@ DetailsHeader.propTypes = {
   foreground: func,
   headerSize: func,
   scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
-  onMomentumScrollEnd: func, 
+  onMomentumScrollEnd: func,
   onMomentumScrollBegin: func,
 };
 DetailsHeader.defaultProps = {
@@ -238,7 +236,7 @@ DetailsHeader.defaultProps = {
   transparentHeader: false,
   headerSize: undefined,
   scrollRef: null,
-  onMomentumScrollEnd: undefined, 
+  onMomentumScrollEnd: undefined,
   onMomentumScrollBegin: undefined,
 };
 

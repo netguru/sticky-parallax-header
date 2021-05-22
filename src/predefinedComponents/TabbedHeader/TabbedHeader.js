@@ -1,6 +1,18 @@
 import React from 'react';
 import { Text, View, Image, StatusBar, Animated, ViewPropTypes, ScrollView } from 'react-native';
-import { arrayOf, bool, number, shape, string, func, node, element, oneOfType, oneOf, instanceOf } from 'prop-types';
+import {
+  arrayOf,
+  bool,
+  number,
+  shape,
+  string,
+  func,
+  node,
+  element,
+  oneOfType,
+  oneOf,
+  instanceOf,
+} from 'prop-types';
 import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, colors, sizes } from '../../constants';
 import styles from './TabbedHeader.styles';
@@ -30,12 +42,10 @@ export default class TabbedHeader extends React.Component {
   }
 
   setHeaderSize = (headerLayout) => {
-    const {
-      headerSize
-    } = this.props;
-    if (headerSize) headerSize(headerLayout)
+    const { headerSize } = this.props;
+    if (headerSize) headerSize(headerLayout);
     this.setState({ headerLayout });
-  }
+  };
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state;
@@ -218,7 +228,7 @@ export default class TabbedHeader extends React.Component {
           tabsContainerStyle={tabsContainerStyle}
           onRef={onRef}
           transparentHeader={transparentHeader}
-          onMomentumScrollEnd={onMomentumScrollEnd} 
+          onMomentumScrollEnd={onMomentumScrollEnd}
           onMomentumScrollBegin={onMomentumScrollBegin}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
@@ -261,7 +271,7 @@ TabbedHeader.propTypes = {
   transparentHeader: bool,
   foreground: func,
   headerSize: func,
-  onMomentumScrollEnd: func, 
+  onMomentumScrollEnd: func,
   onMomentumScrollBegin: func,
 };
 
@@ -309,6 +319,6 @@ TabbedHeader.defaultProps = {
   parallaxHeight: sizes.homeScreenParallaxHeader,
   transparentHeader: false,
   headerSize: undefined,
-  onMomentumScrollEnd: undefined, 
+  onMomentumScrollEnd: undefined,
   onMomentumScrollBegin: undefined,
 };

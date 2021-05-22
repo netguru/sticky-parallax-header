@@ -42,9 +42,10 @@ class StickyParallaxHeader extends Component {
   }
 
   componentDidMount() {
+    const { onRef } = this.props;
     // eslint-disable-next-line
     this.scrollY.addListener(({ value }) => (this._value = value));
-    this.props.onRef?.(this);
+    onRef?.(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -466,8 +467,9 @@ StickyParallaxHeader.propTypes = {
   scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
   refreshControl: element,
-  onMomentumScrollEnd: func, 
+  onMomentumScrollEnd: func,
   onMomentumScrollBegin: func,
+  decelerationRate: oneOf(['fast', 'normal']),
 };
 
 StickyParallaxHeader.defaultProps = {
@@ -492,8 +494,8 @@ StickyParallaxHeader.defaultProps = {
   scrollRef: null,
   keyboardShouldPersistTaps: undefined,
   refreshControl: undefined,
-  decelerationRate: "fast",
-  onMomentumScrollEnd: undefined, 
+  decelerationRate: 'fast',
+  onMomentumScrollEnd: undefined,
   onMomentumScrollBegin: undefined,
 };
 
