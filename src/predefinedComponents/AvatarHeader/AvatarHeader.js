@@ -1,6 +1,26 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, Animated, StatusBar, ViewPropTypes, ScrollView } from 'react-native';
-import { func, string, number, bool, oneOfType, oneOf, instanceOf, element, shape, node } from 'prop-types';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Animated,
+  StatusBar,
+  ViewPropTypes,
+  ScrollView,
+} from 'react-native';
+import {
+  func,
+  string,
+  number,
+  bool,
+  oneOfType,
+  oneOf,
+  instanceOf,
+  element,
+  shape,
+  node,
+} from 'prop-types';
 import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, sizes } from '../../constants';
 import styles from './AvatarHeader.styles';
@@ -24,7 +44,11 @@ class AvatarHeader extends React.Component {
     this.scrollY = new ValueXY();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
+  setHeaderSize = (headerLayout) => {
+    const { headerSize } = this.props;
+    if (headerSize) headerSize(headerLayout);
+    this.setState({ headerLayout });
+  };
 
   scrollPosition(value) {
     const {
@@ -212,6 +236,8 @@ class AvatarHeader extends React.Component {
       scrollRef,
       keyboardShouldPersistTaps,
       refreshControl,
+      onMomentumScrollEnd,
+      onMomentumScrollBegin,
     } = this.props;
 
     if (renderBody) {
@@ -243,7 +269,9 @@ class AvatarHeader extends React.Component {
           snapValue={snapValue}
           scrollRef={scrollRef}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-          refreshControl={refreshControl}>
+          refreshControl={refreshControl}
+          onMomentumScrollEnd={onMomentumScrollEnd}
+          onMomentumScrollBegin={onMomentumScrollBegin}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
@@ -279,6 +307,9 @@ AvatarHeader.propTypes = {
   scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
   refreshControl: element,
+  headerSize: func,
+  onMomentumScrollEnd: func,
+  onMomentumScrollBegin: func,
 };
 AvatarHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -301,6 +332,9 @@ AvatarHeader.defaultProps = {
   scrollRef: null,
   keyboardShouldPersistTaps: undefined,
   refreshControl: undefined,
+  headerSize: undefined,
+  onMomentumScrollEnd: undefined,
+  onMomentumScrollBegin: undefined,
 };
 
 export default AvatarHeader;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, StatusBar, Animated } from 'react-native';
-import { bool, number, func, string, node } from 'prop-types';
+import { Text, View, Image, TouchableOpacity, StatusBar, Animated, ScrollView } from 'react-native';
+import { bool, number, func, string, node, oneOfType, shape, instanceOf } from 'prop-types';
 import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, sizes } from '../../constants';
 import { Brandon } from '../../assets/data/cards';
@@ -20,7 +20,11 @@ class DetailsHeader extends React.Component {
     this.scrollY = new ValueXY();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
+  setHeaderSize = (headerLayout) => {
+    const { headerSize } = this.props;
+    if (headerSize) headerSize(headerLayout);
+    this.setState({ headerLayout });
+  };
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state;
@@ -60,7 +64,7 @@ class DetailsHeader extends React.Component {
     );
   };
 
-  renderForeground = (user) => {
+  renderDetailsForeground = (user) => () => {
     const { labelColor } = user;
     const { image, title, tag, iconNumber } = this.props;
     const labelOpacity = this.scrollY.y.interpolate({
@@ -105,6 +109,13 @@ class DetailsHeader extends React.Component {
     );
   };
 
+  renderForeground = (user) => {
+    const { foreground } = this.props;
+    const renderForeground = foreground || this.renderDetailsForeground(user);
+
+    return renderForeground(user);
+  };
+
   renderBackground = () => {
     const { hasBorderRadius, backgroundColor } = this.props;
     const {
@@ -141,6 +152,11 @@ class DetailsHeader extends React.Component {
       headerHeight,
       snapToEdge,
       bounces,
+      parallaxHeight,
+      transparentHeader,
+      onMomentumScrollEnd,
+      onMomentumScrollBegin,
+      scrollRef,
     } = this.props;
 
     if (renderBody) {
@@ -154,7 +170,7 @@ class DetailsHeader extends React.Component {
           foreground={this.renderForeground(user)}
           header={this.renderHeader(user)}
           deviceWidth={constants.deviceWidth}
-          parallaxHeight={sizes.cardScreenParallaxHeader}
+          parallaxHeight={parallaxHeight}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
           })}
@@ -163,7 +179,11 @@ class DetailsHeader extends React.Component {
           background={this.renderBackground(user)}
           snapToEdge={snapToEdge}
           bounces={bounces}
-          backgroundImage={backgroundImage}>
+          backgroundImage={backgroundImage}
+          transparentHeader={transparentHeader}
+          scrollRef={scrollRef}
+          onMomentumScrollEnd={onMomentumScrollEnd}
+          onMomentumScrollBegin={onMomentumScrollBegin}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
@@ -188,6 +208,13 @@ DetailsHeader.propTypes = {
   snapToEdge: bool,
   hasBorderRadius: bool,
   iconNumber: number,
+  parallaxHeight: number,
+  transparentHeader: bool,
+  foreground: func,
+  headerSize: func,
+  scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
+  onMomentumScrollEnd: func,
+  onMomentumScrollBegin: func,
 };
 DetailsHeader.defaultProps = {
   leftTopIconOnPress: () => {},
@@ -205,6 +232,12 @@ DetailsHeader.defaultProps = {
   snapToEdge: true,
   hasBorderRadius: true,
   iconNumber: Brandon.cardsAmount,
+  parallaxHeight: sizes.cardScreenParallaxHeader,
+  transparentHeader: false,
+  headerSize: undefined,
+  scrollRef: null,
+  onMomentumScrollEnd: undefined,
+  onMomentumScrollBegin: undefined,
 };
 
 export default DetailsHeader;

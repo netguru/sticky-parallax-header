@@ -1,6 +1,18 @@
 import React from 'react';
-import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native';
-import { arrayOf, bool, number, shape, string, func, node, element, oneOfType, oneOf, instanceOf } from 'prop-types';
+import { Text, View, Image, StatusBar, Animated, ViewPropTypes, ScrollView } from 'react-native';
+import {
+  arrayOf,
+  bool,
+  number,
+  shape,
+  string,
+  func,
+  node,
+  element,
+  oneOfType,
+  oneOf,
+  instanceOf,
+} from 'prop-types';
 import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, colors, sizes } from '../../constants';
 import styles from './TabbedHeader.styles';
@@ -29,7 +41,11 @@ export default class TabbedHeader extends React.Component {
     this.scrollY.y.removeListener();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
+  setHeaderSize = (headerLayout) => {
+    const { headerSize } = this.props;
+    if (headerSize) headerSize(headerLayout);
+    this.setState({ headerLayout });
+  };
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state;
@@ -54,7 +70,7 @@ export default class TabbedHeader extends React.Component {
     return renderHeader();
   };
 
-  renderForeground = (scrollY) => {
+  renderTabbedForeground = (scrollY) => () => {
     const { title, titleStyle, foregroundImage } = this.props;
     const messageStyle = titleStyle || styles.message;
     const startSize = constants.responsiveWidth(18);
@@ -107,6 +123,13 @@ export default class TabbedHeader extends React.Component {
         </Animated.View>
       </View>
     );
+  };
+
+  renderForeground = (scrollY) => {
+    const { foreground } = this.props;
+    const renderForeground = foreground || this.renderTabbedForeground(scrollY);
+
+    return renderForeground();
   };
 
   onLayoutContent = (e, title) => {
@@ -163,6 +186,9 @@ export default class TabbedHeader extends React.Component {
       contentContainerStyles,
       refreshControl,
       rememberTabScrollPosition,
+      parallaxHeight,
+      onMomentumScrollEnd,
+      onMomentumScrollBegin,
     } = this.props;
 
     if (renderBody) {
@@ -181,7 +207,7 @@ export default class TabbedHeader extends React.Component {
           foreground={this.renderForeground(this.scrollY)}
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
-          parallaxHeight={sizes.homeScreenParallaxHeader}
+          parallaxHeight={parallaxHeight}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
             listener: (e) => scrollEvent && scrollEvent(e),
@@ -199,7 +225,9 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
-          onRef={onRef}>
+          onRef={onRef}
+          onMomentumScrollEnd={onMomentumScrollEnd}
+          onMomentumScrollBegin={onMomentumScrollBegin}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
@@ -237,6 +265,11 @@ TabbedHeader.propTypes = {
   titleStyle: Text.propTypes.style,
   header: func,
   onRef: func,
+  parallaxHeight: number,
+  foreground: func,
+  headerSize: func,
+  onMomentumScrollEnd: func,
+  onMomentumScrollBegin: func,
 };
 
 TabbedHeader.defaultProps = {
@@ -280,4 +313,8 @@ TabbedHeader.defaultProps = {
   refreshControl: undefined,
   scrollRef: null,
   onRef: null,
+  parallaxHeight: sizes.homeScreenParallaxHeader,
+  headerSize: undefined,
+  onMomentumScrollEnd: undefined,
+  onMomentumScrollBegin: undefined,
 };
