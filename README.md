@@ -4,7 +4,7 @@
   <image align="center" src="./assets/readme_header.svg"/>
 </div>
 <div align="center">
-  <h1>Stickyheader.js</h1>
+  <h1>Stickyheader.js.</h1>
 </div>
 
 <div align="center">
