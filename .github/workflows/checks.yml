@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: yarn
+      - run: npm install
   lint:
     needs: install
     runs-on: ubuntu-latest
