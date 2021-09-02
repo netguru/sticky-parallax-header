@@ -21,6 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
           cache-dependency-path: '**/yarn.lock'
       - run: yarn
       - name: Run Tests
@@ -32,8 +33,9 @@ jobs:
           git config --global user.name ${{ secrets.USERNAME }}
           git config --global user.email ${{ secrets.USER_EMAIL }}
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-          yarn release --npm.skipChecks --ci
+          yarn release --ci
         env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           token: ${{ secrets.GH_TOKEN }}
