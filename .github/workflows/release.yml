@@ -37,7 +37,7 @@ jobs:
       - run: |
           git config --global user.name ${{ secrets.USERNAME }}
           git config --global user.email ${{ secrets.USER_EMAIL }}
-          release-it --ci --npm.skipChecks
+          npm run release-it --ci --npm.skipChecks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
