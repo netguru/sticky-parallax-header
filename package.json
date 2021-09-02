@@ -25,7 +25,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@release-it/conventional-changelog": "^2.0.0",
+    "@release-it/conventional-changelog": "^3.3.0",
     "@testing-library/react-native": "^7.0.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.9.0",
@@ -45,7 +45,7 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-test-renderer": "^16.13.1",
-    "release-it": "^14.2.2"
+    "release-it": "^14.11.5"
   },
   "husky": {
     "hooks": {
