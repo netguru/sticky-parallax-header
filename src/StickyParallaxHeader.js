@@ -11,17 +11,8 @@ import {
   instanceOf,
   element,
 } from 'prop-types';
-import {
-  Dimensions,
-  ImageBackground,
-  ScrollView,
-  View,
-  Animated,
-  Easing,
-  ViewPropTypes,
-  Image,
-} from 'react-native';
-import { ScrollableTabBar, ScrollableTabView } from './components';
+import { Dimensions, ScrollView, View, Animated, Easing, ViewPropTypes, Image } from 'react-native';
+import { ScrollableTabBar, ScrollableTabView, HeaderBackgroundImage } from './components';
 import { constants } from './constants';
 import styles from './styles';
 import { getSafelyScrollNode, setRef } from './utils';
@@ -51,9 +42,10 @@ class StickyParallaxHeader extends Component {
   }
 
   componentDidMount() {
+    const { onRef } = this.props;
     // eslint-disable-next-line
     this.scrollY.addListener(({ value }) => (this._value = value));
-    this.props.onRef?.(this);
+    onRef?.(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -240,25 +232,6 @@ class StickyParallaxHeader extends Component {
     );
   };
 
-  renderImageBackground = (backgroundHeight) => {
-    const { backgroundImage, background } = this.props;
-
-    const AnimatedImageBackground = createAnimatedComponent(ImageBackground);
-
-    return (
-      <AnimatedImageBackground
-        style={[
-          styles.headerStyle,
-          {
-            height: backgroundHeight,
-          },
-        ]}
-        source={backgroundImage}>
-        {background}
-      </AnimatedImageBackground>
-    );
-  };
-
   renderPlainBackground = (backgroundHeight) => {
     const { background } = this.props;
 
@@ -323,6 +296,7 @@ class StickyParallaxHeader extends Component {
 
   render() {
     const {
+      background,
       backgroundImage,
       children,
       contentContainerStyles,
@@ -336,6 +310,9 @@ class StickyParallaxHeader extends Component {
       keyboardShouldPersistTaps,
       scrollRef,
       refreshControl,
+      decelerationRate,
+      onMomentumScrollEnd,
+      onMomentumScrollBegin,
     } = this.props;
     const { currentPage, isFolded } = this.state;
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);
@@ -363,7 +340,7 @@ class StickyParallaxHeader extends Component {
           overScrollMode="never"
           refreshControl={refreshControl}
           bouncesZoom
-          decelerationRate="fast"
+          decelerationRate={decelerationRate}
           nestedScrollEnabled
           ref={(c) => {
             this.scroll = c;
@@ -378,6 +355,8 @@ class StickyParallaxHeader extends Component {
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+          onMomentumScrollEnd={onMomentumScrollEnd}
+          onMomentumScrollBegin={onMomentumScrollBegin}
           onScroll={event(
             [
               {
@@ -408,9 +387,15 @@ class StickyParallaxHeader extends Component {
                 },
               ]}
             />
-            {backgroundImage
-              ? this.renderImageBackground(scrollHeight)
-              : this.renderPlainBackground(scrollHeight)}
+            {backgroundImage ? (
+              <HeaderBackgroundImage
+                backgroundHeight={scrollHeight}
+                backgroundImage={backgroundImage}
+                background={background}
+              />
+            ) : (
+              this.renderPlainBackground(scrollHeight)
+            )}
             {this.renderForeground(scrollHeight)}
           </View>
           {shouldRenderTabs && this.renderTabs()}
@@ -482,6 +467,9 @@ StickyParallaxHeader.propTypes = {
   scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
   keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
   refreshControl: element,
+  onMomentumScrollEnd: func,
+  onMomentumScrollBegin: func,
+  decelerationRate: oneOf(['fast', 'normal']),
 };
 
 StickyParallaxHeader.defaultProps = {
@@ -506,6 +494,9 @@ StickyParallaxHeader.defaultProps = {
   scrollRef: null,
   keyboardShouldPersistTaps: undefined,
   refreshControl: undefined,
+  decelerationRate: 'fast',
+  onMomentumScrollEnd: undefined,
+  onMomentumScrollBegin: undefined,
 };
 
 export default StickyParallaxHeader;

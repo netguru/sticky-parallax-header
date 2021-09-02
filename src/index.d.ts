@@ -40,6 +40,11 @@ export interface SharedProps {
   bounces?: boolean;
   contentContainerStyles?: ViewStyle;
   refreshControl?: ReactElement;
+  decelerationRate: number | string;
+  children?: ReactElement;
+  parallaxHeight?: number;
+  foreground?: () => ReactElement;
+  headerSize?: (headerSizeProps: HeaderSizeProps) => void;
 }
 
 export interface IconProps {
@@ -59,7 +64,8 @@ export interface TabsSharedProps {
   tabsContainerStyle?: ViewStyle;
 }
 
-export type TabbedHeaderProps = SharedProps &
+export type TabbedHeaderProps = HeaderTypeProp &
+  SharedProps &
   TabsSharedProps & {
     headerType: 'TabbedHeader';
     backgroundColor?: string;
@@ -86,17 +92,16 @@ export type DetailsHeaderProps = SharedProps &
     renderBody?: (title: string) => ReactElement;
     tag?: string;
     title?: string;
+    transparentHeader?: boolean;
   };
 
 export type AvatarHeaderProps = SharedProps &
   IconProps & {
     headerType: 'AvatarHeader';
     backgroundColor?: string;
-    foreground?: () => ReactElement;
     hasBorderRadius?: boolean;
     header?: () => ReactElement;
     image?: number;
-    parallaxHeight?: number;
     renderBody?: (title: string) => ReactElement;
     scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
     snapStartThreshold?: number;
@@ -113,19 +118,15 @@ export type CustomHeaderProps = SharedProps &
     background: ReactElement;
     backgroundColor: string;
     children?: ReactElement;
-    foreground?: ReactElement;
     header: ReactElement;
-    headerSize?: (headerSizeProps: HeaderSizeProps) => void;
     initialPage?: number;
     onChangeTab?: (changeTabArguments: OnChangeTabArguments) => void;
     onEndReached?: () => void;
-    parallaxHeight?: number;
     scrollEvent?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
     snapStartThreshold?: number;
     snapStopThreshold?: number;
     snapValue?: number;
     tabsContainerBackgroundColor?: string;
-    transparentHeader?: boolean;
   };
 
 type StickyParallaxHeaderProps = HeaderTypeProp &

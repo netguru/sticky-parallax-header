@@ -1,7 +1,19 @@
 import React from 'react';
-import { Text, View, Image, StatusBar, Animated, ViewPropTypes } from 'react-native';
-import { arrayOf, bool, number, shape, string, func } from 'prop-types';
-import StickyParallaxHeader from '../../index';
+import { Text, View, Image, StatusBar, Animated, ViewPropTypes, ScrollView } from 'react-native';
+import {
+  arrayOf,
+  bool,
+  number,
+  shape,
+  string,
+  func,
+  node,
+  element,
+  oneOfType,
+  oneOf,
+  instanceOf,
+} from 'prop-types';
+import StickyParallaxHeader from '../../StickyParallaxHeader';
 import { constants, colors, sizes } from '../../constants';
 import styles from './TabbedHeader.styles';
 import RenderContent from './defaultProps/defaultProps';
@@ -29,7 +41,11 @@ export default class TabbedHeader extends React.Component {
     this.scrollY.y.removeListener();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
+  setHeaderSize = (headerLayout) => {
+    const { headerSize } = this.props;
+    if (headerSize) headerSize(headerLayout);
+    this.setState({ headerLayout });
+  };
 
   scrollPosition = (value) => {
     const { headerLayout } = this.state;
@@ -54,7 +70,7 @@ export default class TabbedHeader extends React.Component {
     return renderHeader();
   };
 
-  renderForeground = (scrollY) => {
+  renderTabbedForeground = (scrollY) => () => {
     const { title, titleStyle, foregroundImage } = this.props;
     const messageStyle = titleStyle || styles.message;
     const startSize = constants.responsiveWidth(18);
@@ -109,6 +125,13 @@ export default class TabbedHeader extends React.Component {
     );
   };
 
+  renderForeground = (scrollY) => {
+    const { foreground } = this.props;
+    const renderForeground = foreground || this.renderTabbedForeground(scrollY);
+
+    return renderForeground();
+  };
+
   onLayoutContent = (e, title) => {
     const { contentHeight } = this.state;
     const contentHeightTmp = { ...contentHeight };
@@ -150,6 +173,7 @@ export default class TabbedHeader extends React.Component {
       snapToEdge,
       scrollEvent,
       renderBody,
+      children,
       tabTextStyle,
       tabTextActiveStyle,
       tabTextContainerStyle,
@@ -157,16 +181,33 @@ export default class TabbedHeader extends React.Component {
       tabWrapperStyle,
       tabsContainerStyle,
       onRef,
+      keyboardShouldPersistTaps,
+      scrollRef,
+      contentContainerStyles,
+      refreshControl,
+      rememberTabScrollPosition,
+      parallaxHeight,
+      onMomentumScrollEnd,
+      onMomentumScrollBegin,
     } = this.props;
+
+    if (renderBody) {
+      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
+    }
 
     return (
       <>
         <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
+          rememberTabScrollPosition={rememberTabScrollPosition}
+          refreshControl={refreshControl}
+          contentContainerStyles={contentContainerStyles}
+          keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+          scrollRef={scrollRef}
           foreground={this.renderForeground(this.scrollY)}
           header={this.renderHeader()}
           deviceWidth={constants.deviceWidth}
-          parallaxHeight={sizes.homeScreenParallaxHeader}
+          parallaxHeight={parallaxHeight}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
             listener: (e) => scrollEvent && scrollEvent(e),
@@ -184,8 +225,10 @@ export default class TabbedHeader extends React.Component {
           bounces={bounces}
           snapToEdge={snapToEdge}
           tabsContainerStyle={tabsContainerStyle}
-          onRef={onRef}>
-          {renderBody('Popular Quizes')}
+          onRef={onRef}
+          onMomentumScrollEnd={onMomentumScrollEnd}
+          onMomentumScrollBegin={onMomentumScrollBegin}>
+          {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
     );
@@ -201,6 +244,7 @@ TabbedHeader.propTypes = {
   snapToEdge: bool,
   tabs: arrayOf(shape({})),
   renderBody: func,
+  children: node,
   logo: Image.propTypes.source,
   logoResizeMode: string,
   logoStyle: ViewPropTypes.style,
@@ -213,9 +257,19 @@ TabbedHeader.propTypes = {
   tabWrapperStyle: ViewPropTypes.style,
   tabsContainerStyle: ViewPropTypes.style,
   foregroundImage: Image.propTypes.source,
+  contentContainerStyles: ViewPropTypes.style,
+  scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
+  keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
+  refreshControl: element,
+  rememberTabScrollPosition: bool,
   titleStyle: Text.propTypes.style,
   header: func,
   onRef: func,
+  parallaxHeight: number,
+  foreground: func,
+  headerSize: func,
+  onMomentumScrollEnd: func,
+  onMomentumScrollBegin: func,
 };
 
 TabbedHeader.defaultProps = {
@@ -229,7 +283,7 @@ TabbedHeader.defaultProps = {
   logoResizeMode: 'contain',
   logoStyle: styles.logo,
   logoContainerStyle: styles.headerWrapper,
-  renderBody: (title) => <RenderContent title={title} />,
+  children: <RenderContent title="Popular Quizes" />,
   tabs: [
     {
       title: 'Popular',
@@ -253,5 +307,14 @@ TabbedHeader.defaultProps = {
   tabTextContainerStyle: styles.tabTextContainerStyle,
   tabTextContainerActiveStyle: styles.tabTextContainerActiveStyle,
   tabWrapperStyle: styles.tabsWrapper,
+  contentContainerStyles: {},
+  rememberTabScrollPosition: false,
+  keyboardShouldPersistTaps: undefined,
+  refreshControl: undefined,
+  scrollRef: null,
   onRef: null,
+  parallaxHeight: sizes.homeScreenParallaxHeader,
+  headerSize: undefined,
+  onMomentumScrollEnd: undefined,
+  onMomentumScrollBegin: undefined,
 };
