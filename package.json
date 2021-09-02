@@ -25,7 +25,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@release-it/conventional-changelog": "^1.1.0",
+    "@release-it/conventional-changelog": "^2.0.0",
     "@testing-library/react-native": "^7.0.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.9.0",
@@ -45,12 +45,29 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-test-renderer": "^16.13.1",
-    "release-it": "^13.5.1"
+    "release-it": "^14.2.2"
   },
   "husky": {
     "hooks": {
       "pre-push": "yarn prepush",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
     }
   }
 }
