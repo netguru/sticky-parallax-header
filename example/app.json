@@ -1,0 +1,22 @@
+{
+  "name": "react-native-sticky-parallax-header-example",
+  "displayName": "StickyParallaxHeader Example",
+  "expo": {
+    "name": "react-native-sticky-parallax-header-example",
+    "slug": "react-native-sticky-parallax-header-example",
+    "description": "Example app for react-native-sticky-parallax-header",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
