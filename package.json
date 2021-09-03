@@ -1,6 +1,6 @@
 {
   "name": "react-native-sticky-parallax-header",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "source": "src/index",
@@ -54,9 +54,13 @@
     }
   },
   "release-it": {
+    "hooks": {
+      "after:release": "git checkout -b releases/v_${version} && git push -u origin releases/v_${version}"
+    },
     "git": {
       "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
+      "tagName": "v${version}",
+      "push": false
     },
     "npm": {
       "publish": true
