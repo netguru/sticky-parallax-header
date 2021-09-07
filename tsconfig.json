@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-sticky-parallax-header": ["./../src/index"]
+      "react-native-sticky-parallax-header": ["./src/index"]
     },
     "allowJs": true,
     "allowUnreachableCode": false,

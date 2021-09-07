@@ -1,10 +1,11 @@
-import React from 'react';
-import { View } from 'react-native';
-import { node } from 'prop-types';
+import React, { FC } from 'react';
+import { View, ViewProps } from 'react-native';
 import StaticContainer from './StaticContainer';
 
-const SceneComponent = (Props) => {
-  const { shouldUpdated, ...props } = Props;
+type Props = { shouldUpdated: boolean } & ViewProps;
+
+const SceneComponent: FC<Props> = (props) => {
+  const { shouldUpdated } = props;
   const { children } = props;
 
   return (
@@ -12,10 +13,6 @@ const SceneComponent = (Props) => {
       <StaticContainer shouldUpdate={shouldUpdated}>{children}</StaticContainer>
     </View>
   );
-};
-
-SceneComponent.propTypes = {
-  children: node,
 };
 
 export default SceneComponent;

@@ -46,7 +46,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
       >
         <View
           accessible={true}
-          focusable={true}
+          focusable={false}
           hitSlop={
             Object {
               "bottom": 15,
@@ -127,7 +127,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
         </View>
         <View
           accessible={true}
-          focusable={true}
+          focusable={false}
           hitSlop={
             Object {
               "bottom": 15,
@@ -210,6 +210,9 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
               },
               Object {
                 "backgroundColor": "rgb(78,15,255)",
+              },
+              Object {
+                "backgroundColor": undefined,
               },
             ]
           }
@@ -373,10 +376,11 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
         >
           <View>
             <View
+              shouldUpdated={true}
               style={
                 Array [
                   Object {
-                    "maxHeight": null,
+                    "maxHeight": undefined,
                     "minHeight": 551.98,
                     "width": 750,
                   },

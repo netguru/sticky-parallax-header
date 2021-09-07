@@ -1,8 +1,9 @@
 import React from 'react';
-import { bool, node } from 'prop-types';
 
-class StaticContainer extends React.Component {
-  shouldComponentUpdate = (nextProps) => !!nextProps.shouldUpdate;
+type Props = { shouldUpdate: boolean };
+
+class StaticContainer extends React.Component<Props> {
+  shouldComponentUpdate = (nextProps: Props) => !!nextProps.shouldUpdate;
 
   render() {
     const { children } = this.props;
@@ -14,10 +15,5 @@ class StaticContainer extends React.Component {
     return React.Children.only(child);
   }
 }
-
-StaticContainer.propTypes = {
-  children: node,
-  shouldUpdate: bool,
-};
 
 export default StaticContainer;

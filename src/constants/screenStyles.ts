@@ -39,7 +39,7 @@ const screenStyles = StyleSheet.create({
   headerWrapper: {
     width: '100%',
     paddingHorizontal: 24,
-    paddingTop: Platform.select({ ios: ifIphoneX(50, 40), android: 55 }),
+    paddingTop: Platform.select({ ios: ifIphoneX(50, 40), android: 55, default: 55 }),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

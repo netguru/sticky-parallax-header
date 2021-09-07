@@ -43,7 +43,7 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
       >
         <View
           accessible={true}
-          focusable={true}
+          focusable={false}
           hitSlop={
             Object {
               "bottom": 15,
@@ -104,7 +104,7 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
         </View>
         <View
           accessible={true}
-          focusable={true}
+          focusable={false}
           hitSlop={
             Object {
               "bottom": 15,
@@ -186,6 +186,9 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
               },
               Object {
                 "backgroundColor": "rgb(78,15,255)",
+              },
+              Object {
+                "backgroundColor": undefined,
               },
             ]
           }
@@ -410,10 +413,11 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
         >
           <View>
             <View
+              shouldUpdated={true}
               style={
                 Array [
                   Object {
-                    "maxHeight": null,
+                    "maxHeight": undefined,
                     "minHeight": 541.98,
                     "width": 750,
                   },

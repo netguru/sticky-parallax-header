@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import {
   Text,
   View,
@@ -6,34 +6,43 @@ import {
   TouchableOpacity,
   Animated,
   StatusBar,
-  ViewPropTypes,
-  ScrollView,
+  LayoutRectangle,
+  ImageSourcePropType,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from 'react-native';
-import {
-  func,
-  string,
-  number,
-  bool,
-  oneOfType,
-  oneOf,
-  instanceOf,
-  element,
-  shape,
-  node,
-} from 'prop-types';
-import StickyParallaxHeader from '../../StickyParallaxHeader';
+
+import StickyParallaxHeader, { StickyParallaxHeaderProps } from '../../StickyParallaxHeader';
 import { constants, sizes } from '../../constants';
 import styles from './AvatarHeader.styles';
 import { Brandon } from '../../assets/data/cards';
 import RenderContent from './defaultProps/defaultProps';
+import type { IconProps, RenderBody, SharedPredefinedHeaderProps } from '../../index';
 
 const { event, ValueXY } = Animated;
+
+export interface AvatarHeaderProps extends IconProps, SharedPredefinedHeaderProps, RenderBody {
+  headerType: 'AvatarHeader';
+  hasBorderRadius?: boolean;
+  header?: () => StickyParallaxHeaderProps['header'];
+  image?: ImageSourcePropType;
+  subtitle?: string;
+  title?: string;
+}
+
+type State = {
+  headerLayout: {
+    height: number;
+  };
+};
 
 const finishImgPosition = 31;
 const startImgPosition = 27;
 
-class AvatarHeader extends React.Component {
-  constructor(props) {
+class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
+  scrollY: Animated.ValueXY;
+
+  constructor(props: AvatarHeaderProps) {
     super(props);
 
     this.state = {
@@ -44,13 +53,13 @@ class AvatarHeader extends React.Component {
     this.scrollY = new ValueXY();
   }
 
-  setHeaderSize = (headerLayout) => {
+  setHeaderSize = (headerLayout: LayoutRectangle) => {
     const { headerSize } = this.props;
     if (headerSize) headerSize(headerLayout);
     this.setState({ headerLayout });
   };
 
-  scrollPosition(value) {
+  scrollPosition(value: number): number {
     const {
       headerLayout: { height },
     } = this.state;
@@ -58,7 +67,7 @@ class AvatarHeader extends React.Component {
     return constants.scrollPosition(height, value);
   }
 
-  renderAvatarHeader = () => {
+  renderAvatarHeader = (): StickyParallaxHeaderProps['header'] => {
     const {
       leftTopIconOnPress,
       leftTopIcon,
@@ -98,9 +107,11 @@ class AvatarHeader extends React.Component {
             hitSlop={sizes.hitSlop}
             onPress={leftTopIconOnPress}
             style={styles.leftHeaderButton}>
+            {/*@ts-ignore There is default props for that*/}
             <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
+            {/*@ts-ignore There is default props for that*/}
             <Animated.Image source={image} style={[styles.headerPic, { opacity: imageOpacity }]} />
             <Animated.Text numberOfLines={1} style={[styles.headerTitle, { opacity: nameOpacity }]}>
               {title}
@@ -110,6 +121,7 @@ class AvatarHeader extends React.Component {
             hitSlop={sizes.hitSlop}
             onPress={rightTopIconOnPress}
             style={styles.rightHeaderButton}>
+            {/*@ts-ignore There is default props for that*/}
             <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
           </TouchableOpacity>
         </View>
@@ -117,14 +129,13 @@ class AvatarHeader extends React.Component {
     );
   };
 
-  renderHeader = () => {
+  renderHeader = (): StickyParallaxHeaderProps['header'] => {
     const { header } = this.props;
-    const renderHeader = header || this.renderAvatarHeader;
 
-    return renderHeader();
+    return header ? header() : this.renderAvatarHeader();
   };
 
-  renderAvatarForeground = () => {
+  renderAvatarForeground = (): ReactNode => {
     const { image, subtitle, title } = this.props;
     const startSize = constants.responsiveWidth(18);
     const endSize = constants.responsiveWidth(12);
@@ -162,6 +173,7 @@ class AvatarHeader extends React.Component {
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
           <Animated.Image
+            /*@ts-ignore There is default props for that*/
             source={image}
             style={[styles.profilePic, { width: imageSize, height: imageSize }]}
           />
@@ -183,14 +195,13 @@ class AvatarHeader extends React.Component {
     );
   };
 
-  renderForeground = () => {
+  renderForeground = (): ReactNode => {
     const { foreground } = this.props;
-    const renderForeground = foreground || this.renderAvatarForeground;
 
-    return renderForeground();
+    return foreground?.() ?? this.renderAvatarForeground();
   };
 
-  renderBackground = () => {
+  renderBackground = (): ReactElement => {
     const {
       headerLayout: { height },
     } = this.state;
@@ -248,93 +259,58 @@ class AvatarHeader extends React.Component {
       <>
         <StatusBar backgroundColor={backgroundColor} barStyle="light-content" />
         <StickyParallaxHeader
-          contentContainerStyles={contentContainerStyles}
-          foreground={this.renderForeground()}
-          header={this.renderHeader()}
-          deviceWidth={constants.deviceWidth}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
-            listener: (e) => scrollEvent && scrollEvent(e),
+            listener: (e: NativeSyntheticEvent<NativeScrollEvent>) => scrollEvent && scrollEvent(e),
           })}
-          headerSize={this.setHeaderSize}
-          headerHeight={headerHeight}
+          // deviceWidth={constants.deviceWidth}
           background={this.renderBackground()}
           backgroundImage={backgroundImage}
           bounces={bounces}
-          snapToEdge={snapToEdge}
+          contentContainerStyles={contentContainerStyles}
+          foreground={this.renderForeground()}
+          header={this.renderHeader()}
+          headerHeight={headerHeight}
+          headerSize={this.setHeaderSize}
+          keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+          onMomentumScrollBegin={onMomentumScrollBegin}
+          onMomentumScrollEnd={onMomentumScrollEnd}
           parallaxHeight={parallaxHeight}
-          transparentHeader={transparentHeader}
+          refreshControl={refreshControl}
+          scrollRef={scrollRef}
           snapStartThreshold={snapStartThreshold}
           snapStopThreshold={snapStopThreshold}
+          snapToEdge={snapToEdge}
           snapValue={snapValue}
-          scrollRef={scrollRef}
-          keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-          refreshControl={refreshControl}
-          onMomentumScrollEnd={onMomentumScrollEnd}
-          onMomentumScrollBegin={onMomentumScrollBegin}>
-          {renderBody ? renderBody() : children}
+          transparentHeader={transparentHeader}>
+          {renderBody !== undefined ? renderBody() : children}
         </StickyParallaxHeader>
       </>
     );
   }
+  static defaultProps = {
+    // default is used remember to check before removing
+    leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),
+    // default is used remember to check before removing
+    rightTopIcon: require('../../assets/icons/Icon-Menu.png'),
+    backgroundColor: Brandon.color,
+    headerHeight: sizes.userModalHeaderHeight,
+    title: Brandon.author,
+    subtitle: Brandon.about,
+    // default is used remember to check before removing
+    image: Brandon.image,
+    children: <RenderContent user={Brandon} />,
+    bounces: true,
+    snapToEdge: true,
+    hasBorderRadius: true,
+    parallaxHeight: sizes.userScreenParallaxHeader,
+    transparentHeader: false,
+    scrollRef: null,
+    keyboardShouldPersistTaps: undefined,
+    refreshControl: undefined,
+    headerSize: undefined,
+    onMomentumScrollEnd: undefined,
+    onMomentumScrollBegin: undefined,
+  };
 }
-
-AvatarHeader.propTypes = {
-  hasBorderRadius: bool,
-  bounces: bool,
-  snapToEdge: bool,
-  leftTopIconOnPress: func,
-  rightTopIconOnPress: func,
-  leftTopIcon: Image.propTypes.source,
-  rightTopIcon: Image.propTypes.source,
-  backgroundColor: string,
-  headerHeight: number,
-  backgroundImage: Image.propTypes.source,
-  contentContainerStyles: ViewPropTypes.style,
-  title: string,
-  subtitle: string,
-  image: Image.propTypes.source,
-  children: node,
-  renderBody: func,
-  scrollEvent: func,
-  parallaxHeight: number,
-  foreground: func,
-  header: func,
-  snapStartThreshold: oneOfType([bool, number]),
-  snapStopThreshold: oneOfType([bool, number]),
-  snapValue: oneOfType([bool, number]),
-  transparentHeader: bool,
-  scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
-  keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
-  refreshControl: element,
-  headerSize: func,
-  onMomentumScrollEnd: func,
-  onMomentumScrollBegin: func,
-};
-AvatarHeader.defaultProps = {
-  leftTopIconOnPress: () => {},
-  rightTopIconOnPress: () => {},
-  leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),
-  rightTopIcon: require('../../assets/icons/Icon-Menu.png'),
-  backgroundColor: Brandon.color,
-  headerHeight: sizes.userModalHeaderHeight,
-  backgroundImage: null,
-  contentContainerStyles: {},
-  title: Brandon.author,
-  subtitle: Brandon.about,
-  image: Brandon.image,
-  children: <RenderContent user={Brandon} />,
-  bounces: true,
-  snapToEdge: true,
-  hasBorderRadius: true,
-  parallaxHeight: sizes.userScreenParallaxHeader,
-  transparentHeader: false,
-  scrollRef: null,
-  keyboardShouldPersistTaps: undefined,
-  refreshControl: undefined,
-  headerSize: undefined,
-  onMomentumScrollEnd: undefined,
-  onMomentumScrollBegin: undefined,
-};
-
 export default AvatarHeader;

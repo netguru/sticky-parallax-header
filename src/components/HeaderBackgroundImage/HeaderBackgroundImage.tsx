@@ -1,11 +1,15 @@
-import React from 'react';
-import { node, number } from 'prop-types';
-import { ImageBackground, Animated, Image } from 'react-native';
+import React, { ReactNode, VFC } from 'react';
+import { ImageBackground, Animated, ImageSourcePropType } from 'react-native';
 import styles from './HeaderBackgroundImage.styles';
 
 const { createAnimatedComponent } = Animated;
 
-const HeaderBackgroundImage = (props) => {
+type HeaderBackgroundImageProps = {
+  background: ReactNode;
+  backgroundHeight: number;
+  backgroundImage: ImageSourcePropType;
+};
+const HeaderBackgroundImage: VFC<HeaderBackgroundImageProps> = (props) => {
   const { backgroundHeight, backgroundImage, background } = props;
   const AnimatedImageBackground = createAnimatedComponent(ImageBackground);
 
@@ -23,14 +27,12 @@ const HeaderBackgroundImage = (props) => {
   );
 };
 
-HeaderBackgroundImage.propTypes = {
-  background: node,
-  backgroundHeight: number,
-  backgroundImage: Image.propTypes.source,
-};
-
-const headerImagesAreEqual = (prevProps, props) =>
-  prevProps.backgroundImage.uri === props.backgroundImage.uri &&
+const headerImagesAreEqual = (
+  prevProps: HeaderBackgroundImageProps,
+  props: HeaderBackgroundImageProps
+) =>
+  // @ts-ignore
+  prevProps?.backgroundImage?.uri === props?.backgroundImage?.uri &&
   prevProps.backgroundHeight === props.backgroundHeight &&
   prevProps.background === props.background;
 

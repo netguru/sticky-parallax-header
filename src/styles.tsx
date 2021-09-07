@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from './constants';
 
 const { width } = Dimensions.get('window');
 
@@ -34,10 +35,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     bottom: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: colors.transparent,
   },
   transparentHeader: {
-    backgroundColor: 'transparent',
+    backgroundColor: colors.transparent,
     position: 'absolute',
     top: 0,
     left: 0,

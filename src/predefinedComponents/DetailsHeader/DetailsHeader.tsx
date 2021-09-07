@@ -1,15 +1,41 @@
-import React from 'react';
-import { Text, View, Image, TouchableOpacity, StatusBar, Animated, ScrollView } from 'react-native';
-import { bool, number, func, string, node, oneOfType, shape, instanceOf } from 'prop-types';
-import StickyParallaxHeader from '../../StickyParallaxHeader';
+import React, { ReactElement } from 'react';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+  Animated,
+  ImageSourcePropType,
+} from 'react-native';
+import StickyParallaxHeader, {
+  DetailsData,
+  StickyParallaxHeaderProps,
+} from '../../StickyParallaxHeader';
 import { constants, sizes } from '../../constants';
 import { Brandon } from '../../assets/data/cards';
 import styles from './DetailsHeader.styles';
 import { renderContent } from './defaultProps/defaultProps';
+import type { IconProps, RenderBody, SharedPredefinedHeaderProps } from '../../index';
 
 const { event, ValueXY } = Animated;
-class DetailsHeader extends React.Component {
-  constructor(props) {
+
+export interface DetailsHeaderProps extends IconProps, SharedPredefinedHeaderProps, RenderBody {
+  headerType: 'DetailsHeader';
+  hasBorderRadius?: boolean;
+  iconNumber?: number;
+  image?: ImageSourcePropType;
+  tag?: string;
+  title?: string;
+}
+type State = {
+  headerLayout: {
+    height: number;
+  };
+};
+class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
+  scrollY: Animated.ValueXY;
+  constructor(props: DetailsHeaderProps) {
     super(props);
     this.state = {
       headerLayout: {
@@ -20,25 +46,26 @@ class DetailsHeader extends React.Component {
     this.scrollY = new ValueXY();
   }
 
-  setHeaderSize = (headerLayout) => {
+  setHeaderSize: StickyParallaxHeaderProps['headerSize'] = (headerLayout) => {
     const { headerSize } = this.props;
     if (headerSize) headerSize(headerLayout);
     this.setState({ headerLayout });
   };
 
-  scrollPosition = (value) => {
+  scrollPosition = (value: number): number => {
     const { headerLayout } = this.state;
 
     return constants.scrollPosition(headerLayout.height, value);
   };
 
-  renderHeader = (user) => {
+  renderHeader = (user: DetailsData): ReactElement => {
     const {
       backgroundColor,
       leftTopIconOnPress,
       rightTopIconOnPress,
       leftTopIcon,
       rightTopIcon,
+      //Without this comment eslint breaks Prettier
     } = this.props;
 
     const opacity = this.scrollY.y.interpolate({
@@ -51,12 +78,15 @@ class DetailsHeader extends React.Component {
       <View style={[styles.headerWrapper, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
+            {/*@ts-ignore there is default value for that*/}
             <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
             <Text style={styles.headerTitle}>{user.label}</Text>
           </Animated.View>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
+            {/*@ts-ignore there is default value for that*/}
+
             <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
           </TouchableOpacity>
         </View>
@@ -64,7 +94,7 @@ class DetailsHeader extends React.Component {
     );
   };
 
-  renderDetailsForeground = (user) => () => {
+  renderDetailsForeground = (user: DetailsData) => {
     const { labelColor } = user;
     const { image, title, tag, iconNumber } = this.props;
     const labelOpacity = this.scrollY.y.interpolate({
@@ -99,6 +129,7 @@ class DetailsHeader extends React.Component {
             <Text style={styles.number}>{iconNumber}</Text>
           </View>
           <View style={styles.footerContainer}>
+            {/*@ts-ignore there is default value for that*/}
             <Image source={image} style={styles.authorPhoto} resizeMode="contain" />
             <Text numberOfLines={1} style={styles.authorName}>
               {user.author}
@@ -109,11 +140,10 @@ class DetailsHeader extends React.Component {
     );
   };
 
-  renderForeground = (user) => {
+  renderForeground = (user: DetailsData) => {
     const { foreground } = this.props;
-    const renderForeground = foreground || this.renderDetailsForeground(user);
 
-    return renderForeground(user);
+    return foreground?.() ?? this.renderDetailsForeground(user);
   };
 
   renderBackground = () => {
@@ -157,6 +187,9 @@ class DetailsHeader extends React.Component {
       onMomentumScrollEnd,
       onMomentumScrollBegin,
       scrollRef,
+      contentContainerStyles,
+      keyboardShouldPersistTaps,
+      refreshControl,
     } = this.props;
 
     if (renderBody) {
@@ -167,77 +200,55 @@ class DetailsHeader extends React.Component {
       <>
         <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
-          foreground={this.renderForeground(user)}
-          header={this.renderHeader(user)}
-          deviceWidth={constants.deviceWidth}
-          parallaxHeight={parallaxHeight}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
           })}
-          headerSize={this.setHeaderSize}
-          headerHeight={headerHeight}
-          background={this.renderBackground(user)}
-          snapToEdge={snapToEdge}
-          bounces={bounces}
+          // deviceWidth={constants.deviceWidth}
+          background={this.renderBackground()}
           backgroundImage={backgroundImage}
-          transparentHeader={transparentHeader}
-          scrollRef={scrollRef}
+          bounces={bounces}
+          contentContainerStyles={contentContainerStyles}
+          foreground={this.renderForeground(user)}
+          header={this.renderHeader(user)}
+          headerHeight={headerHeight}
+          headerSize={this.setHeaderSize}
+          keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+          onMomentumScrollBegin={onMomentumScrollBegin}
           onMomentumScrollEnd={onMomentumScrollEnd}
-          onMomentumScrollBegin={onMomentumScrollBegin}>
+          parallaxHeight={parallaxHeight}
+          refreshControl={refreshControl}
+          scrollRef={scrollRef}
+          snapToEdge={snapToEdge}
+          transparentHeader={transparentHeader}>
           {renderBody ? renderBody() : children}
         </StickyParallaxHeader>
       </>
     );
   }
+  static defaultProps = {
+    // default is used remember to check before removing
+    leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),
+    // default is used remember to check before removing
+    rightTopIcon: require('../../assets/icons/Icon-Menu.png'),
+    backgroundColor: Brandon.color,
+    headerHeight: sizes.cardScreenHeaderHeight,
+    backgroundImage: null,
+    tag: Brandon.type,
+    title: Brandon.label,
+    // default is used remember to check before removing
+    image: Brandon.image,
+    children: renderContent(Brandon),
+    bounces: true,
+    snapToEdge: true,
+    hasBorderRadius: true,
+    iconNumber: Brandon.cardsAmount,
+    parallaxHeight: sizes.cardScreenParallaxHeader,
+    transparentHeader: false,
+    headerSize: undefined,
+    scrollRef: null,
+    onMomentumScrollEnd: undefined,
+    onMomentumScrollBegin: undefined,
+  };
 }
-
-DetailsHeader.propTypes = {
-  leftTopIconOnPress: func,
-  rightTopIconOnPress: func,
-  leftTopIcon: Image.propTypes.source,
-  rightTopIcon: Image.propTypes.source,
-  backgroundColor: string,
-  headerHeight: number,
-  backgroundImage: Image.propTypes.source,
-  title: string,
-  tag: string,
-  image: Image.propTypes.source,
-  children: node,
-  renderBody: func,
-  bounces: bool,
-  snapToEdge: bool,
-  hasBorderRadius: bool,
-  iconNumber: number,
-  parallaxHeight: number,
-  transparentHeader: bool,
-  foreground: func,
-  headerSize: func,
-  scrollRef: oneOfType([func, shape({ current: instanceOf(ScrollView) })]),
-  onMomentumScrollEnd: func,
-  onMomentumScrollBegin: func,
-};
-DetailsHeader.defaultProps = {
-  leftTopIconOnPress: () => {},
-  rightTopIconOnPress: () => {},
-  leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),
-  rightTopIcon: require('../../assets/icons/Icon-Menu.png'),
-  backgroundColor: Brandon.color,
-  headerHeight: sizes.cardScreenHeaderHeight,
-  backgroundImage: null,
-  tag: Brandon.type,
-  title: Brandon.label,
-  image: Brandon.image,
-  children: renderContent(Brandon),
-  bounces: true,
-  snapToEdge: true,
-  hasBorderRadius: true,
-  iconNumber: Brandon.cardsAmount,
-  parallaxHeight: sizes.cardScreenParallaxHeader,
-  transparentHeader: false,
-  headerSize: undefined,
-  scrollRef: null,
-  onMomentumScrollEnd: undefined,
-  onMomentumScrollBegin: undefined,
-};
 
 export default DetailsHeader;

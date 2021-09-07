@@ -4,8 +4,11 @@ import StickyParallaxHeader from '../StickyParallaxHeader';
 
 describe('StickyParallaxHeader empty', () => {
   afterEach(cleanup);
+
   test('Snapshot for default', () => {
-    const tree = render(<StickyParallaxHeader headerSize={() => {}} header={<></>} />).toJSON();
+    const tree = render(
+      <StickyParallaxHeader foreground={<></>} headerSize={() => {}} header={<></>} />
+    ).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

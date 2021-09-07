@@ -1,33 +1,63 @@
-/* eslint-disable react/destructuring-assignment  */
-import React from 'react';
-import { Animated, StyleSheet, View, ViewPropTypes } from 'react-native';
-import { bool, func, node, number, oneOf } from 'prop-types';
+import React, { ReactElement } from 'react';
+import {
+  Animated,
+  LayoutChangeEvent,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
+  ScrollViewProps,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import SceneComponent from './SceneComponent';
 import constants from '../../constants/constants';
 import { getSafelyScrollNode } from '../../utils';
+import type { MountedTabType } from 'react-native-sticky-parallax-header';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
-
+type ReactChildMapType = React.ReactNode;
 const { deviceWidth } = constants;
 
-class ScrollableTabView extends React.Component {
-  scrollOnMountCalled = false;
+type ScrollableTabViewProps = {
+  children: React.ReactNode;
+  contentContainerStyles: ViewStyle;
+  initialPage: number;
+  page: number;
+  onChangeTab: (p: MountedTabType) => void;
+  swipedPage: (index: number) => void;
+  minScrollHeight: number;
+  keyboardShouldPersistTaps?: ScrollViewProps['keyboardShouldPersistTaps'];
+  scrollEnabled: boolean;
+};
+type SceneKeys = string[];
+type State = {
+  currentPage: number;
+  scrollXIOS: Animated.Value;
+  containerWidth: number;
+  sceneKeys: SceneKeys;
+};
+class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
+  scrollOnMountCalled: boolean = false;
 
-  constructor(props) {
+  scrollView: ScrollView | null = null;
+
+  constructor(props: ScrollableTabViewProps) {
     super(props);
     const { initialPage } = this.props;
 
     const scrollXIOS = new Animated.Value(initialPage * deviceWidth);
     const containerWidthAnimatedValue = new Animated.Value(deviceWidth);
 
-    // eslint-disable-next-line no-underscore-dangle
-    containerWidthAnimatedValue.__makeNative();
-    const scrollValue = Animated.divide(scrollXIOS, containerWidthAnimatedValue);
+    const scrollValue = new Animated.Value((initialPage * deviceWidth) / deviceWidth);
 
+    // @ts-ignore
+    containerWidthAnimatedValue.__makeNative();
+    scrollValue.setValue(400);
     const callListeners = this.polyfillAnimatedValue(scrollValue);
 
     this.state = {
@@ -36,11 +66,10 @@ class ScrollableTabView extends React.Component {
       containerWidth: deviceWidth,
       sceneKeys: this.newSceneKeys({ currentPage: initialPage }),
     };
-
     scrollXIOS.addListener(({ value }) => callListeners(value / deviceWidth));
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Readonly<ScrollableTabViewProps>) {
     const { children, page } = this.props;
     const { currentPage } = this.state;
 
@@ -55,12 +84,11 @@ class ScrollableTabView extends React.Component {
     scrollXIOS.removeAllListeners();
   }
 
-  onMomentumScrollBeginAndEnd = (e) => {
+  onMomentumScrollBeginAndEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { containerWidth, currentPage } = this.state;
     const { swipedPage } = this.props;
     const offsetX = e.nativeEvent.contentOffset.x;
     const page = Math.round(offsetX / containerWidth);
-
     if (currentPage !== page) {
       swipedPage(page);
       this.onChangeTab(currentPage, page);
@@ -68,7 +96,7 @@ class ScrollableTabView extends React.Component {
     }
   };
 
-  onChangeTab(prevPage, currentPage) {
+  onChangeTab(prevPage: number, currentPage: number) {
     const { onChangeTab } = this.props;
     onChangeTab({
       i: currentPage,
@@ -77,11 +105,19 @@ class ScrollableTabView extends React.Component {
     });
   }
 
-  updateSelectedPage = (nextPage) => {
+  updateSelectedPage = (nextPage: number) => {
     let localNextPage = nextPage;
+
+    /**
+     * @TODO Check that block of code
+     */
     if (typeof localNextPage === 'object') {
-      localNextPage = nextPage.nativeEvent.position;
+      // @ts-ignore
+      localNextPage = nextPage?.nativeEvent?.position ?? 0;
     }
+    /**
+     * End
+     */
 
     this.updateSceneKeys({
       page: localNextPage,
@@ -89,22 +125,22 @@ class ScrollableTabView extends React.Component {
   };
 
   composeScenes = () =>
-    this.children().map((child, idx) => {
-      const key = this.makeSceneKey(child, idx);
+    this.children?.()?.map((child, idx) => {
+      const key = this.makeSceneKey(child as ReactElement, idx);
       const { currentPage, containerWidth, sceneKeys } = this.state;
       const { contentContainerStyles, minScrollHeight } = this.props;
+      const actualChild = child as ReactElement;
 
       return (
         <SceneComponent
-          key={child.key}
+          key={actualChild.key}
           shouldUpdated={this.shouldRenderSceneKey(idx, currentPage)}
           style={[
             // used to calculate current height of scroll
-            // eslint-disable-next-line react-native/no-inline-styles
             {
               width: containerWidth,
               minHeight: minScrollHeight,
-              maxHeight: idx === currentPage ? null : minScrollHeight,
+              maxHeight: idx === currentPage ? undefined : minScrollHeight,
             },
             contentContainerStyles,
           ]}>
@@ -113,56 +149,75 @@ class ScrollableTabView extends React.Component {
       );
     });
 
-  makeSceneKey = (child, idx) => `${child.props.tabLabel}_${idx}`;
+  makeSceneKey = (child: React.ReactElement, idx: number): string =>
+    `${child.props.accessibilityLabel}_${idx}`;
 
-  keyExists = (sceneKeys, key) => sceneKeys.find((sceneKey) => key === sceneKey);
+  keyExists = (sceneKeys: string[], key: string) => sceneKeys.find((sceneKey) => key === sceneKey);
 
-  // eslint-disable-next-line max-len
-  shouldRenderSceneKey = (idx, currentPageKey) =>
+  shouldRenderSceneKey = (idx: number, currentPageKey: number) =>
     idx < currentPageKey + 1 && idx > currentPageKey - 1;
 
-  polyfillAnimatedValue = (animatedValue) => {
-    const listeners = new Set();
-    const addListener = (listener) => {
-      listeners.add(listener);
+  polyfillAnimatedValue = (animatedValue: Animated.Value) => {
+    const listeners = new Map<string, Animated.ValueListenerCallback>();
+    const addListener: Animated.Value['addListener'] = (listener) => {
+      const key = Date.now().toString(10);
+      listeners.set(key, listener);
+
+      return key;
     };
 
-    const removeListener = (listener) => {
+    const removeListener: Animated.Value['removeListener'] = (listener) => {
       listeners.delete(listener);
     };
 
-    const removeAllListeners = () => {
+    const removeAllListeners: Animated.Value['removeAllListeners'] = () => {
       listeners.clear();
     };
 
-    /* eslint-disable no-param-reassign  */
     animatedValue.addListener = addListener;
     animatedValue.removeListener = removeListener;
     animatedValue.removeAllListeners = removeAllListeners;
-    /* eslint-disable no-param-reassign  */
 
-    return (value) => listeners.forEach((listener) => listener({ value }));
+    return (value: any) => listeners.forEach((listener) => listener({ value }));
   };
 
-  newSceneKeys = ({ previousKeys = [], currentPage = 0, children = this.props.children }) => {
-    const newKeys = [];
-    this.children(children).forEach((child, idx) => {
-      const key = this.makeSceneKey(child, idx);
-      if (this.keyExists(previousKeys, key) || this.shouldRenderSceneKey(idx, currentPage)) {
-        newKeys.push(key);
-      }
-    });
+  newSceneKeys = ({
+    previousKeys = [] as SceneKeys,
+    currentPage = 0,
+    children = this.props.children,
+  }): string[] => {
+    const newKeys: string[] = [];
+    if (children) {
+      this.children(children).forEach((child, idx) => {
+        const key = this.makeSceneKey(child as ReactElement, idx);
+        if (this.keyExists(previousKeys, key) || this.shouldRenderSceneKey(idx, currentPage)) {
+          newKeys.push(key);
+        }
+      });
+    }
 
     return newKeys;
   };
 
-  updateSceneKeys = ({ page, children = this.props.children, callback = () => {} }) => {
+  updateSceneKeys = ({
+    page,
+    children = this.props.children,
+    callback = () => {},
+  }: {
+    children?: ReactChildMapType;
+    page: number;
+    callback?: () => void;
+  }) => {
     const { sceneKeys } = this.state;
-    const newKeys = this.newSceneKeys({ previousKeys: sceneKeys, currentPage: page, children });
+    const newKeys: SceneKeys = this.newSceneKeys({
+      previousKeys: sceneKeys,
+      currentPage: page,
+      children,
+    });
     this.setState({ currentPage: page, sceneKeys: newKeys }, callback);
   };
 
-  goToPage = (pageNumber) => {
+  goToPage = (pageNumber: number) => {
     const { containerWidth } = this.state;
     const offset = pageNumber * containerWidth;
     const scrollNode = getSafelyScrollNode(this.scrollView);
@@ -177,14 +232,14 @@ class ScrollableTabView extends React.Component {
     });
   };
 
-  onScroll = (e) => {
+  onScroll: ScrollViewProps['onScroll'] = (e) => {
     const offsetX = e.nativeEvent.contentOffset.x;
     if (offsetX === 0 && !this.scrollOnMountCalled) {
       this.scrollOnMountCalled = true;
     }
   };
 
-  handleLayout = (e) => {
+  handleLayout = (e: LayoutChangeEvent) => {
     const { width } = e.nativeEvent.layout;
     const { containerWidth, currentPage } = this.state;
 
@@ -198,7 +253,9 @@ class ScrollableTabView extends React.Component {
     });
   };
 
-  children = (children = this.props.children) => React.Children.map(children, (child) => child);
+  children = (children = this.props.children) => {
+    return React.Children.map(children, (child: ReactChildMapType) => child) ?? [];
+  };
 
   renderScrollableContent() {
     const scenes = this.composeScenes();
@@ -215,7 +272,7 @@ class ScrollableTabView extends React.Component {
         automaticallyAdjustContentInsets={false}
         contentOffset={{ x: initialPage * containerWidth }}
         ref={(scrollView) => {
-          this.scrollView = scrollView;
+          this.scrollView = getSafelyScrollNode(scrollView);
         }}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollXIOS } } }], {
           useNativeDriver: true,
@@ -241,26 +298,15 @@ class ScrollableTabView extends React.Component {
       </View>
     );
   }
+
+  static defaultProps = {
+    contentContainerStyles: {},
+    initialPage: 0,
+    page: -1,
+    onChangeTab: () => {},
+    keyboardShouldPersistTaps: undefined,
+    children: [],
+  };
 }
-
-ScrollableTabView.propTypes = {
-  children: node,
-  contentContainerStyles: ViewPropTypes.style,
-  initialPage: number,
-  page: number,
-  onChangeTab: func,
-  swipedPage: func,
-  minScrollHeight: number,
-  keyboardShouldPersistTaps: oneOf(['never', 'always', 'handled', false, true, undefined]),
-  scrollEnabled: bool.isRequired,
-};
-
-ScrollableTabView.defaultProps = {
-  contentContainerStyles: {},
-  initialPage: 0,
-  page: -1,
-  onChangeTab: () => {},
-  keyboardShouldPersistTaps: undefined,
-};
 
 export default ScrollableTabView;

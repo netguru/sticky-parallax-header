@@ -8,37 +8,21 @@ describe('DetailsHeader empty', () => {
   afterEach(cleanup);
 
   test('Snapshot for default', () => {
-    const tree = renderer.create(<DetailsHeader />).toJSON();
+    const tree = renderer.create(<DetailsHeader headerType={'DetailsHeader'} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  test('Should have default leftTopIconOnPress prop', () => {
-    expect(DetailsHeader.defaultProps.leftTopIconOnPress).toBeDefined();
-  });
-
-  test('LeftTopIconOnPress should return undefined', () => {
-    const result = DetailsHeader.defaultProps.leftTopIconOnPress();
-    expect(result).toBeUndefined();
-  });
-
-  test('Should have default rightTopIconOnPress prop', () => {
-    expect(DetailsHeader.defaultProps.rightTopIconOnPress).toBeDefined();
-  });
-
-  test('RightTopIconOnPress should return undefined', () => {
-    const result = DetailsHeader.defaultProps.rightTopIconOnPress();
-    expect(result).toBeUndefined();
-  });
-
   test('Renders title prop correctly', () => {
-    const component = renderer.create(<DetailsHeader title="Test 1" />);
+    const component = renderer.create(
+      <DetailsHeader headerType={'DetailsHeader'} title="Test 1" />
+    );
     const testInstance = component.root;
 
     expect(testInstance.props.title).toBe('Test 1');
   });
 
   test('Renders headerLayout correctly', () => {
-    const component = renderer.create(<DetailsHeader />);
+    const component = renderer.create(<DetailsHeader headerType={'DetailsHeader'} />);
     const testInstance = component.root;
     const stickyHeader = testInstance.findByType(StickyParallaxHeader);
 
