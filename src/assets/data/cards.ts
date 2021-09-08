@@ -1,4 +1,32 @@
-export const cardsReact = [
+import type { ImageSourcePropType } from 'react-native';
+
+export type Card = {
+  number: string;
+  question: string;
+  value: boolean;
+  revealed: boolean;
+  picked: boolean;
+};
+export type Question = {
+  cardsAmount?: number;
+  type?: string;
+  question: string;
+  author?: 'Ewa';
+  cards: Card[];
+};
+export type User = {
+  cardsAmount: number;
+  author: string;
+  type: string;
+  label: string;
+  cards: Question[];
+  color: string;
+  labelColor: string;
+  image: ImageSourcePropType;
+  about: string;
+};
+
+export const cardsReact: Question[] = [
   {
     question: 'We can go for keys when there is possibility that our user could change the data.',
     cards: [
@@ -24,7 +52,7 @@ export const cardsReact = [
   },
 ];
 
-const cardsAgile = [
+const cardsAgile: Question[] = [
   {
     question: 'When might a Sprint be abnormally cancelled?',
     cardsAmount: 31,
@@ -112,7 +140,7 @@ const cardsAgile = [
   },
 ];
 
-const cardsDesign = [
+const cardsDesign: Question[] = [
   {
     question: 'Can design system contain information about copywriting?',
     cards: [
@@ -146,7 +174,7 @@ const cardsDesign = [
   },
 ];
 
-const Brandon = {
+const Brandon: User = {
   cardsAmount: 10,
   author: 'Brandon',
   type: 'Product Design',
@@ -158,7 +186,7 @@ const Brandon = {
   about: 'Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer.',
 };
 
-const Ewa = {
+const Ewa: User = {
   cardsAmount: 31,
   author: 'Ewa',
   type: 'Project Management',
@@ -170,7 +198,7 @@ const Ewa = {
   about: 'Wannabe entrepreneur. Reader. Devoted organizer. Social media lover. Analyst.',
 };
 
-const Jennifer = {
+const Jennifer: User = {
   cardsAmount: 16,
   author: 'Jennifer',
   type: 'Development',

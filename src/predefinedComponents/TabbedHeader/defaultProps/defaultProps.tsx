@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import { string } from 'prop-types';
-import { View, Text, Platform } from 'react-native';
+import { View, Text, Platform, LayoutChangeEvent } from 'react-native';
 import { QuizListElement } from '../../components';
 import { Brandon, Jennifer, Ewa } from '../../../assets/data/cards';
 import styles from '../TabbedHeader.styles';
 import { constants, sizes } from '../../../constants';
 
-const RenderContent = ({ title }) => {
-  const [contentHeight, setcontentHeight] = useState({});
+const RenderContent = ({ title }: { title: string }) => {
+  const [contentHeight, setcontentHeight] = useState<{ [k: string]: number }>({});
   const users = [Brandon, Jennifer, Ewa];
 
-  const onLayoutContent = (e) => {
+  const onLayoutContent = (e: LayoutChangeEvent) => {
     const contentHeightTmp = { ...contentHeight };
     contentHeightTmp[title] = e.nativeEvent.layout.height;
 
     setcontentHeight({ ...contentHeightTmp });
   };
 
-  const calcMargin = () => {
+  const calcMargin = (): number => {
     let marginBottom = 50;
 
     if (contentHeight[title]) {
@@ -36,10 +35,10 @@ const RenderContent = ({ title }) => {
 
     return marginBottom;
   };
-  const marginBottom = Platform.select({ ios: calcMargin(title), android: 0 });
+  const marginBottom = Platform.select({ ios: calcMargin(), android: 0 });
 
   return (
-    <View style={[styles.content, { marginBottom }]} onLayout={(e) => onLayoutContent(e, title)}>
+    <View style={[styles.content, { marginBottom }]} onLayout={(e) => onLayoutContent(e)}>
       <Text style={styles.contentText}>{title}</Text>
       {users.map(
         (user) =>
@@ -58,10 +57,6 @@ const RenderContent = ({ title }) => {
       )}
     </View>
   );
-};
-
-RenderContent.propTypes = {
-  title: string,
 };
 
 RenderContent.defaultProps = {

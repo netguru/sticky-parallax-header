@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup } from '@testing-library/react-native';
 import renderer from 'react-test-renderer';
 import DetailsHeader from '../predefinedComponents/DetailsHeader/DetailsHeader';
-import StickyParallaxHeader from '../StickyParallaxHeader';
+import StickyParallaxHeaderComponent from '../StickyParallaxHeaderComponent';
 
 describe('DetailsHeader empty', () => {
   afterEach(cleanup);
@@ -24,7 +24,7 @@ describe('DetailsHeader empty', () => {
   test('Renders headerLayout correctly', () => {
     const component = renderer.create(<DetailsHeader headerType={'DetailsHeader'} />);
     const testInstance = component.root;
-    const stickyHeader = testInstance.findByType(StickyParallaxHeader);
+    const stickyHeader = testInstance.findByType(StickyParallaxHeaderComponent);
 
     expect(testInstance.instance.state.headerLayout).toMatchObject({ height: 0 });
     stickyHeader.props.headerSize({ height: 1 });

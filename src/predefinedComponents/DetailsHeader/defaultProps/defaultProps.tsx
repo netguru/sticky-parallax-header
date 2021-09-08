@@ -2,8 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import { QuizCard } from '../../components';
 import styles from '../DetailsHeader.styles';
+import type { User } from '../../../assets/data/cards';
 
-const renderContent = (user) => (
+const renderContent = (user: User) => (
   <View style={styles.content}>
     {user.cards.map((data, i, arr) => (
       <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />

@@ -12,7 +12,9 @@ import {
   NativeScrollEvent,
 } from 'react-native';
 
-import StickyParallaxHeader, { StickyParallaxHeaderProps } from '../../StickyParallaxHeader';
+import StickyParallaxHeader, {
+  StickyParallaxHeaderProps,
+} from '../../StickyParallaxHeaderComponent';
 import { constants, sizes } from '../../constants';
 import styles from './AvatarHeader.styles';
 import { Brandon } from '../../assets/data/cards';

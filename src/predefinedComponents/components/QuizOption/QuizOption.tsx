@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import { string, bool, shape, func } from 'prop-types';
+import React, { useState, VFC } from 'react';
+import { View, Text, Image, TouchableOpacity, LayoutChangeEvent } from 'react-native';
 import styles from './QuizOption.styles';
 import { colors } from '../../../constants';
+import type { Card } from '../../../assets/data/cards';
 
-const QuizOption = ({ reveal, revealed, card: { number, question, value } }) => {
+type Props = {
+  card: Card;
+  reveal: () => void;
+  revealed: boolean;
+};
+
+const QuizOption: VFC<Props> = ({ reveal, revealed, card: { number, question, value } }) => {
   const [picked, setPicked] = useState(false);
   const [paddingVertical, setPaddingVertical] = useState(0);
-  const calcPaddings = (event) => {
+  const calcPaddings = (event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
     const circleRadius = 40;
     const padding = height > circleRadius ? height / 2.5 : 0;
@@ -62,17 +68,6 @@ const QuizOption = ({ reveal, revealed, card: { number, question, value } }) => 
       </View>
     </TouchableOpacity>
   );
-};
-
-QuizOption.propTypes = {
-  card: shape({
-    number: string,
-    question: string,
-    value: bool,
-    picked: bool,
-  }),
-  reveal: func,
-  revealed: bool,
 };
 
 export default QuizOption;

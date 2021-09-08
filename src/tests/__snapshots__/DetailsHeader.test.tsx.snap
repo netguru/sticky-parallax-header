@@ -458,7 +458,7 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
                       "paddingVertical": 16,
                       "shadowColor": "rgb(35,35,35)",
                       "shadowOffset": Object {
-                        "heght": 2,
+                        "height": 2,
                         "width": 2,
                       },
                       "shadowOpacity": 0.08,
@@ -693,7 +693,7 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
                       "paddingVertical": 16,
                       "shadowColor": "rgb(35,35,35)",
                       "shadowOffset": Object {
-                        "heght": 2,
+                        "height": 2,
                         "width": 2,
                       },
                       "shadowOpacity": 0.08,
@@ -1005,7 +1005,7 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
                       "paddingVertical": 16,
                       "shadowColor": "rgb(35,35,35)",
                       "shadowOffset": Object {
-                        "heght": 2,
+                        "height": 2,
                         "width": 2,
                       },
                       "shadowOpacity": 0.08,
@@ -1240,7 +1240,7 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
                       "paddingVertical": 16,
                       "shadowColor": "rgb(35,35,35)",
                       "shadowOffset": Object {
-                        "heght": 2,
+                        "height": 2,
                         "width": 2,
                       },
                       "shadowOpacity": 0.08,

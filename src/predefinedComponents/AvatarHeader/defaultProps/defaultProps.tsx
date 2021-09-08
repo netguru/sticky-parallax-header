@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, Platform } from 'react-native';
-import { shape } from 'prop-types';
+import React, { useState, VFC } from 'react';
+import { View, Text, Platform, LayoutChangeEvent } from 'react-native';
 import { QuizListElement } from '../../components';
 import { sizes, constants } from '../../../constants';
 import styles from '../../TabbedHeader/TabbedHeader.styles';
-import { Brandon } from '../../../assets/data/cards';
+import { Brandon, User } from '../../../assets/data/cards';
 
-const RenderContent = ({ user }) => {
-  const [contentHeight, setContentHeight] = useState('');
+type Props = { user: User };
+const RenderContent: VFC<Props> = ({ user }) => {
+  const [contentHeight, setContentHeight] = useState<number>(0);
   const title = "Author's Quizes";
   const cards = [
     {
@@ -39,7 +39,7 @@ const RenderContent = ({ user }) => {
     return marginBottom;
   };
 
-  const onLayoutContent = (e) => {
+  const onLayoutContent = (e: LayoutChangeEvent) => {
     setContentHeight(e.nativeEvent.layout.height);
   };
 
@@ -68,10 +68,6 @@ const RenderContent = ({ user }) => {
       ))}
     </View>
   );
-};
-
-RenderContent.propTypes = {
-  user: shape({}),
 };
 
 RenderContent.defaultProps = {

@@ -15,7 +15,9 @@ import {
   NativeScrollEvent,
 } from 'react-native';
 
-import StickyParallaxHeader, { StickyParallaxHeaderProps } from '../../StickyParallaxHeader';
+import StickyParallaxHeader, {
+  StickyParallaxHeaderProps,
+} from '../../StickyParallaxHeaderComponent';
 import { constants, colors, sizes } from '../../constants';
 import styles from './TabbedHeader.styles';
 import RenderContent from './defaultProps/defaultProps';

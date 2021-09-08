@@ -1,16 +1,38 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, Animated, StatusBar, Platform } from 'react-native';
-import { func, shape, string, oneOfType, object, array, number } from 'prop-types';
-import StickyParallaxHeader from '../../../StickyParallaxHeader';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Animated,
+  StatusBar,
+  Platform,
+  LayoutRectangle,
+  LayoutChangeEvent,
+} from 'react-native';
+import StickyParallaxHeader from '../../../StickyParallaxHeaderComponent';
 import { constants, sizes } from '../../../constants';
 import styles from './UserModal.styles';
 import QuizListElement from '../QuizListElement/QuizListElement';
-import { Brandon } from '../../../assets/data/cards';
+import { Brandon, User } from '../../../assets/data/cards';
 
 const { event, ValueXY } = Animated;
 
-class UserModal extends React.Component {
-  constructor(props) {
+type Props = {
+  onPressCloseModal: () => void;
+  user: User;
+};
+
+type State = {
+  headerLayout: {
+    height: number;
+  };
+  contentHeight: number;
+};
+
+class UserModal extends React.Component<Props, State> {
+  scrollY: Animated.ValueXY;
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -22,7 +44,7 @@ class UserModal extends React.Component {
     this.scrollY = new ValueXY();
   }
 
-  setHeaderSize = (headerLayout) => this.setState({ headerLayout });
+  setHeaderSize = (headerLayout: LayoutRectangle) => this.setState({ headerLayout });
 
   renderHeader = () => {
     const { onPressCloseModal, user } = this.props;
@@ -181,13 +203,13 @@ class UserModal extends React.Component {
     return marginBottom;
   };
 
-  onLayoutContent = (e) => {
+  onLayoutContent = (e: LayoutChangeEvent) => {
     this.setState({
       contentHeight: e.nativeEvent.layout.height,
     });
   };
 
-  scrollPosition(value) {
+  scrollPosition(value: number) {
     const {
       headerLayout: { height },
     } = this.state;
@@ -223,6 +245,7 @@ class UserModal extends React.Component {
         <Text style={styles.contentText}>{title}</Text>
         {cards.map((card) => (
           <QuizListElement
+            pressUser={() => {}}
             key={card.id}
             elements={card.elements}
             authorName={card.authorName}
@@ -245,7 +268,6 @@ class UserModal extends React.Component {
         <StickyParallaxHeader
           foreground={this.renderForeground()}
           header={this.renderHeader()}
-          deviceWidth={constants.deviceWidth}
           parallaxHeight={sizes.userScreenParallaxHeader}
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
@@ -259,14 +281,5 @@ class UserModal extends React.Component {
     );
   }
 }
-
-UserModal.propTypes = {
-  onPressCloseModal: func,
-  user: shape({
-    author: string,
-    about: string,
-    image: oneOfType([object, array, func, number]),
-  }),
-};
 
 export default UserModal;

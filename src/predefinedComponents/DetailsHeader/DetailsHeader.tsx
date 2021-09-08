@@ -11,7 +11,7 @@ import {
 import StickyParallaxHeader, {
   DetailsData,
   StickyParallaxHeaderProps,
-} from '../../StickyParallaxHeader';
+} from '../../StickyParallaxHeaderComponent';
 import { constants, sizes } from '../../constants';
 import { Brandon } from '../../assets/data/cards';
 import styles from './DetailsHeader.styles';

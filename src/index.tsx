@@ -1,10 +1,10 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode, VFC } from 'react';
 import type { ImageSourcePropType } from 'react-native';
 import { AvatarHeader, TabbedHeader, DetailsHeader } from './predefinedComponents';
 import {
-  default as DefaultStickyParallaxHeader,
+  default as StickyParallaxHeaderComponent,
   StickyParallaxHeaderProps,
-} from './StickyParallaxHeader';
+} from './StickyParallaxHeaderComponent';
 import type {
   AvatarHeaderProps,
   TabbedHeaderProps,
@@ -68,7 +68,7 @@ export interface RenderBody {
 
 type Props = TabbedHeaderProps | AvatarHeaderProps | DetailsHeaderProps | StickyParallaxHeaderProps;
 
-export function StickyParallaxHeader<T extends Props>(props: T): ReactNode {
+const StickyParallaxHeader: VFC<Props> = (props: Props) => {
   switch (props.headerType) {
     case 'TabbedHeader':
       return <TabbedHeader {...props} />;
@@ -77,8 +77,8 @@ export function StickyParallaxHeader<T extends Props>(props: T): ReactNode {
     case 'DetailsHeader':
       return <DetailsHeader {...props} />;
     default:
-      return <DefaultStickyParallaxHeader {...props} />;
+      return <StickyParallaxHeaderComponent {...props} />;
   }
-}
+};
 
 export default StickyParallaxHeader;

@@ -6,20 +6,6 @@
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
-  "repository": "https://github.com/netguru/sticky-parallax-header",
-  "author": "IdaszakDaniel <idaszak1@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "test": "jest",
-    "typescript": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepare": "bob build",
-    "release": "release-it",
-    "example": "yarn --cwd example",
-    "pods": "echo pods",
-    "bootstrap": "yarn example && yarn && yarn pods",
-    "prepush": "yarn test && yarn lint"
-  },
   "files": [
     "assets",
     "src",
@@ -35,6 +21,20 @@
     "!**/__fixtures__",
     "!**/__mocks__"
   ],
+  "repository": "https://github.com/netguru/sticky-parallax-header",
+  "author": "IdaszakDaniel <idaszak1@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "typescript": "tsc --noEmit",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "prepare": "bob build",
+    "release": "release-it",
+    "example": "yarn --cwd example",
+    "pods": "echo pods",
+    "bootstrap": "yarn example && yarn && yarn pods",
+    "prepush": "yarn test && yarn lint"
+  },
   "dependencies": {
     "prop-types": "^15.7.2"
   },

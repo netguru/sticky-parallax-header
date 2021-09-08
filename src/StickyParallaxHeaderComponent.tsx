@@ -37,7 +37,7 @@ export type DetailsData = {
 };
 
 export type StickyParallaxHeaderProps = {
-  headerType?: undefined;
+  headerType?: undefined | 'Default';
   background?: ReactNode;
   backgroundColor: string;
   backgroundImage?: ImageSourcePropType;
@@ -67,7 +67,7 @@ export type StickyParallaxHeaderProps = {
   snapStopThreshold?: number;
   snapValue?: number;
   transparentHeader?: boolean;
-  onRef: (t: StickyParallaxHeader | null) => void;
+  onRef: (t: StickyParallaxHeaderComponent | null) => void;
   onTopReached?: () => void;
   scrollRef: (t: ScrollView) => void | MutableRefObject<ScrollView>;
   keyboardShouldPersistTaps: ScrollViewProps['keyboardShouldPersistTaps'];
@@ -85,7 +85,7 @@ type State = {
 
 type XYValue = { x: number; y: number };
 
-class StickyParallaxHeader extends Component<StickyParallaxHeaderProps, State> {
+class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps, State> {
   tabsScrollPosition: number[];
 
   scrollY: Animated.ValueXY;
@@ -541,4 +541,4 @@ class StickyParallaxHeader extends Component<StickyParallaxHeaderProps, State> {
   };
 }
 
-export default StickyParallaxHeader;
+export default StickyParallaxHeaderComponent;

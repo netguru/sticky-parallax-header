@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react-native';
-import StickyParallaxHeader from '../StickyParallaxHeader';
+import StickyParallaxHeaderComponent from '../StickyParallaxHeaderComponent';
 
 describe('StickyParallaxHeader empty', () => {
   afterEach(cleanup);
 
   test('Snapshot for default', () => {
     const tree = render(
-      <StickyParallaxHeader foreground={<></>} headerSize={() => {}} header={<></>} />
+      <StickyParallaxHeaderComponent foreground={<></>} headerSize={() => {}} header={<></>} />
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
