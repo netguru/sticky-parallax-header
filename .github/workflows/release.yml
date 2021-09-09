@@ -24,6 +24,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache-dependency-path: '**/yarn.lock'
       - run: yarn
+      - name: Run Typescript
+        run: yarn typescript
       - name: Run Tests
         run: yarn test
       - name: Run Linter
