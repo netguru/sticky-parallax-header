@@ -246,7 +246,6 @@ class UserModal extends React.Component<Props, State> {
         <Text style={styles.contentText}>{title}</Text>
         {cards.map((card) => (
           <QuizListElement
-            pressUser={() => {}}
             key={card.id}
             elements={card.elements}
             authorName={card.authorName}
