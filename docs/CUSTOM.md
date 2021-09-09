@@ -236,7 +236,7 @@ In order to nest scrollable component use `scrollEnabled={false}` on it and move
     </View>
   )
   ```
-###Changing StatusBar style
+### Changing StatusBar style
 To override status bar, place **`<StatusBar>`** component below **`<StickyParallaxHeader>`**
 
 Example:
