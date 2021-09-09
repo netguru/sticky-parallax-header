@@ -33,6 +33,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
   scrollView: ScrollView | null;
 
   currentXPosition: number;
+
   constructor(props: ScrollableTabBarProps) {
     super(props);
     this.currentXPosition = 0;
@@ -44,6 +45,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
 
   componentDidUpdate(prevProps: Readonly<ScrollableTabBarProps>) {
     const { activeTab } = this.props;
+
     if (prevProps.activeTab !== activeTab) {
       this.scrollToTab(activeTab);
     }
@@ -51,6 +53,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
 
   adjustPrevious = (page: number) => {
     const lastHidden = Math.floor(this.currentXPosition / (constants.deviceWidth * 0.3));
+
     if (page <= lastHidden) {
       this.currentXPosition = constants.deviceWidth * 0.3 * page;
       this?.scrollView?.scrollTo?.({
@@ -92,6 +95,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
 
   goToPage = (page: number) => {
     const { goToPage } = this.props;
+
     this.scrollToTab(page);
 
     return goToPage(page);
@@ -100,6 +104,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
   renderIcon = (icon: Tab['icon'], page: number) => {
     const { activeTab } = this.props;
     const isActive = activeTab === page;
+
     if (typeof icon === 'function') {
       return icon(isActive);
     }
@@ -183,6 +188,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
                         },
                       }) => {
                         const newWidth = [...tabUnderlineWidth];
+
                         newWidth[page] = width;
                         this.setState({
                           tabUnderlineWidth: newWidth,

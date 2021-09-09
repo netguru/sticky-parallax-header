@@ -57,6 +57,7 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
 
   setHeaderSize = (headerLayout: LayoutRectangle) => {
     const { headerSize } = this.props;
+
     if (headerSize) headerSize(headerLayout);
     this.setState({ headerLayout });
   };
@@ -265,7 +266,6 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
             useNativeDriver: false,
             listener: (e: NativeSyntheticEvent<NativeScrollEvent>) => scrollEvent && scrollEvent(e),
           })}
-          // deviceWidth={constants.deviceWidth}
           background={this.renderBackground()}
           backgroundImage={backgroundImage}
           bounces={bounces}
@@ -290,6 +290,7 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
       </>
     );
   }
+
   static defaultProps = {
     // default is used remember to check before removing
     leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),
@@ -315,4 +316,5 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
     onMomentumScrollBegin: undefined,
   };
 }
+
 export default AvatarHeader;

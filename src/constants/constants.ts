@@ -24,6 +24,7 @@ const isAndroid = Platform.OS === 'android';
 
 const getResponsiveFontSize = (fontSize: number): number => {
   const newSize = fontSize * scale;
+
   if (Platform.OS === 'ios') {
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
   }

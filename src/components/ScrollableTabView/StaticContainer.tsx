@@ -8,6 +8,7 @@ class StaticContainer extends React.Component<Props> {
   render() {
     const { children } = this.props;
     const child = children;
+
     if (child === null || child === false) {
       return null;
     }

@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
 type ReactChildMapType = React.ReactNode;
+
 const { deviceWidth } = constants;
 
 type ScrollableTabViewProps = {
@@ -41,6 +43,7 @@ type State = {
   containerWidth: number;
   sceneKeys: SceneKeys;
 };
+
 class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
   scrollOnMountCalled: boolean = false;
 
@@ -89,6 +92,7 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
     const { swipedPage } = this.props;
     const offsetX = e.nativeEvent.contentOffset.x;
     const page = Math.round(offsetX / containerWidth);
+
     if (currentPage !== page) {
       swipedPage(page);
       this.onChangeTab(currentPage, page);
@@ -98,6 +102,7 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
 
   onChangeTab(prevPage: number, currentPage: number) {
     const { onChangeTab } = this.props;
+
     onChangeTab({
       i: currentPage,
       ref: this.children()[currentPage],
@@ -161,6 +166,7 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
     const listeners = new Map<string, Animated.ValueListenerCallback>();
     const addListener: Animated.Value['addListener'] = (listener) => {
       const key = Date.now().toString(10);
+
       listeners.set(key, listener);
 
       return key;
@@ -187,9 +193,11 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
     children = this.props.children,
   }): string[] => {
     const newKeys: string[] = [];
+
     if (children) {
       this.children(children).forEach((child, idx) => {
         const key = this.makeSceneKey(child as ReactElement, idx);
+
         if (this.keyExists(previousKeys, key) || this.shouldRenderSceneKey(idx, currentPage)) {
           newKeys.push(key);
         }
@@ -214,6 +222,7 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
       currentPage: page,
       children,
     });
+
     this.setState({ currentPage: page, sceneKeys: newKeys }, callback);
   };
 
@@ -221,11 +230,13 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
     const { containerWidth } = this.state;
     const offset = pageNumber * containerWidth;
     const scrollNode = getSafelyScrollNode(this.scrollView);
+
     if (scrollNode) {
       scrollNode.scrollTo({ x: offset, y: 0, animated: true });
     }
 
     const { currentPage } = this.state;
+
     this.updateSceneKeys({
       page: pageNumber,
       callback: this.onChangeTab.bind(this, currentPage, pageNumber),
@@ -234,6 +245,7 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
 
   onScroll: ScrollViewProps['onScroll'] = (e) => {
     const offsetX = e.nativeEvent.contentOffset.x;
+
     if (offsetX === 0 && !this.scrollOnMountCalled) {
       this.scrollOnMountCalled = true;
     }

@@ -9,6 +9,7 @@ describe('StickyParallaxHeader empty', () => {
     const tree = render(
       <StickyParallaxHeaderComponent foreground={<></>} headerSize={() => {}} header={<></>} />
     ).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });

@@ -32,6 +32,7 @@ type State = {
 
 class UserModal extends React.Component<Props, State> {
   scrollY: Animated.ValueXY;
+
   constructor(props: Props) {
     super(props);
 

@@ -11,6 +11,7 @@ const RenderContent = ({ title }: { title: string }) => {
 
   const onLayoutContent = (e: LayoutChangeEvent) => {
     const contentHeightTmp = { ...contentHeight };
+
     contentHeightTmp[title] = e.nativeEvent.layout.height;
 
     setcontentHeight({ ...contentHeightTmp });

@@ -80,6 +80,7 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
 
   setHeaderSize = (headerLayout: LayoutRectangle) => {
     const { headerSize } = this.props;
+
     if (headerSize) headerSize(headerLayout);
     this.setState({ headerLayout });
   };
@@ -212,7 +213,6 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
             useNativeDriver: false,
             listener: (e: NativeSyntheticEvent<NativeScrollEvent>) => scrollEvent && scrollEvent(e),
           })}
-          // deviceWidth={constants.deviceWidth}
           backgroundImage={backgroundImage}
           bounces={bounces}
           contentContainerStyles={contentContainerStyles}
@@ -247,6 +247,7 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
       </>
     );
   }
+
   static defaultProps = {
     backgroundColor: colors.primaryGreen,
     headerHeight: sizes.headerHeight,

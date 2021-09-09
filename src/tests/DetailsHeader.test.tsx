@@ -9,6 +9,7 @@ describe('DetailsHeader empty', () => {
 
   test('Snapshot for default', () => {
     const tree = renderer.create(<DetailsHeader headerType={'DetailsHeader'} />).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 

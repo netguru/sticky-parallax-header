@@ -33,8 +33,10 @@ type State = {
     height: number;
   };
 };
+
 class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
   scrollY: Animated.ValueXY;
+
   constructor(props: DetailsHeaderProps) {
     super(props);
     this.state = {
@@ -48,6 +50,7 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
 
   setHeaderSize: StickyParallaxHeaderProps['headerSize'] = (headerLayout) => {
     const { headerSize } = this.props;
+
     if (headerSize) headerSize(headerLayout);
     this.setState({ headerLayout });
   };
@@ -59,14 +62,8 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
   };
 
   renderHeader = (user: DetailsData): ReactElement => {
-    const {
-      backgroundColor,
-      leftTopIconOnPress,
-      rightTopIconOnPress,
-      leftTopIcon,
-      rightTopIcon,
-      //Without this comment eslint breaks Prettier
-    } = this.props;
+    const { backgroundColor, leftTopIconOnPress, rightTopIconOnPress, leftTopIcon, rightTopIcon } =
+      this.props;
 
     const opacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(60), this.scrollPosition(90)],
@@ -203,7 +200,6 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
           scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
             useNativeDriver: false,
           })}
-          // deviceWidth={constants.deviceWidth}
           background={this.renderBackground()}
           backgroundImage={backgroundImage}
           bounces={bounces}
@@ -225,6 +221,7 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       </>
     );
   }
+
   static defaultProps = {
     // default is used remember to check before removing
     leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),

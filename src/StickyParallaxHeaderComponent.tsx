@@ -76,6 +76,7 @@ export type StickyParallaxHeaderProps = {
   onMomentumScrollBegin: ScrollViewProps['onMomentumScrollBegin'];
   decelerationRate: 'fast' | 'normal';
 };
+
 type State = {
   scrollValue: Animated.AnimatedInterpolation;
   containerWidth: number;
@@ -103,11 +104,13 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
     const { initialPage } = this.props;
     const { width } = Dimensions.get('window');
     const scrollXIOS = new Value(initialPage * width);
+
     this.tabsScrollPosition = [];
     this._value = null;
     this.tab = null;
 
     const containerWidthAnimatedValue = new Value(width);
+
     // @ts-ignore
     containerWidthAnimatedValue.__makeNative();
 
@@ -126,6 +129,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
 
   componentDidMount() {
     const { onRef } = this.props;
+
     this.scrollY.addListener((value) => (this._value = value));
     onRef?.(this);
   }
@@ -149,13 +153,14 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
             ? this.tabsScrollPosition[currentPage]
             : scrollHeight;
         const scrollNode = getSafelyScrollNode(this.scroll);
+
         scrollNode?.scrollTo({ y: scrollTargetPosition });
       }, 250);
     }
   }
 
   componentWillUnmount() {
-    // https://reactnative.dev/docs/animatedvaluexy#removealllisteners
+    // There is method as removeAllListeners, but no present in types: https://reactnative.dev/docs/animatedvaluexy#removealllisteners
     // @ts-ignore
     this.scrollY.removeAllListeners();
     this.props.onRef?.(null);
@@ -163,6 +168,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
 
   spring = () => {
     const scrollNode = getSafelyScrollNode(this.scroll);
+
     scrollNode?.scrollTo({ x: 0, y: 40, animated: true });
 
     return setTimeout(() => {
@@ -182,16 +188,15 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
     const scrollNode = getSafelyScrollNode(this.scroll);
     // @ts-ignore
     const scrollValue = this.scrollY.__getValue();
-    // const scrollValue = this.scrollY;
+
     const { y } = scrollValue;
     const snapToEdgeAnimatedValue = new ValueXY(scrollValue);
     const snapToEdgeThreshold = snapStartThreshold || height / 2;
     const id = snapToEdgeAnimatedValue.addListener((value) => {
       scrollNode?.scrollTo({ x: 0, y: value.y, animated: false });
     });
-    //@TODO Check that
+
     if (y < -20 && !constants.isAndroid && !refreshControl) this.spring();
-    // if (y < -20 && !constants.isAndroid && !refreshControl) this.spring(y);
 
     if (snapToEdge) {
       if (y > 0 && y < snapToEdgeThreshold) {
@@ -254,12 +259,14 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
       width,
       height,
     };
+
     headerSize(headerLayout);
   };
 
   goToPage = (pageNumber: number) => {
     const { containerWidth, currentPage } = this.state;
     const offset = pageNumber * containerWidth;
+
     if (currentPage !== pageNumber) {
       this.setState({
         currentPage: pageNumber,
@@ -286,6 +293,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
 
   isCloseToTop = ({ contentOffset }: NativeScrollEvent) => {
     const { onTopReached } = this.props;
+
     if (contentOffset.y <= 0) {
       return onTopReached && onTopReached();
     }
@@ -299,6 +307,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
     const headerStyle = header.props.style;
     const isArray = Array.isArray(headerStyle);
     const arrayHeaderStyle: ViewStyle = {};
+
     if (isArray) {
       headerStyle.map((el) => Object.assign(arrayHeaderStyle, el));
     }
@@ -399,11 +408,12 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
       onMomentumScrollEnd,
       onMomentumScrollBegin,
     } = this.props;
-    const { currentPage /*, isFolded */ } = this.state;
+    const { currentPage } = this.state;
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);
     const headerStyle = header.props.style as ViewStyle;
     const isArray = Array.isArray(headerStyle);
     const arrayHeaderStyle: ViewStyle = {};
+
     if (isArray) {
       headerStyle.map((el) => Object.assign(arrayHeaderStyle, el));
     }
@@ -500,7 +510,6 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
                 <View
                   accessibilityLabel={item.title}
                   key={item.title}
-                  // onLayout={this.setContentHeight}
                   ref={(c) => {
                     this.tab = c;
                   }}>

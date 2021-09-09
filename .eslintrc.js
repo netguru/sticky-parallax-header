@@ -2,6 +2,15 @@ module.exports = {
   root: true,
   extends: ['@react-native-community', 'prettier'],
   rules: {
+    'padding-line-between-statements': [
+      'error',
+      { blankLine: 'always', prev: 'class', next: '*' },
+      { blankLine: 'always', prev: '*', next: 'class' },
+      { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
+    ],
+    'no-alert': 'error',
+    'lines-between-class-members': 'error',
     'no-var': 'error',
     'no-multiple-empty-lines': 'error',
     'prefer-const': 'error',

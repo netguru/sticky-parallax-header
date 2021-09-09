@@ -17,6 +17,7 @@ const QuizOption: VFC<Props> = ({ reveal, revealed, card: { number, question, va
     const { height } = event.nativeEvent.layout;
     const circleRadius = 40;
     const padding = height > circleRadius ? height / 2.5 : 0;
+
     setPaddingVertical(padding);
   };
 
@@ -31,6 +32,7 @@ const QuizOption: VFC<Props> = ({ reveal, revealed, card: { number, question, va
   if (revealed) {
     let backgroundColor = 'white';
     let color = 'black';
+
     if (picked) color = 'white';
     if (picked && value) backgroundColor = colors.jade;
     if (picked && !value) backgroundColor = colors.coralPink;
