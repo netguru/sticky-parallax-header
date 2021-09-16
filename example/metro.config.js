@@ -1,7 +1,7 @@
 const path = require('path');
 const blacklist = require('metro-config/src/defaults/blacklist');
 const escape = require('escape-string-regexp');
-const pak = require('../../react-native-sticky-parallax-header/package.json');
+const pak = require('../package.json');
 
 const root = path.resolve(__dirname, '..');
 

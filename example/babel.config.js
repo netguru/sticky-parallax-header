@@ -1,5 +1,5 @@
 const path = require('path');
-const pak = require('../../react-native-sticky-parallax-header/package.json');
+const pak = require('../package.json');
 
 module.exports = function (api) {
   api.cache(true);
