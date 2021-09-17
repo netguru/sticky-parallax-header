@@ -48,7 +48,7 @@ export type StickyParallaxHeaderProps = {
   foreground: ReactNode;
   header: React.ReactElement<{ style?: ViewStyle }>;
   headerHeight: number;
-  headerSize: (h: LayoutRectangle) => void;
+  headerSize?: (h: LayoutRectangle) => void;
   initialPage: number;
   onChangeTab?: (tab: MountedTabType) => void;
   onEndReached?: () => void;
@@ -261,7 +261,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
       height,
     };
 
-    headerSize(headerLayout);
+    headerSize?.(headerLayout);
   };
 
   goToPage = (pageNumber: number) => {
@@ -305,7 +305,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
   renderHeader = () => {
     const { header, headerHeight, backgroundColor, transparentHeader } = this.props;
 
-    const headerStyle = header.props.style;
+    const headerStyle = header?.props?.style ?? {};
     const isArray = Array.isArray(headerStyle);
     const arrayHeaderStyle: ViewStyle = {};
 
@@ -411,7 +411,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
     } = this.props;
     const { currentPage } = this.state;
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);
-    const headerStyle = header.props.style as ViewStyle;
+    const headerStyle = header?.props?.style ?? {};
     const isArray = Array.isArray(headerStyle);
     const arrayHeaderStyle: ViewStyle = {};
 

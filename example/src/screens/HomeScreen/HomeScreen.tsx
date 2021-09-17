@@ -7,6 +7,7 @@ import {
   Platform,
   RefreshControl,
   LayoutChangeEvent,
+  Button,
 } from 'react-native';
 import StickyParallaxHeader from 'react-native-sticky-parallax-header';
 import { QuizListElement, UserModal } from '../../components';
@@ -105,13 +106,26 @@ const HomeScreen: VFC = () => {
   };
 
   const renderContent = (title: string) => {
-    const marginBottom = Platform.select({ ios: calcMargin(title), android: 0 });
+    const marginBottom = Platform.select({ ios: calcMargin(title) + 20, android: 10 });
 
     return (
       <View onLayout={onLayoutContent(title)} style={[styles.content, { marginBottom }]}>
         {renderModal()}
         <Text style={styles.contentText}>{title}</Text>
         {renderQuizElements(title)}
+        <Text style={styles.contentText}>Check custom examples</Text>
+        <Button
+          title={'Yoda Screen'}
+          onPress={() => {
+            navigation.navigate('Yoda');
+          }}
+        />
+        <Button
+          title={'Sims Screen'}
+          onPress={() => {
+            navigation.navigate('AppStore');
+          }}
+        />
       </View>
     );
   };
