@@ -186,7 +186,7 @@ class TabScreen extends React.Component {
 ```
 
 ## Tips
-In order to nest scrollable component use `scrollEnabled={false}` on it and move all the logic to the header eg. by using `onEndReached` and `onTopReached` props. You can find example in CardScreen.js it's really basic so probably you will want to extend it somehow:
+In order to nest scrollable component use `scrollEnabled={false}` on it and move all the logic to the header eg. by using `onEndReached` and `onTopReached` props. You can find example in CardScreen.tsx it's really basic so probably you will want to extend it somehow:
 
 ```jsx
 
