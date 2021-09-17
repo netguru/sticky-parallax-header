@@ -21,7 +21,6 @@ exports[`StickyParallaxHeader empty Snapshot for default 1`] = `
     bouncesZoom={true}
     contentContainerStyle={
       Object {
-        "backgroundColor": undefined,
         "minHeight": 1242,
       }
     }
