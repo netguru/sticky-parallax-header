@@ -13,6 +13,7 @@ import {
   LayoutRectangle,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  StyleProp,
 } from 'react-native';
 import { ScrollableTabBar, ScrollableTabView, HeaderBackgroundImage } from './components';
 import { constants } from './constants';
@@ -43,7 +44,7 @@ export type StickyParallaxHeaderProps = {
   backgroundImage?: ImageSourcePropType;
   bounces?: boolean;
   children?: ReactNode;
-  contentContainerStyles: ViewStyle;
+  contentContainerStyles: StyleProp<ViewStyle>;
   foreground: ReactNode;
   header: React.ReactElement<{ style?: ViewStyle }>;
   headerHeight: number;
@@ -55,14 +56,14 @@ export type StickyParallaxHeaderProps = {
   rememberTabScrollPosition: boolean;
   scrollEvent?: ScrollViewProps['onScroll'];
   snapToEdge?: boolean;
-  tabTextActiveStyle: TextStyle;
-  tabTextContainerActiveStyle: TextStyle;
-  tabTextContainerStyle: ViewStyle;
-  tabTextStyle: TextStyle;
+  tabTextActiveStyle: StyleProp<TextStyle>;
+  tabTextContainerActiveStyle: StyleProp<ViewStyle>;
+  tabTextContainerStyle: StyleProp<ViewStyle>;
+  tabTextStyle: StyleProp<TextStyle>;
   tabs?: Tab[];
   tabsContainerBackgroundColor?: string;
-  tabWrapperStyle?: ViewStyle;
-  tabsContainerStyle?: ViewStyle;
+  tabWrapperStyle?: StyleProp<ViewStyle>;
+  tabsContainerStyle?: StyleProp<ViewStyle>;
   snapStartThreshold?: number;
   snapStopThreshold?: number;
   snapValue?: number;
@@ -422,7 +423,6 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
     const innerScrollHeight = Dimensions.get('window').height - headerHeight - parallaxHeight;
 
     const shouldRenderTabs = tabs && tabs.length > 0;
-    const shouldUseBgColor = contentContainerStyles && contentContainerStyles.backgroundColor;
 
     const hasSingleTab = tabs?.length === 1 || false;
     const hasSingleElement = hasSingleTab || (!tabs && children !== undefined);
@@ -443,7 +443,6 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
           }}
           contentContainerStyle={{
             minHeight: scrollViewMinHeight,
-            backgroundColor: shouldUseBgColor,
           }}
           onScrollEndDrag={() => this.onScrollEndSnapToEdge(scrollHeight)}
           scrollEventThrottle={1}

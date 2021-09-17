@@ -1,78 +1,58 @@
-export const cardsReact = [
+import type { ImageSourcePropType } from 'react-native';
+
+export type Card = {
+  number: string;
+  question: string;
+  value: boolean;
+  revealed: boolean;
+  picked: boolean;
+};
+export type Question = {
+  cardsAmount?: number;
+  type?: string;
+  question: string;
+  author?: 'Ewa';
+  cards: Card[];
+};
+export type User = {
+  cardsAmount: number;
+  author: string;
+  type: string;
+  label: string;
+  cards: Question[];
+  color: string;
+  labelColor: string;
+  image: ImageSourcePropType;
+  about: string;
+};
+
+export const cardsReact: Question[] = [
   {
     question: 'We can go for keys when there is possibility that our user could change the data.',
     cards: [
-      {
-        number: 'A',
-        question: 'Keys',
-        value: true,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'B',
-        question: 'Ref',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'C',
-        question: 'Both',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'D',
-        question: 'None of above',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
+      { number: 'A', question: 'Keys', value: true, revealed: false, picked: false },
+      { number: 'B', question: 'Ref', value: false, revealed: false, picked: false },
+      { number: 'C', question: 'Both', value: false, revealed: false, picked: false },
+      { number: 'D', question: 'None of above', value: false, revealed: false, picked: false },
     ],
   },
   {
     question: 'JSX is typesafe.',
     cards: [
-      {
-        number: 'A',
-        question: 'True',
-        value: true,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'B',
-        question: 'False',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
+      { number: 'A', question: 'True', value: true, revealed: false, picked: false },
+      { number: 'B', question: 'False', value: false, revealed: false, picked: false },
     ],
   },
   {
     question: 'Which of the following needs to be updated to achieve dynamic UI updates?',
     cards: [
-      {
-        number: 'A',
-        question: 'State',
-        value: true,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'B',
-        question: 'Props',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
+      { number: 'A', question: 'State', value: true, revealed: false, picked: false },
+      { number: 'B', question: 'Props', value: false, revealed: false, picked: false },
     ],
   },
 ];
 
-const cardsAgile = [
+const cardsAgile: Question[] = [
   {
     question: 'When might a Sprint be abnormally cancelled?',
     cardsAmount: 31,
@@ -160,108 +140,41 @@ const cardsAgile = [
   },
 ];
 
-const cardsDesign = [
+const cardsDesign: Question[] = [
   {
     question: 'Can design system contain information about copywriting?',
     cards: [
-      {
-        number: 'A',
-        question: 'Yes',
-        value: true,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'B',
-        question: 'No',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
+      { number: 'A', question: 'Yes', value: true, revealed: false, picked: false },
+      { number: 'B', question: 'No', value: false, revealed: false, picked: false },
     ],
   },
   {
     question: 'Who is taking care of managing a design system?',
     cards: [
-      {
-        number: 'A',
-        question: 'Product Designer',
-        value: true,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'B',
-        question: 'UI Designer',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'C',
-        question: 'None of above',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
+      { number: 'A', question: 'Product Designer', value: true, revealed: false, picked: false },
+      { number: 'B', question: 'UI Designer', value: false, revealed: false, picked: false },
+      { number: 'C', question: 'None of above', value: false, revealed: false, picked: false },
     ],
   },
   {
     question: 'Are there official standards for Design Systems?',
     cards: [
-      {
-        number: 'A',
-        question: 'Yes',
-        value: true,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'B',
-        question: 'No',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
+      { number: 'A', question: 'Yes', value: true, revealed: false, picked: false },
+      { number: 'B', question: 'No', value: false, revealed: false, picked: false },
     ],
   },
   {
     question: 'What kind of animal is the dolphin?',
     cards: [
-      {
-        number: 'A',
-        question: 'Mammalr',
-        value: true,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'B',
-        question: 'Reptile',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'C',
-        question: 'Fish',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
-      {
-        number: 'C',
-        question: 'Amphibian',
-        value: false,
-        revealed: false,
-        picked: false,
-      },
+      { number: 'A', question: 'Mammalr', value: true, revealed: false, picked: false },
+      { number: 'B', question: 'Reptile', value: false, revealed: false, picked: false },
+      { number: 'C', question: 'Fish', value: false, revealed: false, picked: false },
+      { number: 'C', question: 'Amphibian', value: false, revealed: false, picked: false },
     ],
   },
 ];
 
-const Brandon = {
-  id: '1128349857',
+const Brandon: User = {
   cardsAmount: 10,
   author: 'Brandon',
   type: 'Product Design',
@@ -273,8 +186,7 @@ const Brandon = {
   about: 'Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer.',
 };
 
-const Ewa = {
-  id: '3832934409',
+const Ewa: User = {
   cardsAmount: 31,
   author: 'Ewa',
   type: 'Project Management',
@@ -286,8 +198,7 @@ const Ewa = {
   about: 'Wannabe entrepreneur. Reader. Devoted organizer. Social media lover. Analyst.',
 };
 
-const Jennifer = {
-  id: '2849503859',
+const Jennifer: User = {
   cardsAmount: 16,
   author: 'Jennifer',
   type: 'Development',
