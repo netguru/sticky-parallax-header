@@ -9,13 +9,10 @@ import {
   ImageSourcePropType,
 } from 'react-native';
 import StickyParallaxHeader, {
-  DetailsData,
   StickyParallaxHeaderProps,
 } from '../../StickyParallaxHeaderComponent';
-import { constants, sizes } from '../../constants';
-import { Brandon } from '../../assets/data/cards';
+import { constants, sizes, colors } from '../../constants';
 import styles from './DetailsHeader.styles';
-import { renderContent } from './defaultProps/defaultProps';
 import type { IconProps, RenderBody, SharedPredefinedHeaderProps } from '../../index';
 
 const { event, ValueXY } = Animated;
@@ -23,8 +20,9 @@ const { event, ValueXY } = Animated;
 export interface DetailsHeaderProps extends IconProps, SharedPredefinedHeaderProps, RenderBody {
   headerType: 'DetailsHeader';
   hasBorderRadius?: boolean;
-  iconNumber?: number;
   image?: ImageSourcePropType;
+  contentIcon?: ImageSourcePropType;
+  contentIconNumber?: number;
   tag?: string;
   title?: string;
 }
@@ -61,9 +59,15 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
     return constants.scrollPosition(headerLayout.height, value);
   };
 
-  renderHeader = (user: DetailsData): ReactElement => {
-    const { backgroundColor, leftTopIconOnPress, rightTopIconOnPress, leftTopIcon, rightTopIcon } =
-      this.props;
+  renderHeader = (): ReactElement => {
+    const {
+      backgroundColor,
+      leftTopIconOnPress,
+      rightTopIconOnPress,
+      leftTopIcon,
+      rightTopIcon,
+      title,
+    } = this.props;
 
     const opacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(60), this.scrollPosition(90)],
@@ -75,25 +79,23 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       <View style={[styles.headerWrapper, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
-            {/*@ts-ignore there is default value for that*/}
-            <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />
+            {leftTopIcon && <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />}
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
-            <Text style={styles.headerTitle}>{user.label}</Text>
+            <Text style={styles.headerTitle}>{title}</Text>
           </Animated.View>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
-            {/*@ts-ignore there is default value for that*/}
-
-            <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
+            {rightTopIcon && (
+              <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
+            )}
           </TouchableOpacity>
         </View>
       </View>
     );
   };
 
-  renderDetailsForeground = (user: DetailsData) => {
-    const { labelColor } = user;
-    const { image, title, tag, iconNumber } = this.props;
+  renderDetailsForeground = () => {
+    const { image, title, tag, contentIconNumber, contentIcon } = this.props;
     const labelOpacity = this.scrollY.y.interpolate({
       inputRange: [0, this.scrollPosition(19), this.scrollPosition(25)],
       outputRange: [1, 0.8, 0],
@@ -112,7 +114,11 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
 
     return (
       <View style={styles.foreground}>
-        <Animated.View style={[styles.foregroundTitle, { opacity: labelOpacity, labelColor }]}>
+        <Animated.View
+          style={[
+            styles.foregroundTitle,
+            { opacity: labelOpacity, backgroundColor: colors.whiteTransparent10 },
+          ]}>
           <Text style={styles.foregroundText}>{tag}</Text>
         </Animated.View>
         <Animated.View style={[styles.messageContainer, { opacity: titleOpacity }]}>
@@ -122,25 +128,18 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
         </Animated.View>
         <Animated.View style={[styles.infoContainer, { opacity: authorOpacity }]}>
           <View style={styles.iconContainer}>
-            <Image source={require('../../assets/icons/cards_black.png')} style={styles.icon} />
-            <Text style={styles.number}>{iconNumber}</Text>
+            {contentIcon && <Image source={contentIcon} style={styles.icon} />}
+            <Text style={styles.number}>{contentIconNumber}</Text>
           </View>
           <View style={styles.footerContainer}>
-            {/*@ts-ignore there is default value for that*/}
-            <Image source={image} style={styles.authorPhoto} resizeMode="contain" />
+            {image && <Image source={image} style={styles.authorPhoto} resizeMode="contain" />}
             <Text numberOfLines={1} style={styles.authorName}>
-              {user.author}
+              {title}
             </Text>
           </View>
         </Animated.View>
       </View>
     );
-  };
-
-  renderForeground = (user: DetailsData) => {
-    const { foreground } = this.props;
-
-    return foreground?.() ?? this.renderDetailsForeground(user);
   };
 
   renderBackground = () => {
@@ -170,7 +169,6 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
   };
 
   render() {
-    const user = Brandon;
     const {
       backgroundColor,
       backgroundImage,
@@ -204,8 +202,8 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
           backgroundImage={backgroundImage}
           bounces={bounces}
           contentContainerStyles={contentContainerStyles}
-          foreground={this.renderForeground(user)}
-          header={this.renderHeader(user)}
+          foreground={this.renderDetailsForeground()}
+          header={this.renderHeader()}
           headerHeight={headerHeight}
           headerSize={this.setHeaderSize}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
@@ -223,28 +221,13 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
   }
 
   static defaultProps = {
-    // default is used remember to check before removing
-    leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),
-    // default is used remember to check before removing
-    rightTopIcon: require('../../assets/icons/Icon-Menu.png'),
-    backgroundColor: Brandon.color,
     headerHeight: sizes.cardScreenHeaderHeight,
-    backgroundImage: null,
-    tag: Brandon.type,
-    title: Brandon.label,
-    // default is used remember to check before removing
-    image: Brandon.image,
-    children: renderContent(Brandon),
     bounces: true,
     snapToEdge: true,
     hasBorderRadius: true,
-    iconNumber: Brandon.cardsAmount,
     parallaxHeight: sizes.cardScreenParallaxHeader,
-    transparentHeader: false,
     headerSize: undefined,
     scrollRef: null,
-    onMomentumScrollEnd: undefined,
-    onMomentumScrollBegin: undefined,
   };
 }
 

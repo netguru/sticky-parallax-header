@@ -36,7 +36,6 @@ export interface Tab {
 
 export interface SharedPredefinedHeaderProps {
   backgroundColor?: string;
-  foreground?: () => ReactNode;
   backgroundImage?: StickyParallaxHeaderProps['backgroundImage'];
   bounces?: StickyParallaxHeaderProps['bounces'];
   contentContainerStyles?: StickyParallaxHeaderProps['contentContainerStyles'];
@@ -64,6 +63,7 @@ export interface IconProps {
 }
 export interface RenderBody {
   renderBody?: () => ReactNode;
+  children?: ReactNode;
 }
 
 type Props = TabbedHeaderProps | AvatarHeaderProps | DetailsHeaderProps | StickyParallaxHeaderProps;

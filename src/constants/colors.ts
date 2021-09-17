@@ -13,4 +13,5 @@ export default {
   greyishBrown: 'rgb(71,71,71)',
   coralPink: 'rgb(255,94,107)',
   jade: 'rgb(29,167,93)',
+  whiteTransparent10: 'rgba(255, 255, 255, 0.1)',
 };
