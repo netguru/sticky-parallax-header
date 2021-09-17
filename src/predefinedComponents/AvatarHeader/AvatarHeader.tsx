@@ -222,7 +222,6 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
       backgroundImage,
       contentContainerStyles,
       children,
-      renderBody,
       headerHeight,
       snapToEdge,
       bounces,
@@ -237,10 +236,6 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
       onMomentumScrollEnd,
       onMomentumScrollBegin,
     } = this.props;
-
-    if (renderBody) {
-      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
-    }
 
     return (
       <>
@@ -269,7 +264,7 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
           snapToEdge={snapToEdge}
           snapValue={snapValue}
           transparentHeader={false}>
-          {renderBody !== undefined ? renderBody() : children}
+          {children}
         </StickyParallaxHeader>
       </>
     );

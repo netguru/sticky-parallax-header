@@ -52,7 +52,6 @@ export interface SharedPredefinedHeaderProps {
   snapStopThreshold?: StickyParallaxHeaderProps['snapStopThreshold'];
   snapToEdge?: StickyParallaxHeaderProps['snapToEdge'];
   snapValue?: StickyParallaxHeaderProps['snapValue'];
-  transparentHeader?: StickyParallaxHeaderProps['transparentHeader'];
 }
 
 export interface IconProps {
@@ -62,7 +61,6 @@ export interface IconProps {
   rightTopIconOnPress?: () => void;
 }
 export interface RenderBody {
-  renderBody?: () => ReactNode;
   children?: ReactNode;
 }
 

@@ -172,13 +172,11 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
     const {
       backgroundColor,
       backgroundImage,
-      renderBody,
       children,
       headerHeight,
       snapToEdge,
       bounces,
       parallaxHeight,
-      transparentHeader,
       onMomentumScrollEnd,
       onMomentumScrollBegin,
       scrollRef,
@@ -186,10 +184,6 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       keyboardShouldPersistTaps,
       refreshControl,
     } = this.props;
-
-    if (renderBody) {
-      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
-    }
 
     return (
       <>
@@ -213,8 +207,8 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
           refreshControl={refreshControl}
           scrollRef={scrollRef}
           snapToEdge={snapToEdge}
-          transparentHeader={transparentHeader}>
-          {renderBody ? renderBody() : children}
+          transparentHeader={false}>
+          {children}
         </StickyParallaxHeader>
       </>
     );
