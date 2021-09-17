@@ -11,7 +11,7 @@ export type Question = {
   cardsAmount?: number;
   type?: string;
   question: string;
-  author?: 'Ewa';
+  author?: string;
   cards: Card[];
 };
 export type User = {

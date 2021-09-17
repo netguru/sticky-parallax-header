@@ -25,7 +25,6 @@ const { event, ValueXY } = Animated;
 
 export type TabbedHeaderProps = Omit<SharedPredefinedHeaderProps, 'transparentHeader'> & {
   foregroundImage?: ImageSourcePropType;
-  header?: () => StickyParallaxHeaderProps['header'];
   headerType: 'TabbedHeader';
   logo: ImageSourcePropType;
   logoContainerStyle?: ViewStyle;
@@ -102,9 +101,7 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
   };
 
   renderHeader = () => {
-    const { header } = this.props;
-
-    return header?.() ?? this.renderLogoHeader();
+    return this.renderLogoHeader();
   };
 
   renderTabbedForeground = (scrollY: Animated.ValueXY) => {
@@ -159,9 +156,7 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
   };
 
   renderForeground = (scrollY: Animated.ValueXY) => {
-    const { foreground } = this.props;
-
-    return foreground?.() ?? this.renderTabbedForeground(scrollY);
+    return this.renderTabbedForeground(scrollY);
   };
 
   render() {

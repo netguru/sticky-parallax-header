@@ -13,8 +13,7 @@ const screenStyles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 24,
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingBottom: 24,
+    marginBottom: 25,
   },
   flatlistContainer: {
     width: constants.deviceWidth,

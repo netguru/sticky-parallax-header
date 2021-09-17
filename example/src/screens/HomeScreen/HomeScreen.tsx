@@ -69,7 +69,6 @@ const HomeScreen: VFC = () => {
         <View style={styles.modalContentContainer}>
           <UserModal
             setModalVisible={setModalVisible}
-            navigation={navigation}
             onPressCloseModal={() => setModalVisible(false)}
             user={userSelected}
           />

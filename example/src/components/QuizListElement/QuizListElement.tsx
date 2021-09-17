@@ -1,10 +1,19 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { func, string, number } from 'prop-types';
+import React, { VFC } from 'react';
+import { View, Text, TouchableOpacity, Image, ImageSourcePropType } from 'react-native';
 import styles from './QuizListElement.styles';
 import { colors } from '../../constants';
 
-const QuizListElement = ({
+type Props = {
+  onPress?: () => void;
+  authorName: string;
+  mainText: string;
+  labelText: string;
+  elements: number;
+  imageSource: ImageSourcePropType | null;
+  pressUser?: () => void;
+};
+
+const QuizListElement: VFC<Props> = ({
   onPress,
   authorName,
   imageSource,
@@ -19,7 +28,7 @@ const QuizListElement = ({
         <Text style={styles.labelText}>{labelText}</Text>
       </View>
       <View style={[styles.iconContainer, elements >= 20 && { backgroundColor: colors.coralPink }]}>
-        <Image source={require('../../assets/icons/cards.png')} style={styles.icon} />
+        <Image source={require('../../../assets/icons/cards.png')} style={styles.icon} />
         <Text style={[styles.number, elements < 10 && styles.iconCardElement]}>{elements}</Text>
       </View>
     </View>
@@ -29,7 +38,9 @@ const QuizListElement = ({
     <View style={styles.authorWrapper}>
       <TouchableOpacity style={styles.authorContainer} onPress={pressUser}>
         <View style={styles.footerContainer}>
-          <Image source={imageSource} style={styles.authorPhoto} resizeMode="contain" />
+          {imageSource && (
+            <Image source={imageSource} style={styles.authorPhoto} resizeMode="contain" />
+          )}
           <Text style={styles.authorName}>{authorName}</Text>
         </View>
       </TouchableOpacity>
@@ -37,15 +48,5 @@ const QuizListElement = ({
     </View>
   </TouchableOpacity>
 );
-
-QuizListElement.propTypes = {
-  onPress: func,
-  authorName: string,
-  mainText: string,
-  labelText: string,
-  elements: number,
-  imageSource: Image.propTypes.source,
-  pressUser: func,
-};
 
 export default QuizListElement;

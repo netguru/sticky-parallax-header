@@ -7,7 +7,7 @@ export default StyleSheet.create({
     shadowColor: colors.shadowColor,
     shadowOffset: {
       width: 2,
-      heght: 2,
+      height: 2,
     },
     shadowRadius: 40,
     shadowOpacity: 0.08,
@@ -35,7 +35,6 @@ export default StyleSheet.create({
     color: colors.greyishBrown,
     paddingHorizontal: 8,
     paddingVertical: 4,
-    fontFamily: 'AvertaStd-Semibold',
     letterSpacing: 0.8,
   },
   mainText: {
@@ -44,6 +43,5 @@ export default StyleSheet.create({
     color: colors.black,
     paddingTop: 8,
     paddingBottom: 20,
-    fontFamily: 'AvertaStd-Semibold',
   },
 });

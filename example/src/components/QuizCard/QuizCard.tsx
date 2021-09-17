@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, VFC } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { func, string, shape, bool, number } from 'prop-types';
 import styles from './QuizCard.styles';
 import QuizOption from '../QuizOption/QuizOption';
+import type { Card, Question } from '../../assets/data/cards';
 
-const QuizCard = ({ data: { question, cards }, num, onPress, cardsAmount }) => {
+type Props = {
+  onPress?: () => void;
+  data:
+    | {
+        cards: Card[];
+        number: string;
+        question: string;
+        value: boolean;
+        revealed: boolean;
+        picked: boolean;
+      }
+    | Question;
+  num: number;
+  cardsAmount: number;
+};
+
+const QuizCard: VFC<Props> = ({ data: { question, cards }, num, onPress, cardsAmount }) => {
   const [revealed, setRevealed] = useState(false);
 
   return (
@@ -29,19 +45,6 @@ const QuizCard = ({ data: { question, cards }, num, onPress, cardsAmount }) => {
       ))}
     </TouchableOpacity>
   );
-};
-
-QuizCard.propTypes = {
-  onPress: func,
-  data: shape({
-    number: string,
-    question: string,
-    value: bool,
-    revealed: bool,
-    picked: bool,
-  }),
-  num: number,
-  cardsAmount: number,
 };
 
 export default QuizCard;

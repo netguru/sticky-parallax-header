@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { VFC } from 'react';
 import { View } from 'react-native';
 import StickyParallaxHeader from 'react-native-sticky-parallax-header';
 import { QuizCard } from '../../components';
 import styles from './CardScreen.styles';
-import { Brandon } from '../../assets/data/cards';
-import type { User } from '../../../../lib/typescript/assets/data/cards';
+import { Brandon, User } from '../../assets/data/cards';
 
-const CardScreen = () => {
-  const renderContent = (user: User) => (
+type Props = { route: { params?: { user: User } } };
+
+const CardScreen: VFC<Props> = ({ route }) => {
+  const user = route.params?.user ?? Brandon;
+
+  const renderContent = () => (
     <View style={styles.content}>
       {user.cards.map((data, i, arr) => (
         <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
@@ -18,18 +21,17 @@ const CardScreen = () => {
   return (
     <StickyParallaxHeader
       headerType="DetailsHeader"
-      title={Brandon.author}
+      title={user.author}
       leftTopIcon={require('../../assets/icons/iconCloseWhite.png')}
       rightTopIcon={require('../../assets/icons/Icon-Menu.png')}
-      tag={Brandon.type}
-      backgroundColor={Brandon.color}
-      image={Brandon.image}
+      tag={user.type}
+      backgroundColor={user.color}
+      image={user.image}
       contentIcon={require('../../assets/icons/cards_black.png')}
-      contentIconNumber={10}
-    >
-      {renderContent(Brandon)}
+      contentIconNumber={10}>
+      {renderContent()}
     </StickyParallaxHeader>
-  )
-}
+  );
+};
 
 export default CardScreen;

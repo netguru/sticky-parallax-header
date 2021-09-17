@@ -7,7 +7,7 @@ export default StyleSheet.create({
     shadowColor: colors.shadowColor,
     shadowOffset: {
       width: 2,
-      heght: 2,
+      height: 2,
     },
     shadowRadius: 40,
     shadowOpacity: 0.08,
@@ -16,7 +16,7 @@ export default StyleSheet.create({
     borderRadius: 24,
     paddingHorizontal: 20,
     paddingVertical: 16,
-    borderWidth: Platform.select({ ios: 0, android: 2 }),
+    borderWidth: Platform.OS === 'android' ? 2 : 0,
     borderColor: colors.paleGrey,
   },
   labelContainer: {
@@ -34,7 +34,6 @@ export default StyleSheet.create({
     color: colors.greyishBrown,
     paddingHorizontal: 8,
     paddingVertical: 4,
-    fontFamily: 'AvertaStd-Semibold',
   },
   iconContainer: {
     flexDirection: 'row',
@@ -43,7 +42,7 @@ export default StyleSheet.create({
     shadowColor: colors.shadowColor,
     shadowOffset: {
       width: 0,
-      heght: 2,
+      height: 2,
     },
     shadowRadius: 32,
     shadowOpacity: 0.016,
@@ -60,7 +59,6 @@ export default StyleSheet.create({
     paddingLeft: 5,
     fontSize: 16,
     lineHeight: 20,
-    fontFamily: 'AvertaStd-Semibold',
   },
   mainText: {
     fontSize: 24,
@@ -68,7 +66,6 @@ export default StyleSheet.create({
     color: colors.black,
     letterSpacing: -0.2,
     paddingTop: 8,
-    fontFamily: 'AvertaStd-Semibold',
   },
   mainTextContainer: {},
   footerContainer: {
@@ -87,7 +84,6 @@ export default StyleSheet.create({
     lineHeight: 16,
     color: colors.black,
     paddingLeft: 8,
-    fontFamily: 'AvertaStd-Semibold',
   },
   authorWrapper: {
     flexDirection: 'row',
