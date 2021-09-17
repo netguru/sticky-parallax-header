@@ -28,7 +28,7 @@ const QuizListElement: VFC<Props> = ({
         <Text style={styles.labelText}>{labelText}</Text>
       </View>
       <View style={[styles.iconContainer, elements >= 20 && { backgroundColor: colors.coralPink }]}>
-        <Image source={require('../../../assets/icons/cards.png')} style={styles.icon} />
+        <Image source={require('../../assets/icons/cards.png')} style={styles.icon} />
         <Text style={[styles.number, elements < 10 && styles.iconCardElement]}>{elements}</Text>
       </View>
     </View>

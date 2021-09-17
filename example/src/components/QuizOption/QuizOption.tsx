@@ -23,10 +23,10 @@ const QuizOption: VFC<Props> = ({ reveal, revealed, card: { number, question, va
 
   const renderValue = () => {
     if (value) {
-      return <Image source={require('../../../assets/icons/Check.png')} />;
+      return <Image source={require('../../assets/icons/Check.png')} />;
     }
 
-    return <Image source={require('../../../assets/icons/Close.png')} />;
+    return <Image source={require('../../assets/icons/Close.png')} />;
   };
 
   if (revealed) {
