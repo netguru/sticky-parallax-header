@@ -87,17 +87,6 @@ Below are examples of those components and description of the props they are acc
 | `foreground`          | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders the foreground of the header       |
 | `headerSize`          | `func`                                                     |    Yes   | -                                                                            | Get current size of header                               |
 
-### Details Header, Avatar Header
-
-| Property                      | Type                                                  | Optional |  Default                                                                                                                                                                                       | Description                                              |
-| :---------------------------: | :---------------------------------------------------: | :-------:| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------:|
- | `hasBorderRadius`     | `boolean`                         |    No    | `true`                                                                       | Adds radius to header's right bottom border               |
- | `image`               | `ImageSourcePropType`                                      |    No    | `require('../../assets/images/photosPortraitBrandon.png')`                   | Sets header image                                        |
- | `leftTopIcon`         | `ImageSourcePropType`             |    No    | `require('../../assets/icons/iconCloseWhite.png')`                           | Set icon for left top button                             |
- | `leftTopIconOnPress`  | `() => void`                      |    No    | `() => {}`                                                                   | Define action on left top button press                   |
- | `rightTopIcon`        | `ImageSourcePropType`                                      |    No    | `require('../../assets/icons/Icon-Menu.png') `                               | Set icon for right top button                            |
- | `rightTopIconOnPress` | `() => void`                      |    No    | `() => {}`                                                                   | Define action on right top button press                  |
-
 ## Tabbed Header
 
 ![Tabbed Header Gif](./assets/readme_Tabbed.gif)
@@ -130,12 +119,19 @@ Below are examples of those components and description of the props they are acc
 ![Details Header Gif](./assets/readme_Details.gif)
 
 | Property              | Type                              | Required |  Default                                                                     | Description                                              |
-| :-------------------: | :--------------------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
- | `iconNumber`          | `number`                          |    No    | `10`                                                                         | Set amount of cards shown on icon                        |
-| `tag`                 | `string`                          |    No    | `"Product Designer"`                                                         | Sets header tag name                                     |
-| `title`               | `string`                          |    No    | `"Design System"`                                                            | Sets header title                                        |
-| `transparentHeader`   | `boolean`                                                  |    No    | `false`                                                                      | Set header transparency to render custom header          |
-
+| :-------------------: | :--------------------------------:| :-------:| :-----------------------------------------------:| :-------------------------------------------------------:|
+| `tag`                 | `string`                          |    No    |                                                  | Sets header tag name                                     |
+| `title`               | `string`                          |    No    |                                                  | Sets header title                                        |
+| `contentIcon`         | `ImageSourcePropType`             |    No    |                                                  | Sets content icon                                        |
+| `contentIconNumber`   | `number`                          |    No    |                                                  | Sets amount of cards shown on content icon               |
+| `backgroundColor`     | `string`                          |    No    |                                                  | Sets background color                                    |
+| `transparentHeader`   | `boolean`                         |    No    | `false`                                          | Sets header transparency to render custom header         |
+| `hasBorderRadius`     | `boolean`                         |    No    | `true`                                           | Adds radius to header's right bottom border               |
+| `image`               | `ImageSourcePropType`             |    No    |                                                  | Sets header image                                        |
+| `leftTopIcon`         | `ImageSourcePropType`             |    No    |                                                  | Set icon for left top button                             |
+| `leftTopIconOnPress`  | `() => void`                      |    No    |                                                  | Define action on left top button press                   |
+| `rightTopIcon`        | `ImageSourcePropType`             |    No    |                                                  | Set icon for right top button                            |
+| `rightTopIconOnPress` | `() => void`                      |    No    |                                                  | Define action on right top button press                  |
 
 ## Avatar Header
 
@@ -144,13 +140,20 @@ Below are examples of those components and description of the props they are acc
 | Property              | Type                                                       | Optional |  Default                                                                     | Description                                              |
 | :-------------------: | :---------------------------------------------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
 | `header`              | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders custom header                      |
- | `scrollEvent`         | `(event: NativeSyntheticEvent<NativeScrollEvent>) => void` |    No    | `require('../../assets/icons/Icon-Menu.png') `                               | Scroll event to apply custom animations                  |
+| `scrollEvent`         | `(event: NativeSyntheticEvent<NativeScrollEvent>) => void` |    No    | `require('../../assets/icons/Icon-Menu.png') `                               | Scroll event to apply custom animations                  |
 | `snapStartThreshold`  | `number`                                                   |    No    | -                                                                            | Set start value Threshold of snap                        |
- | `snapStopThreshold`   | `number`                                                   |    No    | -                                                                            | Set stop value Threshold of snap                         |
+| `snapStopThreshold`   | `number`                                                   |    No    | -                                                                            | Set stop value Threshold of snap                         |
 | `snapValue`           | `number`                                                   |    No    | -                                                                            | Set value where header is closed                         |
 | `subtitle`            | `string`                                                   |    No    | `"Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer."`| Sets description(subtitle) section                       |
 | `title`               | `string`                                                   |    No    | `"Brandon`                                                                   | Sets header title                                        |
 | `transparentHeader`   | `boolean`                                                  |    No    | `false`                                                                      | Set header transparency to render custom header          |
+| `hasBorderRadius`     | `boolean`                                                  |    No    | `true`                                                                       | Adds radius to header's right bottom border              |
+| `image`               | `ImageSourcePropType`                                      |    No    |                                                                              | Sets header image                                        |
+| `leftTopIcon`         | `ImageSourcePropType`                                      |    No    |                                                                              | Set icon for left top button                             |
+| `leftTopIconOnPress`  | `() => void`                                               |    No    |                                                                              | Define action on left top button press                   |
+| `rightTopIcon`        | `ImageSourcePropType`                                      |    No    |                                                                              | Set icon for right top button                            |
+| `rightTopIconOnPress` | `() => void`                                               |    No    |                                                                              | Define action on right top button press                  |
+
 
 ## Custom Header
 
