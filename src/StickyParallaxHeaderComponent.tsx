@@ -37,7 +37,7 @@ export type DetailsData = {
   about: string;
 };
 
-export type StickyParallaxHeaderProps = {
+export interface StickyParallaxHeaderProps {
   headerType?: undefined | 'Default';
   background?: ReactNode;
   backgroundColor: string;
@@ -76,7 +76,7 @@ export type StickyParallaxHeaderProps = {
   onMomentumScrollEnd: ScrollViewProps['onMomentumScrollEnd'];
   onMomentumScrollBegin: ScrollViewProps['onMomentumScrollBegin'];
   decelerationRate: 'fast' | 'normal';
-};
+}
 
 type State = {
   scrollValue: Animated.AnimatedInterpolation;

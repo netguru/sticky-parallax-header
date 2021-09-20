@@ -9,6 +9,7 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   StatusBar,
+  StyleProp,
   Text,
   TextStyle,
   View,
@@ -23,14 +24,14 @@ import type { SharedPredefinedHeaderProps } from '../../index';
 
 const { event, ValueXY } = Animated;
 
-export type TabbedHeaderProps = Omit<SharedPredefinedHeaderProps, 'transparentHeader'> & {
+export interface TabbedHeaderProps extends SharedPredefinedHeaderProps {
   foregroundImage?: ImageSourcePropType;
   header?: () => StickyParallaxHeaderProps['header'];
   headerType: 'TabbedHeader';
   logo: ImageSourcePropType;
-  logoContainerStyle?: ViewStyle;
+  logoContainerStyle?: StyleProp<ViewStyle>;
   logoResizeMode?: ImageProps['resizeMode'];
-  logoStyle?: ImageStyle;
+  logoStyle?: StyleProp<ImageStyle>;
   onChangeTab?: StickyParallaxHeaderProps['onChangeTab'];
   onRef?: StickyParallaxHeaderProps['onRef'];
   rememberTabScrollPosition?: StickyParallaxHeaderProps['rememberTabScrollPosition'];
@@ -41,10 +42,12 @@ export type TabbedHeaderProps = Omit<SharedPredefinedHeaderProps, 'transparentHe
   tabWrapperStyle?: StickyParallaxHeaderProps['tabWrapperStyle'];
   tabs: StickyParallaxHeaderProps['tabs'];
   tabsContainerBackgroundColor?: string;
+  initialPage: StickyParallaxHeaderProps['initialPage'];
   tabsContainerStyle?: StickyParallaxHeaderProps['tabsContainerStyle'];
   title?: string;
-  titleStyle?: TextStyle;
-};
+  titleStyle?: StyleProp<TextStyle>;
+}
+
 type State = {
   contentHeight: {};
   headerLayout: {
@@ -169,6 +172,7 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
       bounces,
       contentContainerStyles,
       headerHeight,
+      initialPage,
       keyboardShouldPersistTaps,
       onChangeTab,
       onMomentumScrollBegin,
@@ -206,6 +210,7 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
           header={this.renderHeader()}
           headerHeight={headerHeight}
           headerSize={this.setHeaderSize}
+          initialPage={initialPage}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
           onChangeTab={onChangeTab}
           onMomentumScrollBegin={onMomentumScrollBegin}

@@ -1,5 +1,3 @@
-
-
 <div align="center">
   <image align="center" src="./assets/readme_header.svg"/>
 </div>
@@ -18,7 +16,6 @@
       </a>
 </div>
 
-
 # Introduction
 
 <p align="center">
@@ -29,15 +26,13 @@
   <a href="#Preview">Preview</a> &nbsp;|&nbsp; <a href="#Getting-Started">Getting Started</a> &nbsp;|&nbsp; <a href="#Contributing">Contributing</a> &nbsp;|&nbsp; <a href="#Contributors">Contributors</a>
 </div>
 
-
 <h1 id="Preview">Preview</h1>
 <h2> Features </h2>
 Stickyheader.js ships with 3 different use cases for sticky headers and a possibility to create fully custom header!
 
-| Tabbed Header | Avatar Header | Details Header|
-| :------: | :------: | :------: |
-| ![Tabbed Header Gif](./assets/readme_TabbedHeader.gif) |![Avatar Header Gif](./assets/readme_AvatarHeader.gif)| ![Details Header Gif](./assets/readme_DetailsHeader.gif)|
-
+|                     Tabbed Header                      |                     Avatar Header                      |                      Details Header                      |
+| :----------------------------------------------------: | :----------------------------------------------------: | :------------------------------------------------------: |
+| ![Tabbed Header Gif](./assets/readme_TabbedHeader.gif) | ![Avatar Header Gif](./assets/readme_AvatarHeader.gif) | ![Details Header Gif](./assets/readme_DetailsHeader.gif) |
 
 ## In Use
 
@@ -48,8 +43,8 @@ Predefined headers can be accessed through `headerType="HeaderName"` property, e
 This is how you can add them in your app:
 
 ```jsx
-import React from 'react'
-import StickyParallaxHeader from 'react-native-sticky-parallax-header'
+import React from 'react';
+import StickyParallaxHeader from 'react-native-sticky-parallax-header';
 
 const TestScreen = () => (
   <>
@@ -57,60 +52,56 @@ const TestScreen = () => (
     {/* <StickyParallaxHeader headerType="AvatarHeader" /> */}
     {/* <StickyParallaxHeader headerType="DetailsHeader" /> */}
   </>
-)
+);
 
-export default TestScreen
+export default TestScreen;
 ```
 
-
 Below are examples of those components and description of the props they are accepting.
-
-## Shared props
-
-### Tabbed Header, Details Header, Avatar Header
-
-| Property                      | Type                                                  | Optional |  Default                                                                                                                                                                                       | Description                                              |
-| :---------------------------: | :---------------------------------------------------: | :-------:| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------:|
-| `backgroundColor`             | `string`                                              |    Yes   | `#1ca75d`                                                                                                                                                                                      | Header background color                                  |
-| `backgroundImage`             | `number`                                              |    Yes   | `null`                                                                                                                                                                                         | Sets header background image                             |
-| `bounces`                     | `bool`                                                |    Yes   | `true`                                                                                                                                                                                         | Bounces on swiping up                                    |
-| `contentContainerStyles`                  | `View.propTypes.style`                                 |    Yes   |                                                                                                                                                                                                | Set style for content container                         |
-| `headerHeight`                | `number`                                              |    Yes   | `ifIphoneX(92, constants.responsiveHeight(13))`                                                                                                                                                |
-| `DEPRECATED_renderBody` | `func` | Yes | `title => <RenderContent title={title} />` | Function that renders body of the header (can be empty). Deprecated: use `children` instead |
-| `children` | `ReactElement` | Yes | `<RenderContent />` | Renders body of header (can be empty). Replaces `renderBody`  |
-| `snapToEdge`                  | `bool`                                                |    Yes   | `true`                                                                                                                                                                                         | Boolean to fire the function for snap To Edge            |
-| `scrollRef`                   | `func or object`                                      |    Yes   | `null`                                                                                                                                                                                         | ScrollView body ref. Allows programmatically scroll body [ScrollView](https://reactnative.dev/docs/scrollview#methods)           |
-| `keyboardShouldPersistTaps`   | `'always', 'never', 'handled', false, true`           |    Yes   | `undefined`                                                                                                                                                                                    | Determines when the keyboard should stay visible after a tap.|
-| `refreshControl`              | `RefreshControl`           |    Yes   | `undefined`                                                                                                                                                                                    | Props used to add pull to refresh functionality.|
-|     `decelerationRate`      |             `number or string`              |   Yes    |                    `"fast"`                     |                                     Set the deceleration rate for the ScrollView. 
-| `parallaxHeight`      | `number`                                                   |    No    | -                                                                            | Set parallax header height                               |
-| `foreground`          | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders the foreground of the header       |
-| `headerSize`          | `func`                                                     |    Yes   | -                                                                            | Get current size of header                               |
 
 ## Tabbed Header
 
 ![Tabbed Header Gif](./assets/readme_Tabbed.gif)
 
-| Property                      | Type                                                  | Optional |  Default                                                                                                                                                                                       | Description                                              |
-| :---------------------------: | :---------------------------------------------------: | :-------:| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------:|
- | `foregroundImage`             |`oneOfType([object, number])`                          |    Yes   |                                                                                                                                                                                                | Set image in the foreground                              |
-| `header`                      |`func`                                                 |    Yes   |                                                                                                                                                                                                | Function that renders custom header                       |
-| `logo`                        | `func`                                                |    Yes   | `require('../../assets/images/logo.png')`                                                                                                                                                      | Set header logo                                          |
-| `logoStyle`                   | `style`                                               |    Yes   | `{ height: 24, width: 142 }`                                                                                                                                                                   | Set header logo style                                    |
-| `logoContainerStyle`          | `style`                                               |    Yes   | `{    width: '100%', paddingHorizontal: 24, paddingTop: Platform.select({ ios: ifIphoneX(50, 40), android: 55 }), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}`| Set header logo container style                          |
-| `logoResizeMode`              | `"contain", "cover", "stretch", "center", "repeat" `  |    Yes   | `"contain"`                                                                                                                                                                                    | Set header logo resize mode                              |
-| `onRef`                 |`func`                                                 |    Yes   |                                                                                                                                                                                                | Reference callback. You can call goToPage(pageNumber) method through ref to programmatically navigate to given tab                |
-| `rememberTabScrollPosition`   |`bool`                                                 |    Yes   |`false`                                                                                                                                                                                         | When switching between tabs remember current scroll position                        |
-| `scrollEvent`                 |`func`                                                 |    Yes   |                                                                                                                                                                                                | Scroll event to apply custom animations                  |
-| `tabs`                        |`{ content: ReactElement;title?: string;icon?: ReactElement` &#124; `(isActive: boolean) => ReactElement);`                                |    Yes   | `[{title: 'Popular',content: <RenderContent title="Popular Quizes" />},...]`                                                                                                                   | Array with tabs names, icons and content                        |
-| `tabTextStyle`                |`Text.propTypes.style`                                 |    Yes   |`{fontSize: 16, lineHeight: 20, paddingHorizontal: 12, paddingVertical: 8, color: colors.white}`                                                                                                | Set inactive tab style                                   |
-| `tabTextActiveStyle`          |`Text.propTypes.style`                                 |    Yes   |`{fontSize: 16, lineHeight: 20, paddingHorizontal: 12, paddingVertical: 8, color: colors.white}`                                                                                                | Set active tab stylee                                    |
-| `tabTextContainerStyle`       |`ViewPropTypes.style`                                  |    Yes   |`{backgroundColor: colors.transparent, borderRadius: 18}`                                                                                                                                       | Set inactive tab container style                         |
-| `tabTextContainerActiveStyle` |`ViewPropTypes.style`                                  |    Yes   |`{backgroundColor: colors.darkMint}`                                                                                                                                                            | Set active tab container style                           |
-| `tabWrapperStyle`             |`ViewPropTypes.style`                                  |    Yes   |`{paddingVertical: 12}`                                                                                                                                                                         | Set single tab container style                           |
-| `tabsContainerStyle`          |`ViewPropTypes.style`                                  |    Yes   |                                                                                                                                                                                                | Set whole tab bar container style                        |
-| `title`                       | `string`                                              |    Yes   | `"Mornin' Mark! \nReady for a quiz?"`                                                                                                                                                          | Sets header title                                        |
-| `titleStyle`                  |`Text.propTypes.style`                                 |    Yes   |                                                                                                                                                                                                | Set style for text in foreground                         |
+|           Property            |                                                    Type                                                     | Optional |                                             Default                                              |                                          Description                                          |
+| :---------------------------: | :---------------------------------------------------------------------------------------------------------: | :------: | :----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
+|         `headerType`          |                                               `TabbedHeader`                                                |    No    |                                          `TabbedHeader`                                          |                                Set header type to TabbedHeader                                |
+|       `backgroundColor`       |                                                  `string`                                                   |   Yes    |                                           `'#1ca75d'`                                            |                                    Header background color                                    |
+|      ` backgroundImage`       |                                            `ImageSourcePropType`                                            |   Yes    |                                                                                                  |                                Header background image source                                 |
+|           `bounces`           |                                                  `boolean`                                                  |   Yes    |                                              `true`                                              |                                Allow scroll view bounces (IOS)                                |
+|   `contentContainerStyles`    |                                           `StyleProp<ViewStyle>`                                            |   Yes    |                                                                                                  |                                  Set scroll view body styles                                  |
+|       `foregroundImage`       |                                            `ImageSourcePropType`                                            |   Yes    |                                                                                                  |                                    Set tabbed header image                                    |
+|        `headerHeight`         |                                                  `number`                                                   |   Yes    |                         `ifIphoneX(92, constants.responsiveHeight(13))`                          |                                       Set header height                                       |
+|           `header`            |                                                  `element`                                                  |   Yes    |                                                                                                  |                                 Set custom top header content                                 |
+|         `headerSize`          |                                       `(h: LayoutRectangle) => void`                                        |   Yes    |                                                                                                  |                       Handler that is called when header's size changes                       |
+|         `initialPage`         |                                                  `number`                                                   |   Yes    |                                               `0`                                                |                                  Set initial page of tab bar                                  |
+|  `keyboardShouldPersistTaps`  |                                   `boolean, "always", "never", "handled"`                                   |   Yes    |                                                                                                  |                               Set keyboard persist taps method                                |
+|            `logo`             |                                            `ImageSourcePropType`                                            |   Yes    |                                                                                                  |                                 Top right header image source                                 |
+|     `logoContainerStyle`      |                                           `StyleProp<ViewStyle>`                                            |   Yes    |                                                                                                  |                            Top right header image container style                             |
+|       `logoResizeMode`        |                                              `ImageResizeMode`                                              |   Yes    |                                            `contain`                                             |                            Set top right header image resize mode                             |
+|          `logoStyle`          |                                           `StyleProp<ImageStyle>`                                           |   Yes    |                                                                                                  |                               Set top right header image style                                |
+|         `onChangeTab`         |                                       `(tab: MountedTabType) => void`                                       |   Yes    |                                                                                                  |                       Callback is called every time when tab is changed                       |
+|    `onMomentumScrollBegin`    |                         `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`                          |   Yes    |                                                                                                  | Called when the momentum scroll starts (scroll which occurs as the ScrollView starts gliding) |
+|     `onMomentumScrollEnd`     |                         `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`                          |   Yes    |                                                                                                  | Called when the momentum scroll ends (scroll which occurs as the ScrollView glides to a stop) |
+|            `onRef`            |                             `(t: null, StickyParallaxHeaderComponent) => void`                              |   Yes    |                                                                                                  |                         Obtain ref for StickyParallaxHeaderComponent                          |
+|       `parallaxHeight`        |                                                  `number`                                                   |   Yes    |            `ifIphoneX(constants.responsiveHeight(38),constants.responsiveHeight(48))`            |                                  Set parallax header height                                   |
+|       `refreshControl`        |                                                  `element`                                                  |   Yes    |                                                                                                  |           A RefreshControl component, used to provide pull-to-refresh functionality           |
+|  `rememberTabScrollPosition`  |                                                   `bool`                                                    |   Yes    |                                             `false`                                              |                 When switching between tabs remember current scroll position                  |
+|         `scrollEvent`         |                         ` (event: NativeSyntheticEvent<NativeScrollEvent>) => void`                         |   Yes    |                                                                                                  |           Fires at most once per frame during scrolling (Used in custom animations)           |
+|          `scrollRef`          |                       `(t: ScrollView) => void` &#124; `MutableRefObject<ScrollView>`                       |   Yes    |                                                                                                  |                                   Get inner ScrollView ref                                    |
+|     `snapStartThreshold`      |                                                  `number`                                                   |   Yes    |                                                                                                  |                               Set start value Threshold of snap                               |
+|      `snapStopThreshold`      |                                                  `number`                                                   |   Yes    |                                                                                                  |                               Set stop value Threshold of snap                                |
+|         `snapToEdge`          |                                                  `boolean`                                                  |   Yes    |                                              `true`                                              |                    Should snap header to edge when snap value is exceeded                     |
+|          `snapValue`          |                                                  `boolean`                                                  |   Yes    |                                     `parralax header height`                                     |                               Set value where header is closed                                |
+|     `tabTextActiveStyle`      |                                           `StyleProp<TextStyle>`                                            |   Yes    | `{fontSize: 16, lineHeight: 20, paddingHorizontal: 12, paddingVertical: 8, color: colors.white}` |                                  Set active tab text styles                                   |
+| `tabTextContainerActiveStyle` |                                           `StyleProp<ViewStyle>`                                            |   Yes    |                               `{backgroundColor: colors.darkMint}`                               |                                Set active tab container style                                 |
+|        `tabTextStyle`         |                                           `StyleProp<TextStyle>`                                            |   Yes    | `{fontSize: 16, lineHeight: 20, paddingHorizontal: 12, paddingVertical: 8, color: colors.white}` |                                    Set inactive tab style                                     |
+|    `tabTextContainerStyle`    |                                           `StyleProp<ViewStyle>`                                            |   Yes    |                    `{backgroundColor: colors.transparent, borderRadius: 18}`                     |                               Set inactive tab container style                                |
+|       `tabWrapperStyle`       |                                           `StyleProp<ViewStyle>`                                            |   Yes    |                                     `{paddingVertical: 12}`                                      |                                Set single tab container style                                 |
+|            `tabs`             | `{ content: ReactElement;title?: string;icon?: ReactElement` &#124; `(isActive: boolean) => ReactElement);` |   Yes    |                                                                                                  |                      Array with tabs names, icons and content to render                       |
+|     `tabsContainerStyle`      |                                            `ViewPropTypes.style`                                            |   Yes    |                                                                                                  |                               Set whole tab bar container style                               |
+|            `title`            |                                                  `string`                                                   |   Yes    |                                                                                                  |                                       Sets header title                                       |
+|         `titleStyle`          |                                           `StyleProp<TextStyle>`                                            |   Yes    |                                                                                                  |                               Set style for text in foreground                                |
 
 [Check how to customise Tabbed Header example](docs/TABBEDHEADER.MD)
 
@@ -118,49 +109,80 @@ Below are examples of those components and description of the props they are acc
 
 ![Details Header Gif](./assets/readme_Details.gif)
 
-| Property              | Type                              | Required |  Default                                                                     | Description                                              |
-| :-------------------: | :--------------------------------:| :-------:| :-----------------------------------------------:| :-------------------------------------------------------:|
-| `tag`                 | `string`                          |    No    |                                                  | Sets header tag name                                     |
-| `title`               | `string`                          |    No    |                                                  | Sets header title                                        |
-| `contentIcon`         | `ImageSourcePropType`             |    No    |                                                  | Sets content icon                                        |
-| `contentIconNumber`   | `number`                          |    No    |                                                  | Sets amount of cards shown on content icon               |
-| `backgroundColor`     | `string`                          |    No    |                                                  | Sets background color                                    |
-| `transparentHeader`   | `boolean`                         |    No    | `false`                                          | Sets header transparency to render custom header         |
-| `hasBorderRadius`     | `boolean`                         |    No    | `true`                                           | Adds radius to header's right bottom border               |
-| `image`               | `ImageSourcePropType`             |    No    |                                                  | Sets header image                                        |
-| `leftTopIcon`         | `ImageSourcePropType`             |    No    |                                                  | Set icon for left top button                             |
-| `leftTopIconOnPress`  | `() => void`                      |    No    |                                                  | Define action on left top button press                   |
-| `rightTopIcon`        | `ImageSourcePropType`             |    No    |                                                  | Set icon for right top button                            |
-| `rightTopIconOnPress` | `() => void`                      |    No    |                                                  | Define action on right top button press                  |
+|          Property           |                              Type                               | Optional |                                  Default                                   |                                          Description                                          |
+| :-------------------------: | :-------------------------------------------------------------: | :------: | :------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
+|        `headerType`         |                         `DetailsHeader`                         |   Yes    |                               `TabbedHeader`                               |                                Set header type to TabbedHeader                                |
+|      `backgroundColor`      |                            `string`                             |   Yes    |                                `'#1ca75d'`                                 |                                    Header background color                                    |
+|     ` backgroundImage`      |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                Header background image source                                 |
+|          `bounces`          |                            `boolean`                            |   Yes    |                                   `true`                                   |                                Allow scroll view bounces (IOS)                                |
+|            `tag`            |                            `string`                             |   Yes    |                                                                            |                                     Sets header tag name                                      |
+|           `title`           |                            `string`                             |   Yes    |                                                                            |                                       Sets header title                                       |
+|         `children`          |                           `ReactNode`                           |   Yes    |                                                                            |                               Render content inside ScrollView                                |
+|  `contentContainerStyles`   |                     `StyleProp<ViewStyle>`                      |   Yes    |                                                                            |                                  Set scroll view body styles                                  |
+|        `contentIcon`        |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                       Sets content icon                                       |
+|     `contentIconNumber`     |                            `number`                             |   Yes    |                                                                            |                          Sets amount of cards shown on content icon                           |
+|      `hasBorderRadius`      |                            `boolean`                            |   Yes    |                                   `true`                                   |                          Adds radius to header's right bottom border                          |
+|       `headerHeight`        |                            `number`                             |   Yes    |              `ifIphoneX(92, constants.responsiveHeight(13))`               |                                       Set header height                                       |
+|        `headerSize`         |                 `(h: LayoutRectangle) => void`                  |   Yes    |             Handler that is called when header's size changes              |
+|           `image`           |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                       Sets header image                                       |
+| `keyboardShouldPersistTaps` |             `boolean, "always", "never", "handled"`             |   Yes    |                                                                            |                               Set keyboard persist taps method                                |
+|        `leftTopIcon`        |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                 Set icon for left top button                                  |
+|    `leftTopIconOnPress`     |                          `() => void`                           |   Yes    |                                                                            |                            Define action on left top button press                             |
+|       `rightTopIcon`        |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                 Set icon for right top button                                 |
+|    `rightTopIconOnPress`    |                          `() => void`                           |   Yes    |                                                                            |                            Define action on right top button press                            |
+|   `onMomentumScrollBegin`   |   `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`    |   Yes    |                                                                            | Called when the momentum scroll starts (scroll which occurs as the ScrollView starts gliding) |
+|    `onMomentumScrollEnd`    |   `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`    |   Yes    |                                                                            | Called when the momentum scroll ends (scroll which occurs as the ScrollView glides to a stop) |
+|           `onRef`           |       `(t: null, StickyParallaxHeaderComponent) => void`        |   Yes    |                                                                            |                         Obtain ref for StickyParallaxHeaderComponent                          |
+|      `parallaxHeight`       |                            `number`                             |   Yes    | `ifIphoneX(constants.responsiveHeight(38),constants.responsiveHeight(48))` |                                  Set parallax header height                                   |
+|      `refreshControl`       |                            `element`                            |   Yes    |                                                                            |           A RefreshControl component, used to provide pull-to-refresh functionality           |
+|        `scrollEvent`        |   ` (event: NativeSyntheticEvent<NativeScrollEvent>) => void`   |   Yes    |                                                                            |           Fires at most once per frame during scrolling (Used in custom animations)           |
+|         `scrollRef`         | `(t: ScrollView) => void` &#124; `MutableRefObject<ScrollView>` |   Yes    |                                                                            |                                   Get inner ScrollView ref                                    |
+|    `snapStartThreshold`     |                            `number`                             |   Yes    |                                                                            |                               Set start value Threshold of snap                               |
+|     `snapStopThreshold`     |                            `number`                             |   Yes    |                                                                            |                               Set stop value Threshold of snap                                |
+|        `snapToEdge`         |                            `boolean`                            |   Yes    |                                   `true`                                   |                    Should snap header to edge when snap value is exceeded                     |
+|         `snapValue`         |                            `boolean`                            |   Yes    |                          `parralax header height`                          |                               Set value where header is closed                                |
 
 ## Avatar Header
 
 ![Avatar Header Gif](./assets/readme_Avatar.gif)
 
-| Property              | Type                                                       | Optional |  Default                                                                     | Description                                              |
-| :-------------------: | :---------------------------------------------------------:| :-------:| :---------------------------------------------------------------------------:| :-------------------------------------------------------:|
-| `header`              | `() => ReactElement`                                       |    No    | -                                                                            | Function that renders custom header                      |
-| `scrollEvent`         | `(event: NativeSyntheticEvent<NativeScrollEvent>) => void` |    No    | `require('../../assets/icons/Icon-Menu.png') `                               | Scroll event to apply custom animations                  |
-| `snapStartThreshold`  | `number`                                                   |    No    | -                                                                            | Set start value Threshold of snap                        |
-| `snapStopThreshold`   | `number`                                                   |    No    | -                                                                            | Set stop value Threshold of snap                         |
-| `snapValue`           | `number`                                                   |    No    | -                                                                            | Set value where header is closed                         |
-| `subtitle`            | `string`                                                   |    No    | `"Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer."`| Sets description(subtitle) section                       |
-| `title`               | `string`                                                   |    No    | `"Brandon`                                                                   | Sets header title                                        |
-| `transparentHeader`   | `boolean`                                                  |    No    | `false`                                                                      | Set header transparency to render custom header          |
-| `hasBorderRadius`     | `boolean`                                                  |    No    | `true`                                                                       | Adds radius to header's right bottom border              |
-| `image`               | `ImageSourcePropType`                                      |    No    |                                                                              | Sets header image                                        |
-| `leftTopIcon`         | `ImageSourcePropType`                                      |    No    |                                                                              | Set icon for left top button                             |
-| `leftTopIconOnPress`  | `() => void`                                               |    No    |                                                                              | Define action on left top button press                   |
-| `rightTopIcon`        | `ImageSourcePropType`                                      |    No    |                                                                              | Set icon for right top button                            |
-| `rightTopIconOnPress` | `() => void`                                               |    No    |                                                                              | Define action on right top button press                  |
-
+|         Property         |                              Type                               | Optional |                                  Default                                   |                                          Description                                          |
+| :----------------------: | :-------------------------------------------------------------: | :------: | :------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
+|       `headerType`       |                         `DetailsHeader`                         |   Yes    |                               `TabbedHeader`                               |                                Set header type to TabbedHeader                                |
+|    `backgroundColor`     |                            `string`                             |   Yes    |                                `'#1ca75d'`                                 |                                    Header background color                                    |
+|    ` backgroundImage`    |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                Header background image source                                 |
+|        `bounces`         |                            `boolean`                            |   Yes    |                                   `true`                                   |                                Allow scroll view bounces (IOS)                                |
+|        `children`        |                           `ReactNode`                           |   Yes    |                                                                            |                               Render content inside ScrollView                                |
+| `contentContainerStyles` |                     `StyleProp<ViewStyle>`                      |   Yes    |                                                                            |                                  Set scroll view body styles                                  |
+|    `hasBorderRadius`     |                            `boolean`                            |   Yes    |                                   `true`                                   |                          Adds radius to header's right bottom border                          |
+|      `headerHeight`      |                            `number`                             |   Yes    |              `ifIphoneX(92, constants.responsiveHeight(13))`               |                                       Set header height                                       |
+|       `headerSize`       |                 `(h: LayoutRectangle) => void`                  |   Yes    |                                                                            |                       Handler that is called when header's size changes                       |
+|         `image`          |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                       Sets header image                                       |
+|      `leftTopIcon`       |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                 Set icon for left top button                                  |
+|   `leftTopIconOnPress`   |                          `() => void`                           |   Yes    |                                                                            |                            Define action on left top button press                             |
+|      `rightTopIcon`      |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                 Set icon for right top button                                 |
+|  `rightTopIconOnPress`   |                          `() => void`                           |   Yes    |                                                                            |                            Define action on right top button press                            |
+| `onMomentumScrollBegin`  |   `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`    |   Yes    |                                                                            | Called when the momentum scroll starts (scroll which occurs as the ScrollView starts gliding) |
+|  `onMomentumScrollEnd`   |   `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`    |   Yes    |                                                                            | Called when the momentum scroll ends (scroll which occurs as the ScrollView glides to a stop) |
+|     `parallaxHeight`     |                            `number`                             |   Yes    | `ifIphoneX(constants.responsiveHeight(38),constants.responsiveHeight(48))` |                                  Set parallax header height                                   |
+|     `refreshControl`     |                            `element`                            |   Yes    |                                                                            |           A RefreshControl component, used to provide pull-to-refresh functionality           |
+|      `scrollEvent`       |   ` (event: NativeSyntheticEvent<NativeScrollEvent>) => void`   |   Yes    |                                                                            |           Fires at most once per frame during scrolling (Used in custom animations)           |
+|       `scrollRef`        | `(t: ScrollView) => void` &#124; `MutableRefObject<ScrollView>` |   Yes    |                                                                            |                                   Get inner ScrollView ref                                    |
+|   `snapStartThreshold`   |                            `number`                             |   Yes    |                                                                            |                               Set start value Threshold of snap                               |
+|   `snapStopThreshold`    |                            `number`                             |   Yes    |                                                                            |                               Set stop value Threshold of snap                                |
+|       `snapToEdge`       |                            `boolean`                            |   Yes    |                                   `true`                                   |                    Should snap header to edge when snap value is exceeded                     |
+|       `snapValue`        |                            `boolean`                            |   Yes    |                          `parralax header height`                          |                               Set value where header is closed                                |
+|        `subtitle`        |                            `string`                             |   Yes    |                                                                            |                                     Sets header subtitle                                      |
+|         `title`          |                            `string`                             |   Yes    |                                                                            |                                       Sets header title                                       |
 
 ## Custom Header
 
 [Custom header props and example](docs/CUSTOM.md)
 
 ## Handling StickyParallaxHeader body ScrollView reference
+
 ### As callback function
+
 ```
 <StickyParallaxHeader
   scrollRef={(ref) => {
@@ -174,6 +196,7 @@ Below are examples of those components and description of the props they are acc
 ```
 
 ### As useRef value
+
 ```
 const paralaxScrollRef = useRef(null);
 
@@ -186,11 +209,10 @@ const paralaxScrollRef = useRef(null);
 </StickyParallaxHeader>
 ```
 
-
-
 ## Handling nested scrollables
 
 [Handling nested flatlist props and example](docs/CUSTOM.md#Tips)
+
 ## Changing Statusbar style
 
 [Changing StatusBar style](docs/CUSTOM.md#changing-statusbar-style)
@@ -203,19 +225,22 @@ const paralaxScrollRef = useRef(null);
 
 [Icons in tabs](docs/CUSTOM.md#Icons-in-tabs)
 
-
 <h1 id="Getting-Started">Getting Started</h1>
 
 ## Prerequisites
-* [React Native](https://facebook.github.io/react-native/docs/getting-started.html)
-* [Yarn](https://yarnpkg.com/en/docs/install)
-* [node v10.9.0](https://github.com/creationix/nvm)
+
+- [React Native](https://facebook.github.io/react-native/docs/getting-started.html)
+- [Yarn](https://yarnpkg.com/en/docs/install)
+- [node v10.9.0](https://github.com/creationix/nvm)
 
 ## Installation
+
 ### For React Native >= 0.60.0 use version 0.0.60 and above, for previous React Native versions use 0.0.59
+
 ### Installation for React Native >= 0.60.0
 
 Add latest package version
+
 ```bash
 $ yarn add react-native-sticky-parallax-header
 ```
@@ -226,7 +251,7 @@ $ yarn add react-native-sticky-parallax-header
 
 <h1 id="Contributing">Contributing</h1>
 
-[Contributing guidelines](docs/CONTRIBUTING.md)
+[Contributing guidelines](docs_old/CONTRIBUTING.md)
 
 <h1 id="Contributors">Contributors</h1>
 
@@ -260,6 +285,6 @@ $ yarn add react-native-sticky-parallax-header
 
 </div>
 
-
 # License
+
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
