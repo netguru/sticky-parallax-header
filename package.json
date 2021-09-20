@@ -59,7 +59,7 @@
     "jest": "^26.4.2",
     "prettier": "^2.3.2",
     "react": "16.11.0",
-    "react-native": "0.62.2",
+    "react-native": "0.62.3",
     "react-native-builder-bob": "^0.18.0",
     "react-test-render": "^1.1.2",
     "react-test-renderer": "^16.13.1",
