@@ -36,7 +36,6 @@ export interface Tab {
 
 export interface SharedPredefinedHeaderProps {
   backgroundColor?: string;
-  foreground?: () => ReactNode;
   backgroundImage?: StickyParallaxHeaderProps['backgroundImage'];
   bounces?: StickyParallaxHeaderProps['bounces'];
   contentContainerStyles?: StickyParallaxHeaderProps['contentContainerStyles'];
@@ -53,7 +52,6 @@ export interface SharedPredefinedHeaderProps {
   snapStopThreshold?: StickyParallaxHeaderProps['snapStopThreshold'];
   snapToEdge?: StickyParallaxHeaderProps['snapToEdge'];
   snapValue?: StickyParallaxHeaderProps['snapValue'];
-  transparentHeader?: StickyParallaxHeaderProps['transparentHeader'];
 }
 
 export interface IconProps {
@@ -63,7 +61,7 @@ export interface IconProps {
   rightTopIconOnPress?: () => void;
 }
 export interface RenderBody {
-  renderBody?: () => ReactNode;
+  children?: ReactNode;
 }
 
 type Props = TabbedHeaderProps | AvatarHeaderProps | DetailsHeaderProps | StickyParallaxHeaderProps;

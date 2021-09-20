@@ -35,6 +35,5 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: colors.black,
-    fontFamily: 'AvertaStd-Regular',
   },
 });

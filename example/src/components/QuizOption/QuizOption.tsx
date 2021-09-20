@@ -1,8 +1,8 @@
 import React, { useState, VFC } from 'react';
 import { View, Text, Image, TouchableOpacity, LayoutChangeEvent } from 'react-native';
 import styles from './QuizOption.styles';
-import { colors } from '../../../constants';
-import type { Card } from '../../../assets/data/cards';
+import { colors } from '../../constants';
+import type { Card } from '../../assets/data/cards';
 
 type Props = {
   card: Card;
@@ -23,10 +23,10 @@ const QuizOption: VFC<Props> = ({ reveal, revealed, card: { number, question, va
 
   const renderValue = () => {
     if (value) {
-      return <Image source={require('../../../assets/icons/Check.png')} />;
+      return <Image source={require('../../assets/icons/Check.png')} />;
     }
 
-    return <Image source={require('../../../assets/icons/Close.png')} />;
+    return <Image source={require('../../assets/icons/Close.png')} />;
   };
 
   if (revealed) {

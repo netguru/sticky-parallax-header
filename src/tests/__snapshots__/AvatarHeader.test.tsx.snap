@@ -11,7 +11,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
   <View
     style={
       Object {
-        "backgroundColor": "rgb(78,15,255)",
+        "backgroundColor": undefined,
         "height": 75,
       }
     }
@@ -24,14 +24,11 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
             "flexDirection": "row",
             "justifyContent": "space-between",
             "paddingHorizontal": 24,
-            "paddingTop": 40,
+            "paddingTop": 35,
             "width": "100%",
           },
           Object {
-            "paddingTop": 30,
-          },
-          Object {
-            "backgroundColor": "rgb(78,15,255)",
+            "backgroundColor": undefined,
           },
         ]
       }
@@ -68,22 +65,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
               "opacity": 1,
             }
           }
-        >
-          <Image
-            resizeMode="contain"
-            source={
-              Object {
-                "testUri": "../../../src/assets/icons/iconCloseWhite.png",
-              }
-            }
-            style={
-              Object {
-                "height": 16,
-                "width": 16,
-              }
-            }
-          />
-        </View>
+        />
         <View
           style={
             Object {
@@ -97,7 +79,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
           <Image
             source={
               Object {
-                "testUri": "../../../src/assets/images/photosPortraitBrandon.png",
+                "uri": "",
               }
             }
             style={
@@ -121,9 +103,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
                 "opacity": 0,
               }
             }
-          >
-            Brandon
-          </Text>
+          />
         </View>
         <View
           accessible={true}
@@ -150,22 +130,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
               "opacity": 1,
             }
           }
-        >
-          <Image
-            resizeMode="contain"
-            source={
-              Object {
-                "testUri": "../../../src/assets/icons/Icon-Menu.png",
-              }
-            }
-            style={
-              Object {
-                "height": 16,
-                "width": 16,
-              }
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>
@@ -174,7 +139,6 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
     bouncesZoom={true}
     contentContainerStyle={
       Object {
-        "backgroundColor": undefined,
         "minHeight": 1966.02,
       }
     }
@@ -209,7 +173,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
                 "top": -300,
               },
               Object {
-                "backgroundColor": "rgb(78,15,255)",
+                "backgroundColor": undefined,
               },
               Object {
                 "backgroundColor": undefined,
@@ -238,7 +202,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
           <View
             style={
               Object {
-                "backgroundColor": "rgb(78,15,255)",
+                "backgroundColor": undefined,
                 "borderBottomRightRadius": 80,
                 "height": "100%",
                 "justifyContent": "flex-end",
@@ -274,7 +238,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
               <Image
                 source={
                   Object {
-                    "testUri": "../../../src/assets/images/photosPortraitBrandon.png",
+                    "uri": "",
                   }
                 }
                 style={
@@ -312,9 +276,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
                     },
                   ]
                 }
-              >
-                Brandon
-              </Text>
+              />
             </View>
             <View
               style={
@@ -334,9 +296,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
                     "lineHeight": 24,
                   }
                 }
-              >
-                Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer.
-              </Text>
+              />
             </View>
           </View>
         </View>
@@ -369,264 +329,12 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
           onMomentumScrollEnd={[Function]}
           onScroll={[Function]}
           pagingEnabled={true}
-          scrollEnabled={false}
+          scrollEnabled={true}
           scrollEventThrottle={16}
           scrollsToTop={false}
           showsHorizontalScrollIndicator={false}
         >
-          <View>
-            <View
-              shouldUpdated={true}
-              style={
-                Array [
-                  Object {
-                    "maxHeight": undefined,
-                    "minHeight": 551.98,
-                    "width": 750,
-                  },
-                  Object {},
-                ]
-              }
-            >
-              <View
-                onLayout={[Function]}
-                style={
-                  Array [
-                    Object {
-                      "alignItems": "center",
-                      "flex": 1,
-                      "justifyContent": "center",
-                      "paddingBottom": 24,
-                      "paddingHorizontal": 24,
-                    },
-                    Object {
-                      "marginBottom": 0,
-                      "paddingBottom": 707.02,
-                    },
-                  ]
-                }
-              >
-                <Text
-                  style={
-                    Object {
-                      "alignSelf": "flex-start",
-                      "color": "black",
-                      "fontSize": 24,
-                      "letterSpacing": -0.2,
-                      "lineHeight": 28,
-                      "paddingBottom": 20,
-                      "paddingTop": 40,
-                    }
-                  }
-                >
-                  Author's Quizes
-                </Text>
-                <View
-                  accessible={true}
-                  focusable={false}
-                  onClick={[Function]}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "backgroundColor": "white",
-                      "borderColor": "rgb(246,245,248)",
-                      "borderRadius": 24,
-                      "borderWidth": 0,
-                      "marginTop": 12,
-                      "opacity": 1,
-                      "paddingHorizontal": 20,
-                      "paddingVertical": 16,
-                      "shadowColor": "rgb(35,35,35)",
-                      "shadowOffset": Object {
-                        "height": 2,
-                        "width": 2,
-                      },
-                      "shadowOpacity": 0.08,
-                      "shadowRadius": 40,
-                      "width": "100%",
-                    }
-                  }
-                >
-                  <View
-                    style={
-                      Object {
-                        "alignItems": "flex-start",
-                        "flexDirection": "row",
-                        "justifyContent": "space-between",
-                      }
-                    }
-                  >
-                    <View
-                      style={
-                        Object {
-                          "backgroundColor": "rgb(246,245,248)",
-                          "borderRadius": 16,
-                        }
-                      }
-                    >
-                      <Text
-                        style={
-                          Object {
-                            "color": "rgb(71,71,71)",
-                            "fontSize": 12,
-                            "lineHeight": 16,
-                            "paddingHorizontal": 8,
-                            "paddingVertical": 4,
-                          }
-                        }
-                      >
-                        Product Design
-                      </Text>
-                    </View>
-                    <View
-                      style={
-                        Array [
-                          Object {
-                            "alignItems": "center",
-                            "backgroundColor": "rgb(78, 15, 255)",
-                            "borderRadius": 8,
-                            "flexDirection": "row",
-                            "padding": 8,
-                            "shadowColor": "rgb(35,35,35)",
-                            "shadowOffset": Object {
-                              "height": 2,
-                              "width": 0,
-                            },
-                            "shadowOpacity": 0.016,
-                            "shadowRadius": 32,
-                            "width": 56,
-                          },
-                          false,
-                        ]
-                      }
-                    >
-                      <Image
-                        source={
-                          Object {
-                            "testUri": "../../../src/assets/icons/cards.png",
-                          }
-                        }
-                        style={
-                          Object {
-                            "height": 16,
-                            "width": 16,
-                          }
-                        }
-                      />
-                      <Text
-                        style={
-                          Array [
-                            Object {
-                              "color": "white",
-                              "fontSize": 16,
-                              "lineHeight": 20,
-                              "paddingLeft": 5,
-                            },
-                            false,
-                          ]
-                        }
-                      >
-                        10
-                      </Text>
-                    </View>
-                  </View>
-                  <View
-                    style={Object {}}
-                  >
-                    <Text
-                      style={
-                        Object {
-                          "color": "black",
-                          "fontSize": 24,
-                          "letterSpacing": -0.2,
-                          "lineHeight": 28,
-                          "paddingTop": 8,
-                        }
-                      }
-                    >
-                      Design System
-                    </Text>
-                  </View>
-                  <View
-                    style={
-                      Object {
-                        "flexDirection": "row",
-                      }
-                    }
-                  >
-                    <View
-                      accessible={true}
-                      focusable={false}
-                      onClick={[Function]}
-                      onResponderGrant={[Function]}
-                      onResponderMove={[Function]}
-                      onResponderRelease={[Function]}
-                      onResponderTerminate={[Function]}
-                      onResponderTerminationRequest={[Function]}
-                      onStartShouldSetResponder={[Function]}
-                      style={
-                        Object {
-                          "opacity": 1,
-                          "paddingRight": 40,
-                        }
-                      }
-                    >
-                      <View
-                        style={
-                          Object {
-                            "alignItems": "center",
-                            "flexDirection": "row",
-                            "justifyContent": "flex-start",
-                            "paddingTop": 22,
-                          }
-                        }
-                      >
-                        <Image
-                          resizeMode="contain"
-                          source={
-                            Object {
-                              "testUri": "../../../src/assets/images/photosPortraitBrandon.png",
-                            }
-                          }
-                          style={
-                            Object {
-                              "borderRadius": 8,
-                              "height": 24,
-                              "width": 24,
-                            }
-                          }
-                        />
-                        <Text
-                          style={
-                            Object {
-                              "color": "black",
-                              "fontSize": 12,
-                              "lineHeight": 16,
-                              "paddingLeft": 8,
-                            }
-                          }
-                        >
-                          Brandon
-                        </Text>
-                      </View>
-                    </View>
-                    <View
-                      style={
-                        Object {
-                          "width": "38%",
-                        }
-                      }
-                    />
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
+          <View />
         </RCTScrollView>
       </View>
     </View>

@@ -17,8 +17,7 @@ import StickyParallaxHeader, {
 } from '../../StickyParallaxHeaderComponent';
 import { constants, sizes } from '../../constants';
 import styles from './AvatarHeader.styles';
-import { Brandon } from '../../assets/data/cards';
-import RenderContent from './defaultProps/defaultProps';
+
 import type { IconProps, RenderBody, SharedPredefinedHeaderProps } from '../../index';
 
 const { event, ValueXY } = Animated;
@@ -26,8 +25,7 @@ const { event, ValueXY } = Animated;
 export interface AvatarHeaderProps extends IconProps, SharedPredefinedHeaderProps, RenderBody {
   headerType: 'AvatarHeader';
   hasBorderRadius?: boolean;
-  header?: () => StickyParallaxHeaderProps['header'];
-  image?: ImageSourcePropType;
+  image: ImageSourcePropType;
   subtitle?: string;
   title?: string;
 }
@@ -104,14 +102,13 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
     });
 
     return (
-      <View style={[styles.headerWrapper, styles.userModalHeader, { backgroundColor }]}>
+      <View style={[styles.headerWrapper, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity
             hitSlop={sizes.hitSlop}
             onPress={leftTopIconOnPress}
             style={styles.leftHeaderButton}>
-            {/*@ts-ignore There is default props for that*/}
-            <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />
+            {leftTopIcon && <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />}
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
             {/*@ts-ignore There is default props for that*/}
@@ -124,18 +121,13 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
             hitSlop={sizes.hitSlop}
             onPress={rightTopIconOnPress}
             style={styles.rightHeaderButton}>
-            {/*@ts-ignore There is default props for that*/}
-            <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
+            {rightTopIcon && (
+              <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
+            )}
           </TouchableOpacity>
         </View>
       </View>
     );
-  };
-
-  renderHeader = (): StickyParallaxHeaderProps['header'] => {
-    const { header } = this.props;
-
-    return header ? header() : this.renderAvatarHeader();
   };
 
   renderAvatarForeground = (): ReactNode => {
@@ -176,7 +168,6 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
       <View style={styles.foreground}>
         <Animated.View style={{ opacity: imageOpacity }}>
           <Animated.Image
-            /*@ts-ignore There is default props for that*/
             source={image}
             style={[styles.profilePic, { width: imageSize, height: imageSize }]}
           />
@@ -196,12 +187,6 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
         </Animated.View>
       </View>
     );
-  };
-
-  renderForeground = (): ReactNode => {
-    const { foreground } = this.props;
-
-    return foreground?.() ?? this.renderAvatarForeground();
   };
 
   renderBackground = (): ReactElement => {
@@ -237,7 +222,6 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
       backgroundImage,
       contentContainerStyles,
       children,
-      renderBody,
       headerHeight,
       snapToEdge,
       bounces,
@@ -246,17 +230,12 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
       snapStartThreshold,
       snapStopThreshold,
       snapValue,
-      transparentHeader,
       scrollRef,
       keyboardShouldPersistTaps,
       refreshControl,
       onMomentumScrollEnd,
       onMomentumScrollBegin,
     } = this.props;
-
-    if (renderBody) {
-      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
-    }
 
     return (
       <>
@@ -270,8 +249,8 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
           backgroundImage={backgroundImage}
           bounces={bounces}
           contentContainerStyles={contentContainerStyles}
-          foreground={this.renderForeground()}
-          header={this.renderHeader()}
+          foreground={this.renderAvatarForeground()}
+          header={this.renderAvatarHeader()}
           headerHeight={headerHeight}
           headerSize={this.setHeaderSize}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
@@ -284,36 +263,19 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
           snapStopThreshold={snapStopThreshold}
           snapToEdge={snapToEdge}
           snapValue={snapValue}
-          transparentHeader={transparentHeader}>
-          {renderBody !== undefined ? renderBody() : children}
+          transparentHeader={false}>
+          {children}
         </StickyParallaxHeader>
       </>
     );
   }
 
   static defaultProps = {
-    // default is used remember to check before removing
-    leftTopIcon: require('../../assets/icons/iconCloseWhite.png'),
-    // default is used remember to check before removing
-    rightTopIcon: require('../../assets/icons/Icon-Menu.png'),
-    backgroundColor: Brandon.color,
     headerHeight: sizes.userModalHeaderHeight,
-    title: Brandon.author,
-    subtitle: Brandon.about,
-    // default is used remember to check before removing
-    image: Brandon.image,
-    children: <RenderContent user={Brandon} />,
     bounces: true,
     snapToEdge: true,
     hasBorderRadius: true,
     parallaxHeight: sizes.userScreenParallaxHeader,
-    transparentHeader: false,
-    scrollRef: null,
-    keyboardShouldPersistTaps: undefined,
-    refreshControl: undefined,
-    headerSize: undefined,
-    onMomentumScrollEnd: undefined,
-    onMomentumScrollBegin: undefined,
   };
 }
 

@@ -6,6 +6,7 @@ import {
   NativeSyntheticEvent,
   ScrollView,
   ScrollViewProps,
+  StyleProp,
   StyleSheet,
   View,
   ViewStyle,
@@ -27,7 +28,7 @@ const { deviceWidth } = constants;
 
 type ScrollableTabViewProps = {
   children: React.ReactNode;
-  contentContainerStyles: ViewStyle;
+  contentContainerStyles: StyleProp<ViewStyle>;
   initialPage: number;
   page: number;
   onChangeTab: (p: MountedTabType) => void;

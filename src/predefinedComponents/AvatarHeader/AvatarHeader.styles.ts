@@ -1,12 +1,8 @@
-import { StyleSheet, Platform } from 'react-native';
-import { ifIphoneX } from '../../utils';
+import { StyleSheet } from 'react-native';
 import { colors, constants, screenStyles } from '../../constants';
 
 export default StyleSheet.create({
   ...screenStyles,
-  userModalHeader: {
-    paddingTop: Platform.OS === 'ios' ? ifIphoneX(50, 30) : 18,
-  },
   headerPic: {
     width: 32,
     height: 32,

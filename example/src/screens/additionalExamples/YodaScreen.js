@@ -9,6 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import StickyParallaxHeader from 'react-native-sticky-parallax-header';
+import { useNavigation } from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const { event, ValueXY } = Animated;
@@ -31,6 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: 'black',
+    flex: 1,
   },
   headerWrapper: {
     flexDirection: 'row',
@@ -92,6 +94,8 @@ const styles = StyleSheet.create({
 });
 
 const CutomHeaderScreen = () => {
+  const naviagation = useNavigation();
+  const back = () => naviagation.goBack();
   const renderContent = (x) => (
     <View style={styles.contentContiner}>
       <Text style={styles.contentText}>{x}</Text>
@@ -108,13 +112,12 @@ const CutomHeaderScreen = () => {
     return (
       <View style={styles.headerCotainer}>
         <View style={styles.headerWrapper}>
-          <TouchableOpacity onPress={() => console.warn('CLICKED')}>
+          <TouchableOpacity onPress={back}>
             <Image
               style={styles.headerImage}
               resizeMode="contain"
               source={{
-                uri:
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/VisualEditor_-_Icon_-_Close_-_white.svg/1200px-VisualEditor_-_Icon_-_Close_-_white.svg.png',
+                uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/VisualEditor_-_Icon_-_Close_-_white.svg/1200px-VisualEditor_-_Icon_-_Close_-_white.svg.png',
               }}
             />
           </TouchableOpacity>

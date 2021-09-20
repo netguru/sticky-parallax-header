@@ -1,51 +1,53 @@
 import React from 'react';
 import {
-  Text,
-  View,
-  Image,
-  StatusBar,
   Animated,
-  LayoutRectangle,
-  ImageSourcePropType,
+  Image,
   ImageProps,
+  ImageSourcePropType,
   ImageStyle,
-  ViewStyle,
-  TextStyle,
-  NativeSyntheticEvent,
+  LayoutRectangle,
   NativeScrollEvent,
+  NativeSyntheticEvent,
+  StatusBar,
+  StyleProp,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
 } from 'react-native';
-
 import StickyParallaxHeader, {
   StickyParallaxHeaderProps,
 } from '../../StickyParallaxHeaderComponent';
 import { constants, colors, sizes } from '../../constants';
 import styles from './TabbedHeader.styles';
-import RenderContent from './defaultProps/defaultProps';
-import type { RenderBody, SharedPredefinedHeaderProps } from '../../index';
+import type { SharedPredefinedHeaderProps } from '../../index';
 
 const { event, ValueXY } = Animated;
 
-export type TabbedHeaderProps = RenderBody &
-  SharedPredefinedHeaderProps & {
-    headerType: 'TabbedHeader';
-    foregroundImage?: ImageSourcePropType;
-    header?: () => StickyParallaxHeaderProps['header'];
-    logo?: ImageSourcePropType;
-    logoContainerStyle?: ViewStyle;
-    logoResizeMode?: ImageProps['resizeMode'];
-    logoStyle?: ImageStyle;
-    onRef?: StickyParallaxHeaderProps['onRef'];
-    rememberTabScrollPosition?: StickyParallaxHeaderProps['rememberTabScrollPosition'];
-    tabTextActiveStyle?: StickyParallaxHeaderProps['tabTextActiveStyle'];
-    tabTextContainerActiveStyle?: StickyParallaxHeaderProps['tabTextContainerActiveStyle'];
-    tabTextContainerStyle?: StickyParallaxHeaderProps['tabTextContainerStyle'];
-    tabTextStyle?: StickyParallaxHeaderProps['tabTextStyle'];
-    tabWrapperStyle?: StickyParallaxHeaderProps['tabWrapperStyle'];
-    tabs: StickyParallaxHeaderProps['tabs'];
-    tabsContainerStyle?: StickyParallaxHeaderProps['tabsContainerStyle'];
-    title?: string;
-    titleStyle?: TextStyle;
-  };
+export interface TabbedHeaderProps extends SharedPredefinedHeaderProps {
+  foregroundImage?: ImageSourcePropType;
+  header?: () => StickyParallaxHeaderProps['header'];
+  headerType: 'TabbedHeader';
+  logo: ImageSourcePropType;
+  logoContainerStyle?: StyleProp<ViewStyle>;
+  logoResizeMode?: ImageProps['resizeMode'];
+  logoStyle?: StyleProp<ImageStyle>;
+  onChangeTab?: StickyParallaxHeaderProps['onChangeTab'];
+  onRef?: StickyParallaxHeaderProps['onRef'];
+  rememberTabScrollPosition?: StickyParallaxHeaderProps['rememberTabScrollPosition'];
+  tabTextActiveStyle?: StickyParallaxHeaderProps['tabTextActiveStyle'];
+  tabTextContainerActiveStyle?: StickyParallaxHeaderProps['tabTextContainerActiveStyle'];
+  tabTextContainerStyle?: StickyParallaxHeaderProps['tabTextContainerStyle'];
+  tabTextStyle?: StickyParallaxHeaderProps['tabTextStyle'];
+  tabWrapperStyle?: StickyParallaxHeaderProps['tabWrapperStyle'];
+  tabs: StickyParallaxHeaderProps['tabs'];
+  tabsContainerBackgroundColor?: string;
+  initialPage: StickyParallaxHeaderProps['initialPage'];
+  tabsContainerStyle?: StickyParallaxHeaderProps['tabsContainerStyle'];
+  title?: string;
+  titleStyle?: StyleProp<TextStyle>;
+}
+
 type State = {
   contentHeight: {};
   headerLayout: {
@@ -81,7 +83,8 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
   setHeaderSize = (headerLayout: LayoutRectangle) => {
     const { headerSize } = this.props;
 
-    if (headerSize) headerSize(headerLayout);
+    headerSize?.(headerLayout);
+
     this.setState({ headerLayout });
   };
 
@@ -95,9 +98,8 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
     const { backgroundColor, logo, logoResizeMode, logoStyle, logoContainerStyle } = this.props;
 
     return (
-      <View style={[logoContainerStyle, { backgroundColor }]}>
-        {/*@ts-ignore There is default value for that*/}
-        <Image resizeMode={logoResizeMode} source={logo} style={logoStyle} />
+      <View style={[styles.headerWrapper, logoContainerStyle, { backgroundColor }]}>
+        <Image resizeMode={logoResizeMode} source={logo} style={[styles.logo, logoStyle]} />
       </View>
     );
   };
@@ -110,7 +112,8 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
 
   renderTabbedForeground = (scrollY: Animated.ValueXY) => {
     const { title, titleStyle, foregroundImage } = this.props;
-    const messageStyle = titleStyle || styles.message;
+    const messageStyle = [styles.message, titleStyle];
+
     const startSize = constants.responsiveWidth(18);
     const endSize = constants.responsiveWidth(10);
     const [startImgFade, finishImgFade] = [this.scrollPosition(22), this.scrollPosition(27)];
@@ -134,16 +137,11 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
     });
 
     const renderImage = () => {
-      const logo =
-        foregroundImage === undefined
-          ? require('../../assets/images/photosPortraitMe.png')
-          : foregroundImage;
-
-      if (foregroundImage !== null) {
+      if (foregroundImage) {
         return (
           <Animated.View style={{ opacity: imageOpacity }}>
             <Animated.Image
-              source={logo}
+              source={foregroundImage}
               style={[styles.profilePic, { width: imageSize, height: imageSize }]}
             />
           </Animated.View>
@@ -164,55 +162,47 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
   };
 
   renderForeground = (scrollY: Animated.ValueXY) => {
-    const { foreground } = this.props;
-
-    return foreground?.() ?? this.renderTabbedForeground(scrollY);
+    return this.renderTabbedForeground(scrollY);
   };
 
   render() {
     const {
-      tabs,
-      headerHeight,
       backgroundColor,
       backgroundImage,
       bounces,
-      snapToEdge,
-      scrollEvent,
-      renderBody,
-      children,
-      tabTextStyle,
-      tabTextActiveStyle,
-      tabTextContainerStyle,
-      tabTextContainerActiveStyle,
-      tabWrapperStyle,
-      tabsContainerStyle,
-      onRef,
-      keyboardShouldPersistTaps,
-      scrollRef,
       contentContainerStyles,
+      headerHeight,
+      initialPage,
+      keyboardShouldPersistTaps,
+      onChangeTab,
+      onMomentumScrollBegin,
+      onMomentumScrollEnd,
+      onRef,
+      parallaxHeight,
       refreshControl,
       rememberTabScrollPosition,
-      parallaxHeight,
-      onMomentumScrollEnd,
-      onMomentumScrollBegin,
+      scrollEvent,
+      scrollRef,
       snapStartThreshold,
       snapStopThreshold,
+      snapToEdge,
       snapValue,
-      transparentHeader,
+      tabTextActiveStyle,
+      tabTextContainerActiveStyle,
+      tabTextContainerStyle,
+      tabTextStyle,
+      tabWrapperStyle,
+      tabs,
+      tabsContainerBackgroundColor,
+      tabsContainerStyle,
     } = this.props;
 
-    if (renderBody) {
-      console.warn('Warning: renderBody prop is deprecated. Please use children instead');
-    }
+    const tabsContainerBgColor = tabsContainerBackgroundColor ?? backgroundColor;
 
     return (
       <>
         <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
-            useNativeDriver: false,
-            listener: (e: NativeSyntheticEvent<NativeScrollEvent>) => scrollEvent && scrollEvent(e),
-          })}
           backgroundImage={backgroundImage}
           bounces={bounces}
           contentContainerStyles={contentContainerStyles}
@@ -220,80 +210,47 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
           header={this.renderHeader()}
           headerHeight={headerHeight}
           headerSize={this.setHeaderSize}
+          initialPage={initialPage}
           keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-          onMomentumScrollBegin={onMomentumScrollBegin}>
+          onChangeTab={onChangeTab}
+          onMomentumScrollBegin={onMomentumScrollBegin}
           onMomentumScrollEnd={onMomentumScrollEnd}
           onRef={onRef}
           parallaxHeight={parallaxHeight}
           refreshControl={refreshControl}
           rememberTabScrollPosition={rememberTabScrollPosition}
+          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
+            useNativeDriver: false,
+            listener: (e: NativeSyntheticEvent<NativeScrollEvent>) => scrollEvent?.(e),
+          })}
           scrollRef={scrollRef}
           snapStartThreshold={snapStartThreshold}
           snapStopThreshold={snapStopThreshold}
           snapToEdge={snapToEdge}
           snapValue={snapValue}
-          snapValue={snapValue}
-          tabTextActiveStyle={tabTextActiveStyle}
-          tabTextContainerActiveStyle={tabTextContainerActiveStyle}
-          tabTextContainerStyle={tabTextContainerStyle}
-          tabTextStyle={tabTextStyle}
-          tabWrapperStyle={tabWrapperStyle}
+          tabTextActiveStyle={[styles.tabText, tabTextActiveStyle]}
+          tabTextContainerActiveStyle={[
+            styles.tabTextContainerActiveStyle,
+            tabTextContainerActiveStyle,
+          ]}
+          tabTextContainerStyle={[styles.tabTextContainerStyle, tabTextContainerStyle]}
+          tabTextStyle={[styles.tabText, tabTextStyle]}
+          tabWrapperStyle={[styles.tabsWrapper, tabWrapperStyle]}
           tabs={tabs}
-          tabsContainerBackgroundColor={backgroundColor}
+          tabsContainerBackgroundColor={tabsContainerBgColor}
           tabsContainerStyle={tabsContainerStyle}
-          transparentHeader={transparentHeader}
-          {renderBody ? renderBody() : children}
-        </StickyParallaxHeader>
+        />
       </>
     );
   }
 
   static defaultProps = {
     backgroundColor: colors.primaryGreen,
-    headerHeight: sizes.headerHeight,
-    backgroundImage: null,
-    title: "Mornin' Mark! \nReady for a quiz?",
     bounces: true,
-    snapToEdge: true,
-    // Logo default is used remember to check before removing
-    logo: require('../../assets/images/logo.png'),
+    headerHeight: sizes.headerHeight,
     logoResizeMode: 'contain',
-    logoStyle: styles.logo,
-    logoContainerStyle: styles.headerWrapper,
-    children: <RenderContent title="Popular Quizes" />,
-    tabs: [
-      {
-        title: 'Popular',
-        content: <RenderContent title="Popular Quizes" />,
-      },
-      {
-        title: 'Product Design',
-        content: <RenderContent title="Product Design" />,
-      },
-      {
-        title: 'Development',
-        content: <RenderContent title="Development" />,
-      },
-      {
-        title: 'Project Management',
-        content: <RenderContent title="Project Management" />,
-      },
-    ],
-    tabTextStyle: styles.tabText,
-    tabTextActiveStyle: styles.tabText,
-    tabTextContainerStyle: styles.tabTextContainerStyle,
-    tabTextContainerActiveStyle: styles.tabTextContainerActiveStyle,
-    tabWrapperStyle: styles.tabsWrapper,
-    contentContainerStyles: {},
-    rememberTabScrollPosition: false,
-    keyboardShouldPersistTaps: undefined,
-    refreshControl: undefined,
-    scrollRef: null,
-    onRef: null,
     parallaxHeight: sizes.homeScreenParallaxHeader,
-    headerSize: undefined,
-    onMomentumScrollEnd: undefined,
-    onMomentumScrollBegin: undefined,
+    snapToEdge: true,
     transparentHeader: true,
   };
 }

@@ -4,7 +4,9 @@ import AvatarHeader from '../predefinedComponents/AvatarHeader/AvatarHeader';
 
 describe('AvatarHeader Test [Hacktoberfest]', () => {
   test('-Snapshot AvatarHeader', () => {
-    const tree = renderer.create(<AvatarHeader headerType={'AvatarHeader'} />).toJSON();
+    const tree = renderer
+      .create(<AvatarHeader image={{ uri: '' }} headerType={'AvatarHeader'} />)
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });

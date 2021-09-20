@@ -7,6 +7,7 @@ import {
   ScrollView,
   ViewStyle,
   TextStyle,
+  StyleProp,
 } from 'react-native';
 import { constants } from '../../constants';
 import styles from './ScrollableTabBar.styles';
@@ -19,13 +20,13 @@ export type ScrollableTabBarProps = {
   activeTab: number;
   goToPage: (index: number) => void;
   scrollValue: Animated.AnimatedInterpolation;
-  tabTextStyle: TextStyle;
-  tabTextActiveStyle: TextStyle;
-  tabTextContainerStyle: ViewStyle;
-  tabTextContainerActiveStyle: ViewStyle;
+  tabTextStyle: StyleProp<TextStyle>;
+  tabTextActiveStyle: StyleProp<TextStyle>;
+  tabTextContainerStyle: StyleProp<ViewStyle>;
+  tabTextContainerActiveStyle: StyleProp<ViewStyle>;
   tabsContainerBackgroundColor?: string;
-  tabWrapperStyle?: ViewStyle;
-  tabsContainerStyle?: ViewStyle;
+  tabWrapperStyle?: StyleProp<ViewStyle>;
+  tabsContainerStyle?: StyleProp<ViewStyle>;
 };
 type State = { tabUnderlineWidth: number[] };
 
