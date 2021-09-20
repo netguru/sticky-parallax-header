@@ -16,14 +16,14 @@ import {
   StyleProp,
 } from 'react-native';
 import { ScrollableTabBar, ScrollableTabView, HeaderBackgroundImage } from './components';
-import { constants } from './constants';
+import { colors, constants } from './constants';
 import styles from './styles';
 import { getSafelyScrollNode, setRef } from './utils';
 import type { Tab } from './index';
 import type { ScrollableTabBarProps } from './components/ScrollableTabBar/ScrollableTabBar';
 import type { MountedTabType } from './index';
 
-const { divide, Value, createAnimatedComponent, event, timing, ValueXY } = Animated;
+const { Value, createAnimatedComponent, event, timing, ValueXY } = Animated;
 const AnimatedScrollView = createAnimatedComponent(ScrollView);
 
 export type DetailsData = {
@@ -76,10 +76,12 @@ export interface StickyParallaxHeaderProps {
   onMomentumScrollEnd: ScrollViewProps['onMomentumScrollEnd'];
   onMomentumScrollBegin: ScrollViewProps['onMomentumScrollBegin'];
   decelerationRate: 'fast' | 'normal';
+  tabUnderlineColor: string | null;
+  tabsContainerHorizontalPadding?: number;
+  horizontalScrollBounces?: boolean;
 }
 
 type State = {
-  scrollValue: Animated.AnimatedInterpolation;
   containerWidth: number;
   currentPage: number;
   isFolded: boolean;
@@ -91,6 +93,8 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
   tabsScrollPosition: number[];
 
   scrollY: Animated.ValueXY;
+
+  scrollXIOS: Animated.Value;
 
   _value: XYValue | null;
 
@@ -104,21 +108,14 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
     super(props);
     const { initialPage } = this.props;
     const { width } = Dimensions.get('window');
-    const scrollXIOS = new Value(initialPage * width);
+
+    this.scrollXIOS = new Value(initialPage * width);
 
     this.tabsScrollPosition = [];
     this._value = null;
     this.tab = null;
 
-    const containerWidthAnimatedValue = new Value(width);
-
-    // @ts-ignore
-    containerWidthAnimatedValue.__makeNative();
-
-    const scrollValue = divide(scrollXIOS, containerWidthAnimatedValue);
-
     this.state = {
-      scrollValue,
       containerWidth: width,
       currentPage: initialPage,
       isFolded: false,
@@ -369,13 +366,15 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
       tabsContainerBackgroundColor,
       tabWrapperStyle,
       tabsContainerStyle,
+      tabUnderlineColor,
+      tabsContainerHorizontalPadding,
     } = this.props;
-    const { scrollValue, currentPage } = this.state;
+    const { currentPage } = this.state;
 
     const props: ScrollableTabBarProps = {
       activeTab: currentPage,
       goToPage: this.goToPage,
-      scrollValue,
+      scrollValue: this.scrollXIOS,
       tabTextActiveStyle,
       tabTextContainerActiveStyle,
       tabTextContainerStyle,
@@ -384,6 +383,8 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
       tabsContainerBackgroundColor,
       tabWrapperStyle,
       tabsContainerStyle,
+      tabUnderlineColor,
+      tabsContainerHorizontalPadding,
     };
 
     return <ScrollableTabBar {...props} />;
@@ -408,6 +409,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
       decelerationRate,
       onMomentumScrollEnd,
       onMomentumScrollBegin,
+      horizontalScrollBounces,
     } = this.props;
     const { currentPage } = this.state;
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);
@@ -495,6 +497,8 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
           </View>
           {shouldRenderTabs && this.renderTabs()}
           <ScrollableTabView
+            horizontalScrollBounces={horizontalScrollBounces}
+            onScrollXIOS={(x) => this.scrollXIOS.setValue(x)}
             contentContainerStyles={contentContainerStyles}
             initialPage={initialPage}
             onChangeTab={(i) => this.onChangeTabHandler(i)}
@@ -546,6 +550,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
     decelerationRate: 'fast',
     onMomentumScrollEnd: undefined,
     onMomentumScrollBegin: undefined,
+    tabUnderlineColor: colors.white,
   };
 }
 

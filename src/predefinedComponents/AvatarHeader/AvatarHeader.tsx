@@ -235,6 +235,7 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
       refreshControl,
       onMomentumScrollEnd,
       onMomentumScrollBegin,
+      horizontalScrollBounces,
     } = this.props;
 
     return (
@@ -263,6 +264,7 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
           snapStopThreshold={snapStopThreshold}
           snapToEdge={snapToEdge}
           snapValue={snapValue}
+          horizontalScrollBounces={horizontalScrollBounces}
           transparentHeader={false}>
           {children}
         </StickyParallaxHeader>

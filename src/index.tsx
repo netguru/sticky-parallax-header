@@ -38,6 +38,7 @@ export interface SharedPredefinedHeaderProps {
   backgroundColor?: string;
   backgroundImage?: StickyParallaxHeaderProps['backgroundImage'];
   bounces?: StickyParallaxHeaderProps['bounces'];
+  horizontalScrollBounces?: StickyParallaxHeaderProps['horizontalScrollBounces'];
   contentContainerStyles?: StickyParallaxHeaderProps['contentContainerStyles'];
   headerHeight?: StickyParallaxHeaderProps['headerHeight'];
   headerSize?: StickyParallaxHeaderProps['headerSize'];

@@ -35,7 +35,9 @@ type ScrollableTabViewProps = {
   swipedPage: (index: number) => void;
   minScrollHeight: number;
   keyboardShouldPersistTaps?: ScrollViewProps['keyboardShouldPersistTaps'];
+  horizontalScrollBounces?: boolean;
   scrollEnabled: boolean;
+  onScrollXIOS?: (x: number) => void;
 };
 type SceneKeys = string[];
 type State = {
@@ -70,7 +72,11 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
       containerWidth: deviceWidth,
       sceneKeys: this.newSceneKeys({ currentPage: initialPage }),
     };
-    scrollXIOS.addListener(({ value }) => callListeners(value / deviceWidth));
+
+    scrollXIOS.addListener(({ value }) => {
+      this.props.onScrollXIOS?.(value);
+      callListeners(value / deviceWidth);
+    });
   }
 
   componentDidUpdate(prevProps: Readonly<ScrollableTabViewProps>) {
@@ -272,12 +278,13 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
 
   renderScrollableContent() {
     const scenes = this.composeScenes();
-    const { initialPage, scrollEnabled } = this.props;
+    const { initialPage, scrollEnabled, horizontalScrollBounces } = this.props;
     const { containerWidth, scrollXIOS } = this.state;
     const { minScrollHeight, keyboardShouldPersistTaps } = this.props;
 
     return (
       <Animated.ScrollView
+        bounces={horizontalScrollBounces}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
         horizontal
         pagingEnabled
