@@ -46,4 +46,4 @@ sidebar_position: 2
 |            `title`            |                                                  `string`                                                   |   Yes    |                                                                                                  |                                       Sets header title                                       |
 |         `titleStyle`          |                                           `StyleProp<TextStyle>`                                            |   Yes    |                                                                                                  |                               Set style for text in foreground                                |
 
-[Check how to customise Tabbed Header example](docs/TABBEDHEADER.MD)
+[Check how to customise Tabbed Header example](../examples/custom-tabbed-header.md)
