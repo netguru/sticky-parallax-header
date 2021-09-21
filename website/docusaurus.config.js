@@ -4,20 +4,21 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'React Native Sticky Parallax Header',
-  tagline: 'A simple React Native library, enabling to create a fully custom header for your iOS and Android apps.',
+  tagline:
+    'A simple React Native library, enabling to create a fully custom header for your iOS and Android apps.',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  favicon: 'img/netguru_logo.png',
+  organizationName: 'netguru', // Usually your GitHub org/user name.
+  projectName: 'sticky-parallax-header', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'React Native Sticky Parallax Header',
       logo: {
         alt: 'React Native Sticky Parallax Header Logo',
-        src: 'img/logo.svg',
+        src: 'img/netguru_logo.png',
       },
       items: [
         {
@@ -50,15 +51,11 @@ module.exports = {
           items: [
             {
               label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: 'https://stackoverflow.com/questions/tagged/sticky-parallax-header',
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              href: 'https://twitter.com/netguru',
             },
           ],
         },
@@ -67,12 +64,12 @@ module.exports = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/netguru/sticky-parallax-header',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Netguru, Inc. Built with Docusaurus.`,
     },
     prism: {
       theme: lightCodeTheme,
@@ -86,8 +83,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
