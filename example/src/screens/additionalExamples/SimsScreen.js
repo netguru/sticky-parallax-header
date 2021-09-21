@@ -1,10 +1,151 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { StyleSheet, View, Text, Image, Animated, TouchableOpacity } from 'react-native';
 import StickyParallaxHeader from 'react-native-sticky-parallax-header';
 import { BlurView } from 'expo-blur';
+import { useNavigation } from '@react-navigation/native';
 
 const { event, ValueXY } = Animated;
-const scrollY = new ValueXY();
+
+const AppStoreHeader = () => {
+  const scrollY = useRef(new ValueXY()).current;
+
+  const navigation = useNavigation();
+
+  const goBack = () => navigation.goBack();
+
+  const renderForeground = () => (
+    <View>
+      <Image
+        source={{
+          uri: 'https://i.ytimg.com/vi/gGca2DVEegc/maxresdefault.jpg',
+        }}
+        style={styles.foregroundImage}
+      />
+      <View style={styles.foregroundContainer}>
+        <Image
+          source={{
+            uri: 'https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/0c/9e/88/0c9e8824-1373-995f-3be0-30814b1e4d15/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-85-220.png/460x0w.png',
+          }}
+          style={styles.foregroundLogo}
+        />
+        <View style={styles.foregroundDetails}>
+          <Text style={styles.foregroundDetailsHeader}>The Sims™ Mobile</Text>
+          <Text style={styles.foregroundDetailsDesc}>Play with life.</Text>
+          <View style={styles.foregroundActionsContainer}>
+            <TouchableOpacity style={styles.foregroundActionsButton}>
+              <Text style={styles.headerDetailsButtonTitle}>GET</Text>
+            </TouchableOpacity>
+            <Text style={styles.foregroundActionsButtonTitle}>{'In-App\nPurchases'}</Text>
+            <Image
+              source={require('../../assets/icons/share.png')}
+              style={styles.foregroundActionsShare}
+              resizeMode="contain"
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+
+  const renderHeader = () => {
+    const opacity = scrollY.y.interpolate({
+      inputRange: [0, 110, 150],
+      outputRange: [0, 0, 1],
+      extrapolate: 'clamp',
+    });
+
+    const left = scrollY.y.interpolate({
+      inputRange: [0, 110, 160],
+      outputRange: [24, 24, -40],
+      extrapolate: 'clamp',
+    });
+
+    const arrowOpacity = scrollY.y.interpolate({
+      inputRange: [0, 110, 140],
+      outputRange: [1, 1, 0],
+      extrapolate: 'clamp',
+    });
+
+    const detailsOpacity = scrollY.y.interpolate({
+      inputRange: [0, 250, 350],
+      outputRange: [0, 0, 1],
+      extrapolate: 'clamp',
+    });
+
+    return (
+      <>
+        <TouchableOpacity
+          onPress={goBack}
+          style={[styles.headerButtonContainer, { transform: [{ translateX: left }] }]}>
+          <Animated.View onPress={goBack} style={[styles.headerButton, { opacity: arrowOpacity }]}>
+            <Image
+              style={styles.headerImage}
+              resizeMode="contain"
+              source={{
+                uri: 'https://cdn.iconscout.com/icon/free/png-256/chevron-25-433513.png',
+              }}
+            />
+          </Animated.View>
+        </TouchableOpacity>
+        <Animated.View style={[styles.headerContainer, { opacity }]}>
+          <BlurView
+            style={styles.headerBlurView}
+            tint="dark"
+            intensity={90}
+            reducedTransparencyFallbackColor="white"
+          />
+        </Animated.View>
+        <View style={styles.headerWrapper}>
+          <Animated.View style={{ opacity }}>
+            <TouchableOpacity style={styles.headerSearchContainer} onPress={goBack}>
+              <Image
+                style={styles.headerSearchArrow}
+                resizeMode="contain"
+                source={{
+                  uri: 'https://www.shareicon.net/data/512x512/2016/05/19/767484_arrows_512x512.png',
+                }}
+              />
+
+              <Text style={styles.headerSearchText}>Search</Text>
+            </TouchableOpacity>
+          </Animated.View>
+          <Animated.View style={{ opacity: detailsOpacity }}>
+            <Image
+              source={{
+                uri: 'https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/0c/9e/88/0c9e8824-1373-995f-3be0-30814b1e4d15/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-85-220.png/460x0w.png',
+              }}
+              style={styles.headerDetailsImage}
+            />
+          </Animated.View>
+          <Animated.View style={[styles.headerDetailsContainer, { opacity: detailsOpacity }]}>
+            <Text style={styles.headerDetailsText}>{'In-App\nPurchases'}</Text>
+            <TouchableOpacity style={styles.headerDetailsButton}>
+              <Text style={styles.headerDetailsButtonTitle}>GET</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </View>
+      </>
+    );
+  };
+
+  return (
+    <StickyParallaxHeader
+      hasBorderRadius={false}
+      backgroundColor="black"
+      scrollEvent={event([{ nativeEvent: { contentOffset: { y: scrollY.y } } }], {
+        useNativeDriver: false,
+      })}
+      parallaxHeight={430}
+      transparentHeader
+      foreground={renderForeground()}
+      header={renderHeader()}
+      snapStartThreshold={50}
+      snapStopThreshold={250}
+      snapValue={180}>
+      <View />
+    </StickyParallaxHeader>
+  );
+};
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -140,136 +281,5 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
 });
-
-const renderForeground = () => (
-  <View>
-    <Image
-      source={{
-        uri: 'https://i.ytimg.com/vi/gGca2DVEegc/maxresdefault.jpg',
-      }}
-      style={styles.foregroundImage}
-    />
-    <View style={styles.foregroundContainer}>
-      <Image
-        source={{
-          uri:
-            'https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/0c/9e/88/0c9e8824-1373-995f-3be0-30814b1e4d15/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-85-220.png/460x0w.png',
-        }}
-        style={styles.foregroundLogo}
-      />
-      <View style={styles.foregroundDetails}>
-        <Text style={styles.foregroundDetailsHeader}>The Sims™ Mobile</Text>
-        <Text style={styles.foregroundDetailsDesc}>Play with life.</Text>
-        <View style={styles.foregroundActionsContainer}>
-          <TouchableOpacity style={styles.foregroundActionsButton}>
-            <Text style={styles.headerDetailsButtonTitle}>GET</Text>
-          </TouchableOpacity>
-          <Text style={styles.foregroundActionsButtonTitle}>{'In-App\nPurchases'}</Text>
-          <Image
-            source={require('../../assets/icons/share.png')}
-            style={styles.foregroundActionsShare}
-            resizeMode="contain"
-          />
-        </View>
-      </View>
-    </View>
-  </View>
-);
-
-const renderHeader = () => {
-  const opacity = scrollY.y.interpolate({
-    inputRange: [0, 110, 150],
-    outputRange: [0, 0, 1],
-    extrapolate: 'clamp',
-  });
-
-  const left = scrollY.y.interpolate({
-    inputRange: [0, 110, 160],
-    outputRange: [24, 24, -40],
-    extrapolate: 'clamp',
-  });
-
-  const arrowOpacity = scrollY.y.interpolate({
-    inputRange: [0, 110, 140],
-    outputRange: [1, 1, 0],
-    extrapolate: 'clamp',
-  });
-
-  const detailsOpacity = scrollY.y.interpolate({
-    inputRange: [0, 250, 350],
-    outputRange: [0, 0, 1],
-    extrapolate: 'clamp',
-  });
-
-  return (
-    <>
-      <TouchableOpacity style={[styles.headerButtonContainer, { left }]}>
-        <Animated.View style={[styles.headerButton, { opacity: arrowOpacity }]}>
-          <Image
-            style={styles.headerImage}
-            resizeMode="contain"
-            source={{
-              uri: 'https://cdn.iconscout.com/icon/free/png-256/chevron-25-433513.png',
-            }}
-          />
-        </Animated.View>
-      </TouchableOpacity>
-      <Animated.View style={[styles.headerContainer, { opacity }]}>
-        <BlurView
-          style={styles.headerBlurView}
-          tint="dark"
-          intensity={90}
-          reducedTransparencyFallbackColor="white"
-        />
-      </Animated.View>
-      <View style={styles.headerWrapper}>
-        <Animated.View style={[styles.headerSearchContainer, { opacity }]}>
-          <Image
-            style={styles.headerSearchArrow}
-            resizeMode="contain"
-            source={{
-              uri: 'https://www.shareicon.net/data/512x512/2016/05/19/767484_arrows_512x512.png',
-            }}
-          />
-          <Text style={styles.headerSearchText}>Search</Text>
-        </Animated.View>
-        <Animated.View style={{ opacity: detailsOpacity }}>
-          <Image
-            source={{
-              uri:
-                'https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/0c/9e/88/0c9e8824-1373-995f-3be0-30814b1e4d15/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-85-220.png/460x0w.png',
-            }}
-            style={styles.headerDetailsImage}
-          />
-        </Animated.View>
-        <Animated.View style={[styles.headerDetailsContainer, { opacity: detailsOpacity }]}>
-          <Text style={styles.headerDetailsText}>{'In-App\nPurchases'}</Text>
-          <TouchableOpacity style={styles.headerDetailsButton}>
-            <Text style={styles.headerDetailsButtonTitle}>GET</Text>
-          </TouchableOpacity>
-        </Animated.View>
-      </View>
-    </>
-  );
-};
-
-const AppStoreHeader = () => (
-  <StickyParallaxHeader
-    headerType="AvatarHeader"
-    hasBorderRadius={false}
-    backgroundColor="black"
-    scrollEvent={event([{ nativeEvent: { contentOffset: { y: scrollY.y } } }], {
-      useNativeDriver: false,
-    })}
-    parallaxHeight={430}
-    transparentHeader
-    foreground={renderForeground}
-    header={renderHeader}
-    snapStartThreshold={50}
-    snapStopThreshold={250}
-    snapValue={180}>
-    <View />
-  </StickyParallaxHeader>
-);
 
 export default AppStoreHeader;

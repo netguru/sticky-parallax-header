@@ -27,6 +27,8 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: '**/yarn.lock'
       - run: yarn
+      - name: Run Typescript
+        run: yarn typescript
       - name: Run Lint
         run: yarn lint
       - name: Run Tests

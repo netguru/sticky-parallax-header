@@ -1,5 +1,5 @@
 import { StyleSheet, Platform } from 'react-native';
-import { ifIphoneX } from './utils';
+import { ifIphoneX } from '../utils';
 import colors from './colors';
 import constants from './constants';
 
@@ -13,12 +13,6 @@ const screenStyles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 24,
     alignItems: 'center',
-    marginBottom: 25,
-  },
-  flatlistContainer: {
-    width: constants.deviceWidth,
-    height: constants.deviceHeight - 80,
-    alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 24,
   },
@@ -30,7 +24,6 @@ const screenStyles = StyleSheet.create({
     letterSpacing: -0.2,
     paddingTop: 40,
     paddingBottom: 20,
-    fontFamily: 'AvertaStd-Semibold',
   },
   foreground: {
     flex: 1,
@@ -46,7 +39,7 @@ const screenStyles = StyleSheet.create({
   headerWrapper: {
     width: '100%',
     paddingHorizontal: 24,
-    paddingTop: Platform.select({ ios: ifIphoneX(50, 40), android: 55 }),
+    paddingTop: Platform.OS === 'ios' ? ifIphoneX(50, 35) : 18,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -60,7 +53,6 @@ const screenStyles = StyleSheet.create({
     fontSize: constants.getResponsiveFontSize(32),
     lineHeight: constants.getResponsiveFontSize(32) * 1.2,
     letterSpacing: -1,
-    fontFamily: 'AvertaStd-Semibold',
   },
   messageContainer: {
     paddingTop: 24,
