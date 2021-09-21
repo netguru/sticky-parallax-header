@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Custom Avatar Header
+# Custom Header
 
 Check out a blogpost explaining in details how to customize Avatar Header:
 
