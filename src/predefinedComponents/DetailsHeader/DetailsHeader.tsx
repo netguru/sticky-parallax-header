@@ -79,14 +79,28 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       <View style={[styles.headerWrapper, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
-            {leftTopIcon && <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />}
+            {typeof leftTopIcon === 'function' ? (
+              leftTopIcon()
+            ) : (
+              <Image
+                style={styles.icon}
+                resizeMode="contain"
+                source={leftTopIcon as ImageSourcePropType}
+              />
+            )}
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
             <Text style={styles.headerTitle}>{title}</Text>
           </Animated.View>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
-            {rightTopIcon && (
-              <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
+            {typeof rightTopIcon === 'function' ? (
+              rightTopIcon()
+            ) : (
+              <Image
+                style={styles.icon}
+                resizeMode="contain"
+                source={rightTopIcon as ImageSourcePropType}
+              />
             )}
           </TouchableOpacity>
         </View>
