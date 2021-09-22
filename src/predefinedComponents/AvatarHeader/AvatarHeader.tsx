@@ -108,10 +108,17 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
             hitSlop={sizes.hitSlop}
             onPress={leftTopIconOnPress}
             style={styles.leftHeaderButton}>
-            {leftTopIcon && <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />}
+            {typeof leftTopIcon === 'function' ? (
+              leftTopIcon()
+            ) : (
+              <Image
+                style={styles.icon}
+                resizeMode="contain"
+                source={leftTopIcon as ImageSourcePropType}
+              />
+            )}
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
-            {/*@ts-ignore There is default props for that*/}
             <Animated.Image source={image} style={[styles.headerPic, { opacity: imageOpacity }]} />
             <Animated.Text numberOfLines={1} style={[styles.headerTitle, { opacity: nameOpacity }]}>
               {title}
@@ -121,8 +128,14 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
             hitSlop={sizes.hitSlop}
             onPress={rightTopIconOnPress}
             style={styles.rightHeaderButton}>
-            {rightTopIcon && (
-              <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
+            {typeof rightTopIcon === 'function' ? (
+              rightTopIcon()
+            ) : (
+              <Image
+                style={styles.icon}
+                resizeMode="contain"
+                source={rightTopIcon as ImageSourcePropType}
+              />
             )}
           </TouchableOpacity>
         </View>
