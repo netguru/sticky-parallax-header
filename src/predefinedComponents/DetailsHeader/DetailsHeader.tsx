@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import {
   Text,
   View,
@@ -75,33 +75,27 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       extrapolate: 'clamp',
     });
 
+    const renderIcon = (icon?: (() => ReactNode) | ImageSourcePropType): ReactNode => {
+      if (typeof icon === 'function') {
+        return icon();
+      } else {
+        return (
+          <Image style={styles.icon} resizeMode="contain" source={icon as ImageSourcePropType} />
+        );
+      }
+    };
+
     return (
       <View style={[styles.headerWrapper, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
-            {typeof leftTopIcon === 'function' ? (
-              leftTopIcon()
-            ) : (
-              <Image
-                style={styles.icon}
-                resizeMode="contain"
-                source={leftTopIcon as ImageSourcePropType}
-              />
-            )}
+            {renderIcon(leftTopIcon)}
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
             <Text style={styles.headerTitle}>{title}</Text>
           </Animated.View>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
-            {typeof rightTopIcon === 'function' ? (
-              rightTopIcon()
-            ) : (
-              <Image
-                style={styles.icon}
-                resizeMode="contain"
-                source={rightTopIcon as ImageSourcePropType}
-              />
-            )}
+            {renderIcon(rightTopIcon)}
           </TouchableOpacity>
         </View>
       </View>
