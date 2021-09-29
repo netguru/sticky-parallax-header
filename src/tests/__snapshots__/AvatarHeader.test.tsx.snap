@@ -65,17 +65,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
               "opacity": 1,
             }
           }
-        >
-          <Image
-            resizeMode="contain"
-            style={
-              Object {
-                "height": 16,
-                "width": 16,
-              }
-            }
-          />
-        </View>
+        />
         <View
           style={
             Object {
@@ -140,17 +130,7 @@ exports[`AvatarHeader Test [Hacktoberfest] -Snapshot AvatarHeader 1`] = `
               "opacity": 1,
             }
           }
-        >
-          <Image
-            resizeMode="contain"
-            style={
-              Object {
-                "height": 16,
-                "width": 16,
-              }
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>
