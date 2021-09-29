@@ -2,7 +2,6 @@ import React, { ReactElement, ReactNode } from 'react';
 import {
   Text,
   View,
-  Image,
   TouchableOpacity,
   Animated,
   StatusBar,
@@ -11,14 +10,13 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
 } from 'react-native';
-
 import StickyParallaxHeader, {
   StickyParallaxHeaderProps,
 } from '../../StickyParallaxHeaderComponent';
 import { constants, sizes } from '../../constants';
 import styles from './AvatarHeader.styles';
-
 import type { IconProps, RenderBody, SharedPredefinedHeaderProps } from '../../index';
+import IconRenderer from '../../components/IconRenderer/IconRenderer';
 
 const { event, ValueXY } = Animated;
 
@@ -108,15 +106,7 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
             hitSlop={sizes.hitSlop}
             onPress={leftTopIconOnPress}
             style={styles.leftHeaderButton}>
-            {typeof leftTopIcon === 'function' ? (
-              leftTopIcon()
-            ) : (
-              <Image
-                style={styles.icon}
-                resizeMode="contain"
-                source={leftTopIcon as ImageSourcePropType}
-              />
-            )}
+            <IconRenderer icon={leftTopIcon} />
           </TouchableOpacity>
           <View style={styles.headerTitleContainer}>
             <Animated.Image source={image} style={[styles.headerPic, { opacity: imageOpacity }]} />
@@ -128,15 +118,7 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
             hitSlop={sizes.hitSlop}
             onPress={rightTopIconOnPress}
             style={styles.rightHeaderButton}>
-            {typeof rightTopIcon === 'function' ? (
-              rightTopIcon()
-            ) : (
-              <Image
-                style={styles.icon}
-                resizeMode="contain"
-                source={rightTopIcon as ImageSourcePropType}
-              />
-            )}
+            <IconRenderer icon={rightTopIcon} />
           </TouchableOpacity>
         </View>
       </View>

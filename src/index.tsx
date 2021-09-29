@@ -55,9 +55,9 @@ export interface SharedPredefinedHeaderProps {
 }
 
 export interface IconProps {
-  leftTopIcon?: (() => ReactNode) | ImageSourcePropType;
+  leftTopIcon?: (() => ReactElement) | ImageSourcePropType;
   leftTopIconOnPress?: () => void;
-  rightTopIcon?: (() => ReactNode) | ImageSourcePropType;
+  rightTopIcon?: (() => ReactElement) | ImageSourcePropType;
   rightTopIconOnPress?: () => void;
 }
 export interface RenderBody {

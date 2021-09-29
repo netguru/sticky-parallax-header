@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement } from 'react';
 import {
   Text,
   View,
@@ -14,6 +14,7 @@ import StickyParallaxHeader, {
 import { constants, sizes, colors } from '../../constants';
 import styles from './DetailsHeader.styles';
 import type { IconProps, RenderBody, SharedPredefinedHeaderProps } from '../../index';
+import IconRenderer from '../../components/IconRenderer/IconRenderer';
 
 const { event, ValueXY } = Animated;
 
@@ -75,27 +76,17 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       extrapolate: 'clamp',
     });
 
-    const renderIcon = (icon?: (() => ReactNode) | ImageSourcePropType): ReactNode => {
-      if (typeof icon === 'function') {
-        return icon();
-      } else {
-        return (
-          <Image style={styles.icon} resizeMode="contain" source={icon as ImageSourcePropType} />
-        );
-      }
-    };
-
     return (
       <View style={[styles.headerWrapper, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
-            {renderIcon(leftTopIcon)}
+            <IconRenderer icon={leftTopIcon} />
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
             <Text style={styles.headerTitle}>{title}</Text>
           </Animated.View>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
-            {renderIcon(rightTopIcon)}
+            <IconRenderer icon={rightTopIcon} />
           </TouchableOpacity>
         </View>
       </View>
