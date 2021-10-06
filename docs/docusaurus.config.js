@@ -35,7 +35,7 @@ module.exports = {
       ],
     },
     footer: {
-      style: 'dark',
+      style: 'light',
       links: [
         {
           title: 'Docs',
@@ -69,6 +69,9 @@ module.exports = {
           ],
         },
       ],
+      logo: {
+        src: 'img/netguru-footer-logo.png',
+      },
       copyright: `Copyright © ${new Date().getFullYear()} Netguru, Inc. Built with Docusaurus.`,
     },
     prism: {

@@ -1,0 +1,73 @@
+.wrapper {
+    background-color: var(--ifm-color-primary);
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px 0px;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 42px;
+    color: white;
+}
+
+.description {
+    color: var(--ifm-color-white);
+    font-size: 24px;
+    line-height: 28px;
+    width: 700px;
+    text-align: center;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heroButton {
+    border: 1px solid var(--ifm-color-white);;
+    color: white;
+    box-sizing: border-box;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+}
+
+.heroButton:hover {
+    text-decoration: none;
+    color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+    background-color: white;
+}
+
+.heroButtonText {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 30px;
+}
+
+@media screen and (max-width: 966px) {
+    .title {
+        font-size: 24px;
+    }
+    .description {
+        font-size: 16px;
+        width: 350px;
+    }
+    .buttons {
+        display: block;
+        width: 100%;
+        padding: 30px 25px;
+    }
+}
