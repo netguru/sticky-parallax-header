@@ -3,14 +3,14 @@ import clsx from 'clsx';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './SectionItem.module.css';
 
-const SectionItem = ({variant = 'odd', title, description, imageName}) => {
-  const isOdd = variant === 'odd'
+const SectionItem = ({index, title, description, imageName}) => {
+  const isOdd = index % 2 === 0
 
   const renderImage = () => {
     return (
       <div className={clsx("col col--6", styles.imageWrapper)}>
         <img
-          className={styles.image}
+          className={index !== 2 ? styles.image : styles.smallerImage}
           src={useBaseUrl(`/img/${imageName}.png`)}
           alt={imageName}
         />

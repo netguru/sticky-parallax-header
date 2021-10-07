@@ -17,7 +17,7 @@ const Home = () => {
       {SECTIONS_DATA.map((data, index) => {
           return <SectionItem
             key={data.id}
-            variant={index % 2 === 0 ? 'even' : 'odd'}
+            index={index}
             title={data.title}
             description={data.description}
             imageName={data.imageName}

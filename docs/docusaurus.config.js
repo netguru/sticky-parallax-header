@@ -28,7 +28,7 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/netguru/sticky-parallax-header',
           label: 'GitHub',
           position: 'right',
         },

@@ -61,8 +61,11 @@
         order: 0;
     }
     .image {
-        height: 170px;
         width: 220px;
+        padding-bottom: 50px;
+    }
+    .smallerImage {
+        width: 130px;
         padding-bottom: 50px;
     }
 }
