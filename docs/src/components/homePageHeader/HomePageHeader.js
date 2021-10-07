@@ -3,14 +3,21 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import clsx from 'clsx';
 import styles from './HomePageHeader.module.css'
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 const HomePageHeader = () => {
   const {siteConfig} = useDocusaurusContext();
 
   return (
     <header className={clsx('hero', styles.heroBanner)}>
-      <div>
-        <img src="../../static/img/assets/screenshot-hero.png"  className={styles.heroImage}  />
+      <div className={styles.heroImage}>
+        <video controls>
+          <source
+            src={useBaseUrl('/parallax-video.mp4')}
+            type="video/mp4"
+          />
+              Your browser does not support HTML video.
+        </video>
       </div>
       <div className={styles.rightContent}>
         <div className={styles.logo}/>

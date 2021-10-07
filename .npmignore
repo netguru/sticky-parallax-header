@@ -1,5 +1,6 @@
 readme_*
 examples
+docs
 node_modules
 yarn-error.log
 .history

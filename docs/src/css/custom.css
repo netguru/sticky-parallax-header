@@ -29,7 +29,7 @@
   --ifm-color-background-lighter: #FAFAFA;
   --ifm-code-font-size: 95%;
   --ifm-font-family-base:  "avertastd-regular", sans-serif;
-  --ifm-font-n-netguru:  url('../../static/img/assets/N-Netguru.png');
+  --ifm-font-n-netguru:  url('../../static/img/N-Netguru.png');
   --ifm-footer-background-color: #232323;
   --ifm-background-color-footer: #232323;
   --ifm-footer-title-color: white;
@@ -42,7 +42,7 @@
   --ifm-color-text-lighter: #D6D6D6;
   --ifm-color-background: #232323;
   --ifm-color-background-lighter: #474747;
-  --ifm-font-n-netguru:  url('../../static/img/assets/N-Netguru-white.png');
+  --ifm-font-n-netguru:  url('../../static/img/N-Netguru-white.png');
   --ifm-footer-background-color: #232323;
   --ifm-footer-title-color: white;
   --ifm-footer-link-color: white;

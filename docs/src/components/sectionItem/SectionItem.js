@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './SectionItem.module.css';
 
 const SectionItem = ({variant = 'odd', title, description, imageName}) => {
@@ -8,7 +9,11 @@ const SectionItem = ({variant = 'odd', title, description, imageName}) => {
   const renderImage = () => {
     return (
       <div className={clsx("col col--6", styles.imageWrapper)}>
-        <img className={styles.image} src={`../../../static/img/assets/${imageName}.png`} />
+        <img
+          className={styles.image}
+          src={useBaseUrl(`/img/${imageName}.png`)}
+          alt={imageName}
+        />
       </div>
     )
   }

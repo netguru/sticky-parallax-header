@@ -3,6 +3,11 @@
  * and scoped locally.
  */
 
+video {
+    width: 100%;
+    height: auto;
+}
+
 .heroBanner {
     padding: 4rem 0;
     position: relative;
