@@ -11,7 +11,11 @@ const HomePageHeader = () => {
   return (
     <header className={clsx('hero', styles.heroBanner)}>
       <div className={styles.heroImage}>
-        <video controls>
+        <video
+          autoPlay={true}
+          muted={true}
+          loop={true}
+        >
           <source
             src={useBaseUrl('/parallax-video.mp4')}
             type="video/mp4"
