@@ -13,7 +13,7 @@ export const SECTIONS_DATA = [
   },
   {
     id: 3,
-    title: 'Simply and lightwight',
+    title: 'Simple and lightweight',
     description: 'The code is simple, has minimum dependencies and doesn’t include any native code.',
     imageName: 'elements'
   }
