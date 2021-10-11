@@ -7,7 +7,6 @@ export default StyleSheet.create({
   },
   contentContainer: {
     alignItems: 'center',
-    paddingHorizontal: 20,
   },
   tabContainer: {
     alignItems: 'center',
@@ -26,4 +25,11 @@ export default StyleSheet.create({
   nestedStyle: {
     alignSelf: 'center',
   },
+  tabUnderlineStyles: {
+    position: 'absolute',
+    bottom: 0,
+    borderRadius: 6,
+    height: 3,
+  },
+  noMargins: { paddingLeft: 0, paddingRight: 0, marginLeft: 0, marginRight: 0 },
 });

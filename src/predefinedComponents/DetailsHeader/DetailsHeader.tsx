@@ -182,6 +182,7 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       contentContainerStyles,
       keyboardShouldPersistTaps,
       refreshControl,
+      horizontalScrollBounces,
     } = this.props;
 
     return (
@@ -206,6 +207,7 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
           refreshControl={refreshControl}
           scrollRef={scrollRef}
           snapToEdge={snapToEdge}
+          horizontalScrollBounces={horizontalScrollBounces}
           transparentHeader={false}>
           {children}
         </StickyParallaxHeader>

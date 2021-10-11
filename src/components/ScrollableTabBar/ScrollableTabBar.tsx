@@ -8,18 +8,19 @@ import {
   ViewStyle,
   TextStyle,
   StyleProp,
+  Dimensions,
 } from 'react-native';
 import { constants } from '../../constants';
 import styles from './ScrollableTabBar.styles';
 import type { Tab } from 'react-native-sticky-parallax-header';
 
-const UNDERLINE_PADDING = 16;
+const UNDERLINE_PADDING = 20;
 
 export type ScrollableTabBarProps = {
   tabs: Tab[];
   activeTab: number;
   goToPage: (index: number) => void;
-  scrollValue: Animated.AnimatedInterpolation;
+  scrollValue: Animated.Value;
   tabTextStyle: StyleProp<TextStyle>;
   tabTextActiveStyle: StyleProp<TextStyle>;
   tabTextContainerStyle: StyleProp<ViewStyle>;
@@ -27,10 +28,14 @@ export type ScrollableTabBarProps = {
   tabsContainerBackgroundColor?: string;
   tabWrapperStyle?: StyleProp<ViewStyle>;
   tabsContainerStyle?: StyleProp<ViewStyle>;
+  tabUnderlineColor?: string | null;
+  tabsContainerHorizontalPadding?: number;
 };
 type State = { tabUnderlineWidth: number[] };
 
 class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State> {
+  tabsWidth: number[];
+
   scrollView: ScrollView | null;
 
   currentXPosition: number;
@@ -39,6 +44,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
     super(props);
     this.currentXPosition = 0;
     this.scrollView = null;
+    this.tabsWidth = this.props.tabs.map(() => 0);
     this.state = {
       tabUnderlineWidth: props.tabs.map((_) => 0),
     };
@@ -125,24 +131,33 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
       tabsContainerBackgroundColor,
       tabWrapperStyle,
       tabsContainerStyle,
+      tabUnderlineColor,
+      tabsContainerHorizontalPadding,
     } = this.props;
     const { tabUnderlineWidth } = this.state;
 
-    const tabWidth = tabs.length > 3 ? constants.deviceWidth * 0.3 : constants.deviceWidth * 0.33;
+    const HORIZONTAL_PADDINGS = tabsContainerHorizontalPadding ?? UNDERLINE_PADDING;
 
-    const tabUnderlineStyle = {
-      position: 'absolute',
-      width: tabUnderlineWidth[activeTab] + 2 * UNDERLINE_PADDING,
-      marginLeft: (tabWidth - tabUnderlineWidth[activeTab] - 2 * UNDERLINE_PADDING) / 2,
-      marginRight: (tabWidth - tabUnderlineWidth[activeTab] - 2 * UNDERLINE_PADDING) / 2,
-      bottom: 0,
-      borderRadius: 6,
-      height: 3,
-    };
+    const allSizes =
+      this.tabsWidth.every((it) => !!it) && this.tabsWidth.length > 0 && tabUnderlineColor;
+    const inputRanges = allSizes ? [0] : [0, 1];
+    const outputRanges = allSizes ? [HORIZONTAL_PADDINGS] : [HORIZONTAL_PADDINGS, 100];
+    let tabWidth = HORIZONTAL_PADDINGS;
 
+    if (tabUnderlineColor) {
+      for (let i = 0; i < this.tabsWidth.length; i++) {
+        if (this.tabsWidth.length && allSizes) {
+          if (i > 0) {
+            inputRanges[i] = Dimensions.get('screen').width * i;
+            outputRanges[i] = tabWidth;
+          }
+          tabWidth += this.tabsWidth[i];
+        }
+      }
+    }
     const translateX = scrollValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, tabWidth],
+      inputRange: inputRanges,
+      outputRange: outputRanges,
     });
 
     return (
@@ -155,7 +170,12 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
         ]}>
         <ScrollView
           style={styles.nestedStyle}
-          contentContainerStyle={[styles.contentContainer, tabsContainerStyle]}
+          contentContainerStyle={[
+            styles.contentContainer,
+            tabsContainerStyle,
+            styles.noMargins,
+            { paddingLeft: HORIZONTAL_PADDINGS, paddingRight: HORIZONTAL_PADDINGS },
+          ]}
           ref={(r) => (this.scrollView = r)}
           onScrollEndDrag={(event) => (this.currentXPosition = event.nativeEvent.contentOffset.x)}
           horizontal
@@ -167,9 +187,12 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
 
             return (
               <TouchableOpacity
+                onLayout={(x) => {
+                  this.tabsWidth[page] = x.nativeEvent.layout.width;
+                }}
                 key={tabKey}
                 accessible
-                style={tabWrapperStyle}
+                style={[tabWrapperStyle, styles.noMargins]}
                 accessibilityLabel={tabKey}
                 accessibilityTraits="button"
                 activeOpacity={0.9}
@@ -203,18 +226,22 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
               </TouchableOpacity>
             );
           })}
-          <Animated.View
-            style={[
-              tabUnderlineStyle,
-              {
-                transform: [
-                  {
-                    translateX,
-                  },
-                ],
-              },
-            ]}
-          />
+          {tabUnderlineColor && (
+            <Animated.View
+              style={[
+                styles.tabUnderlineStyles,
+                {
+                  width: this.tabsWidth[activeTab],
+                  backgroundColor: tabUnderlineColor,
+                  transform: [
+                    {
+                      translateX,
+                    },
+                  ],
+                },
+              ]}
+            />
+          )}
         </ScrollView>
       </View>
     );
