@@ -175,6 +175,9 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
     return setTimeout(() => {
       setTimeout(() => {
         scrollNode?.scrollTo({ x: 0, y: 25, animated: true });
+        setTimeout(() => {
+          scrollNode?.scrollTo({ x: 0, y: 0, animated: true });
+        }, 200);
       }, 200);
       scrollNode?.scrollTo({ x: 0, y: 0, animated: true });
     }, 300);
