@@ -14,6 +14,7 @@ import StickyParallaxHeader, {
 import { constants, sizes, colors } from '../../constants';
 import styles from './DetailsHeader.styles';
 import type { IconProps, RenderBody, SharedPredefinedHeaderProps } from '../../index';
+import IconRenderer from '../../components/IconRenderer/IconRenderer';
 
 const { event, ValueXY } = Animated;
 
@@ -79,15 +80,13 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       <View style={[styles.headerWrapper, { backgroundColor }]}>
         <View style={styles.headerMenu}>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={leftTopIconOnPress}>
-            {leftTopIcon && <Image style={styles.icon} resizeMode="contain" source={leftTopIcon} />}
+            <IconRenderer icon={leftTopIcon} />
           </TouchableOpacity>
           <Animated.View style={[styles.headerTitleContainer, { opacity }]}>
             <Text style={styles.headerTitle}>{title}</Text>
           </Animated.View>
           <TouchableOpacity hitSlop={sizes.hitSlop} onPress={rightTopIconOnPress}>
-            {rightTopIcon && (
-              <Image style={styles.icon} resizeMode="contain" source={rightTopIcon} />
-            )}
+            <IconRenderer icon={rightTopIcon} />
           </TouchableOpacity>
         </View>
       </View>
@@ -183,6 +182,7 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       contentContainerStyles,
       keyboardShouldPersistTaps,
       refreshControl,
+      horizontalScrollBounces,
     } = this.props;
 
     return (
@@ -207,6 +207,7 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
           refreshControl={refreshControl}
           scrollRef={scrollRef}
           snapToEdge={snapToEdge}
+          horizontalScrollBounces={horizontalScrollBounces}
           transparentHeader={false}>
           {children}
         </StickyParallaxHeader>

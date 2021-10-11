@@ -38,6 +38,7 @@ export interface SharedPredefinedHeaderProps {
   backgroundColor?: string;
   backgroundImage?: StickyParallaxHeaderProps['backgroundImage'];
   bounces?: StickyParallaxHeaderProps['bounces'];
+  horizontalScrollBounces?: StickyParallaxHeaderProps['horizontalScrollBounces'];
   contentContainerStyles?: StickyParallaxHeaderProps['contentContainerStyles'];
   headerHeight?: StickyParallaxHeaderProps['headerHeight'];
   headerSize?: StickyParallaxHeaderProps['headerSize'];
@@ -55,9 +56,9 @@ export interface SharedPredefinedHeaderProps {
 }
 
 export interface IconProps {
-  leftTopIcon?: ImageSourcePropType;
+  leftTopIcon?: (() => ReactElement) | ImageSourcePropType;
   leftTopIconOnPress?: () => void;
-  rightTopIcon?: ImageSourcePropType;
+  rightTopIcon?: (() => ReactElement) | ImageSourcePropType;
   rightTopIconOnPress?: () => void;
 }
 export interface RenderBody {

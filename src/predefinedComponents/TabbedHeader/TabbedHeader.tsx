@@ -42,8 +42,10 @@ export interface TabbedHeaderProps extends SharedPredefinedHeaderProps {
   tabWrapperStyle?: StickyParallaxHeaderProps['tabWrapperStyle'];
   tabs: StickyParallaxHeaderProps['tabs'];
   tabsContainerBackgroundColor?: string;
-  initialPage: StickyParallaxHeaderProps['initialPage'];
+  initialPage?: StickyParallaxHeaderProps['initialPage'];
+  tabUnderlineColor?: StickyParallaxHeaderProps['tabUnderlineColor'];
   tabsContainerStyle?: StickyParallaxHeaderProps['tabsContainerStyle'];
+  tabsContainerHorizontalPadding?: StickyParallaxHeaderProps['tabsContainerHorizontalPadding'];
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
 }
@@ -195,6 +197,9 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
       tabs,
       tabsContainerBackgroundColor,
       tabsContainerStyle,
+      tabUnderlineColor,
+      tabsContainerHorizontalPadding,
+      horizontalScrollBounces,
     } = this.props;
 
     const tabsContainerBgColor = tabsContainerBackgroundColor ?? backgroundColor;
@@ -203,6 +208,7 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
       <>
         <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
+          tabUnderlineColor={tabUnderlineColor}
           backgroundImage={backgroundImage}
           bounces={bounces}
           contentContainerStyles={contentContainerStyles}
@@ -239,12 +245,15 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
           tabs={tabs}
           tabsContainerBackgroundColor={tabsContainerBgColor}
           tabsContainerStyle={tabsContainerStyle}
+          tabsContainerHorizontalPadding={tabsContainerHorizontalPadding}
+          horizontalScrollBounces={horizontalScrollBounces}
         />
       </>
     );
   }
 
   static defaultProps = {
+    initialPage: 0,
     backgroundColor: colors.primaryGreen,
     bounces: true,
     headerHeight: sizes.headerHeight,
