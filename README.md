@@ -106,7 +106,7 @@ Below are examples of those components and description of the props they are acc
 |             `title`              |                                                  `string`                                                   |   Yes    |                                                                                                  |                                       Sets header title                                       |
 |           `titleStyle`           |                                           `StyleProp<TextStyle>`                                            |   Yes    |                                                                                                  |                               Set style for text in foreground                                |
 
-[Check how to customise Tabbed Header example](docs/TABBEDHEADER.MD)
+[Check how to customise Tabbed Header example](readme_pages/TABBEDHEADER.MD)
 
 ## Details Header
 
@@ -182,7 +182,7 @@ Below are examples of those components and description of the props they are acc
 
 ## Custom Header
 
-[Custom header props and example](docs/CUSTOM.md)
+[Custom header props and example](readme_pages/CUSTOM.md)
 
 ## Handling StickyParallaxHeader body ScrollView reference
 
@@ -216,19 +216,18 @@ const paralaxScrollRef = useRef(null);
 
 ## Handling nested scrollables
 
-[Handling nested flatlist props and example](docs/CUSTOM.md#Tips)
-
+[Handling nested flatlist props and example](readme_pages/CUSTOM.md#Tips)
 ## Changing Statusbar style
 
-[Changing StatusBar style](docs/CUSTOM.md#changing-statusbar-style)
+[Changing StatusBar style](readme_pages/CUSTOM.md#changing-statusbar-style)
 
 ## Pull to refresh
 
-[Pull to refresh](docs/CUSTOM.md#Pull-to-Refresh)
+[Pull to refresh](readme_pages/CUSTOM.md#Pull-to-Refresh)
 
 ## Rendering icons in tabs
 
-[Icons in tabs](docs/CUSTOM.md#Icons-in-tabs)
+[Icons in tabs](readme_pages/CUSTOM.md#Icons-in-tabs)
 
 <h1 id="Getting-Started">Getting Started</h1>
 
@@ -252,11 +251,11 @@ $ yarn add react-native-sticky-parallax-header
 
 ### Installation for React Native < 0.60.0
 
-[Installation steps for React Native < 0.60.0](docs/INSTALLATION.md)
+[Installation steps for React Native < 0.60.0](readme_pages/INSTALLATION.md)
 
 <h1 id="Contributing">Contributing</h1>
 
-[Contributing guidelines](docs_old/CONTRIBUTING.md)
+[Contributing guidelines](readme_pages/CONTRIBUTING.md)
 
 <h1 id="Contributors">Contributors</h1>
 

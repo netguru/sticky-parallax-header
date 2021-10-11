@@ -1,0 +1,86 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+
+@font-face {
+  font-family: 'avertastd-regular';
+  src: url('../../static/fonts/avertastd-regular-webfont.woff2') format('woff2'),
+  url('../../static/fonts/avertastd-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #00D563;
+  --ifm-color-primary-dark: rgb(33, 175, 144);
+  --ifm-color-primary-darker: rgb(31, 165, 136);
+  --ifm-color-primary-darkest: rgb(26, 136, 112);
+  --ifm-color-primary-light: rgb(70, 203, 174);
+  --ifm-color-primary-lighter: rgb(102, 212, 189);
+  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-color-text: black;
+  --ifm-color-white: white;
+  --ifm-color-text-lighter: #999;
+  --ifm-color-background: white;
+  --ifm-color-background-lighter: #FAFAFA;
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-base:  "avertastd-regular", sans-serif;
+  --ifm-font-n-netguru:  url('../../static/img/N-Netguru.png');
+  --ifm-footer-background-color: #232323;
+  --ifm-background-color-footer: #232323;
+  --ifm-footer-title-color: white;
+  --ifm-footer-link-color: white;
+}
+
+:root[data-theme='dark'] {
+  --ifm-color-text: white;
+  --ifm-color-white: white;
+  --ifm-color-text-lighter: #D6D6D6;
+  --ifm-color-background: #232323;
+  --ifm-color-background-lighter: #474747;
+  --ifm-font-n-netguru:  url('../../static/img/N-Netguru-white.png');
+  --ifm-footer-background-color: #232323;
+  --ifm-footer-title-color: white;
+  --ifm-footer-link-color: white;
+}
+
+.footer__copyright {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.footer__logo {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+@media (max-width: 996px) {
+  .footer .container {
+    position: relative;
+    padding-left: 25px;
+  }
+  .footer .margin-bottom--sm {
+    position: absolute !important;
+    right: 32px;
+    top: -60px;
+  }
+  .footer__logo {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: #232323;
+}

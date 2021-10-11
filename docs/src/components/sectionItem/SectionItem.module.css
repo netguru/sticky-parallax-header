@@ -1,0 +1,71 @@
+.backgroundOdd {
+    background-color: var(--ifm-color-background);
+}
+
+.backgroundEven {
+    background-color: var(--ifm-color-background-lighter);
+}
+
+.sectionTitle {
+    font-size: 36px;
+    line-height: 42px;
+    color: var(--ifm-color-text)
+}
+
+.sectionDescription {
+    font-size: 24px;
+    line-height: 28px;
+    max-width: 450px;
+    color: var(--ifm-color-text-lighter);
+}
+
+.content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container {
+    padding: 200px 0;
+}
+
+@media screen and (max-width: 966px) {
+    .contentWrapper {
+        order: 1
+    }
+    .content {
+        align-items: center;
+    }
+    .row {
+        display: flex;
+        flex-direction: column;
+    }
+    .sectionTitle {
+        font-size: 24px;
+        line-height: 42px;
+    }
+    .sectionDescription {
+        font-size: 16px;
+        text-align: center;
+        margin-bottom:30px;
+        padding: 0 25px;
+    }
+    .container {
+        padding: 70px 0;
+    }
+    .imageWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        order: 0;
+    }
+    .image {
+        width: 220px;
+        padding-bottom: 50px;
+    }
+    .smallerImage {
+        width: 130px;
+        padding-bottom: 50px;
+    }
+}

@@ -1,0 +1,115 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+.heroBanner {
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.rightContent {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-left: 100px;
+}
+
+.heroImage {
+    margin-left: 70px;
+}
+
+.heroButton {
+    border: 1px solid var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+    box-sizing: border-box;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+}
+
+.heroButton:hover {
+    text-decoration: none;
+    color: var(--ifm-color-white);
+    background-color: var(--ifm-color-primary);
+}
+
+.heroButtonText {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 30px;
+}
+
+.heroDescriptionText {
+    font-size: 24px;
+    line-height: 28px;
+    max-width: 800px;
+    color: var(--ifm-color-text-lighter);
+}
+
+.logo {
+    background-image: var(--ifm-font-n-netguru);
+    width: 150px;
+    height: 100px;
+    background-repeat: no-repeat;
+}
+
+.heroTitle {
+    letter-spacing: 2px;
+    font-size: 64px;
+    line-height: 75px;
+    max-width: 900px;
+    color: var(--ifm-color-text);
+    text-align: left;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 966px) {
+    .heroBanner {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .heroTitle {
+        font-size: 24px;
+        line-height: 30px;
+        margin-top: -35px;
+    }
+    .heroDescriptionText {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .heroImage {
+        margin-left: 0;
+    }
+    .rightContent {
+        margin-top: 20px;
+        height: 100%;
+        padding-left: 0;
+        justify-content: flex-start;
+    }
+    .buttons {
+        display: block;
+        width: 100%;
+        padding-bottom: 25px;
+    }
+}
