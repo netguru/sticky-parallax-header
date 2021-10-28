@@ -27,7 +27,7 @@
 </div>
 
 <h1 id="Docs">Documentation</h1>
-Read the full Docs at: [https://netguru.github.io/sticky-parallax-header/](https://netguru.github.io/sticky-parallax-header/)
+Read the full Docs at: <a href="https://netguru.github.io/sticky-parallax-header/">https://netguru.github.io/sticky-parallax-header/</a>
 
 <h1 id="Preview">Preview</h1>
 <h2> Features </h2>
