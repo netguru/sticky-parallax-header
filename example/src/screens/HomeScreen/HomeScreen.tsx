@@ -100,7 +100,6 @@ const HomeScreen: VFC = () => {
 
   const onLayoutContent = (title: string) => (e: LayoutChangeEvent) => {
     setContentHeight((prevHeight) => {
-      debugger;
       return { ...prevHeight, [title]: e.nativeEvent.layout.height };
     });
   };
