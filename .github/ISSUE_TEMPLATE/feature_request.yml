@@ -1,0 +1,11 @@
+name: React Native Sticky Parallax Header - Feature
+description: Propose a feature in React Native Sticky Parallax Header
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes:
+      label: Feature request
+      description: |
+        Describe feature request, why (and, if possible, how) it should be implemented
+    validations:
+      required: true

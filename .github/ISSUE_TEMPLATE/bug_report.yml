@@ -1,0 +1,49 @@
+name: React Native Sticky Parallax Header - Bug
+description: Report a bug with React Native Sticky Parallax Header
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Environment
+      description: |
+        Provide environment on which the issue exists.
+      value: |
+        Library version: ???
+        OS version: ??? <!-- e.g. iPhone 13, iOS 15.3.1 -->
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Affected platforms
+      options:
+        - label: "Android"
+        - label: "iOS"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Current behavior
+      description: |
+        Describe current behavior, add screenshots or videos, if it's affecting UI.
+      placeholder: |
+        Current behavior
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: |
+        Describe expected behavior.
+      placeholder: |
+        Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: |
+        Add Link to reproduction repo, or add steps to reproduce.
+      placeholder: |
+        Link to repro
+    validations:
+      required: true
