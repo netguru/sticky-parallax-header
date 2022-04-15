@@ -439,7 +439,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
           bouncesZoom
           decelerationRate={decelerationRate}
           nestedScrollEnabled
-          ref={(c) => {
+          ref={(c: ScrollView | Animated.LegacyRef<ScrollView> | null) => {
             this.scroll = getSafelyScrollNode(c) as ScrollView;
             setRef<ScrollView>(scrollRef, this.scroll);
           }}

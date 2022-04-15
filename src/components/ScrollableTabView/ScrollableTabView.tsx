@@ -290,8 +290,8 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
         pagingEnabled
         contentContainerStyle={{ minHeight: minScrollHeight }}
         automaticallyAdjustContentInsets={false}
-        contentOffset={{ x: initialPage * containerWidth }}
-        ref={(scrollView) => {
+        contentOffset={{ x: initialPage * containerWidth, y: 0 }}
+        ref={(scrollView: ScrollView | Animated.LegacyRef<ScrollView> | null) => {
           this.scrollView = getSafelyScrollNode(scrollView);
         }}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollXIOS } } }], {

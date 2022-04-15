@@ -194,7 +194,7 @@ class ScrollableTabBar extends React.PureComponent<ScrollableTabBarProps, State>
                 accessible
                 style={[tabWrapperStyle, styles.noMargins]}
                 accessibilityLabel={tabKey}
-                accessibilityTraits="button"
+                accessibilityRole="button"
                 activeOpacity={0.9}
                 onPress={() => this.goToPage(page)}>
                 <View

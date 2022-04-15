@@ -128,6 +128,7 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
     scrollEventThrottle={1}
     showsVerticalScrollIndicator={false}
     stickyHeaderIndices={Array []}
+    style={Object {}}
   >
     <View>
       <View
@@ -325,6 +326,7 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
           contentOffset={
             Object {
               "x": 0,
+              "y": 0,
             }
           }
           directionalLockEnabled={true}
@@ -338,6 +340,7 @@ exports[`DetailsHeader empty Snapshot for default 1`] = `
           scrollEventThrottle={16}
           scrollsToTop={false}
           showsHorizontalScrollIndicator={false}
+          style={Object {}}
         >
           <View />
         </RCTScrollView>
