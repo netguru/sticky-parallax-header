@@ -146,13 +146,13 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
     const {
       headerLayout: { height },
     } = this.state;
-    const headerBorderRadius =
-      hasBorderRadius &&
-      this.scrollY.y.interpolate({
-        inputRange: [0, height],
-        outputRange: [80, 0],
-        extrapolate: 'extend',
-      });
+    const headerBorderRadius = hasBorderRadius
+      ? this.scrollY.y.interpolate({
+          inputRange: [0, height],
+          outputRange: [80, 0],
+          extrapolate: 'extend',
+        })
+      : 0;
 
     return (
       <Animated.View

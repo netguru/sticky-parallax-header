@@ -33,7 +33,7 @@
     "example": "yarn --cwd example",
     "pods": "echo pods",
     "bootstrap": "yarn example && yarn && yarn pods",
-    "prepush": "yarn test && yarn lint & yarn typescript"
+    "prepush": "yarn lint && yarn typescript && yarn test"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
