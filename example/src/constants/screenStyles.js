@@ -74,6 +74,16 @@ const screenStyles = StyleSheet.create({
   foregroundText: {
     color: colors.white,
   },
+  screenContainer: {
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  stretchContainer: {
+    alignSelf: 'stretch',
+    flex: 1,
+  },
 });
 
 export default screenStyles;
