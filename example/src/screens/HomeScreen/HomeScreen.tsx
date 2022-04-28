@@ -125,6 +125,24 @@ const HomeScreen: VFC = () => {
             navigation.navigate('AppStore');
           }}
         />
+        <Button
+          title={'New StickyHeaderFlatList'}
+          onPress={() => {
+            navigation.navigate('StickyHeaderFlatList');
+          }}
+        />
+        <Button
+          title={'New StickyHeaderScrollView'}
+          onPress={() => {
+            navigation.navigate('StickyHeaderScrollView');
+          }}
+        />
+        <Button
+          title={'New StickyHeaderSectionList'}
+          onPress={() => {
+            navigation.navigate('StickyHeaderSectionList');
+          }}
+        />
       </View>
     );
   };
