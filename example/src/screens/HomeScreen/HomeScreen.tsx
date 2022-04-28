@@ -143,6 +143,24 @@ const HomeScreen: VFC = () => {
             navigation.navigate('StickyHeaderSectionList');
           }}
         />
+        <Button
+          title={'New AvatarHeaderFlatList'}
+          onPress={() => {
+            navigation.navigate('AvatarHeaderFlatList');
+          }}
+        />
+        <Button
+          title={'New AvatarHeaderScrollView'}
+          onPress={() => {
+            navigation.navigate('AvatarHeaderScrollView');
+          }}
+        />
+        <Button
+          title={'New AvatarHeaderSectionList'}
+          onPress={() => {
+            navigation.navigate('AvatarHeaderSectionList');
+          }}
+        />
       </View>
     );
   };

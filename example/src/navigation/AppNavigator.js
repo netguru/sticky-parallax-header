@@ -4,6 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen, CardScreen } from '../screens';
 import YodaScreen from '../screens/additionalExamples/YodaScreen';
 import AppStoreHeader from '../screens/additionalExamples/SimsScreen';
+import { AvatarHeaderFlatListExample } from '../screens/additionalExamples/AvatarHeaderFlatListExample';
+import { AvatarHeaderScrollViewExample } from '../screens/additionalExamples/AvatarHeaderScrollViewExample';
+import { AvatarHeaderSectionListExample } from '../screens/additionalExamples/AvatarHeaderSectionListExample';
 import { StickyHeaderFlatListExample } from '../screens/additionalExamples/StickyHeaderFlatListExample';
 import { StickyHeaderScrollViewExample } from '../screens/additionalExamples/StickyHeaderScrollViewExample';
 import { StickyHeaderSectionListExample } from '../screens/additionalExamples/StickyHeaderSectionListExample';
@@ -20,6 +23,9 @@ const AppNavigator = () => (
       <Stack.Screen name="StickyHeaderFlatList" component={StickyHeaderFlatListExample} />
       <Stack.Screen name="StickyHeaderScrollView" component={StickyHeaderScrollViewExample} />
       <Stack.Screen name="StickyHeaderSectionList" component={StickyHeaderSectionListExample} />
+      <Stack.Screen name="AvatarHeaderFlatList" component={AvatarHeaderFlatListExample} />
+      <Stack.Screen name="AvatarHeaderScrollView" component={AvatarHeaderScrollViewExample} />
+      <Stack.Screen name="AvatarHeaderSectionList" component={AvatarHeaderSectionListExample} />
     </Stack.Navigator>
   </NavigationContainer>
 );

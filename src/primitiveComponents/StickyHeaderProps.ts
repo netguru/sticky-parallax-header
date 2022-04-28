@@ -31,6 +31,14 @@ export interface StickyHeaderSharedProps {
   style?: StyleProp<ViewStyle>;
 }
 
+export interface StickyHeaderSnapProps {
+  headerHeight?: number;
+  onTopReached?: () => void;
+  parallaxHeight?: number;
+  snapStartThreshold?: number;
+  snapStopThreshold?: number;
+  snapToEdge?: boolean;
+}
 export interface StickyHeaderScrollViewProps
   extends StickyHeaderSharedProps,
     Omit<
