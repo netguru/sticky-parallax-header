@@ -66,6 +66,10 @@ const screenStyles = StyleSheet.create({
   foregroundText: {
     color: colors.white,
   },
+  wrapper: {
+    alignSelf: 'stretch',
+    flex: 1,
+  },
 });
 
 export default screenStyles;
