@@ -7,6 +7,9 @@ import AppStoreHeader from '../screens/additionalExamples/SimsScreen';
 import { AvatarHeaderFlatListExample } from '../screens/additionalExamples/AvatarHeaderFlatListExample';
 import { AvatarHeaderScrollViewExample } from '../screens/additionalExamples/AvatarHeaderScrollViewExample';
 import { AvatarHeaderSectionListExample } from '../screens/additionalExamples/AvatarHeaderSectionListExample';
+import { DetailsHeaderFlatListExample } from '../screens/additionalExamples/DetailsHeaderFlatListExample';
+import { DetailsHeaderScrollViewExample } from '../screens/additionalExamples/DetailsHeaderScrollViewExample';
+import { DetailsHeaderSectionListExample } from '../screens/additionalExamples/DetailsHeaderSectionListExample';
 import { StickyHeaderFlatListExample } from '../screens/additionalExamples/StickyHeaderFlatListExample';
 import { StickyHeaderScrollViewExample } from '../screens/additionalExamples/StickyHeaderScrollViewExample';
 import { StickyHeaderSectionListExample } from '../screens/additionalExamples/StickyHeaderSectionListExample';
@@ -26,6 +29,9 @@ const AppNavigator = () => (
       <Stack.Screen name="AvatarHeaderFlatList" component={AvatarHeaderFlatListExample} />
       <Stack.Screen name="AvatarHeaderScrollView" component={AvatarHeaderScrollViewExample} />
       <Stack.Screen name="AvatarHeaderSectionList" component={AvatarHeaderSectionListExample} />
+      <Stack.Screen name="DetailsHeaderFlatList" component={DetailsHeaderFlatListExample} />
+      <Stack.Screen name="DetailsHeaderScrollView" component={DetailsHeaderScrollViewExample} />
+      <Stack.Screen name="DetailsHeaderSectionList" component={DetailsHeaderSectionListExample} />
     </Stack.Navigator>
   </NavigationContainer>
 );
