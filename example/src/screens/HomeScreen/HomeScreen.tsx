@@ -104,6 +104,12 @@ const HomeScreen: VFC = () => {
     });
   };
 
+  const navigateTo = useCallback((routeName: string) => {
+    return () => {
+      navigation.navigate(routeName);
+    }
+  }, [])
+
   const renderContent = (title: string) => {
     const marginBottom = Platform.select({ ios: calcMargin(title) + 20, android: 10 });
 
@@ -145,15 +151,11 @@ const HomeScreen: VFC = () => {
         />
         <Button
           title={'New TabbedHeaderList'}
-          onPress={() => {
-            navigation.navigate('TabbedHeaderList');
-          }}
+          onPress={navigateTo('TabbedHeaderList')}
         />
         <Button
           title={'New TabbedHeaderPager'}
-          onPress={() => {
-            navigation.navigate('TabbedHeaderPager');
-          }}
+          onPress={navigateTo('TabbedHeaderPager')}
         />
         <Button
           title={'New AvatarHeaderFlatList'}

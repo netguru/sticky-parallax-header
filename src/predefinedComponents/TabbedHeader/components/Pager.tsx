@@ -9,56 +9,23 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import type {
-  LayoutChangeEvent,
-  NativeScrollEvent,
-  ScrollView,
-  ScrollViewProps,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import type { LayoutChangeEvent, ScrollView } from 'react-native';
 import { Dimensions, I18nManager, Platform, StyleSheet, View } from 'react-native';
 import Animated, {
+  cancelAnimation,
   runOnJS,
   runOnUI,
   scrollTo,
   useAnimatedRef,
   useAnimatedScrollHandler,
   useSharedValue,
+  withDelay,
+  withTiming,
 } from 'react-native-reanimated';
 
 import commonStyles from '../../../constants/screenStyles';
 import { DelayedFreeze } from '../../common/components/DelayedFreeze';
-import type { PagerMethods } from '../TabbedHeaderProps';
-
-interface PagerProps
-  extends Omit<
-    ScrollViewProps,
-    | 'horizontal'
-    | 'pagingEnabled'
-    | 'onMomentumScrollBegin'
-    | 'onMomentumScrollEnd'
-    | 'onScroll'
-    | 'onScrollBeginDrag'
-    | 'onScrollEndDrag'
-  > {
-  initialPage?: number;
-  minScrollHeight: number;
-  offscreenPageLimit?: number;
-  onChangeTab?: (previousPage: number, newPage: number) => void;
-  onMomentumScrollBegin?: (e: NativeScrollEvent) => void;
-  onMomentumScrollEnd?: (e: NativeScrollEvent) => void;
-  onScroll?: (e: NativeScrollEvent) => void;
-  onScrollBeginDrag?: (e: NativeScrollEvent) => void;
-  onScrollEndDrag?: (e: NativeScrollEvent) => void;
-  page: number;
-  pageContainerStyle?: StyleProp<ViewStyle>;
-  rememberTabScrollPosition?: boolean;
-  scrollHeight: number;
-  scrollRef: RefObject<ScrollView>;
-  scrollValue: Animated.SharedValue<number>;
-  swipedPage?: (index: number) => void;
-}
+import type { InternalPagerProps, PagerMethods, PagerProps } from '../TabbedHeaderProps';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const NOOP = () => {};
@@ -66,7 +33,7 @@ const NOOP = () => {};
 const DEFAULT_OFFSCREEN_PAGE_LIMIT = 1;
 const SCROLL_TO_PAGE_OFFSET_TIMEOUT = 250;
 
-export const Pager = forwardRef<PagerMethods, PagerProps>(
+export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
   (
     {
       automaticallyAdjustContentInsets = false,
@@ -103,6 +70,8 @@ export const Pager = forwardRef<PagerMethods, PagerProps>(
     const horizontalScrollViewRef = useAnimatedRef<ScrollView>();
     const horizontalScrollValue = useSharedValue(initialPage * Dimensions.get('window').width);
 
+    const scrollToTabPositionTimeoutValue = useSharedValue(1);
+
     const data = useMemo(() => {
       return Children.toArray(children);
     }, [children]);
@@ -110,7 +79,6 @@ export const Pager = forwardRef<PagerMethods, PagerProps>(
     const tabsScrollPosition = useRef<number[]>(Array(data.length).fill(-1));
 
     const goToPageAnimationFrame = useRef<ReturnType<typeof requestAnimationFrame>>();
-    const scrollToPageOffsetTimeout = useRef<ReturnType<typeof setTimeout>>();
 
     const isInverted = Platform.OS === 'android' ? I18nManager.isRTL : undefined;
 
@@ -133,11 +101,9 @@ export const Pager = forwardRef<PagerMethods, PagerProps>(
       runOnUI(scrollOnePxAndBack)();
 
       return () => {
+        cancelAnimation(scrollToTabPositionTimeoutValue);
         if (goToPageAnimationFrame.current) {
           cancelAnimationFrame(goToPageAnimationFrame.current);
-        }
-        if (scrollToPageOffsetTimeout.current) {
-          clearTimeout(scrollToPageOffsetTimeout.current);
         }
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -189,14 +155,24 @@ export const Pager = forwardRef<PagerMethods, PagerProps>(
       }
 
       tabsScrollPosition.current[prevPage] = scrollValue.value;
-      scrollToPageOffsetTimeout.current = setTimeout(() => {
-        const scrollTargetPosition =
-          rememberTabScrollPosition && tabsScrollPosition.current[newPage] !== -1
-            ? tabsScrollPosition.current[newPage]
-            : scrollHeight;
+      const scrollTargetPosition =
+        rememberTabScrollPosition && tabsScrollPosition.current[newPage] !== -1
+          ? tabsScrollPosition.current[newPage]
+          : scrollHeight;
 
-        runOnUI(scrollToTabPosition)(scrollTargetPosition);
-      }, SCROLL_TO_PAGE_OFFSET_TIMEOUT);
+      scrollToTabPositionTimeoutValue.value = withDelay(
+        SCROLL_TO_PAGE_OFFSET_TIMEOUT,
+        withTiming(
+          scrollToTabPositionTimeoutValue.value * -1,
+          {
+            duration: 0,
+          },
+          () => {
+            'worklet';
+            scrollToTabPosition(scrollTargetPosition);
+          }
+        )
+      );
     }
 
     function handlePossiblePageChange(newPage: number) {

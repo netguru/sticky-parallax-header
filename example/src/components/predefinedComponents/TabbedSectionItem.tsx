@@ -6,7 +6,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import type { ItemType } from '../../assets/data/tabbedSections';
 import colors from '../../constants/colors';
 
-export const TABBED_SECTION_ITEM_HEIGHT = 130; // 120 + 2 * 5 // height + marginVertical
+const ITEM_HEIGHT = 120;
+const ITEM_MARGIN_VERTICAL = 5;
+
+export const TABBED_SECTION_ITEM_HEIGHT = ITEM_HEIGHT + 2 * ITEM_MARGIN_VERTICAL;
 
 export const TabbedSectionItem: FC<ItemType> = memo(({ imageUrl, title, subtitle }) => {
   return <SafeAreaView edges={['left', 'right']} style={styles.container}>

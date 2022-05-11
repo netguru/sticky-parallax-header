@@ -1,14 +1,16 @@
-import type { RefAttributes } from 'react';
+import type { RefAttributes, RefObject } from 'react';
 import type {
   ImageResizeMode,
   ImageSourcePropType,
   ImageStyle,
   NativeScrollEvent,
+  ScrollView,
   ScrollViewProps,
   StyleProp,
   TextStyle,
   ViewStyle,
 } from 'react-native';
+import type { SharedValue } from 'react-native-reanimated';
 
 import type {
   StickyHeaderScrollViewProps,
@@ -18,6 +20,43 @@ import type { SharedPredefinedProps, TabsConfig } from '../common/SharedProps';
 
 export interface PagerMethods {
   goToPage: (pageNumber: number) => void;
+}
+
+/** TODO: do not export it when exporting module's components and types */
+export interface InternalPagerProps {
+  initialPage?: number;
+  minScrollHeight: number;
+  offscreenPageLimit?: number;
+  onChangeTab?: (previousPage: number, newPage: number) => void;
+  page: number;
+  pageContainerStyle?: StyleProp<ViewStyle>;
+  rememberTabScrollPosition?: boolean;
+  scrollHeight: number;
+  scrollRef: RefObject<ScrollView>;
+  scrollValue: SharedValue<number>;
+  swipedPage?: (index: number) => void;
+}
+export interface PagerProps
+  extends Omit<
+    ScrollViewProps,
+    | 'horizontal'
+    | 'pagingEnabled'
+    | 'onMomentumScrollBegin'
+    | 'onMomentumScrollEnd'
+    | 'onScroll'
+    | 'onScrollBeginDrag'
+    | 'onScrollEndDrag'
+  > {
+  /** worklet function */
+  onMomentumScrollBegin?: (e: NativeScrollEvent) => void;
+  /** worklet function */
+  onMomentumScrollEnd?: (e: NativeScrollEvent) => void;
+  /** worklet function */
+  onScroll?: (e: NativeScrollEvent) => void;
+  /** worklet function */
+  onScrollBeginDrag?: (e: NativeScrollEvent) => void;
+  /** worklet function */
+  onScrollEndDrag?: (e: NativeScrollEvent) => void;
 }
 
 export interface TabbedHeaderSharedProps extends SharedPredefinedProps, Partial<TabsConfig> {
@@ -43,22 +82,8 @@ export interface TabbedHeaderPagerProps
    */
   offscreenPageLimit?: number;
   onChangeTab?: (prevPage: number, newPage: number) => void;
-  pagerProps?: Omit<
-    ScrollViewProps,
-    | 'horizontal'
-    | 'pagingEnabled'
-    | 'onMomentumScrollBegin'
-    | 'onMomentumScrollEnd'
-    | 'onScroll'
-    | 'onScrollBeginDrag'
-    | 'onScrollEndDrag'
-  > & {
-    onMomentumScrollBegin?: (e: NativeScrollEvent) => void;
-    onMomentumScrollEnd?: (e: NativeScrollEvent) => void;
-    onScroll?: (e: NativeScrollEvent) => void;
-    onScrollBeginDrag?: (e: NativeScrollEvent) => void;
-    onScrollEndDrag?: (e: NativeScrollEvent) => void;
-  } & RefAttributes<PagerMethods>;
+  pageContainerStyle?: StyleProp<ViewStyle>;
+  pagerProps?: PagerProps & RefAttributes<PagerMethods>;
   rememberTabScrollPosition?: boolean;
 }
 
