@@ -104,6 +104,12 @@ const HomeScreen: VFC = () => {
     });
   };
 
+  const navigateTo = useCallback((routeName: string) => {
+    return () => {
+      navigation.navigate(routeName);
+    }
+  }, [])
+
   const renderContent = (title: string) => {
     const marginBottom = Platform.select({ ios: calcMargin(title) + 20, android: 10 });
 
@@ -163,21 +169,15 @@ const HomeScreen: VFC = () => {
         />
         <Button
           title={'New DetailsHeaderFlatList'}
-          onPress={() => {
-            navigation.navigate('DetailsHeaderFlatList');
-          }}
+          onPress={navigateTo('DetailsHeaderFlatList')}
         />
         <Button
           title={'New DetailsHeaderScrollView'}
-          onPress={() => {
-            navigation.navigate('DetailsHeaderScrollView');
-          }}
+          onPress={navigateTo('DetailsHeaderScrollView')}
         />
         <Button
           title={'New DetailsHeaderSectionList'}
-          onPress={() => {
-            navigation.navigate('DetailsHeaderSectionList');
-          }}
+          onPress={navigateTo('DetailsHeaderSectionList')}
         />
       </View>
     );
