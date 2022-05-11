@@ -10,6 +10,8 @@ import { AvatarHeaderSectionListExample } from '../screens/additionalExamples/Av
 import { StickyHeaderFlatListExample } from '../screens/additionalExamples/StickyHeaderFlatListExample';
 import { StickyHeaderScrollViewExample } from '../screens/additionalExamples/StickyHeaderScrollViewExample';
 import { StickyHeaderSectionListExample } from '../screens/additionalExamples/StickyHeaderSectionListExample';
+import { TabbedHeaderListExample } from '../screens/additionalExamples/TabbedHeaderListExample';
+import { TabbedHeaderPagerExample } from '../screens/additionalExamples/TabbedHeaderPagerExample';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +25,8 @@ const AppNavigator = () => (
       <Stack.Screen name="StickyHeaderFlatList" component={StickyHeaderFlatListExample} />
       <Stack.Screen name="StickyHeaderScrollView" component={StickyHeaderScrollViewExample} />
       <Stack.Screen name="StickyHeaderSectionList" component={StickyHeaderSectionListExample} />
+      <Stack.Screen name="TabbedHeaderList" component={TabbedHeaderListExample} />
+      <Stack.Screen name="TabbedHeaderPager" component={TabbedHeaderPagerExample} />
       <Stack.Screen name="AvatarHeaderFlatList" component={AvatarHeaderFlatListExample} />
       <Stack.Screen name="AvatarHeaderScrollView" component={AvatarHeaderScrollViewExample} />
       <Stack.Screen name="AvatarHeaderSectionList" component={AvatarHeaderSectionListExample} />

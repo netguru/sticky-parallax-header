@@ -4,10 +4,14 @@ import colors from './colors';
 import constants from './constants';
 
 const screenStyles = StyleSheet.create({
+  column: {
+    flexDirection: 'column',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'stretch',
   },
   content: {
     flex: 1,
@@ -63,8 +67,17 @@ const screenStyles = StyleSheet.create({
     height: constants.responsiveWidth(18),
     borderRadius: constants.responsiveWidth(4.5),
   },
+  row: {
+    flexDirection: 'row',
+  },
+  rowReverse: {
+    flexDirection: 'row-reverse',
+  },
   foregroundText: {
     color: colors.white,
+  },
+  stretch: {
+    alignSelf: 'stretch',
   },
   wrapper: {
     alignSelf: 'stretch',
