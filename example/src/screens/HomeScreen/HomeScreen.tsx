@@ -150,6 +150,14 @@ const HomeScreen: VFC = () => {
           }}
         />
         <Button
+          title={'New TabbedHeaderList'}
+          onPress={navigateTo('TabbedHeaderList')}
+        />
+        <Button
+          title={'New TabbedHeaderPager'}
+          onPress={navigateTo('TabbedHeaderPager')}
+        />
+        <Button
           title={'New AvatarHeaderFlatList'}
           onPress={() => {
             navigation.navigate('AvatarHeaderFlatList');

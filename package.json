@@ -36,8 +36,9 @@
     "prepush": "yarn lint && yarn typescript && yarn test"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*",
+    "react": ">=17.0.0",
+    "react-native": ">=0.64.0",
+    "react-freeze": ">=1.0.0",
     "react-native-reanimated": ">=2.0.0",
     "react-native-safe-area-context": ">=3.0.0"
   },
@@ -58,6 +59,7 @@
     "jest": "27.5.1",
     "prettier": "2.6.2",
     "react": "17.0.1",
+    "react-freeze": "1.0.0",
     "react-native": "0.64.3",
     "react-native-builder-bob": "0.18.2",
     "react-native-reanimated": "2.3.1",

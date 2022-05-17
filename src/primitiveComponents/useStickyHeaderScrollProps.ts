@@ -68,59 +68,71 @@ export function useStickyHeaderScrollProps<T extends ScrollComponent>(
 
   const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);
 
-  const onSnapToEdge = useWorkletCallback((e: NativeScrollEvent) => {
-    const scrollToHeight = snapStopThreshold ?? scrollHeight;
-    const snapToEdgeThreshold = snapStartThreshold ?? scrollHeight / 2;
+  const onSnapToEdge = useWorkletCallback(
+    (e: NativeScrollEvent) => {
+      const scrollToHeight = snapStopThreshold ?? scrollHeight;
+      const snapToEdgeThreshold = snapStartThreshold ?? scrollHeight / 2;
 
-    const currentVal = scrollValue.value;
-    const velocity = e.velocity?.y ?? 0;
+      const currentVal = scrollValue.value;
+      const velocity = e.velocity?.y ?? 0;
 
-    const dragsToTop = velocity >= 0;
-    const dragsToBottom = !dragsToTop;
-    const dragsQuickToBottom = dragsToBottom && velocity <= -VELOCITY_THRESHOLD;
-    const dragsQuickToTop = dragsToTop && velocity >= VELOCITY_THRESHOLD;
+      const dragsToTop = velocity >= 0;
+      const dragsToBottom = !dragsToTop;
+      const dragsQuickToBottom = dragsToBottom && velocity <= -VELOCITY_THRESHOLD;
+      const dragsQuickToTop = dragsToTop && velocity >= VELOCITY_THRESHOLD;
 
-    const isUnderSnapToEdgeThresholdAndDragIsSlow =
-      currentVal > 0 && currentVal < snapToEdgeThreshold && !dragsQuickToBottom;
-    const isUnderSnapToEdgeThresholdAndDragIsQuick =
-      currentVal >= snapToEdgeThreshold / 2 &&
-      currentVal < snapToEdgeThreshold &&
-      dragsQuickToBottom;
-    const isOverSnapToEdgeThresholdAndDragIsSlow =
-      currentVal >= snapToEdgeThreshold && currentVal < scrollToHeight && !dragsQuickToTop;
-    const isOverSnapToEdgeThresholdAndDragIsQuick =
-      currentVal >= snapToEdgeThreshold && currentVal < scrollToHeight / 2 && dragsQuickToTop;
+      const isUnderSnapToEdgeThresholdAndDragIsSlow =
+        currentVal > 0 && currentVal < snapToEdgeThreshold && !dragsQuickToBottom;
+      const isUnderSnapToEdgeThresholdAndDragIsQuick =
+        currentVal >= snapToEdgeThreshold / 2 &&
+        currentVal < snapToEdgeThreshold &&
+        dragsQuickToBottom;
+      const isOverSnapToEdgeThresholdAndDragIsSlow =
+        currentVal >= snapToEdgeThreshold && currentVal < scrollToHeight && !dragsQuickToTop;
+      const isOverSnapToEdgeThresholdAndDragIsQuick =
+        currentVal >= snapToEdgeThreshold && currentVal < scrollToHeight / 2 && dragsQuickToTop;
 
-    if (snapToEdge) {
-      if (isUnderSnapToEdgeThresholdAndDragIsSlow || isOverSnapToEdgeThresholdAndDragIsQuick) {
-        scrollTo(scrollViewRef, 0, 0, true);
-      } else if (
-        isOverSnapToEdgeThresholdAndDragIsSlow ||
-        isUnderSnapToEdgeThresholdAndDragIsQuick
-      ) {
-        scrollTo(scrollViewRef, 0, scrollHeight, true);
+      if (snapToEdge) {
+        if (isUnderSnapToEdgeThresholdAndDragIsSlow || isOverSnapToEdgeThresholdAndDragIsQuick) {
+          scrollTo(scrollViewRef, 0, 0, true);
+        } else if (
+          isOverSnapToEdgeThresholdAndDragIsSlow ||
+          isUnderSnapToEdgeThresholdAndDragIsQuick
+        ) {
+          scrollTo(scrollViewRef, 0, scrollHeight, true);
+        }
       }
-    }
-  });
+    },
+    [snapStartThreshold, snapStopThreshold, scrollHeight, scrollValue]
+  );
 
-  const onMomentumScrollEndInternal = useWorkletCallback((e: NativeScrollEvent) => {
-    onMomentumScrollEnd?.(e);
-    onSnapToEdge(e);
-  });
+  const onMomentumScrollEndInternal = useWorkletCallback(
+    (e: NativeScrollEvent) => {
+      onMomentumScrollEnd?.(e);
+      onSnapToEdge(e);
+    },
+    [onMomentumScrollEnd, onSnapToEdge]
+  );
 
-  const onScrollEndDragInternal = useWorkletCallback((e: NativeScrollEvent) => {
-    onScrollEndDrag?.(e);
-    if (Platform.OS === 'android') {
-      return;
-    }
+  const onScrollEndDragInternal = useWorkletCallback(
+    (e: NativeScrollEvent) => {
+      onScrollEndDrag?.(e);
+      if (Platform.OS === 'android') {
+        return;
+      }
 
-    onSnapToEdge(e);
-  });
+      onSnapToEdge(e);
+    },
+    [onScrollEndDrag, onSnapToEdge]
+  );
 
-  const onScrollInternal = useWorkletCallback((e: NativeScrollEvent) => {
-    scrollValue.value = e.contentOffset.y;
-    onScroll?.(e);
-  });
+  const onScrollInternal = useWorkletCallback(
+    (e: NativeScrollEvent) => {
+      scrollValue.value = e.contentOffset.y;
+      onScroll?.(e);
+    },
+    [onScroll]
+  );
 
   return {
     onMomentumScrollEnd: onMomentumScrollEndInternal,
