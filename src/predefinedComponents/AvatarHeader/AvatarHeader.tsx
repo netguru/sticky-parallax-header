@@ -231,6 +231,7 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
       onMomentumScrollEnd,
       onMomentumScrollBegin,
       horizontalScrollBounces,
+      horizontalSwipe
     } = this.props;
 
     return (
@@ -244,6 +245,7 @@ class AvatarHeader extends React.Component<AvatarHeaderProps, State> {
           background={this.renderBackground()}
           backgroundImage={backgroundImage}
           bounces={bounces}
+          horizontalSwipe={horizontalSwipe}
           contentContainerStyles={contentContainerStyles}
           foreground={this.renderAvatarForeground()}
           header={this.renderAvatarHeader()}

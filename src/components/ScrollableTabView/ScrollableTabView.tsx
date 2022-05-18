@@ -38,6 +38,7 @@ type ScrollableTabViewProps = {
   horizontalScrollBounces?: boolean;
   scrollEnabled: boolean;
   onScrollXIOS?: (x: number) => void;
+  horizontalSwipe?: boolean;
 };
 type SceneKeys = string[];
 type State = {
@@ -278,7 +279,7 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
 
   renderScrollableContent() {
     const scenes = this.composeScenes();
-    const { initialPage, scrollEnabled, horizontalScrollBounces } = this.props;
+    const { initialPage, scrollEnabled, horizontalScrollBounces, horizontalSwipe } = this.props;
     const { containerWidth, scrollXIOS } = this.state;
     const { minScrollHeight, keyboardShouldPersistTaps } = this.props;
 
@@ -286,7 +287,7 @@ class ScrollableTabView extends React.Component<ScrollableTabViewProps, State> {
       <Animated.ScrollView
         bounces={horizontalScrollBounces}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-        horizontal
+        horizontal={horizontalSwipe}
         pagingEnabled
         contentContainerStyle={{ minHeight: minScrollHeight }}
         automaticallyAdjustContentInsets={false}

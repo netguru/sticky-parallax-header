@@ -79,6 +79,7 @@ export interface StickyParallaxHeaderProps {
   tabUnderlineColor: string | null;
   tabsContainerHorizontalPadding?: number;
   horizontalScrollBounces?: boolean;
+  horizontalSwipe?: boolean;
 }
 
 type State = {
@@ -410,6 +411,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
       onMomentumScrollEnd,
       onMomentumScrollBegin,
       horizontalScrollBounces,
+      horizontalSwipe
     } = this.props;
     const { currentPage } = this.state;
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);
@@ -506,6 +508,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
             swipedPage={this.goToPage}
             minScrollHeight={innerScrollHeight}
             scrollEnabled={!hasSingleElement}
+            horizontalSwipe={horizontalSwipe}
             keyboardShouldPersistTaps={keyboardShouldPersistTaps}>
             {!tabs && children}
             {tabs &&
@@ -551,6 +554,7 @@ class StickyParallaxHeaderComponent extends Component<StickyParallaxHeaderProps,
     onMomentumScrollEnd: undefined,
     onMomentumScrollBegin: undefined,
     tabUnderlineColor: colors.white,
+    horizontalSwipe: true
   };
 }
 

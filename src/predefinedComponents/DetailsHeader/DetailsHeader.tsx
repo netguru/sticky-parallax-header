@@ -183,6 +183,7 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
       keyboardShouldPersistTaps,
       refreshControl,
       horizontalScrollBounces,
+      horizontalSwipe
     } = this.props;
 
     return (
@@ -195,6 +196,7 @@ class DetailsHeader extends React.Component<DetailsHeaderProps, State> {
           background={this.renderBackground()}
           backgroundImage={backgroundImage}
           bounces={bounces}
+          horizontalSwipe={horizontalSwipe}
           contentContainerStyles={contentContainerStyles}
           foreground={this.renderDetailsForeground()}
           header={this.renderHeader()}

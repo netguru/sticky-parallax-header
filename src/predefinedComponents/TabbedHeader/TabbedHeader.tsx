@@ -48,6 +48,7 @@ export interface TabbedHeaderProps extends SharedPredefinedHeaderProps {
   tabsContainerHorizontalPadding?: StickyParallaxHeaderProps['tabsContainerHorizontalPadding'];
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
+  horizontalSwipe?: boolean;
 }
 
 type State = {
@@ -200,6 +201,7 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
       tabUnderlineColor,
       tabsContainerHorizontalPadding,
       horizontalScrollBounces,
+      horizontalSwipe
     } = this.props;
 
     const tabsContainerBgColor = tabsContainerBackgroundColor ?? backgroundColor;
@@ -209,6 +211,7 @@ class TabbedHeader extends React.Component<TabbedHeaderProps, State> {
         <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
         <StickyParallaxHeader
           tabUnderlineColor={tabUnderlineColor}
+          horizontalSwipe={horizontalSwipe}
           backgroundImage={backgroundImage}
           bounces={bounces}
           contentContainerStyles={contentContainerStyles}
