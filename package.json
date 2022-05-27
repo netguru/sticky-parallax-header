@@ -33,7 +33,7 @@
     "example": "yarn --cwd example",
     "pods": "echo pods",
     "bootstrap": "yarn example && yarn && yarn pods",
-    "prepush": "yarn lint && yarn typescript && yarn test"
+    "prepush": "yarn lint && yarn typescript"
   },
   "peerDependencies": {
     "react": ">=17.0.0",
