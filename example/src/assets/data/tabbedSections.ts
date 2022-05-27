@@ -1,4 +1,4 @@
-import type { SectionListData } from "react-native";
+import type { SectionListData } from 'react-native';
 
 export interface ItemType {
   id: string;

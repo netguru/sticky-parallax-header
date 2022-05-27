@@ -1,83 +1,21 @@
-import React, { ReactElement, ReactNode, VFC } from 'react';
-import type { ImageSourcePropType } from 'react-native';
-import { AvatarHeader, TabbedHeader, DetailsHeader } from './predefinedComponents';
-import {
-  default as StickyParallaxHeaderComponent,
-  StickyParallaxHeaderProps,
-} from './StickyParallaxHeaderComponent';
-import type {
-  AvatarHeaderProps,
-  TabbedHeaderProps,
-  DetailsHeaderProps,
-} from './predefinedComponents';
+export { StickyHeaderFlatList } from './primitiveComponents/StickyHeaderFlatList';
+export { StickyHeaderScrollView } from './primitiveComponents/StickyHeaderScrollView';
+export { StickyHeaderSectionList } from './primitiveComponents/StickyHeaderSectionList';
+export { useStickyHeaderProps } from './primitiveComponents/useStickyHeaderProps';
+export { useStickyHeaderScrollProps } from './primitiveComponents/useStickyHeaderScrollProps';
+export { withStickyHeader } from './primitiveComponents/withStickyHeader';
+export * from './primitiveComponents/StickyHeaderProps';
 
-export type { AvatarHeaderProps };
-export type { TabbedHeaderProps };
-export type { DetailsHeaderProps };
-export type { StickyParallaxHeaderProps };
+export { AvatarHeaderFlatList } from './predefinedComponents/AvatarHeader/AvatarHeaderFlatList';
+export { AvatarHeaderScrollView } from './predefinedComponents/AvatarHeader/AvatarHeaderScrollView';
+export { AvatarHeaderSectionList } from './predefinedComponents/AvatarHeader/AvatarHeaderSectionList';
+export * from './predefinedComponents/AvatarHeader/AvatarHeaderProps';
 
-export interface OnChangeTabArguments {
-  from: number;
-  i: number;
-  ref: any;
-}
+export { DetailsHeaderFlatList } from './predefinedComponents/DetailsHeader/DetailsHeaderFlatList';
+export { DetailsHeaderScrollView } from './predefinedComponents/DetailsHeader/DetailsHeaderScrollView';
+export { DetailsHeaderSectionList } from './predefinedComponents/DetailsHeader/DetailsHeaderSectionList';
+export * from './predefinedComponents/DetailsHeader/DetailsHeaderProps';
 
-export type MountedTabType = {
-  i: number;
-  ref: React.ReactElement | React.ReactFragment | null | undefined;
-  from: number;
-};
-
-export interface Tab {
-  content: ReactElement;
-  title?: string;
-  icon?: ReactElement | ((isActive: boolean) => ReactElement);
-}
-
-export interface SharedPredefinedHeaderProps {
-  backgroundColor?: string;
-  backgroundImage?: StickyParallaxHeaderProps['backgroundImage'];
-  bounces?: StickyParallaxHeaderProps['bounces'];
-  horizontalScrollBounces?: StickyParallaxHeaderProps['horizontalScrollBounces'];
-  contentContainerStyles?: StickyParallaxHeaderProps['contentContainerStyles'];
-  headerHeight?: StickyParallaxHeaderProps['headerHeight'];
-  headerSize?: StickyParallaxHeaderProps['headerSize'];
-  keyboardShouldPersistTaps?: StickyParallaxHeaderProps['keyboardShouldPersistTaps'];
-  onMomentumScrollBegin?: StickyParallaxHeaderProps['onMomentumScrollBegin'];
-  onMomentumScrollEnd?: StickyParallaxHeaderProps['onMomentumScrollEnd'];
-  parallaxHeight?: StickyParallaxHeaderProps['parallaxHeight'];
-  refreshControl?: StickyParallaxHeaderProps['refreshControl'];
-  scrollEvent?: StickyParallaxHeaderProps['scrollEvent'];
-  scrollRef?: StickyParallaxHeaderProps['scrollRef'];
-  snapStartThreshold?: StickyParallaxHeaderProps['snapStartThreshold'];
-  snapStopThreshold?: StickyParallaxHeaderProps['snapStopThreshold'];
-  snapToEdge?: StickyParallaxHeaderProps['snapToEdge'];
-  snapValue?: StickyParallaxHeaderProps['snapValue'];
-}
-
-export interface IconProps {
-  leftTopIcon?: (() => ReactElement) | ImageSourcePropType;
-  leftTopIconOnPress?: () => void;
-  rightTopIcon?: (() => ReactElement) | ImageSourcePropType;
-  rightTopIconOnPress?: () => void;
-}
-export interface RenderBody {
-  children?: ReactNode;
-}
-
-type Props = TabbedHeaderProps | AvatarHeaderProps | DetailsHeaderProps | StickyParallaxHeaderProps;
-
-const StickyParallaxHeader: VFC<Props> = (props: Props) => {
-  switch (props.headerType) {
-    case 'TabbedHeader':
-      return <TabbedHeader {...props} />;
-    case 'AvatarHeader':
-      return <AvatarHeader {...props} />;
-    case 'DetailsHeader':
-      return <DetailsHeader {...props} />;
-    default:
-      return <StickyParallaxHeaderComponent {...props} />;
-  }
-};
-
-export default StickyParallaxHeader;
+export { TabbedHeaderList } from './predefinedComponents/TabbedHeader/TabbedHeaderList';
+export { TabbedHeaderPager } from './predefinedComponents/TabbedHeader/TabbedHeaderPager';
+export * from './predefinedComponents/TabbedHeader/TabbedHeaderProps';

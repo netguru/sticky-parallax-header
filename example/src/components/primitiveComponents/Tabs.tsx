@@ -2,28 +2,31 @@ import type { FC } from 'react';
 import React from 'react';
 import { PixelRatio, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { colors, screenStyles } from '../../constants';
+
 export const Tabs: FC = () => {
-  return <View style={styles.tabsContainer}>
-    <Tab title="Tab 1" />
-    <Tab title="Tab 2" />
-    <Tab title="Tab 3" />
-    <Tab title="Tab 4" />
-    <Tab title="Tab 5" />
-  </View>;
+  return (
+    <View style={styles.tabsContainer}>
+      <Tab title="Tab 1" />
+      <Tab title="Tab 2" />
+      <Tab title="Tab 3" />
+      <Tab title="Tab 4" />
+      <Tab title="Tab 5" />
+    </View>
+  );
 };
 
 const Tab: FC<{ title: string }> = ({ title }) => {
-  return <Pressable
-    android_ripple={{
-      borderless: false,
-      color: 'gray',
-    }}
-    style={({ pressed }) => [
-      styles.tab,
-      pressed && styles.pressedTab
-    ]}>
-    <Text style={styles.tabTitle}>{title}</Text>
-  </Pressable>;
+  return (
+    <Pressable
+      android_ripple={{
+        borderless: false,
+        color: colors.paleGrey,
+      }}
+      style={({ pressed }) => [styles.tab, pressed && styles.pressedTab]}>
+      <Text style={[screenStyles.text, styles.tabTitle]}>{title}</Text>
+    </Pressable>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
   },
   tabsContainer: {
     alignItems: 'center',
-    backgroundColor: 'orange',
+    backgroundColor: colors.purpleishBlue,
     elevation: 2,
     flexDirection: 'row',
     justifyContent: 'space-evenly',

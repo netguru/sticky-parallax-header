@@ -1,23 +1,27 @@
 import type { FC } from 'react';
 import React from 'react';
-import { StatusBar, View } from 'react-native';
+import { StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StickyHeaderScrollView } from 'react-native-sticky-parallax-header';
 
-// TODO: Change path when removing old API
-import { StickyHeaderScrollView } from '../../../../src/primitiveComponents/StickyHeaderScrollView';
-import { screenStyles } from '../../constants';
-import { DATA } from '../../assets/data/paragraphs'
+import { DATA } from '../../assets/data/paragraphs';
 import { Header } from '../../components/primitiveComponents/Header';
-import { Tabs } from '../../components/primitiveComponents/Tabs';
 import { Paragraph } from '../../components/primitiveComponents/Paragraph';
+import { Tabs } from '../../components/primitiveComponents/Tabs';
+import { screenStyles } from '../../constants';
 
 export const StickyHeaderScrollViewExample: FC = () => {
-  return <View style={screenStyles.screenContainer}>
-    <StickyHeaderScrollView
-      containerStyle={screenStyles.stretchContainer}
-      renderHeader={() => <Header />}
-      renderTabs={() => <Tabs />}>
-      {DATA.map((item, i) => <Paragraph key={i} text={item} />)}
-    </StickyHeaderScrollView>
-    <StatusBar backgroundColor="transparent" barStyle="dark-content" />
-  </View>;
+  return (
+    <SafeAreaView style={screenStyles.screenContainer}>
+      <StickyHeaderScrollView
+        containerStyle={screenStyles.stretchContainer}
+        renderHeader={() => <Header />}
+        renderTabs={() => <Tabs />}>
+        {DATA.map((item, i) => (
+          <Paragraph key={i} text={item} />
+        ))}
+      </StickyHeaderScrollView>
+      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+    </SafeAreaView>
+  );
 };

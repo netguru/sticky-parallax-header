@@ -2,10 +2,14 @@ import type { FC } from 'react';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { colors } from '../../constants';
+
 export const SectionFooter: FC = () => {
-  return <View style={styles.sectionFooterContainer}>
-    <Text style={styles.sectionFooterLabel}>Section footer</Text>
-  </View>;
+  return (
+    <View style={styles.sectionFooterContainer}>
+      <Text style={styles.sectionFooterLabel}>Section footer</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -15,9 +19,9 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   sectionFooterLabel: {
-    color: 'lightgreen',
+    color: colors.primaryGreen,
+    fontFamily: 'AvertaStd-Semibold',
     fontSize: 20,
-    fontWeight: 'bold',
     textAlign: 'left',
     textTransform: 'uppercase',
   },

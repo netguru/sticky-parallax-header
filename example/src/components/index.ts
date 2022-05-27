@@ -1,6 +1,6 @@
-import QuizListElement from './QuizListElement/QuizListElement';
-import UserModal from './UserModal/UserModal';
-import QuizCard from './QuizCard/QuizCard';
-import QuizOption from './QuizOption/QuizOption';
+import QuizCard from './exampleComponents/QuizCard';
+import QuizListElement from './exampleComponents/QuizListElement';
+import QuizOption from './exampleComponents/QuizOption';
+import UserModal from './exampleComponents/UserModal';
 
 export { QuizListElement, UserModal, QuizCard, QuizOption };

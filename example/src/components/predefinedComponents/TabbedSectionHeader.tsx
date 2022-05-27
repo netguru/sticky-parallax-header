@@ -4,14 +4,16 @@ import { StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import type { SectionType } from '../../assets/data/tabbedSections';
-import colors from '../../constants/colors';
+import { colors } from '../../constants';
 
 import { TABBED_SECTION_ITEM_HEIGHT } from './TabbedSectionItem';
 
 export const TabbedSectionHeader: FC<SectionType> = ({ title }) => {
-  return <SafeAreaView edges={['left', 'right']} style={styles.sectionContainer}>
-    <Text style={styles.sectionTitle}>{title}</Text>
-  </SafeAreaView>;
+  return (
+    <SafeAreaView edges={['left', 'right']} style={styles.sectionContainer}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -30,8 +32,8 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: colors.purpleishBlue,
+    fontFamily: 'AvertaStd-Semibold',
     fontSize: 30,
-    fontWeight: 'bold',
     textAlign: 'center',
     textTransform: 'uppercase',
   },

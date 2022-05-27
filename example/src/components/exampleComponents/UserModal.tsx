@@ -1,10 +1,13 @@
-import React, { VFC } from 'react';
-import { Text, View, StatusBar } from 'react-native';
-import StickyParallaxHeader from 'react-native-sticky-parallax-header';
-import styles from './UserModal.styles';
-import QuizListElement from '../QuizListElement/QuizListElement';
-import type { User } from '../../assets/data/cards';
 import { useNavigation } from '@react-navigation/native';
+import type { VFC } from 'react';
+import React from 'react';
+import { StatusBar, Text, View } from 'react-native';
+import { AvatarHeaderScrollView } from 'react-native-sticky-parallax-header';
+
+import type { User } from '../../assets/data/cards';
+import { screenStyles } from '../../constants';
+
+import QuizListElement from './QuizListElement';
 
 type Props = { user?: User; setModalVisible(v: boolean): void; onPressCloseModal(): void };
 
@@ -25,8 +28,8 @@ const UserModal: VFC<Props> = ({ setModalVisible, user, onPressCloseModal }) => 
     ];
 
     return (
-      <View style={[styles.content]}>
-        <Text style={styles.contentText}>{title}</Text>
+      <View style={[screenStyles.content]}>
+        <Text style={screenStyles.contentText}>{title}</Text>
         {cards.map((card) => (
           <QuizListElement
             key={card.id}
@@ -50,17 +53,17 @@ const UserModal: VFC<Props> = ({ setModalVisible, user, onPressCloseModal }) => 
   return (
     <>
       <StatusBar backgroundColor={user?.color} barStyle="light-content" />
-      <StickyParallaxHeader
-        headerType={'AvatarHeader'}
+      <AvatarHeaderScrollView
         image={user?.image ?? { uri: '' }}
         title={user?.author}
         subtitle={user?.about}
+        hasBorderRadius
         backgroundColor={user?.color}
         leftTopIconOnPress={onPressCloseModal}
         leftTopIcon={require('../../assets/icons/iconCloseWhite.png')}
         rightTopIcon={require('../../assets/icons/Icon-Menu.png')}>
         {renderContent()}
-      </StickyParallaxHeader>
+      </AvatarHeaderScrollView>
     </>
   );
 };

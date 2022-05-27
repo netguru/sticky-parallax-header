@@ -4,7 +4,7 @@ import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import type { ItemType } from '../../assets/data/tabbedSections';
-import colors from '../../constants/colors';
+import { colors, screenStyles } from '../../constants';
 
 const ITEM_HEIGHT = 120;
 const ITEM_MARGIN_VERTICAL = 5;
@@ -12,26 +12,30 @@ const ITEM_MARGIN_VERTICAL = 5;
 export const TABBED_SECTION_ITEM_HEIGHT = ITEM_HEIGHT + 2 * ITEM_MARGIN_VERTICAL;
 
 export const TabbedSectionItem: FC<ItemType> = memo(({ imageUrl, title, subtitle }) => {
-  return <SafeAreaView edges={['left', 'right']} style={styles.container}>
-    <View style={styles.itemContainer}>
-      <View style={styles.itemTitleContainer}>
-        <Text style={styles.itemTitle}>{title}</Text>
-        <Text style={styles.itemSubtitle}>{subtitle}</Text>
+  return (
+    <SafeAreaView edges={['left', 'right']} style={styles.container}>
+      <View style={styles.itemContainer}>
+        <View style={styles.itemTitleContainer}>
+          <Text style={[screenStyles.text, styles.itemTitle]}>{title}</Text>
+          <Text style={[screenStyles.text, styles.itemSubtitle]}>{subtitle}</Text>
+        </View>
+        <View style={styles.itemImageContainer}>
+          {/**
+           * We can't use react-native-fast-image with Expo Go, and there is no cache with default Image component on Android
+           *
+           * So instead, just render it on iOS, to not slow down underlying SectionList
+           */}
+          {Platform.OS !== 'android' && (
+            <Image
+              resizeMode="cover"
+              source={{ uri: imageUrl, cache: 'force-cache' }}
+              style={styles.itemImage}
+            />
+          )}
+        </View>
       </View>
-      <View style={styles.itemImageContainer}>
-        {/** 
-         * We can't use react-native-fast-image with Expo Go, and there is no cache with default Image component on Android 
-         * 
-         * So instead, just render it on iOS, to not slow down underlying SectionList
-         */}
-        {Platform.OS !== 'android' && <Image
-          resizeMode="cover"
-          source={{ uri: imageUrl, cache: 'force-cache' }}
-          style={styles.itemImage}
-        />}
-      </View>
-    </View>
-  </SafeAreaView>;
+    </SafeAreaView>
+  );
 });
 
 const styles = StyleSheet.create({
