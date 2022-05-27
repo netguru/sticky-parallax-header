@@ -1,4 +1,4 @@
-import type { ColorValue, ImageSourcePropType } from 'react-native';
+import type { ColorValue, ImageSourcePropType, StyleProp, TextStyle } from 'react-native';
 
 import type {
   StickyHeaderFlatListProps,
@@ -10,11 +10,14 @@ import type { IconProps, SharedPredefinedProps } from '../common/SharedProps';
 export interface DetailsHeaderSharedProps extends IconProps, SharedPredefinedProps {
   contentIcon?: ImageSourcePropType;
   contentIconNumber?: number;
+  contentIconNumberStyle?: StyleProp<TextStyle>;
   hasBorderRadius?: boolean;
   image?: ImageSourcePropType;
   tabsContainerBackgroundColor?: ColorValue;
   tag?: string;
+  tagStyle?: StyleProp<TextStyle>;
   title?: string;
+  titleStyle?: StyleProp<TextStyle>;
 }
 
 export interface DetailsHeaderScrollViewProps

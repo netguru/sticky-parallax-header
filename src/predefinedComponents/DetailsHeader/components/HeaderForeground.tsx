@@ -1,32 +1,42 @@
 import type { FC } from 'react';
 import React from 'react';
-import type { ImageSourcePropType, TextStyle } from 'react-native';
-import { Image, Platform, StyleSheet, Text, View } from 'react-native';
+import type { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { Image, Platform, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
-import colors from '../../../constants/colors';
+import { colors, commonStyles, constants } from '../../../constants';
 import { useRTLStyles } from '../../common/hooks/useRTLStyles';
 import { scrollPosition } from '../../common/utils/scrollPosition';
 
 interface ForegroundProps {
   contentIcon?: ImageSourcePropType;
   contentIconNumber?: number;
+  contentIconNumberStyle?: StyleProp<TextStyle>;
   height: number;
   image?: ImageSourcePropType;
   scrollValue: Animated.SharedValue<number>;
   tag?: string;
+  tagStyle?: StyleProp<TextStyle>;
   title?: string;
+  titleStyle?: StyleProp<TextStyle>;
 }
 
 export const Foreground: FC<ForegroundProps> = ({
   contentIcon,
   contentIconNumber,
+  contentIconNumberStyle,
   height,
   image,
   scrollValue,
   tag,
+  tagStyle,
   title,
+  titleStyle,
 }) => {
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
+
+  const isLandscape =
+    windowWidth > windowHeight && windowHeight <= constants.breakpoints.mediumPhoneShorterEdge;
   const outputRange = [1, 0.8, 0];
   const labelInputRange = [0, scrollPosition(height, 19), scrollPosition(height, 25)];
   const labelAnimatedStyle = useAnimatedStyle(() => {
@@ -56,25 +66,39 @@ export const Foreground: FC<ForegroundProps> = ({
     styles.numberPaddingRight,
     styles.numberPaddingStart
   );
+  const landscapeStyle = useRTLStyles<ViewStyle>(
+    commonStyles.row,
+    commonStyles.rowReverse,
+    commonStyles.row
+  );
 
   return (
-    <View style={styles.foreground}>
-      <Animated.View style={[styles.foregroundTitle, labelAnimatedStyle]}>
-        <Text style={styles.foregroundText}>{tag}</Text>
-      </Animated.View>
-      <Animated.View style={[styles.messageContainer, titleAnimatedStyle]}>
-        <Text numberOfLines={3} style={styles.message}>
-          {title}
-        </Text>
-      </Animated.View>
+    <View
+      style={
+        isLandscape
+          ? [commonStyles.foregroundRow, landscapeStyle]
+          : [commonStyles.foreground, commonStyles.column]
+      }>
+      <View>
+        <Animated.View style={[styles.foregroundTitle, labelAnimatedStyle]}>
+          <Text style={[styles.foregroundText, tagStyle ?? titleStyle]}>{tag}</Text>
+        </Animated.View>
+        <Animated.View style={[commonStyles.messageContainer, titleAnimatedStyle]}>
+          <Text numberOfLines={3} style={[commonStyles.message, titleStyle]}>
+            {title}
+          </Text>
+        </Animated.View>
+      </View>
       <Animated.View style={[styles.infoContainer, authorAnimatedStyle]}>
         <View style={styles.iconContainer}>
           {contentIcon && <Image source={contentIcon} style={styles.icon} />}
-          <Text style={[styles.number, numberRTLStyle]}>{contentIconNumber}</Text>
+          <Text style={[styles.number, numberRTLStyle, contentIconNumberStyle ?? titleStyle]}>
+            {contentIconNumber}
+          </Text>
         </View>
         <View style={styles.footerContainer}>
           {image && <Image source={image} style={styles.authorPhoto} resizeMode="contain" />}
-          <Text numberOfLines={1} style={[styles.authorName, authorNameRTLStyle]}>
+          <Text numberOfLines={1} style={[styles.authorName, authorNameRTLStyle, titleStyle]}>
             {title}
           </Text>
         </View>
@@ -106,11 +130,6 @@ const styles = StyleSheet.create({
     }),
     height: 32,
     width: 32,
-  },
-  foreground: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingHorizontal: 24,
   },
   foregroundText: {
     color: colors.white,
@@ -147,16 +166,6 @@ const styles = StyleSheet.create({
   infoContainer: {
     flexDirection: 'row',
     paddingBottom: 32,
-  },
-  message: {
-    color: colors.white,
-    fontSize: 72,
-    lineHeight: 85,
-    letterSpacing: -1,
-    textAlign: 'left',
-  },
-  messageContainer: {
-    padding: 24,
   },
   number: {
     color: colors.black,

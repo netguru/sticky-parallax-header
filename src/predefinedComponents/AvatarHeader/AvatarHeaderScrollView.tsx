@@ -2,8 +2,9 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import type { ScrollView } from 'react-native';
 import { View } from 'react-native';
 
-import commonStyles from '../../constants/screenStyles';
+import { commonStyles } from '../../constants';
 import { StickyHeaderScrollView } from '../../primitiveComponents/StickyHeaderScrollView';
+
 import type { AvatarHeaderScrollViewProps } from './AvatarHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
 import { useAvatarHeader } from './useAvatarHeader';
@@ -28,6 +29,7 @@ export const AvatarHeaderScrollView = forwardRef<ScrollView, AvatarHeaderScrollV
       rightTopIconTestID,
       scrollEventThrottle = 16,
       title,
+      titleStyle,
       ...rest
     } = props;
     const {
@@ -60,6 +62,7 @@ export const AvatarHeaderScrollView = forwardRef<ScrollView, AvatarHeaderScrollV
             rightTopIconTestID={rightTopIconTestID}
             scrollValue={scrollValue}
             title={title}
+            titleStyle={titleStyle}
           />
         )}
         <View style={commonStyles.wrapper}>

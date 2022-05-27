@@ -3,8 +3,9 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import type { SectionList } from 'react-native';
 import { View } from 'react-native';
 
-import commonStyles from '../../constants/screenStyles';
+import { commonStyles } from '../../constants';
 import { StickyHeaderSectionList } from '../../primitiveComponents/StickyHeaderSectionList';
+
 import type { DetailsHeaderSectionListProps } from './DetailsHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
 import { useDetailsHeader } from './useDetailsHeader';
@@ -34,6 +35,7 @@ function DetailsHeaderSectionListInner<ItemT, SectionT>(
     sections,
     stickySectionHeadersEnabled = true,
     title,
+    titleStyle,
     ...rest
   } = props;
   const {
@@ -64,6 +66,7 @@ function DetailsHeaderSectionListInner<ItemT, SectionT>(
           rightTopIconOnPress={rightTopIconOnPress}
           rightTopIconTestID={rightTopIconTestID}
           title={title}
+          titleStyle={titleStyle}
         />
       )}
       <View style={commonStyles.container}>

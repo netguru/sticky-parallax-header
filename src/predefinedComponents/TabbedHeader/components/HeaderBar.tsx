@@ -8,8 +8,10 @@ import type {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { Image, StyleSheet } from 'react-native';
+import { Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { commonStyles } from '../../../constants';
 
 interface HeaderBarProps {
   backgroundColor?: ColorValue;
@@ -29,23 +31,8 @@ export const HeaderBar: FC<HeaderBarProps> = ({
   return (
     <SafeAreaView
       edges={['left', 'top', 'right']}
-      style={[styles.headerWrapper, logoContainerStyle, { backgroundColor }]}>
-      <Image resizeMode={logoResizeMode} source={logo} style={[styles.logo, logoStyle]} />
+      style={[commonStyles.headerWrapper, logoContainerStyle, { backgroundColor }]}>
+      <Image resizeMode={logoResizeMode} source={logo} style={[commonStyles.logo, logoStyle]} />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  headerWrapper: {
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-  },
-  logo: {
-    height: 24,
-    width: 142,
-  },
-});

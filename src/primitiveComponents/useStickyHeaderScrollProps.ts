@@ -11,6 +11,7 @@ import {
 } from 'react-native-reanimated';
 
 import { useResponsiveSize } from '../hooks/useResponsiveSize';
+
 import type { StickyHeaderSharedProps, StickyHeaderSnapProps } from './StickyHeaderProps';
 
 // FIXME: unknown does not work here :/
@@ -93,6 +94,8 @@ export function useStickyHeaderScrollProps<T extends ScrollComponent>(
         currentVal >= snapToEdgeThreshold && currentVal < scrollToHeight / 2 && dragsQuickToTop;
 
       if (snapToEdge) {
+        // TODO: when react-native-web will support onMomentumScrollEnd & onScrollEndDrag events
+        // handle web snap scroll
         if (isUnderSnapToEdgeThresholdAndDragIsSlow || isOverSnapToEdgeThresholdAndDragIsQuick) {
           scrollTo(scrollViewRef, 0, 0, true);
         } else if (
@@ -117,7 +120,7 @@ export function useStickyHeaderScrollProps<T extends ScrollComponent>(
   const onScrollEndDragInternal = useWorkletCallback(
     (e: NativeScrollEvent) => {
       onScrollEndDrag?.(e);
-      if (Platform.OS === 'android') {
+      if (Platform.OS === 'android' || Math.abs(e.velocity?.y ?? 0) > 0) {
         return;
       }
 

@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import type { NativeScrollEvent, ScrollView, SectionList, ViewToken } from 'react-native';
 import { Platform } from 'react-native';
-import { useSharedValue, useWorkletCallback } from 'react-native-reanimated';
+import { runOnJS, useSharedValue, useWorkletCallback } from 'react-native-reanimated';
 
 import type { ScrollComponent, Tab } from '../common/SharedProps';
 import { HeaderWrapper } from '../common/components/HeaderWrapper';
 import { usePredefinedHeader } from '../common/hooks/usePredefinedHeader';
+import { debounce } from '../common/utils/debounce';
 
 import type { TabbedHeaderListProps, TabbedHeaderPagerProps } from './TabbedHeaderProps';
 import { Foreground } from './components/HeaderForeground';
@@ -206,13 +207,27 @@ export function useTabbedHeaderList<
     },
     [onMomentumScrollEnd]
   );
+  const debouncedIgnoreViewabilityItemsChangedCallback = debounce(() => {
+    ignoreViewabilityItemsChangedEvent.value = false;
+  }, 100);
+  const onScrollInternal = useWorkletCallback(
+    (e: NativeScrollEvent) => {
+      if (Platform.OS === 'web') {
+        // On web there is no onMomentumScrollEnd
+        runOnJS(debouncedIgnoreViewabilityItemsChangedCallback)();
+      }
+
+      onScroll?.(e);
+    },
+    [onScroll]
+  );
 
   const { backgroundColor, sections, tabsContainerBackgroundColor } = props;
 
   const [activeSection, setActiveSection] = useState(0);
 
   const goToSection = useCallback((sectionIndex: number) => {
-    ignoreViewabilityItemsChangedEvent.value = true && Platform.OS !== 'web';
+    ignoreViewabilityItemsChangedEvent.value = true;
     scrollViewRef.current?.scrollToLocation({
       animated: true,
       itemIndex: 0,
@@ -253,7 +268,7 @@ export function useTabbedHeaderList<
     goToSection,
     innerScrollHeight,
     onMomentumScrollEnd: onMomentumScrollEndInternal,
-    onScroll,
+    onScroll: onScrollInternal,
     onScrollEndDrag,
     onViewableItemsChanged,
     renderHeader,

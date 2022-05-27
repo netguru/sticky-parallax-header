@@ -24,8 +24,10 @@ export function useAvatarHeader<T extends ScrollComponent>(props: AvatarHeaderSc
     hasBorderRadius,
     image,
     subtitle,
+    subtitleStyle,
     tabsContainerBackgroundColor,
     title,
+    titleStyle,
   } = props;
 
   const renderHeader = useCallback(() => {
@@ -44,7 +46,9 @@ export function useAvatarHeader<T extends ScrollComponent>(props: AvatarHeaderSc
           scrollValue={scrollValue}
           image={image}
           subtitle={subtitle}
+          subtitleStyle={subtitleStyle}
           title={title}
+          titleStyle={titleStyle}
         />
       </HeaderWrapper>
     );
@@ -58,8 +62,10 @@ export function useAvatarHeader<T extends ScrollComponent>(props: AvatarHeaderSc
     scrollHeight,
     scrollValue,
     subtitle,
+    subtitleStyle,
     tabsContainerBackgroundColor,
     title,
+    titleStyle,
   ]);
 
   return {

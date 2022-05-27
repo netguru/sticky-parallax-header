@@ -4,8 +4,6 @@ import type { ColorValue } from 'react-native';
 import { StyleSheet } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
-import { colors } from '../../../constants';
-
 interface HeaderBackgroundProps {
   backgroundColor?: ColorValue;
   hasBorderRadius?: boolean;
@@ -34,15 +32,20 @@ export const HeaderBackground: FC<HeaderBackgroundProps> = ({
     };
   }, [hasBorderRadius, height]);
 
-  return <Animated.View style={[styles.background, { backgroundColor }, animatedStyle]} />;
+  return (
+    <Animated.View
+      style={[styles.background, { backgroundColor }, animatedStyle]}
+      testID="HeaderBackground"
+    />
+  );
 };
 
 const styles = StyleSheet.create({
   background: {
     alignItems: 'flex-start',
     alignSelf: 'stretch',
-    backgroundColor: colors.primaryGreen,
     flex: 1,
     justifyContent: 'flex-end',
+    zIndex: -1,
   },
 });

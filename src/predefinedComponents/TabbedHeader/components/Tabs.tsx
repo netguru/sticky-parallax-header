@@ -13,8 +13,7 @@ import {
 } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
-import colors from '../../../constants/colors';
-import commonStyles from '../../../constants/screenStyles';
+import { colors, commonStyles } from '../../../constants';
 import type { Tab, TabsConfig } from '../../common/SharedProps';
 
 export interface TabsProps extends TabsConfig {
@@ -249,12 +248,19 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     alignItems: 'center',
+    ...Platform.select({
+      web: {
+        flex: 1,
+        justifyContent: 'space-between',
+      },
+      default: {},
+    }),
   },
   inversionStyle: {
     transform: [{ scaleX: -1 }],
   },
   nestedStyle: {
-    alignSelf: 'center',
+    alignSelf: 'stretch',
   },
   noMargins: {
     marginHorizontal: 0,

@@ -3,8 +3,9 @@ import type { ScrollView } from 'react-native';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import commonStyles from '../../constants/screenStyles';
+import { commonStyles } from '../../constants';
 import { StickyHeaderScrollView } from '../../primitiveComponents/StickyHeaderScrollView';
+
 import type { TabbedHeaderPagerProps } from './TabbedHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
 import { Pager } from './components/Pager';

@@ -4,8 +4,9 @@ import type { SectionList } from 'react-native';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import commonStyles from '../../constants/screenStyles';
+import { commonStyles } from '../../constants';
 import { StickyHeaderSectionList } from '../../primitiveComponents/StickyHeaderSectionList';
+
 import type { TabbedHeaderListProps } from './TabbedHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
 import { useTabbedHeaderList } from './useTabbedHeader';

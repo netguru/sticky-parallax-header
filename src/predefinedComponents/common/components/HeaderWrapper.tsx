@@ -5,6 +5,7 @@ import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import type Animated from 'react-native-reanimated';
 
 import { colors } from '../../../constants';
+
 import { HeaderBackground } from './HeaderBackground';
 import { HeaderBackgroundImage } from './HeaderBackgroundImage';
 
@@ -64,7 +65,8 @@ export const HeaderWrapper: FC<HeaderWrapperProps> = ({
             backgroundColor: tabsContainerBackgroundColor,
           },
           !!backgroundImage && styles.transparentBackground,
-        ]}>
+        ]}
+        testID="HeaderForeground">
         {children}
       </View>
     </View>
