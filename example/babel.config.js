@@ -1,4 +1,5 @@
 const path = require('path');
+
 const pak = require('../package.json');
 
 module.exports = function (api) {
@@ -17,7 +18,7 @@ module.exports = function (api) {
           },
         },
       ],
-      'react-native-reanimated/plugin'
+      'react-native-reanimated/plugin',
     ],
   };
 };

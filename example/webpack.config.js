@@ -1,5 +1,7 @@
 const path = require('path');
+
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
+
 const { resolver } = require('./metro.config');
 
 const root = path.resolve(__dirname, '..');
@@ -14,9 +16,7 @@ module.exports = async function (env, argv) {
     use: {
       loader: 'babel-loader',
       options: {
-        plugins: [
-          'react-native-reanimated/plugin'
-        ],
+        plugins: ['react-native-reanimated/plugin'],
       },
     },
   });
