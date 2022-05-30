@@ -2,7 +2,7 @@
   <image align="center" src="./assets/readme_header.svg"/>
 </div>
 <div align="center">
-  <h1>Stickyheader.js</h1>
+  <h1>Sticky Parallax Header</h1>
 </div>
 
 <div align="center">
@@ -19,19 +19,19 @@
 # Introduction
 
 <p align="center">
-  Stickyheader.js is a simple React Native library, enabling to create a fully custom header for your iOS and Android apps.
+  `react-native-sticky-parallax-header` is a simple React Native library, enabling to create a fully custom header layout for your iOS, Android and web apps.
 </p>
 
 <div align="center">
   <a href="#Docs">Documentation</a> &nbsp;|&nbsp; <a href="#Preview">Preview</a> &nbsp;|&nbsp; <a href="#Installation">Installation</a> &nbsp;|&nbsp; <a href="#Contributing">Contributing</a> &nbsp;|&nbsp; <a href="#Contributors">Contributors</a>
 </div>
 
-<h1 id="Docs">Documentation</h1>
+## Documentation <a name="Docs"></a>
 Read the full Docs at: <a href="https://netguru.github.io/sticky-parallax-header/">https://netguru.github.io/sticky-parallax-header/</a>
 
-<h1 id="Preview">Preview</h1>
-<h2> Features </h2>
-Stickyheader.js ships with 3 different use cases for sticky headers and a possibility to create fully custom header!
+## Preview
+
+Sticky Parallax Header ships with 3 different use cases for sticky headers and a possibility to create fully custom header!
 
 |                     Tabbed Header                      |                     Avatar Header                      |                      Details Header                      |
 | :----------------------------------------------------: | :----------------------------------------------------: | :------------------------------------------------------: |
@@ -39,42 +39,49 @@ Stickyheader.js ships with 3 different use cases for sticky headers and a possib
 
 ## In Use
 
-**Check the live demo on Expo Snack [here](https://snack.expo.io/@maciejbudzinsking/sticky-parallax-header-by-netguru).**
+**Check the live demo on Expo Snack [here](https://snack.expo.dev/@netguru_rnd/sticky-parallax-header-example).**
 
-Predefined headers can be accessed through `headerType="HeaderName"` property, each header can be configured according to your demands using the wide amount of properties. You can change all of them, or use it right out of the box with as little changes as possible to use it for your needs.
+This is how you can display header in your app:
 
-This is how you can add them in your app:
-
-```jsx
-import React from 'react';
-import StickyParallaxHeader from 'react-native-sticky-parallax-header';
+```tsx
+import React from 'react'
+import { DetailsHeaderScrollView } from 'react-native-sticky-parallax-header'
 
 const TestScreen = () => (
   <>
-    <StickyParallaxHeader headerType="TabbedHeader" />
-    {/* <StickyParallaxHeader headerType="AvatarHeader" /> */}
-    {/* <StickyParallaxHeader headerType="DetailsHeader" /> */}
+    <DetailsHeaderScrollView {...scrollProps} {...detailsHeaderProps}>
+      {/** scroll view content */}
+    </DetailsHeaderScrollView>
   </>
-);
+)
 
-export default TestScreen;
+export default TestScreen
 ```
 
-<h1 id="Installation">Installation</h1>
+## Installation
 
-### For React Native >= 0.60.0 use version 0.0.60 and above, for previous React Native versions use 0.0.59
+### Installation & requirements
 
-### Installation for React Native >= 0.60.0
+:::info
+Library supports react-native version 0.64+
+:::
 
-Add latest package version
+#### Install latest library version
 
-```bash
+```sh
 $ yarn add react-native-sticky-parallax-header
 ```
 
-### Installation for React Native < 0.60.0
+#### Install library's dependencies
 
-[Installation steps for React Native < 0.60.0](https://netguru.github.io/sticky-parallax-header/docs/introduction/installation#installation-for-react-native--0600-1)
+```sh
+yarn add react-native-reanimated react-native-safe-area-context react-freeze
+```
+
+:::info
+If you already use `react-native-screens` version 3.9.0+, `react-freeze` is already included.
+:::
+
 
 <h1 id="Contributing">Contributing</h1>
 

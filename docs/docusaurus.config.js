@@ -1,5 +1,5 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/github');
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
@@ -21,6 +21,10 @@ module.exports = {
         src: 'img/netguru_logo.png',
       },
       items: [
+        {
+          type: 'docsVersionDropdown',
+          position: 'left',
+        },
         {
           to: 'docs/introduction/getting-started',
           activeBasePath: 'docs',
@@ -85,8 +89,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
+          editUrl: 'https://github.com/netguru/sticky-parallax-header/tree/master/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

@@ -12,18 +12,15 @@ shouldBeEnabled = () => {
   const topCondition = topReached && stickyHeaderTopReached;
   return bottomCondition || !topCondition;
 };
-
 onScroll = ({ nativeEvent }) => {
   const { contentOffset, layoutMeasurement, contentSize } = nativeEvent;
   if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 20) {
     this.setState({ endReached: true, topReached: false });
   }
-
   if (contentOffset.y <= 0) {
     this.setState({ topReached: true, endReached: false, stickyHeaderTopReached: true });
   }
 };
-
 renderFlatlistContent = (user) => (
   <View style={styles.flatlistContainer}>
     <FlatList
