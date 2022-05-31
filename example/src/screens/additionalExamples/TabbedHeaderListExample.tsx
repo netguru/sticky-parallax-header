@@ -4,6 +4,7 @@ import { StatusBar, useColorScheme } from 'react-native';
 import { TabbedHeaderList } from 'react-native-sticky-parallax-header';
 
 import { TABBED_SECTIONS } from '../../assets/data/tabbedSections';
+import { photosPortraitMe } from '../../assets/images';
 import { TabbedSectionHeader } from '../../components/predefinedComponents/TabbedSectionHeader';
 import {
   TABBED_SECTION_ITEM_HEIGHT,
@@ -22,7 +23,7 @@ export const TabbedHeaderListExample: FC = () => {
         ]}
         containerStyle={screenStyles.stretchContainer}
         backgroundColor={colors.primaryGreen}
-        foregroundImage={require('../../assets/images/photosPortraitMe.png')}
+        foregroundImage={photosPortraitMe}
         title={"Mornin' Mark! \nReady for a quiz?"}
         titleStyle={screenStyles.text}
         parallaxHeight={250}

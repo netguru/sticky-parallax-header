@@ -3,6 +3,7 @@ import React from 'react';
 import type { ImageSourcePropType } from 'react-native';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { cards } from '../../assets/icons';
 import { colors, constants, screenStyles } from '../../constants';
 
 type Props = {
@@ -30,7 +31,7 @@ const QuizListElement: VFC<Props> = ({
         <Text style={[screenStyles.text, styles.labelText]}>{labelText}</Text>
       </View>
       <View style={[styles.iconContainer, elements >= 20 && { backgroundColor: colors.coralPink }]}>
-        <Image source={require('../../assets/icons/cards.png')} style={styles.icon} />
+        <Image source={cards} style={styles.icon} />
         <Text style={[styles.number, elements < 10 && styles.iconCardElement]}>{elements}</Text>
       </View>
     </View>

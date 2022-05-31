@@ -1,9 +1,10 @@
 import type { VFC } from 'react';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import { Image, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 
 import type { Card } from '../../assets/data/cards';
+import { Check, Close } from '../../assets/icons';
 import { colors, screenStyles } from '../../constants';
 
 type Props = {
@@ -12,25 +13,23 @@ type Props = {
   revealed: boolean;
 };
 
+const QUIZ_OPTION_WIDTH_PERCENTAGE = 0.75;
+
 const QuizOption: VFC<Props> = ({ reveal, revealed, card: { number, question, value } }) => {
   const { width: windowWidth } = useWindowDimensions();
   const [picked, setPicked] = useState(false);
   const [paddingVertical, setPaddingVertical] = useState(0);
-  const calcPaddings = (event: LayoutChangeEvent) => {
+  const calcPaddings = useCallback((event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
     const circleRadius = 40;
     const padding = height > circleRadius ? height / 2.5 : 0;
 
     setPaddingVertical(padding);
-  };
-
-  const renderValue = () => {
-    if (value) {
-      return <Image source={require('../../assets/icons/Check.png')} />;
-    }
-
-    return <Image source={require('../../assets/icons/Close.png')} />;
-  };
+  }, []);
+  const onPress = useCallback(() => {
+    reveal();
+    setPicked(true);
+  }, [reveal]);
 
   if (revealed) {
     let backgroundColor = 'white';
@@ -41,13 +40,15 @@ const QuizOption: VFC<Props> = ({ reveal, revealed, card: { number, question, va
     if (picked && !value) backgroundColor = colors.coralPink;
 
     return (
-      <View style={[styles.container, { backgroundColor, width: windowWidth * 0.75 }]}>
-        <View style={[styles.letterContainer, { paddingVertical }]}>{renderValue()}</View>
-        <View
-          onLayout={(event) => {
-            calcPaddings(event);
-          }}
-          style={styles.textContainer}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor, width: windowWidth * QUIZ_OPTION_WIDTH_PERCENTAGE },
+        ]}>
+        <View style={[styles.letterContainer, { paddingVertical }]}>
+          <Image source={value ? Check : Close} />
+        </View>
+        <View onLayout={calcPaddings} style={styles.textContainer}>
           <Text style={[screenStyles.text, styles.text, { color }]}>{question}</Text>
         </View>
       </View>
@@ -56,19 +57,12 @@ const QuizOption: VFC<Props> = ({ reveal, revealed, card: { number, question, va
 
   return (
     <TouchableOpacity
-      onPress={() => {
-        reveal();
-        setPicked(true);
-      }}
-      style={[styles.container, { width: windowWidth * 0.75 }]}>
+      onPress={onPress}
+      style={[styles.container, { width: windowWidth * QUIZ_OPTION_WIDTH_PERCENTAGE }]}>
       <View style={[styles.letterContainer, { paddingVertical }]}>
         <Text style={[screenStyles.text, styles.letter]}>{number}</Text>
       </View>
-      <View
-        onLayout={(event) => {
-          calcPaddings(event);
-        }}
-        style={styles.textContainer}>
+      <View onLayout={calcPaddings} style={styles.textContainer}>
         <Text style={[screenStyles.text, styles.text]}>{question}</Text>
       </View>
     </TouchableOpacity>

@@ -15,6 +15,7 @@ import {
 import { TabbedHeaderPager } from 'react-native-sticky-parallax-header';
 
 import type { User } from '../../assets/data/cards';
+import { logo, photosPortraitMe } from '../../assets/images';
 import { QuizListElement, UserModal } from '../../components';
 import { colors, screenStyles } from '../../constants';
 
@@ -35,13 +36,13 @@ const HomeScreen: VFC = () => {
   const [userSelected, setUserSelected] = useState<User>();
   const [contentHeight, setContentHeight] = useState<{ [key: string]: number }>({});
 
-  const openUserModal = (user: User) => {
+  const openUserModal = useCallback((user: User) => {
     setUserSelected(() => {
       setModalVisible(true);
 
       return { ...user };
     });
-  };
+  }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -80,6 +81,28 @@ const HomeScreen: VFC = () => {
     });
   };
 
+  const navigateToCardScreen = useCallback(
+    (user: User) => {
+      return () => {
+        navigation.navigate('Card', { user });
+      };
+    },
+    [navigation]
+  );
+
+  const pressUserModal = useCallback(
+    (user: User) => {
+      return () => {
+        openUserModal(user);
+      };
+    },
+    [openUserModal]
+  );
+
+  const onPressCloseModal = useCallback(() => {
+    setModalVisible(false);
+  }, []);
+
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor={colors.primaryGreen} translucent />
@@ -88,11 +111,11 @@ const HomeScreen: VFC = () => {
         backgroundColor={colors.primaryGreen}
         tabsContainerBackgroundColor={colors.secondaryGreen}
         rememberTabScrollPosition
-        logo={require('../../assets/images/logo.png')}
+        logo={logo}
         title={"Mornin' Mark! \nReady for a quiz?"}
         titleStyle={screenStyles.text}
         offscreenPageLimit={5}
-        foregroundImage={require('../../assets/images/photosPortraitMe.png')}
+        foregroundImage={photosPortraitMe}
         tabs={TABS.map((tab) => ({ title: tab.title }))}
         tabTextStyle={screenStyles.text}
         // Refresh control is not implemented on web and even if provided, it will double padding top and bottom
@@ -126,7 +149,7 @@ const HomeScreen: VFC = () => {
                 <View style={styles.modalContentContainer}>
                   <UserModal
                     setModalVisible={setModalVisible}
-                    onPressCloseModal={() => setModalVisible(false)}
+                    onPressCloseModal={onPressCloseModal}
                     user={userSelected}
                   />
                 </View>
@@ -142,8 +165,8 @@ const HomeScreen: VFC = () => {
                       mainText={user.label}
                       labelText={user.type}
                       imageSource={user.image}
-                      onPress={() => navigation.navigate('Card', { user })}
-                      pressUser={() => openUserModal(user)}
+                      onPress={navigateToCardScreen(user)}
+                      pressUser={pressUserModal(user)}
                     />
                   )
               )}

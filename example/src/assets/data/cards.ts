@@ -1,5 +1,7 @@
 import type { ImageSourcePropType } from 'react-native';
 
+import { photosPortraitBrandon, photosPortraitEwa, photosPortraitJennifer } from '../images';
+
 export type Card = {
   number: string;
   question: string;
@@ -182,7 +184,7 @@ const Brandon: User = {
   cards: cardsDesign,
   color: 'rgb(78,15,255)',
   labelColor: 'rgb(89,80,249)',
-  image: require('../images/photosPortraitBrandon.png'),
+  image: photosPortraitBrandon,
   about: 'Coffee buff. Web enthusiast. Unapologetic student. Gamer. Avid organizer.',
 };
 
@@ -194,7 +196,7 @@ const Ewa: User = {
   cards: cardsAgile,
   color: 'rgb(138,85,192)',
   labelColor: 'rgb(163,109,217)',
-  image: require('../images/photosPortraitEwa.png'),
+  image: photosPortraitEwa,
   about: 'Wannabe entrepreneur. Reader. Devoted organizer. Social media lover. Analyst.',
 };
 
@@ -206,7 +208,7 @@ const Jennifer: User = {
   cards: cardsReact,
   color: 'rgb(255,94,107)',
   labelColor: 'rgb(255,130,140)',
-  image: require('../images/photosPortraitJennifer.png'),
+  image: photosPortraitJennifer,
   about: 'Web nerd. Alcohol trailblazer. Organizer. Hipster-friendly explorer.',
 };
 

@@ -1,5 +1,5 @@
 import type { VFC } from 'react';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import type { Card, Question } from '../../assets/data/cards';
@@ -26,6 +26,10 @@ type Props = {
 const QuizCard: VFC<Props> = ({ data: { question, cards }, num, onPress, cardsAmount }) => {
   const [revealed, setRevealed] = useState(false);
 
+  const reveal = useCallback(() => {
+    setRevealed(true);
+  }, []);
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} activeOpacity={0.95}>
       <View style={styles.labelContainer}>
@@ -37,14 +41,7 @@ const QuizCard: VFC<Props> = ({ data: { question, cards }, num, onPress, cardsAm
         <Text style={[screenStyles.text, styles.mainText]}>{question}</Text>
       </View>
       {cards.map((card) => (
-        <QuizOption
-          key={card.question}
-          reveal={() => {
-            setRevealed(true);
-          }}
-          revealed={revealed}
-          card={card}
-        />
+        <QuizOption key={card.question} reveal={reveal} revealed={revealed} card={card} />
       ))}
     </TouchableOpacity>
   );

@@ -5,6 +5,7 @@ import { TabbedHeaderPager } from 'react-native-sticky-parallax-header';
 
 import { Brandon, Ewa, Jennifer } from '../../assets/data/cards';
 import { TABBED_SECTIONS } from '../../assets/data/tabbedSections';
+import { logo, photosPortraitMe } from '../../assets/images';
 import { QuizCard } from '../../components';
 import { colors, screenStyles } from '../../constants';
 
@@ -19,9 +20,9 @@ export const TabbedHeaderPagerExample: FC = () => {
         ]}
         containerStyle={screenStyles.stretchContainer}
         backgroundColor={colors.primaryGreen}
-        foregroundImage={require('../../assets/images/photosPortraitMe.png')}
+        foregroundImage={photosPortraitMe}
         rememberTabScrollPosition
-        logo={require('../../assets/images/logo.png')}
+        logo={logo}
         title={"Mornin' Mark! \nReady for a quiz?"}
         titleStyle={screenStyles.text}
         tabs={TABBED_SECTIONS.map((section) => ({ title: section.title }))}

@@ -5,6 +5,7 @@ import { StatusBar, StyleSheet, View, useColorScheme } from 'react-native';
 import { AvatarHeaderScrollView } from 'react-native-sticky-parallax-header';
 
 import { Brandon } from '../../assets/data/cards';
+import { IconMenu, iconCloseWhite } from '../../assets/icons';
 import { QuizCard } from '../../components';
 import { screenStyles } from '../../constants';
 
@@ -20,9 +21,9 @@ export const AvatarHeaderScrollViewExample: FC = () => {
   return (
     <>
       <AvatarHeaderScrollView
-        leftTopIcon={require('../../assets/icons/iconCloseWhite.png')}
+        leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
-        rightTopIcon={require('../../assets/icons/Icon-Menu.png')}
+        rightTopIcon={IconMenu}
         contentContainerStyle={[
           isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
         ]}

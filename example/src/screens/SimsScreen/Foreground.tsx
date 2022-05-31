@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
+import { share } from '../../assets/icons';
 import { colors } from '../../constants';
 
 interface ForegroundProps {
@@ -38,11 +39,7 @@ export const Foreground: VFC<ForegroundProps> = ({ scrollValue }) => {
                 <Text style={styles.headerDetailsButtonTitle}>GET</Text>
               </TouchableOpacity>
               <Text style={styles.foregroundActionsButtonTitle}>{'In-App\nPurchases'}</Text>
-              <Image
-                source={require('../../assets/icons/share.png')}
-                style={styles.foregroundActionsShare}
-                resizeMode="contain"
-              />
+              <Image source={share} style={styles.foregroundActionsShare} resizeMode="contain" />
             </View>
           </View>
         </View>

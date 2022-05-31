@@ -6,6 +6,7 @@ import { DetailsHeaderScrollView } from 'react-native-sticky-parallax-header';
 
 import type { User } from '../assets/data/cards';
 import { Brandon } from '../assets/data/cards';
+import { CardsBlack, IconMenu, iconCloseWhite } from '../assets/icons';
 import { QuizCard } from '../components';
 import { screenStyles } from '../constants';
 
@@ -23,14 +24,14 @@ const CardScreen: VFC = () => {
       <DetailsHeaderScrollView
         title={user.author}
         titleStyle={screenStyles.text}
-        leftTopIcon={require('../assets/icons/iconCloseWhite.png')}
+        leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
-        rightTopIcon={require('../assets/icons/Icon-Menu.png')}
+        rightTopIcon={IconMenu}
         tag={user.type}
         containerStyle={screenStyles.stretchContainer}
         backgroundColor={user.color}
         image={user.image}
-        contentIcon={require('../assets/icons/cards_black.png')}
+        contentIcon={CardsBlack}
         contentIconNumber={10}>
         <View style={screenStyles.content}>
           {user.cards.map((data, i, arr) => (

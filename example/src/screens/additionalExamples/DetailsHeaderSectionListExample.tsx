@@ -6,6 +6,7 @@ import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { DetailsHeaderSectionList } from 'react-native-sticky-parallax-header';
 
 import { Brandon } from '../../assets/data/cards';
+import { CardsBlack, IconMenu, iconCloseWhite } from '../../assets/icons';
 import { QuizCard } from '../../components';
 import { SectionFooter } from '../../components/primitiveComponents/SectionFooter';
 import { SectionHeader } from '../../components/primitiveComponents/SectionHeader';
@@ -35,15 +36,15 @@ export const DetailsHeaderSectionListExample: FC = () => {
   return (
     <>
       <DetailsHeaderSectionList
-        leftTopIcon={require('../../assets/icons/iconCloseWhite.png')}
+        leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
-        rightTopIcon={require('../../assets/icons/Icon-Menu.png')}
+        rightTopIcon={IconMenu}
         contentContainerStyle={[
           styles.content,
           isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
         ]}
         containerStyle={screenStyles.stretchContainer}
-        contentIcon={require('../../assets/icons/cards_black.png')}
+        contentIcon={CardsBlack}
         contentIconNumber={10}
         backgroundColor={Brandon.color}
         hasBorderRadius

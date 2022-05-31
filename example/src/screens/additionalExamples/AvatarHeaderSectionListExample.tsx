@@ -6,6 +6,7 @@ import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { AvatarHeaderSectionList } from 'react-native-sticky-parallax-header';
 
 import { Brandon } from '../../assets/data/cards';
+import { IconMenu, iconCloseWhite } from '../../assets/icons';
 import { QuizCard } from '../../components';
 import { SectionFooter } from '../../components/primitiveComponents/SectionFooter';
 import { SectionHeader } from '../../components/primitiveComponents/SectionHeader';
@@ -35,9 +36,9 @@ export const AvatarHeaderSectionListExample: FC = () => {
   return (
     <>
       <AvatarHeaderSectionList
-        leftTopIcon={require('../../assets/icons/iconCloseWhite.png')}
+        leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
-        rightTopIcon={require('../../assets/icons/Icon-Menu.png')}
+        rightTopIcon={IconMenu}
         contentContainerStyle={[
           styles.content,
           isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import type { VFC } from 'react';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,7 +13,9 @@ interface HeaderBarProps {
 
 export const HeaderBar: VFC<HeaderBarProps> = ({ scrollValue }) => {
   const navigation = useNavigation();
-  const goBack = () => navigation.goBack();
+  const goBack = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return { opacity: interpolate(scrollValue.value, [0, 60, 90], [0, 0, 1], Extrapolate.CLAMP) };
