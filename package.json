@@ -7,7 +7,6 @@
   "react-native": "src/index",
   "source": "src/index",
   "files": [
-    "assets",
     "src",
     "lib",
     "android",
