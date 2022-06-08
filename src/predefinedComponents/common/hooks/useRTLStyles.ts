@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { Platform, StyleProp } from 'react-native';
+import type { StyleProp } from 'react-native';
+import { Platform } from 'react-native';
 import { I18nManager } from 'react-native';
 
 /**

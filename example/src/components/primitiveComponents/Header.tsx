@@ -3,12 +3,14 @@ import React from 'react';
 import { Image, PixelRatio, StyleSheet, View } from 'react-native';
 
 export const Header: FC = () => {
-  return <View style={styles.headerContainer}>
-    <Image
-      source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-      style={styles.headerImage}
-    />
-  </View>;
+  return (
+    <View style={styles.headerContainer}>
+      <Image
+        source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+        style={styles.headerImage}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

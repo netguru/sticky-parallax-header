@@ -1,7 +1,8 @@
-import * as React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Font from 'expo-font';
+import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 import AppNavigator from './navigation/AppNavigator';
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
     });
     setLoaded(true);
   };
+
   useEffect(() => {
     loadFonts();
   });

@@ -3,8 +3,9 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import type { FlatList } from 'react-native';
 import { View } from 'react-native';
 
-import commonStyles from '../../constants/screenStyles';
+import { commonStyles } from '../../constants';
 import { StickyHeaderFlatList } from '../../primitiveComponents/StickyHeaderFlatList';
+
 import type { AvatarHeaderFlatListProps } from './AvatarHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
 import { useAvatarHeader } from './useAvatarHeader';
@@ -33,6 +34,7 @@ function AvatarHeaderFlatListInner<ItemT>(
     rightTopIconTestID,
     scrollEventThrottle = 16,
     title,
+    titleStyle,
     ...rest
   } = props;
   const {
@@ -65,6 +67,7 @@ function AvatarHeaderFlatListInner<ItemT>(
           rightTopIconTestID={rightTopIconTestID}
           scrollValue={scrollValue}
           title={title}
+          titleStyle={titleStyle}
         />
       )}
       <View style={commonStyles.wrapper}>

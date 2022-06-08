@@ -33,12 +33,12 @@
     "example": "yarn --cwd example",
     "pods": "echo pods",
     "bootstrap": "yarn example && yarn && yarn pods",
-    "prepush": "yarn lint && yarn typescript && yarn test"
+    "prepush": "yarn lint && yarn typescript"
   },
   "peerDependencies": {
     "react": ">=17.0.0",
-    "react-native": ">=0.64.0",
     "react-freeze": ">=1.0.0",
+    "react-native": ">=0.64.0",
     "react-native-reanimated": ">=2.0.0",
     "react-native-safe-area-context": ">=3.0.0"
   },
@@ -54,6 +54,7 @@
     "@types/react-test-renderer": "17.0.1",
     "eslint": "7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^4.2.3",
     "jest": "27.5.1",

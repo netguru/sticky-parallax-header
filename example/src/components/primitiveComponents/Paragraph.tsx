@@ -2,36 +2,37 @@ import type { FC } from 'react';
 import React from 'react';
 import { Platform, Pressable, StyleSheet, Text } from 'react-native';
 
+import { colors, screenStyles } from '../../constants';
+
 export const Paragraph: FC<{ text: string }> = ({ text }) => {
-  return <Pressable
-    android_ripple={{
-      borderless: false,
-      color: 'gray',
-    }}
-    style={({ pressed }) => [
-      styles.paragraphContainer,
-      pressed && styles.pressedTab,
-    ]}>
-    <Text style={styles.paragraph}>{text}</Text>
-  </Pressable>;
+  return (
+    <Pressable
+      android_ripple={{
+        borderless: false,
+        color: colors.paleGrey,
+      }}
+      style={({ pressed }) => [styles.paragraphContainer, pressed && styles.pressedTab]}>
+      <Text style={[screenStyles.text, styles.paragraph]}>{text}</Text>
+    </Pressable>
+  );
 };
 
 const styles = StyleSheet.create({
   paragraph: {
-    color: 'green',
+    color: colors.primaryGreen,
     fontSize: 18,
     textAlign: 'left',
   },
   paragraphContainer: {
     alignItems: 'flex-start',
-    borderColor: 'gray',
+    borderColor: colors.paleGrey,
     borderRadius: 10,
     borderWidth: StyleSheet.hairlineWidth,
     elevation: 2,
     margin: 10,
     padding: 10,
     shadowColor: Platform.select({
-      ios: 'gray',
+      ios: colors.paleGrey,
       default: undefined,
     }),
     shadowOffset: { width: 2, height: 0 },

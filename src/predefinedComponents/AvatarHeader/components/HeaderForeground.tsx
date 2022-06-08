@@ -1,10 +1,10 @@
 import type { FC } from 'react';
 import React from 'react';
-import type { ImageSourcePropType, ViewStyle } from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
+import type { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
-import colors from '../../../constants/colors';
+import { colors, commonStyles, constants } from '../../../constants';
 import { useResponsiveSize } from '../../../hooks/useResponsiveSize';
 import { useRTLStyles } from '../../common/hooks/useRTLStyles';
 import { scrollPosition } from '../../common/utils/scrollPosition';
@@ -14,7 +14,9 @@ interface ForegroundProps {
   image?: ImageSourcePropType;
   scrollValue: Animated.SharedValue<number>;
   subtitle?: string;
+  subtitleStyle?: StyleProp<TextStyle>;
   title?: string;
+  titleStyle?: StyleProp<TextStyle>;
 }
 
 const finishImgPosition = 31;
@@ -25,9 +27,16 @@ export const Foreground: FC<ForegroundProps> = ({
   image,
   scrollValue,
   subtitle,
+  subtitleStyle,
   title,
+  titleStyle,
 }) => {
   const { responsiveWidth } = useResponsiveSize();
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
+
+  const isLandscape =
+    windowWidth > windowHeight && windowHeight <= constants.breakpoints.mediumPhoneShorterEdge;
+
   const profilePicBorderRadius = responsiveWidth(4.5);
 
   const startSize = responsiveWidth(18);
@@ -94,35 +103,47 @@ export const Foreground: FC<ForegroundProps> = ({
     styles.foregroundTitlePaddingLeft,
     styles.foregroundTitlePaddingEnd
   );
+  const landscapeStyle = useRTLStyles<ViewStyle>(
+    commonStyles.row,
+    commonStyles.rowReverse,
+    commonStyles.row
+  );
 
   return (
-    <View style={styles.foreground}>
+    <View
+      style={
+        isLandscape
+          ? [commonStyles.foregroundRow, landscapeStyle]
+          : [commonStyles.foreground, commonStyles.column]
+      }>
       <Animated.View style={imageOpacityAnimatedStyle}>
         <Animated.Image source={image as ImageSourcePropType} style={imageAnimatedStyle} />
       </Animated.View>
-      <Animated.View style={[styles.userModalMessageContainer, authorAnimatedStyle]}>
-        <Text
-          adjustsFontSizeToFit
-          numberOfLines={2}
-          style={[styles.message, styles.foregroundTitle, foregroundTitleRTLStyle]}>
-          {title}
-        </Text>
-      </Animated.View>
-      <Animated.View style={[styles.infoContainer, aboutAnimatedStyle]}>
-        <Text adjustsFontSizeToFit style={styles.infoText}>
-          {subtitle}
-        </Text>
-      </Animated.View>
+      <View style={[isLandscape && styles.landscapeTitleContainer]}>
+        <Animated.View style={[styles.userModalMessageContainer, authorAnimatedStyle]}>
+          <Text
+            adjustsFontSizeToFit
+            numberOfLines={2}
+            style={[
+              commonStyles.message,
+              styles.foregroundTitle,
+              foregroundTitleRTLStyle,
+              titleStyle,
+            ]}>
+            {title}
+          </Text>
+        </Animated.View>
+        <Animated.View style={[styles.infoContainer, aboutAnimatedStyle]}>
+          <Text adjustsFontSizeToFit style={[styles.infoText, subtitleStyle ?? titleStyle]}>
+            {subtitle}
+          </Text>
+        </Animated.View>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  foreground: {
-    flex: 1,
-    paddingHorizontal: 24,
-    justifyContent: 'flex-end',
-  },
   foregroundTitle: {
     flexGrow: 1,
     textAlign: 'left',
@@ -137,7 +158,6 @@ const styles = StyleSheet.create({
     paddingRight: 12,
   },
   infoContainer: {
-    flexDirection: 'row',
     marginBottom: 16,
   },
   infoText: {
@@ -147,12 +167,11 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'left',
   },
-  message: {
-    color: colors.white,
-    fontSize: 72,
-    lineHeight: 85,
-    letterSpacing: -1,
-    textAlign: 'left',
+  landscapeTitleContainer: {
+    alignSelf: 'stretch',
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 24,
   },
   userModalMessageContainer: {
     alignItems: 'flex-start',

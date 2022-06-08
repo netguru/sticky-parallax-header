@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import type { FC } from 'react';
 import React from 'react';
-import { StyleSheet, View, useColorScheme } from 'react-native';
+import { StatusBar, StyleSheet, View, useColorScheme } from 'react-native';
+import { AvatarHeaderScrollView } from 'react-native-sticky-parallax-header';
 
-// TODO: Change path when removing old API
-import { AvatarHeaderScrollView } from '../../../../src/predefinedComponents/AvatarHeader/AvatarHeaderScrollView';
 import { Brandon } from '../../assets/data/cards';
-import QuizCard from '../../components/QuizCard/QuizCard';
+import { IconMenu, iconCloseWhite } from '../../assets/icons';
+import { QuizCard } from '../../components';
+import { screenStyles } from '../../constants';
 
 export const AvatarHeaderScrollViewExample: FC = () => {
   const navigation = useNavigation();
@@ -17,23 +18,32 @@ export const AvatarHeaderScrollViewExample: FC = () => {
 
   const isDarkTheme = useColorScheme() === 'dark';
 
-  return <AvatarHeaderScrollView
-    leftTopIcon={require('../../assets/icons/iconCloseWhite.png')}
-    leftTopIconOnPress={goBack}
-    rightTopIcon={require('../../assets/icons/Icon-Menu.png')}
-    contentContainerStyle={[ isDarkTheme ? styles.darkBackground : styles.lightBackground ]}
-    backgroundColor={Brandon.color}
-    hasBorderRadius
-    image={Brandon.image}
-    subtitle={Brandon.about}
-    title={Brandon.author}
-  >
-    <View style={styles.content}>
-      {Brandon.cards.map((data, i, arr) => 
-        <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
-      )}
-    </View>
-  </AvatarHeaderScrollView>;
+  return (
+    <>
+      <AvatarHeaderScrollView
+        leftTopIcon={iconCloseWhite}
+        leftTopIconOnPress={goBack}
+        rightTopIcon={IconMenu}
+        contentContainerStyle={[
+          isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
+        ]}
+        containerStyle={screenStyles.stretchContainer}
+        backgroundColor={Brandon.color}
+        hasBorderRadius
+        image={Brandon.image}
+        subtitle={Brandon.about}
+        title={Brandon.author}
+        titleStyle={screenStyles.text}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
+          {Brandon.cards.map((data, i, arr) => (
+            <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+          ))}
+        </View>
+      </AvatarHeaderScrollView>
+      <StatusBar barStyle="light-content" backgroundColor={Brandon.color} translucent />
+    </>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -41,11 +51,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     paddingHorizontal: 24,
-  },
-  darkBackground: {
-    backgroundColor: 'black',
-  },
-  lightBackground: {
-    backgroundColor: 'white',
   },
 });

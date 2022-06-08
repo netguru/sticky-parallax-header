@@ -1,7 +1,7 @@
-import React from 'react'
-import type { SectionListData } from "react-native";
+import React from 'react';
+import type { SectionListData } from 'react-native';
 
-import { Paragraph } from '../../components/primitiveComponents/Paragraph'
+import { Paragraph } from '../../components/primitiveComponents/Paragraph';
 
 export const PARAGRAPH1 =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque cursus facilisis lorem, vitae fermentum est accumsan ac. Vivamus molestie ligula vitae eros ultricies tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque lorem mauris, sodales sit amet leo feugiat, iaculis placerat massa. Phasellus feugiat lobortis magna, in malesuada ipsum euismod non. Donec magna augue, hendrerit at velit at, lobortis aliquet tellus. Sed cursus sodales urna eget auctor. Nullam sollicitudin suscipit faucibus. Nunc eleifend lacus magna, et eleifend mauris tempor a. Sed ac aliquet urna, ut volutpat lacus. Aenean feugiat purus non nulla gravida pellentesque. Cras convallis eros eget feugiat convallis. Curabitur sit amet eros fringilla mauris tempus ultricies.';
@@ -18,7 +18,7 @@ export const PARAGRAPH4 =
 export const PARAGRAPH5 =
   'Donec velit metus, laoreet sed feugiat ac, sagittis non mi. Praesent ut neque vel nisi eleifend hendrerit. Nunc non nisl nec turpis dapibus feugiat id condimentum dolor. Vestibulum luctus magna eget mauris scelerisque tincidunt. Integer orci tortor, ultricies ultricies viverra vel, aliquet id mauris. Praesent feugiat scelerisque erat quis accumsan. Etiam vel hendrerit quam. Aliquam id ultrices leo. Sed pellentesque tempor ex ut tristique. Maecenas sed consequat quam, facilisis ultrices justo. Etiam quis vestibulum ligula, vitae interdum tellus. Fusce sodales venenatis turpis at facilisis. Phasellus hendrerit leo a enim ultricies, lacinia vehicula elit tempus. Nulla mi ex, porttitor sed tortor vel, efficitur finibus libero. Fusce sed fermentum nibh.';
 
-export const DATA = [ PARAGRAPH1, PARAGRAPH2, PARAGRAPH3, PARAGRAPH4, PARAGRAPH5 ];
+export const DATA = [PARAGRAPH1, PARAGRAPH2, PARAGRAPH3, PARAGRAPH4, PARAGRAPH5];
 
 export const SECTIONS: SectionListData<string>[] = [
   {

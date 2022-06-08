@@ -1,4 +1,6 @@
-import HomeScreen from './HomeScreen/HomeScreen';
-import CardScreen from './CardScreen/CardScreen';
+import CardScreen from './CardScreen';
+import HomeScreen from './HomeScreen';
+import SimsScreen from './SimsScreen';
+import YodaScreen from './YodaScreen';
 
-export { HomeScreen, CardScreen };
+export { HomeScreen, CardScreen, SimsScreen, YodaScreen };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ComponentPropsWithRef, ComponentType, FC } from 'react';
 import React, { forwardRef, useMemo } from 'react';
 import type { LayoutChangeEvent } from 'react-native';
@@ -7,6 +8,7 @@ import Animated from 'react-native-reanimated';
 import type { StickyHeaderSharedProps } from './StickyHeaderProps';
 import { useStickyHeaderProps } from './useStickyHeaderProps';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const NOOP = () => {};
 
 const createCellRenderer = (itemLayoutAnimation: any) => {
@@ -92,6 +94,8 @@ export function withStickyHeader<T extends ComponentType<any>>(component: T) {
 
 export const styles = StyleSheet.create({
   container: {
+    alignSelf: 'stretch',
+    flex: 1,
     overflow: 'hidden',
   },
   header: {

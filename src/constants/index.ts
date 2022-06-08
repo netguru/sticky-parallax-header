@@ -1,6 +1,5 @@
 import colors from './colors';
+import commonStyles from './commonStyles';
 import constants from './constants';
-import sizes from './sizes';
-import screenStyles from './screenStyles';
 
-export { constants, colors, sizes, screenStyles };
+export { constants, colors, commonStyles };

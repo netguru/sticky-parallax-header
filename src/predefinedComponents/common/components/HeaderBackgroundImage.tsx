@@ -19,7 +19,8 @@ export const HeaderBackgroundImage: VFC<HeaderBackgroundImageProps> = ({
   return (
     <ImageBackground
       style={[styles.headerStyle, { height: backgroundHeight, width }]}
-      source={backgroundImage}>
+      source={backgroundImage}
+      testID="HeaderBackgroundImage">
       {background}
     </ImageBackground>
   );
@@ -32,5 +33,6 @@ const styles = StyleSheet.create({
     left: 0,
     alignItems: 'flex-start',
     justifyContent: 'flex-end',
+    zIndex: -1,
   },
 });

@@ -23,8 +23,10 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import commonStyles from '../../../constants/screenStyles';
+import { commonStyles } from '../../../constants';
 import { DelayedFreeze } from '../../common/components/DelayedFreeze';
+import { debounce } from '../../common/utils/debounce';
+import { isInRange } from '../../common/utils/isInRange';
 import type { InternalPagerProps, PagerMethods, PagerProps } from '../TabbedHeaderProps';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -66,7 +68,9 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
     ref
   ) => {
     const [containerWidth, setContainerWidth] = useState(() => Dimensions.get('window').width);
+    const containerWidthRef = useRef(containerWidth);
     const [currentPage, setCurrentPage] = useState(initialPage);
+    const currentPageRef = useRef(currentPage);
     const horizontalScrollViewRef = useAnimatedRef<ScrollView>();
     const horizontalScrollValue = useSharedValue(initialPage * Dimensions.get('window').width);
 
@@ -94,6 +98,13 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
        */
       function scrollOnePxAndBack() {
         'worklet';
+        if (Platform.OS === 'web') {
+          horizontalScrollViewRef.current?.scrollTo({ x: 0, y: 1, animated: true });
+          horizontalScrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+
+          return;
+        }
+
         scrollTo(horizontalScrollViewRef, 0, 1, true);
         scrollTo(horizontalScrollViewRef, 0, 0, true);
       }
@@ -110,7 +121,7 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
     }, []);
 
     useEffect(() => {
-      if (page !== currentPage && page >= 0) {
+      if (page !== currentPageRef.current && page >= 0) {
         goToPage(page);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,6 +135,7 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
       }
 
       setContainerWidth(width);
+      containerWidthRef.current = width;
       goToPageAnimationFrame.current = requestAnimationFrame(() => {
         goToPage(currentPage);
       });
@@ -131,21 +143,34 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
 
     function scrollToPage(offset: number) {
       'worklet';
+      if (Platform.OS === 'web') {
+        horizontalScrollViewRef.current?.scrollTo({ x: offset, y: 0, animated: true });
+
+        return;
+      }
+
       scrollTo(horizontalScrollViewRef, offset, 0, true);
     }
 
     function scrollToTabPosition(position: number) {
       'worklet';
+      if (Platform.OS === 'web') {
+        scrollRef.current?.scrollTo({ x: 0, y: position, animated: true });
+
+        return;
+      }
+
       scrollTo(scrollRef, 0, position, true);
     }
 
     function goToPage(pageNumber: number) {
-      const offset = pageNumber * containerWidth;
+      const offset = pageNumber * containerWidthRef.current;
 
       handleScrollToTabPosition(currentPage, pageNumber);
       runOnUI(scrollToPage)(offset);
 
       setCurrentPage(page);
+      currentPageRef.current = page;
       onChangeTab?.(currentPage, pageNumber);
     }
 
@@ -175,7 +200,9 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
       );
     }
 
-    function handlePossiblePageChange(newPage: number) {
+    function handlePossiblePageChange(offsetX: number) {
+      const newPage = Math.round(offsetX / containerWidthRef.current);
+
       if (currentPage !== newPage) {
         swipedPage?.(newPage);
         onChangeTab?.(currentPage, newPage);
@@ -184,10 +211,30 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
       }
     }
 
+    const handlePossiblePageChangeOnWeb = debounce((offsetX: number) => {
+      const newPage = Math.round(offsetX / containerWidthRef.current);
+
+      if (currentPageRef.current !== newPage) {
+        const prevPage = currentPageRef.current;
+
+        swipedPage?.(newPage);
+        onChangeTab?.(prevPage, newPage);
+        setCurrentPage(newPage);
+        handleScrollToTabPosition(prevPage, newPage);
+        currentPageRef.current = newPage;
+      }
+    }, 100);
+
     const scrollHandler = useAnimatedScrollHandler({
       onScroll: (e) => {
         horizontalScrollValue.value = e.contentOffset.x;
         onScroll?.(e);
+        if (Platform.OS === 'web') {
+          // On web there is no onMomentumScrollEnd
+          const offsetX = e.contentOffset.x;
+
+          runOnJS(handlePossiblePageChangeOnWeb)(offsetX);
+        }
       },
       onBeginDrag: (e) => {
         onScrollBeginDrag?.(e);
@@ -201,9 +248,8 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
       onMomentumEnd: (e) => {
         onMomentumScrollEnd?.(e);
         const offsetX = e.contentOffset.x;
-        const newPage = Math.round(offsetX / containerWidth);
 
-        runOnJS(handlePossiblePageChange)(newPage);
+        runOnJS(handlePossiblePageChange)(offsetX);
       },
     });
 
@@ -214,8 +260,10 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
         return (
           <DelayedFreeze
             freeze={
-              ![idx - offscreenPageLimitValidated, idx, idx + offscreenPageLimitValidated].includes(
-                currentPage
+              !isInRange(
+                currentPage,
+                idx - offscreenPageLimitValidated,
+                idx + offscreenPageLimitValidated
               )
             }
             key={idx}

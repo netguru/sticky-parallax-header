@@ -3,8 +3,9 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import type { SectionList } from 'react-native';
 import { View } from 'react-native';
 
-import commonStyles from '../../constants/screenStyles';
+import { commonStyles } from '../../constants';
 import { StickyHeaderSectionList } from '../../primitiveComponents/StickyHeaderSectionList';
+
 import type { AvatarHeaderSectionListProps } from './AvatarHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
 import { useAvatarHeader } from './useAvatarHeader';
@@ -34,6 +35,7 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
     sections,
     stickySectionHeadersEnabled = true,
     title,
+    titleStyle,
     ...rest
   } = props;
   const {
@@ -66,6 +68,7 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
           rightTopIconTestID={rightTopIconTestID}
           scrollValue={scrollValue}
           title={title}
+          titleStyle={titleStyle}
         />
       )}
       <View style={commonStyles.wrapper}>

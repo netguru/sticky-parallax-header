@@ -1,13 +1,19 @@
 import type { FC } from 'react';
 import React from 'react';
-import type { ColorValue, ImageSourcePropType, ViewStyle } from 'react-native';
+import type {
+  ColorValue,
+  ImageSourcePropType,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import IconRenderer from '../../../components/IconRenderer/IconRenderer';
-import colors from '../../../constants/colors';
+import { colors, commonStyles } from '../../../constants';
 import type { IconProps } from '../../common/SharedProps';
+import IconRenderer from '../../common/components/IconRenderer';
 import { useRTLStyles } from '../../common/hooks/useRTLStyles';
 import { scrollPosition } from '../../common/utils/scrollPosition';
 
@@ -24,6 +30,7 @@ interface HeaderProps extends IconProps {
   image?: ImageSourcePropType;
   scrollValue: Animated.SharedValue<number>;
   title?: string;
+  titleStyle?: StyleProp<TextStyle>;
 }
 
 export const HeaderBar: FC<HeaderProps> = ({
@@ -40,6 +47,7 @@ export const HeaderBar: FC<HeaderProps> = ({
   rightTopIconTestID,
   scrollValue,
   title,
+  titleStyle,
 }) => {
   const [beforeFadeImg, startFadeImg, finishFadeImg] = [
     scrollPosition(height, 30),
@@ -81,45 +89,41 @@ export const HeaderBar: FC<HeaderProps> = ({
   return (
     <SafeAreaView
       edges={['left', 'top', 'right']}
-      style={[styles.headerWrapper, { backgroundColor }]}>
-      <View style={styles.headerMenu}>
-        <Pressable
-          accessibilityLabel={leftTopIconAccessibilityLabel}
-          accessibilityRole="button"
-          hitSlop={HIT_SLOP}
-          onPress={leftTopIconOnPress}
-          style={styles.leftHeaderButton}
-          testID={leftTopIconTestID}>
-          <IconRenderer icon={leftTopIcon} />
-        </Pressable>
-        <View style={[styles.headerTitleContainer, headerTitleContainerRTLStyle]}>
-          <Animated.Image
-            source={image as ImageSourcePropType}
-            style={[styles.headerPic, imageAnimatedStyle]}
-          />
-          <Animated.Text numberOfLines={1} style={[styles.headerTitle, nameAnimatedStyle]}>
-            {title}
-          </Animated.Text>
-        </View>
-        <Pressable
-          accessibilityLabel={rightTopIconAccessibilityLabel}
-          accessibilityRole="button"
-          hitSlop={HIT_SLOP}
-          onPress={rightTopIconOnPress}
-          style={styles.rightHeaderButton}
-          testID={rightTopIconTestID}>
-          <IconRenderer icon={rightTopIcon} />
-        </Pressable>
+      style={[commonStyles.headerWrapper, { backgroundColor }]}>
+      <Pressable
+        accessibilityLabel={leftTopIconAccessibilityLabel}
+        accessibilityRole="button"
+        hitSlop={HIT_SLOP}
+        onPress={leftTopIconOnPress}
+        style={styles.leftHeaderButton}
+        testID={leftTopIconTestID}>
+        <IconRenderer icon={leftTopIcon} />
+      </Pressable>
+      <View style={[styles.headerTitleContainer, headerTitleContainerRTLStyle]}>
+        <Animated.Image
+          source={image as ImageSourcePropType}
+          style={[styles.headerPic, imageAnimatedStyle]}
+        />
+        <Animated.Text
+          numberOfLines={1}
+          style={[styles.headerTitle, nameAnimatedStyle, titleStyle]}>
+          {title}
+        </Animated.Text>
       </View>
+      <Pressable
+        accessibilityLabel={rightTopIconAccessibilityLabel}
+        accessibilityRole="button"
+        hitSlop={HIT_SLOP}
+        onPress={rightTopIconOnPress}
+        style={styles.rightHeaderButton}
+        testID={rightTopIconTestID}>
+        <IconRenderer icon={rightTopIcon} />
+      </Pressable>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  headerMenu: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
   headerPic: {
     width: 32,
     height: 32,
@@ -145,14 +149,6 @@ const styles = StyleSheet.create({
   },
   headerTitleContainerMarginRight: {
     marginRight: 24,
-  },
-  headerWrapper: {
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
   },
   leftHeaderButton: {
     alignItems: 'flex-start',

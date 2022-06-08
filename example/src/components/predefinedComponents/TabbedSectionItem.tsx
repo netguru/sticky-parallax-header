@@ -4,34 +4,38 @@ import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import type { ItemType } from '../../assets/data/tabbedSections';
-import colors from '../../constants/colors';
+import { colors, screenStyles } from '../../constants';
 
-const ITEM_HEIGHT = 120;
+const ITEM_HEIGHT = 190;
 const ITEM_MARGIN_VERTICAL = 5;
 
 export const TABBED_SECTION_ITEM_HEIGHT = ITEM_HEIGHT + 2 * ITEM_MARGIN_VERTICAL;
 
 export const TabbedSectionItem: FC<ItemType> = memo(({ imageUrl, title, subtitle }) => {
-  return <SafeAreaView edges={['left', 'right']} style={styles.container}>
-    <View style={styles.itemContainer}>
-      <View style={styles.itemTitleContainer}>
-        <Text style={styles.itemTitle}>{title}</Text>
-        <Text style={styles.itemSubtitle}>{subtitle}</Text>
+  return (
+    <SafeAreaView edges={['left', 'right']} style={styles.container}>
+      <View style={styles.itemContainer}>
+        <View style={styles.itemTitleContainer}>
+          <Text style={[screenStyles.text, styles.itemTitle]}>{title}</Text>
+          <Text style={[screenStyles.text, styles.itemSubtitle]}>{subtitle}</Text>
+        </View>
+        <View style={styles.itemImageContainer}>
+          {/**
+           * We can't use react-native-fast-image with Expo Go, and there is no cache with default Image component on Android
+           *
+           * So instead, just render it on iOS, to not slow down underlying SectionList
+           */}
+          {Platform.OS !== 'android' && (
+            <Image
+              resizeMode="cover"
+              source={{ uri: imageUrl, cache: 'force-cache' }}
+              style={styles.itemImage}
+            />
+          )}
+        </View>
       </View>
-      <View style={styles.itemImageContainer}>
-        {/** 
-         * We can't use react-native-fast-image with Expo Go, and there is no cache with default Image component on Android 
-         * 
-         * So instead, just render it on iOS, to not slow down underlying SectionList
-         */}
-        {Platform.OS !== 'android' && <Image
-          resizeMode="cover"
-          source={{ uri: imageUrl, cache: 'force-cache' }}
-          style={styles.itemImage}
-        />}
-      </View>
-    </View>
-  </SafeAreaView>;
+    </SafeAreaView>
+  );
 });
 
 const styles = StyleSheet.create({
@@ -39,13 +43,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: TABBED_SECTION_ITEM_HEIGHT,
     justifyContent: 'center',
-    padding: 5,
+    padding: ITEM_MARGIN_VERTICAL,
   },
   itemContainer: {
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.coralPink,
     borderRadius: 3,
     elevation: 1.2,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 10,
@@ -62,13 +67,13 @@ const styles = StyleSheet.create({
     flex: 0.3,
   },
   itemSubtitle: {
-    color: colors.darkMint,
+    color: colors.white,
     fontSize: 18,
     marginBottom: 5,
     textAlign: 'left',
   },
   itemTitle: {
-    color: colors.secondaryGreen,
+    color: colors.white,
     fontSize: 24,
     fontWeight: '600',
     marginBottom: 10,
@@ -77,7 +82,7 @@ const styles = StyleSheet.create({
   },
   itemTitleContainer: {
     alignItems: 'flex-start',
-    backgroundColor: colors.white,
+    backgroundColor: colors.coralPink,
     flex: 0.7,
     paddingHorizontal: 10,
     paddingVertical: 5,

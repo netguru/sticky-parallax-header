@@ -3,8 +3,9 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import type { FlatList } from 'react-native';
 import { View } from 'react-native';
 
-import commonStyles from '../../constants/screenStyles';
+import { commonStyles } from '../../constants';
 import { StickyHeaderFlatList } from '../../primitiveComponents/StickyHeaderFlatList';
+
 import type { DetailsHeaderFlatListProps } from './DetailsHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
 import { useDetailsHeader } from './useDetailsHeader';
@@ -33,6 +34,7 @@ function DetailsHeaderFlatListInner<ItemT>(
     rightTopIconTestID,
     scrollEventThrottle = 16,
     title,
+    titleStyle,
     ...rest
   } = props;
   const {
@@ -63,6 +65,7 @@ function DetailsHeaderFlatListInner<ItemT>(
           rightTopIconOnPress={rightTopIconOnPress}
           rightTopIconTestID={rightTopIconTestID}
           title={title}
+          titleStyle={titleStyle}
         />
       )}
       <View style={commonStyles.container}>

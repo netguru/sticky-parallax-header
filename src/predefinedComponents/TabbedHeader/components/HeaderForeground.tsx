@@ -1,17 +1,10 @@
 import type { FC } from 'react';
 import React from 'react';
-import {
-  ImageSourcePropType,
-  StyleProp,
-  TextStyle,
-  useWindowDimensions,
-  ViewStyle,
-} from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
+import type { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
-import colors from '../../../constants/colors';
-import screenStyles from '../../../constants/screenStyles';
+import { colors, commonStyles, constants } from '../../../constants';
 import { useResponsiveSize } from '../../../hooks/useResponsiveSize';
 import { useRTLStyles } from '../../common/hooks/useRTLStyles';
 import { scrollPosition } from '../../common/utils/scrollPosition';
@@ -34,7 +27,8 @@ export const Foreground: FC<ForegroundProps> = ({
   const { responsiveWidth } = useResponsiveSize();
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
-  const isLandscape = windowWidth > windowHeight;
+  const isLandscape =
+    windowWidth > windowHeight && windowHeight <= constants.breakpoints.mediumPhoneShorterEdge;
 
   const profilePicBorderRadius = responsiveWidth(4.5);
   const messageStyle = [styles.message, titleStyle];
@@ -83,24 +77,24 @@ export const Foreground: FC<ForegroundProps> = ({
   });
 
   const landscapeStyle = useRTLStyles<ViewStyle>(
-    screenStyles.row,
-    screenStyles.rowReverse,
-    screenStyles.row
+    commonStyles.row,
+    commonStyles.rowReverse,
+    commonStyles.row
   );
 
   return (
     <View
       style={
         isLandscape
-          ? [styles.foregroundRow, landscapeStyle]
-          : [styles.foreground, screenStyles.column]
+          ? [commonStyles.foregroundRow, landscapeStyle]
+          : [commonStyles.foreground, commonStyles.column]
       }>
       {foregroundImage ? (
         <Animated.View style={imageOpacityAnimatedStyle}>
           <Animated.Image source={foregroundImage} style={imageAnimatedStyle} />
         </Animated.View>
       ) : null}
-      <Animated.View style={[styles.messageContainer, titleAnimatedStyle]}>
+      <Animated.View style={[commonStyles.messageContainer, titleAnimatedStyle]}>
         <Text style={messageStyle}>{title}</Text>
       </Animated.View>
     </View>
@@ -108,17 +102,6 @@ export const Foreground: FC<ForegroundProps> = ({
 };
 
 const styles = StyleSheet.create({
-  foreground: {
-    flex: 1,
-    paddingHorizontal: 24,
-    justifyContent: 'flex-end',
-  },
-  foregroundRow: {
-    flex: 1,
-    paddingHorizontal: 24,
-    alignItems: 'flex-end',
-    justifyContent: 'space-around',
-  },
   message: {
     color: colors.white,
     fontSize: 36,
@@ -126,8 +109,5 @@ const styles = StyleSheet.create({
     lineHeight: 42,
     letterSpacing: -1,
     textAlign: 'left',
-  },
-  messageContainer: {
-    paddingVertical: 24,
   },
 });
