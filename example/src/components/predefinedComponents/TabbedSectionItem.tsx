@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import type { ItemType } from '../../assets/data/tabbedSections';
 import { colors, screenStyles } from '../../constants';
 
-const ITEM_HEIGHT = 120;
+const ITEM_HEIGHT = 190;
 const ITEM_MARGIN_VERTICAL = 5;
 
 export const TABBED_SECTION_ITEM_HEIGHT = ITEM_HEIGHT + 2 * ITEM_MARGIN_VERTICAL;
@@ -43,13 +43,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: TABBED_SECTION_ITEM_HEIGHT,
     justifyContent: 'center',
-    padding: 5,
+    padding: ITEM_MARGIN_VERTICAL,
   },
   itemContainer: {
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.coralPink,
     borderRadius: 3,
     elevation: 1.2,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 10,
@@ -66,13 +67,13 @@ const styles = StyleSheet.create({
     flex: 0.3,
   },
   itemSubtitle: {
-    color: colors.darkMint,
+    color: colors.white,
     fontSize: 18,
     marginBottom: 5,
     textAlign: 'left',
   },
   itemTitle: {
-    color: colors.secondaryGreen,
+    color: colors.white,
     fontSize: 24,
     fontWeight: '600',
     marginBottom: 10,
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   },
   itemTitleContainer: {
     alignItems: 'flex-start',
-    backgroundColor: colors.white,
+    backgroundColor: colors.coralPink,
     flex: 0.7,
     paddingHorizontal: 10,
     paddingVertical: 5,
