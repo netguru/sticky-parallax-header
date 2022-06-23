@@ -4,15 +4,15 @@ import React from 'react';
 import { StatusBar, View } from 'react-native';
 import { DetailsHeaderScrollView } from 'react-native-sticky-parallax-header';
 
-import type { User } from '../assets/data/cards';
 import { Brandon } from '../assets/data/cards';
 import { CardsBlack, IconMenu, iconCloseWhite } from '../assets/icons';
 import { QuizCard } from '../components';
 import { screenStyles } from '../constants';
+import type { CardRouteProp, RootStackNavigationProp } from '../navigation/types';
 
 const CardScreen: VFC = () => {
-  const navigation = useNavigation();
-  const route = useRoute() as { params?: { user: User } };
+  const navigation = useNavigation<RootStackNavigationProp>();
+  const route = useRoute<CardRouteProp>();
   const user = route.params?.user ?? Brandon;
 
   function goBack() {

@@ -1,19 +1,25 @@
 import { useNavigation } from '@react-navigation/native';
-import type { VFC } from 'react';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { StatusBar, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AvatarHeaderScrollView } from 'react-native-sticky-parallax-header';
 
 import type { User } from '../../assets/data/cards';
 import { IconMenu, iconCloseWhite } from '../../assets/icons';
 import { screenStyles } from '../../constants';
+import type { RootStackNavigationProp } from '../../navigation/types';
 
 import QuizListElement from './QuizListElement';
 
-type Props = { user?: User; setModalVisible(v: boolean): void; onPressCloseModal(): void };
+interface Props {
+  user?: User;
+  setModalVisible(v: boolean): void;
+  onPressCloseModal(): void;
+}
 
-const UserModal: VFC<Props> = ({ setModalVisible, user, onPressCloseModal }) => {
-  const navigation = useNavigation();
+const UserModal: React.FC<Props> = ({ setModalVisible, user, onPressCloseModal }) => {
+  const navigation = useNavigation<RootStackNavigationProp>();
+  const insets = useSafeAreaInsets();
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const title = "Author's Quizes";
@@ -49,6 +55,7 @@ const UserModal: VFC<Props> = ({ setModalVisible, user, onPressCloseModal }) => 
   return (
     <>
       <StatusBar backgroundColor={user?.color} barStyle="light-content" />
+      <View style={{ backgroundColor: user?.color, paddingTop: insets.top }} />
       <AvatarHeaderScrollView
         image={user?.image ?? { uri: '' }}
         title={user?.author}

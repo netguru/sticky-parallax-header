@@ -4,72 +4,74 @@ import React, { useCallback } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import { colors } from '../../constants';
+import { ROUTES } from '../../navigation/routes';
+import type { RootStackNavigationProp } from '../../navigation/types';
 
 interface ExampleLinkProps {
-  routeName: string;
+  routeName: typeof ROUTES[keyof typeof ROUTES];
   label: string;
 }
 
 export const EXAMPLES: Array<ExampleLinkProps> = [
   {
-    routeName: 'Yoda',
+    routeName: ROUTES.YODA,
     label: 'Pager with Tabs and custom header bar (Yoda)',
   },
   {
-    routeName: 'Sims',
+    routeName: ROUTES.SIMS,
     label: 'Custom sticky header component (Sims - AppStore)',
   },
   {
-    routeName: 'StickyHeaderFlatList',
+    routeName: ROUTES.STICKY_HEADER_FLATLIST,
     label: 'New StickyHeaderFlatList',
   },
   {
-    routeName: 'StickyHeaderScrollView',
+    routeName: ROUTES.STICKY_HEADER_SCROLLVIEW,
     label: 'New StickyHeaderScrollView',
   },
   {
-    routeName: 'StickyHeaderSectionList',
+    routeName: ROUTES.STICKY_HEADER_SECTIONLIST,
     label: 'New StickyHeaderSectionList',
   },
   {
-    routeName: 'TabbedHeaderList',
+    routeName: ROUTES.TABBED_HEADER_LIST,
     label: 'List with tabs',
   },
   {
-    routeName: 'TabbedHeaderPager',
+    routeName: ROUTES.TABBED_HEADER_PAGER,
     label: 'Pager with Tabs and logo',
   },
   {
-    routeName: 'AvatarHeaderFlatList',
+    routeName: ROUTES.AVATAR_HEADER_FLATLIST,
     label: 'User Modal (FlatList)',
   },
   {
-    routeName: 'AvatarHeaderScrollView',
+    routeName: ROUTES.AVATAR_HEADER_SCROLLVIEW,
     label: 'User Modal (ScrollView)',
   },
   {
-    routeName: 'AvatarHeaderSectionList',
+    routeName: ROUTES.AVATAR_HEADER_SECTIONLIST,
     label: 'User Modal (SectionList)',
   },
   {
-    routeName: 'DetailsHeaderFlatList',
+    routeName: ROUTES.DETAILS_HEADER_FLATLIST,
     label: 'Card Screen (FlatList)',
   },
   {
-    routeName: 'DetailsHeaderScrollView',
+    routeName: ROUTES.DETAILS_HEADER_SCROLLVIEW,
     label: 'Card Screen (ScrollView)',
   },
   {
-    routeName: 'DetailsHeaderSectionList',
+    routeName: ROUTES.DETAILS_HEADER_SECTIONLIST,
     label: 'Card Screen (SectionList)',
   },
 ];
 
 export const ExampleLink: VFC<ExampleLinkProps> = ({ routeName, label }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<RootStackNavigationProp>();
 
   const navigateTo = useCallback(
-    (route: string) => {
+    (route: typeof ROUTES[keyof typeof ROUTES]) => {
       return () => {
         navigation.navigate(route);
       };

@@ -13,10 +13,14 @@
       "web"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.react-native-sticky-parallax-header-example"
     },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.reactnativestickyparallaxheaderexample"
+    }
   }
 }

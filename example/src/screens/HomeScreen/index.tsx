@@ -18,6 +18,7 @@ import type { User } from '../../assets/data/cards';
 import { logo, photosPortraitMe } from '../../assets/images';
 import { QuizListElement, UserModal } from '../../components';
 import { colors, screenStyles } from '../../constants';
+import type { RootStackNavigationProp } from '../../navigation/types';
 
 import { EXAMPLES, ExampleLink } from './ExampleLink';
 import { TABS, users } from './data';
@@ -28,7 +29,7 @@ const wait = (timeout: number) =>
   });
 
 const HomeScreen: VFC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<RootStackNavigationProp>();
   const { height: windowHeight } = useWindowDimensions();
 
   const [refreshing, setRefreshing] = useState<boolean>(false);

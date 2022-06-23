@@ -17,26 +17,50 @@ import {
   TabbedHeaderPagerExample,
 } from '../screens/additionalExamples';
 
-const Stack = createStackNavigator();
+import { ROUTES } from './routes';
+import type { RootStackParamList } from './types';
 
-const AppNavigator = () => (
+const Stack = createStackNavigator<RootStackParamList>();
+
+const AppNavigator: React.FC = () => (
   <NavigationContainer>
-    <Stack.Navigator headerMode="none">
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Card" component={CardScreen} />
-      <Stack.Screen name="Sims" component={SimsScreen} />
-      <Stack.Screen name="Yoda" component={YodaScreen} />
-      <Stack.Screen name="StickyHeaderFlatList" component={StickyHeaderFlatListExample} />
-      <Stack.Screen name="StickyHeaderScrollView" component={StickyHeaderScrollViewExample} />
-      <Stack.Screen name="StickyHeaderSectionList" component={StickyHeaderSectionListExample} />
-      <Stack.Screen name="TabbedHeaderList" component={TabbedHeaderListExample} />
-      <Stack.Screen name="TabbedHeaderPager" component={TabbedHeaderPagerExample} />
-      <Stack.Screen name="AvatarHeaderFlatList" component={AvatarHeaderFlatListExample} />
-      <Stack.Screen name="AvatarHeaderScrollView" component={AvatarHeaderScrollViewExample} />
-      <Stack.Screen name="AvatarHeaderSectionList" component={AvatarHeaderSectionListExample} />
-      <Stack.Screen name="DetailsHeaderFlatList" component={DetailsHeaderFlatListExample} />
-      <Stack.Screen name="DetailsHeaderScrollView" component={DetailsHeaderScrollViewExample} />
-      <Stack.Screen name="DetailsHeaderSectionList" component={DetailsHeaderSectionListExample} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={ROUTES.HOME} component={HomeScreen} />
+      <Stack.Screen name={ROUTES.CARD} component={CardScreen} />
+      <Stack.Screen name={ROUTES.SIMS} component={SimsScreen} />
+      <Stack.Screen name={ROUTES.YODA} component={YodaScreen} />
+      <Stack.Screen name={ROUTES.STICKY_HEADER_FLATLIST} component={StickyHeaderFlatListExample} />
+      <Stack.Screen
+        name={ROUTES.STICKY_HEADER_SCROLLVIEW}
+        component={StickyHeaderScrollViewExample}
+      />
+      <Stack.Screen
+        name={ROUTES.STICKY_HEADER_SECTIONLIST}
+        component={StickyHeaderSectionListExample}
+      />
+      <Stack.Screen name={ROUTES.TABBED_HEADER_LIST} component={TabbedHeaderListExample} />
+      <Stack.Screen name={ROUTES.TABBED_HEADER_PAGER} component={TabbedHeaderPagerExample} />
+      <Stack.Screen name={ROUTES.AVATAR_HEADER_FLATLIST} component={AvatarHeaderFlatListExample} />
+      <Stack.Screen
+        name={ROUTES.AVATAR_HEADER_SCROLLVIEW}
+        component={AvatarHeaderScrollViewExample}
+      />
+      <Stack.Screen
+        name={ROUTES.AVATAR_HEADER_SECTIONLIST}
+        component={AvatarHeaderSectionListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.DETAILS_HEADER_FLATLIST}
+        component={DetailsHeaderFlatListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.DETAILS_HEADER_SCROLLVIEW}
+        component={DetailsHeaderScrollViewExample}
+      />
+      <Stack.Screen
+        name={ROUTES.DETAILS_HEADER_SECTIONLIST}
+        component={DetailsHeaderSectionListExample}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );
