@@ -102,6 +102,12 @@ workflows:
     - activate-ssh-key@4: {}
     - git-clone@6: {}
     - cache-pull@2: {}
+    - script:
+       inputs:
+         - content: |-
+             #!/bin/bash
+             set -ex
+             rbenv install $(cat $EXAMPLE_WORKDIR/.ruby-version)
     - yarn@0:
         inputs:
         - workdir: "$WORKDIR"
