@@ -15,59 +15,6 @@ trigger_map:
   pull_request_target_branch: master
   workflow: lint
 workflows:
-  # deploy:
-  #   description: >
-  #     Tests the app and runs a build on Expo Application Services (EAS).
-
-
-  #     Next steps:
-
-  #     - Configure the `Run Expo Application Services (EAS) build` Step's `Access
-  #     Token` input.
-
-  #     - Check out [Getting started with Expo
-  #     apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-expo-apps.html).
-
-  #     - For an alternative deploy workflow checkout the [(React Native) Expo:
-  #     Build using Turtle CLI
-  #     recipe](https://github.com/bitrise-io/workflow-recipes/blob/main/recipes/rn-expo-turtle-build.md).
-  #   steps:
-  #   - activate-ssh-key@4: {}
-  #   - git-clone@6: {}
-  #   - yarn@0:
-  #       inputs:
-  #       - workdir: example
-  #       - command: install
-  #   - yarn@0:
-  #       inputs:
-  #       - workdir: example
-  #       - command: test
-  #   - run-eas-build@0:
-  #       inputs:
-  #       - platform: $PLATFORM
-  #       - work_dir: example
-  #   - deploy-to-bitrise-io@2: {}
-  # primary:
-  #   description: >
-  #     Runs tests.
-
-
-  #     Next steps:
-
-  #     - Check out [Getting started with Expo
-  #     apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-expo-apps.html).
-  #   steps:
-  #   - activate-ssh-key@4: {}
-  #   - git-clone@6: {}
-  #   - yarn@0:
-  #       inputs:
-  #       - workdir: example
-  #       - command: install
-  #   - yarn@0:
-  #       inputs:
-  #       - workdir: example
-  #       - command: test
-  #   - deploy-to-bitrise-io@2: {}
   lint:
     description: >
       Run ESLint & TypeScript
