@@ -71,6 +71,10 @@ workflows:
     - cache-pull@2: {}
     - yarn@0:
         inputs:
+        - workdir: "$WORKDIR"
+        - command: install
+    - yarn@0:
+        inputs:
         - workdir: "$EXAMPLE_WORKDIR"
         - command: install
     - android-build@1:
@@ -98,6 +102,10 @@ workflows:
     - activate-ssh-key@4: {}
     - git-clone@6: {}
     - cache-pull@2: {}
+    - yarn@0:
+        inputs:
+        - workdir: "$WORKDIR"
+        - command: install
     - yarn@0:
         inputs:
         - workdir: "$EXAMPLE_WORKDIR"

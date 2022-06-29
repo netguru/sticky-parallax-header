@@ -4,33 +4,105 @@ sidebar_position: 4
 
 # Avatar Header
 
-![Avatar Header Gif](../../static/img/assets/readme_Avatar.gif)
+![Avatar Header Gif](@site/static/img/assets/readme_Avatar.gif)
 
-|         Property         |                              Type                               | Optional |                                  Default                                   |                                          Description                                          |
-| :----------------------: | :-------------------------------------------------------------: | :------: | :------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
-|       `headerType`       |                         `AvatarHeader`                          |   Yes    |                               `TabbedHeader`                               |                                Set header type to TabbedHeader                                |
-|    `backgroundColor`     |                            `string`                             |   Yes    |                                `'#1ca75d'`                                 |                                    Header background color                                    |
-|    ` backgroundImage`    |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                Header background image source                                 |
-|        `bounces`         |                            `boolean`                            |   Yes    |                                   `true`                                   |                                Allow scroll view bounces (IOS)                                |
-|        `children`        |                           `ReactNode`                           |   Yes    |                                                                            |                               Render content inside ScrollView                                |
-| `contentContainerStyles` |                     `StyleProp<ViewStyle>`                      |   Yes    |                                                                            |                                  Set scroll view body styles                                  |
-|    `hasBorderRadius`     |                            `boolean`                            |   Yes    |                                   `true`                                   |                          Adds radius to header's right bottom border                          |
-|      `headerHeight`      |                            `number`                             |   Yes    |              `ifIphoneX(92, constants.responsiveHeight(13))`               |                                       Set header height                                       |
-|       `headerSize`       |                 `(h: LayoutRectangle) => void`                  |   Yes    |                                                                            |                       Handler that is called when header's size changes                       |
-|         `image`          |                      `ImageSourcePropType`                      |   Yes    |                                                                            |                                       Sets header image                                       |
-|      `leftTopIcon`       |        `() => ReactElement` &#124; `ImageSourcePropType`        |   Yes    |                                                                            |                                 Set icon for left top button                                  |
-|   `leftTopIconOnPress`   |                          `() => void`                           |   Yes    |                                                                            |                            Define action on left top button press                             |
-|      `rightTopIcon`      |        `() => ReactElement` &#124; `ImageSourcePropType`        |   Yes    |                                                                            |                                 Set icon for right top button                                 |
-|  `rightTopIconOnPress`   |                          `() => void`                           |   Yes    |                                                                            |                            Define action on right top button press                            |
-| `onMomentumScrollBegin`  |   `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`    |   Yes    |                                                                            | Called when the momentum scroll starts (scroll which occurs as the ScrollView starts gliding) |
-|  `onMomentumScrollEnd`   |   `(event: NativeSyntheticEvent<NativeScrollEvent>) => void`    |   Yes    |                                                                            | Called when the momentum scroll ends (scroll which occurs as the ScrollView glides to a stop) |
-|     `parallaxHeight`     |                            `number`                             |   Yes    | `ifIphoneX(constants.responsiveHeight(38),constants.responsiveHeight(48))` |                                  Set parallax header height                                   |
-|     `refreshControl`     |                            `element`                            |   Yes    |                                                                            |           A RefreshControl component, used to provide pull-to-refresh functionality           |
-|      `scrollEvent`       |   ` (event: NativeSyntheticEvent<NativeScrollEvent>) => void`   |   Yes    |                                                                            |           Fires at most once per frame during scrolling (Used in custom animations)           |
-|       `scrollRef`        | `(t: ScrollView) => void` &#124; `MutableRefObject<ScrollView>` |   Yes    |                                                                            |                                   Get inner ScrollView ref                                    |
-|   `snapStartThreshold`   |                            `number`                             |   Yes    |                                                                            |                               Set start value Threshold of snap                               |
-|   `snapStopThreshold`    |                            `number`                             |   Yes    |                                                                            |                               Set stop value Threshold of snap                                |
-|       `snapToEdge`       |                            `boolean`                            |   Yes    |                                   `true`                                   |                    Should snap header to edge when snap value is exceeded                     |
-|       `snapValue`        |                            `boolean`                            |   Yes    |                          `parralax header height`                          |                               Set value where header is closed                                |
-|        `subtitle`        |                            `string`                             |   Yes    |                                                                            |                                     Sets header subtitle                                      |
-|         `title`          |                            `string`                             |   Yes    |                                                                            |                                       Sets header title                                       |
+## Example usage
+
+```tsx
+import React from 'react'
+import {
+  AvatarHeaderScrollView,
+  AvatarHeaderFlatList,
+  AvatarHeaderSectionList,
+} from 'react-native-sticky-parallax-header'
+
+export const TestScrollViewScreen = () => (
+  <>
+    <AvatarHeaderScrollView
+      leftTopIcon={require('<path-to-details-left-icon>')}
+      image={{ uri: '<path-to-details-image>' }}
+      backgroundColor="green"
+      subtitle="Details subtitle"
+      title="Details title"
+    >
+      {/** scroll view content */}
+    </AvatarHeaderScrollView>
+  </>
+)
+
+export const TestFlatListScreen = () => (
+  <>
+    <AvatarHeaderFlatList
+      {...flatListProps}
+      leftTopIcon={require('<path-to-details-left-icon>')}
+      image={{ uri: '<path-to-details-image>' }}
+      backgroundColor="green"
+      subtitle="Details subtitle"
+      title="Details title"
+    />
+  </>
+)
+
+export const TestSectionListScreen = () => (
+  <>
+    <AvatarHeaderSectionList
+      {...sectionListProps}
+      leftTopIcon={require('<path-to-details-left-icon>')}
+      image={{ uri: '<path-to-details-image>' }}
+      backgroundColor="green"
+      subtitle="Details subtitle"
+      title="Details title"
+    />
+  </>
+)
+```
+
+## Props
+
+### AvatarHeaderScrollView props
+
+Inherits [ScrollViewProps](https://reactnative.dev/docs/next/scrollview#props) and [Shared AvatarHeader props](#shared-avatarheader-props)
+
+### AvatarHeaderFlatList props
+
+Inherits [FlatListProps](https://reactnative.dev/docs/next/flatlist#props) and [Shared AvatarHeader props](#shared-avatarheader-props)
+
+### AvatarHeaderFlatList props
+
+Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props) and [Shared AvatarHeader props](#shared-avatarheader-props)
+
+### Shared AvatarHeader props
+| Prop | Type | Default value |
+| - | - | - |
+| backgroundColor | color - `ColorValue` | - |
+| backgroundImage | image source - `ImageSourcePropType` | - |
+| containerStyle | style - `StyleProp<ViewStyle>` | - |
+| leftTopIcon | render function or image source | - |
+| leftTopIconAccessibilityLabel | string | - |
+| leftTopIconOnPress | function - `() => void` | - |
+| leftTopIconTestID | string | - |
+| hasBorderRadius | boolean | - |
+| headerHeight | number | 100 |
+| image | image source - `ImageSourcePropType` | - |
+| onHeaderLayout | function - `(e: LayoutChangeEvent) => void` | - |
+| onMomentumScrollBegin | worklet function - `(e: NativeScrollEvent) => void` | - |
+| onMomentumScrollEnd | worklet function - `(e: NativeScrollEvent) => void` | - |
+| onScroll | worklet function - `(e: NativeScrollEvent) => void` | - |
+| onScrollBeginDrag | worklet function - `(e: NativeScrollEvent) => void` | - |
+| onScrollEndDrag | worklet function - `(e: NativeScrollEvent) => void` | - |
+| onTabsLayout | function - `(e: LayoutChangeEvent) => void` | - |
+| onTopReached | function - `() => void` | - |
+| parallaxHeight | number | 53% of screen's height |
+| renderHeaderBar | render function | - |
+| rightTopIcon | render function or image source | - |
+| rightTopIconAccessibilityLabel | string | - |
+| rightTopIconOnPress | function - `() => void` | - |
+| rightTopIconTestID | string | - |
+| snapStartThreshold | number | - |
+| snapStopThreshold | number | - |
+| snapToEdge | boolean | true |
+| tabsContainerBackgroundColor | color - `ColorValue` | - |
+| subtitle | string | - |
+| subtitleStyle | style - `StyleProp<TextStyle>` | - |
+| title | string | - |
+| titleStyle | style - `StyleProp<TextStyle>` | - |

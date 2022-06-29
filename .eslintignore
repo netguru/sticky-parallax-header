@@ -1,4 +1,4 @@
-/docs
+/docs/build
 **/metro.config.js
 .eslintrc.js
 /jest/**
