@@ -16,7 +16,7 @@ export const Foreground: VFC<ForegroundProps> = ({ scrollValue }) => {
   });
 
   return (
-    <View style={styles.foregroundWrapper}>
+    <View pointerEvents="none" style={styles.foregroundWrapper}>
       <Animated.View style={foregroundWrapperAnimatedStyle}>
         <Image
           source={{

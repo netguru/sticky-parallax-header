@@ -34,22 +34,26 @@ export const HeaderWrapper: FC<HeaderWrapperProps> = ({
   const { width } = useWindowDimensions();
 
   return (
-    <View style={{ backgroundColor: contentBackgroundColor }}>
+    <View pointerEvents="box-none" style={{ backgroundColor: contentBackgroundColor }}>
       {backgroundImage ? (
-        <HeaderBackgroundImage
-          background={
-            <HeaderBackground
-              backgroundColor={backgroundColor}
-              hasBorderRadius={hasBorderRadius}
-              height={parallaxHeight}
-              scrollValue={scrollValue}
-            />
-          }
-          backgroundHeight={scrollHeight}
-          backgroundImage={backgroundImage}
-        />
+        <View pointerEvents="none">
+          <HeaderBackgroundImage
+            background={
+              <HeaderBackground
+                backgroundColor={backgroundColor}
+                hasBorderRadius={hasBorderRadius}
+                height={parallaxHeight}
+                scrollValue={scrollValue}
+              />
+            }
+            backgroundHeight={scrollHeight}
+            backgroundImage={backgroundImage}
+          />
+        </View>
       ) : (
-        <View style={[styles.headerStyle, { height: scrollHeight }, { width }]}>
+        <View
+          pointerEvents="none"
+          style={[styles.headerStyle, { height: scrollHeight }, { width }]}>
           <HeaderBackground
             backgroundColor={backgroundColor}
             hasBorderRadius={hasBorderRadius}
@@ -59,6 +63,7 @@ export const HeaderWrapper: FC<HeaderWrapperProps> = ({
         </View>
       )}
       <View
+        pointerEvents="box-none"
         style={[
           {
             height: scrollHeight,

@@ -60,9 +60,17 @@ export function withStickyHeader<T extends ComponentType<any>>(component: T) {
 
     return (
       <View style={[styles.container, containerStyle]}>
-        <Animated.View style={[styles.header, headerAnimatedStyle]}>
-          {renderHeader ? <View onLayout={onHeaderLayoutInternal}>{renderHeader()}</View> : null}
-          {renderTabs ? <View onLayout={onTabsLayoutInternal}>{renderTabs()}</View> : null}
+        <Animated.View pointerEvents="box-none" style={[styles.header, headerAnimatedStyle]}>
+          {renderHeader ? (
+            <View pointerEvents="box-none" onLayout={onHeaderLayoutInternal}>
+              {renderHeader()}
+            </View>
+          ) : null}
+          {renderTabs ? (
+            <View pointerEvents="box-none" onLayout={onTabsLayoutInternal}>
+              {renderTabs()}
+            </View>
+          ) : null}
         </Animated.View>
         <AnimatedComponent
           ref={ref}

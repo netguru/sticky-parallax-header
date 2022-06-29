@@ -2,76 +2,6 @@
 format_version: '11'
 default_step_lib_source: 'https://github.com/bitrise-io/bitrise-steplib.git'
 project_type: react-native
-workflows:
-  # deploy:
-  #   description: >
-  #     Tests the app and runs a build on Expo Application Services (EAS).
-
-
-  #     Next steps:
-
-  #     - Configure the `Run Expo Application Services (EAS) build` Step's `Access
-  #     Token` input.
-
-  #     - Check out [Getting started with Expo
-  #     apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-expo-apps.html).
-
-  #     - For an alternative deploy workflow checkout the [(React Native) Expo:
-  #     Build using Turtle CLI
-  #     recipe](https://github.com/bitrise-io/workflow-recipes/blob/main/recipes/rn-expo-turtle-build.md).
-  #   steps:
-  #   - activate-ssh-key@4: {}
-  #   - git-clone@6: {}
-  #   - yarn@0:
-  #       inputs:
-  #       - workdir: example
-  #       - command: install
-  #   - yarn@0:
-  #       inputs:
-  #       - workdir: example
-  #       - command: test
-  #   - run-eas-build@0:
-  #       inputs:
-  #       - platform: $PLATFORM
-  #       - work_dir: example
-  #   - deploy-to-bitrise-io@2: {}
-  # primary:
-  #   description: >
-  #     Runs tests.
-
-
-  #     Next steps:
-
-  #     - Check out [Getting started with Expo
-  #     apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-expo-apps.html).
-  #   steps:
-  #   - activate-ssh-key@4: {}
-  #   - git-clone@6: {}
-  #   - yarn@0:
-  #       inputs:
-  #       - workdir: example
-  #       - command: install
-  #   - yarn@0:
-  #       inputs:
-  #       - workdir: example
-  #       - command: test
-  #   - deploy-to-bitrise-io@2: {}
-  lint:
-    description: >
-      Run ESLint & TypeScript
-    steps:
-    - activate-ssh-key@4: {}
-    - git-clone@6: {}
-    - yarn@0:
-        inputs:
-        - command: install
-    - yarn@0:
-        inputs:
-        - command: lint
-    - yarn@0:
-        inputs:
-        - command: typescript
-    - deploy-to-bitrise-io@2: {}
 meta:
   bitrise.io:
     stack: osx-xcode-13.2.x
@@ -79,8 +9,116 @@ app:
   envs:
   - opts:
       is_expand: false
-    PLATFORM: all
+    WORKDIR: "."
+  - opts:
+      is_expand: false
+    EXAMPLE_WORKDIR: "./example"
+  - opts:
+      is_expand: false
+    EXAMPLE_ANDROID_PROJECT: "./example/android"
+  - opts:
+      is_expand: false
+    EXAMPLE_ANDROID_RELEASE_VARIANT: "release"
+  - opts:
+      is_expand: false
+    EXAMPLE_IOS_PROJECT: "./example/ios/reactnativestickyparallaxheaderexample.xcworkspace"
+  - opts:
+      is_expand: false
+    EXAMPLE_IOS_RELEASE_SCHEME: "reactnativestickyparallaxheaderexamplerelease"
 trigger_map:
 - pull_request_source_branch: '*'
   pull_request_target_branch: master
   workflow: lint
+workflows:
+  lint:
+    description: >
+      Run ESLint & TypeScript
+    steps:
+    - activate-ssh-key@4: {}
+    - git-clone@6: {}
+    - cache-pull@2: {}
+    - yarn@0:
+        inputs:
+        - workdir: "$WORKDIR"
+        - command: install
+    - yarn@0:
+        inputs:
+        - workdir: "$WORKDIR"
+        - command: lint
+    - yarn@0:
+        inputs:
+        - workdir: "$WORKDIR"
+        - command: typescript
+    - cache-push@2:
+        inputs:
+          - cache_paths: |-
+              $HOME/.rbenv
+              ./ios/Pods
+              ./node_modules
+              $HOME/.gradle
+              ./.gradle
+          - ignore_check_on_paths: |-
+              $HOME/.gradle/caches/*.lock
+              ./.gradle/*.lock
+              ./.gradle/*.bin
+    - deploy-to-bitrise-io@2: {}
+  prod_android:
+    description: >
+      Create Android release build
+    steps:
+    - activate-ssh-key@4: {}
+    - git-clone@6: {}
+    - cache-pull@2: {}
+    - yarn@0:
+        inputs:
+        - workdir: "$EXAMPLE_WORKDIR"
+        - command: install
+    - android-build@1:
+        inputs:
+        - build_type: apk
+        - project_location: "$EXAMPLE_ANDROID_PROJECT"
+        - variant: "$EXAMPLE_ANDROID_RELEASE_VARIANT"
+    - cache-push@2:
+        inputs:
+          - cache_paths: |-
+              $HOME/.rbenv
+              ./ios/Pods
+              ./node_modules
+              $HOME/.gradle
+              ./.gradle
+          - ignore_check_on_paths: |-
+              $HOME/.gradle/caches/*.lock
+              ./.gradle/*.lock
+              ./.gradle/*.bin
+    - deploy-to-bitrise-io@2: {}
+  prod_ios:
+    description: >
+      Create iOS release build
+    steps:
+    - activate-ssh-key@4: {}
+    - git-clone@6: {}
+    - cache-pull@2: {}
+    - yarn@0:
+        inputs:
+        - workdir: "$EXAMPLE_WORKDIR"
+        - command: install
+    - cocoapods-install@2: {}
+    - xcode-build-for-simulator@0:
+        inputs:
+          - project_path: '$EXAMPLE_IOS_PROJECT'
+          - scheme: 'EXAMPLE_IOS_RELEASE_SCHEME'
+          - simulator_device: 'iPhone 13'
+          - simulator_os_version: latest
+    - cache-push@2:
+        inputs:
+          - cache_paths: |-
+              $HOME/.rbenv
+              ./ios/Pods
+              ./node_modules
+              $HOME/.gradle
+              ./.gradle
+          - ignore_check_on_paths: |-
+              $HOME/.gradle/caches/*.lock
+              ./.gradle/*.lock
+              ./.gradle/*.bin
+    - deploy-to-bitrise-io@2: {}
