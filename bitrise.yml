@@ -120,7 +120,7 @@ workflows:
     - xcode-build-for-simulator@0:
         inputs:
           - project_path: '$EXAMPLE_IOS_PROJECT'
-          - scheme: 'EXAMPLE_IOS_RELEASE_SCHEME'
+          - scheme: '$EXAMPLE_IOS_RELEASE_SCHEME'
           - simulator_device: 'iPhone 13'
           - simulator_os_version: latest
     - cache-push@2:
