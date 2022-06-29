@@ -49,7 +49,7 @@ const SimsScreen: VFC = () => {
           onScrollEndDrag={onScrollEndDrag}
           renderHeader={() => {
             return (
-              <View style={{ height: scrollHeight }}>
+              <View pointerEvents="box-none" style={{ height: scrollHeight }}>
                 <Foreground scrollValue={scrollValue} />
               </View>
             );

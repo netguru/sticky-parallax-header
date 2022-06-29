@@ -9,7 +9,22 @@ app:
   envs:
   - opts:
       is_expand: false
-    PLATFORM: all
+    WORKDIR: "."
+  - opts:
+      is_expand: false
+    EXAMPLE_WORKDIR: "./example"
+  - opts:
+      is_expand: false
+    EXAMPLE_ANDROID_PROJECT: "./example/android"
+  - opts:
+      is_expand: false
+    EXAMPLE_ANDROID_RELEASE_VARIANT: "release"
+  - opts:
+      is_expand: false
+    EXAMPLE_IOS_PROJECT: "./example/ios/reactnativestickyparallaxheaderexample.xcworkspace"
+  - opts:
+      is_expand: false
+    EXAMPLE_IOS_RELEASE_SCHEME: "reactnativestickyparallaxheaderexamplerelease"
 trigger_map:
 - pull_request_source_branch: '*'
   pull_request_target_branch: master
@@ -24,12 +39,15 @@ workflows:
     - cache-pull@2: {}
     - yarn@0:
         inputs:
+        - workdir: "$WORKDIR"
         - command: install
     - yarn@0:
         inputs:
+        - workdir: "$WORKDIR"
         - command: lint
     - yarn@0:
         inputs:
+        - workdir: "$WORKDIR"
         - command: typescript
     - cache-push@2:
         inputs:
@@ -53,13 +71,13 @@ workflows:
     - cache-pull@2: {}
     - yarn@0:
         inputs:
-        - workdir: example
+        - workdir: "$EXAMPLE_WORKDIR"
         - command: install
     - android-build@1:
         inputs:
-        - variant: release
         - build_type: apk
-        - project_location: "./example/android"
+        - project_location: "$EXAMPLE_ANDROID_PROJECT"
+        - variant: "$EXAMPLE_ANDROID_RELEASE_VARIANT"
     - cache-push@2:
         inputs:
           - cache_paths: |-
@@ -82,13 +100,13 @@ workflows:
     - cache-pull@2: {}
     - yarn@0:
         inputs:
-        - workdir: example
+        - workdir: "$EXAMPLE_WORKDIR"
         - command: install
     - cocoapods-install@2: {}
     - xcode-build-for-simulator@0:
         inputs:
-          - project_path: './example/ios/reactnativestickyparallaxheaderexample.xcworkspace'
-          - scheme: 'reactnativestickyparallaxheaderexamplerelease'
+          - project_path: '$EXAMPLE_IOS_PROJECT'
+          - scheme: 'EXAMPLE_IOS_RELEASE_SCHEME'
           - simulator_device: 'iPhone 13'
           - simulator_os_version: latest
     - cache-push@2:

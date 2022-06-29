@@ -34,6 +34,7 @@ export const HeaderBackground: FC<HeaderBackgroundProps> = ({
 
   return (
     <Animated.View
+      pointerEvents="none"
       style={[styles.background, { backgroundColor }, animatedStyle]}
       testID="HeaderBackground"
     />

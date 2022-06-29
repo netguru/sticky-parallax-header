@@ -32,7 +32,9 @@
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install && cd ..",
     "bootstrap": "yarn example && yarn && yarn pods",
-    "prepush": "yarn lint && yarn typescript"
+    "prepush": "yarn lint && yarn typescript",
+    "example:studio": "studio example/android",
+    "example:xcode": "xed example/ios"
   },
   "peerDependencies": {
     "react": ">=17.0.0",

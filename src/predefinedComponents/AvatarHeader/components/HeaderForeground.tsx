@@ -111,6 +111,7 @@ export const Foreground: FC<ForegroundProps> = ({
 
   return (
     <View
+      pointerEvents="none"
       style={
         isLandscape
           ? [commonStyles.foregroundRow, landscapeStyle]
