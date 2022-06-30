@@ -6,7 +6,7 @@ module.exports = {
   title: 'React Native Sticky Parallax Header',
   tagline:
     'A simple React Native library, enabling to create a fully custom header for your iOS and Android apps.',
-  url: 'https://netguru.github.io/',
+  url: 'https://netguru.github.io',
   baseUrl: '/sticky-parallax-header/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
