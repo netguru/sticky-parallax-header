@@ -71,6 +71,9 @@
     "release-it": "14.14.2",
     "typescript": "4.7.4"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "husky": {
     "hooks": {
       "pre-push": "yarn prepush",
