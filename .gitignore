@@ -65,3 +65,5 @@ android/keystores/debug.keystore
 lib/
 
 /example/vendor/bundle
+
+.npmrc
