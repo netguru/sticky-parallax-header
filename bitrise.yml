@@ -53,14 +53,15 @@ workflows:
         inputs:
           - cache_paths: |-
               $HOME/.rbenv
-              ./ios/Pods
-              ./node_modules
+              $EXAMPLE_WORKDIR/ios/Pods
+              $EXAMPLE_WORKDIR/node_modules
+              $WORKDIR/node_modules
               $HOME/.gradle
-              ./.gradle
+              $EXAMPLE_ANDROID_PROJECT/.gradle
           - ignore_check_on_paths: |-
               $HOME/.gradle/caches/*.lock
-              ./.gradle/*.lock
-              ./.gradle/*.bin
+              $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
+              $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
     - deploy-to-bitrise-io@2: {}
   prod_android:
     description: >
@@ -86,14 +87,15 @@ workflows:
         inputs:
           - cache_paths: |-
               $HOME/.rbenv
-              ./ios/Pods
-              ./node_modules
+              $EXAMPLE_WORKDIR/ios/Pods
+              $EXAMPLE_WORKDIR/node_modules
+              $WORKDIR/node_modules
               $HOME/.gradle
-              ./.gradle
+              $EXAMPLE_ANDROID_PROJECT/.gradle
           - ignore_check_on_paths: |-
               $HOME/.gradle/caches/*.lock
-              ./.gradle/*.lock
-              ./.gradle/*.bin
+              $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
+              $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
     - deploy-to-bitrise-io@2: {}
   prod_ios:
     description: >
@@ -105,9 +107,16 @@ workflows:
     - script:
        inputs:
          - content: |-
-             #!/bin/bash
-             set -ex
-             rbenv install $(cat $EXAMPLE_WORKDIR/.ruby-version)
+            #!/bin/bash
+            set -ex
+            selected_version=$(cat $EXAMPLE_WORKDIR/.ruby-version)
+            rbenv_versions=$(rbenv versions)
+            if [[ $rbenv_versions =~ $selected_version ]]
+            then
+              $(rbenv local $selected_version)
+            else
+              $(rbenv install $selected_version)
+            fi
     - yarn@0:
         inputs:
         - workdir: "$WORKDIR"
@@ -127,12 +136,13 @@ workflows:
         inputs:
           - cache_paths: |-
               $HOME/.rbenv
-              ./ios/Pods
-              ./node_modules
+              $EXAMPLE_WORKDIR/ios/Pods
+              $EXAMPLE_WORKDIR/node_modules
+              $WORKDIR/node_modules
               $HOME/.gradle
-              ./.gradle
+              $EXAMPLE_ANDROID_PROJECT/.gradle
           - ignore_check_on_paths: |-
               $HOME/.gradle/caches/*.lock
-              ./.gradle/*.lock
-              ./.gradle/*.bin
+              $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
+              $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
     - deploy-to-bitrise-io@2: {}
