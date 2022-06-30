@@ -13,7 +13,7 @@ Library supports react-native version 0.64+
 ### Install latest library version
 
 ```sh
-$ yarn add react-native-sticky-parallax-header
+$ yarn add react-native-sticky-parallax-header@rc
 ```
 
 ### Install library's dependencies
