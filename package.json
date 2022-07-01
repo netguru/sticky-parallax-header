@@ -59,6 +59,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^4.2.3",
     "jest": "27.5.1",
+    "metro-react-native-babel-preset": "^0.71.2",
     "pod-install": "^0.1.37",
     "prettier": "2.6.2",
     "react": "17.0.2",
@@ -105,7 +106,12 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      "commonjs",
+      [
+        "commonjs",
+        {
+          "configFile": "./babel.config.js"
+        }
+      ],
       "module",
       [
         "typescript",
