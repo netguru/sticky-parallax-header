@@ -77,6 +77,7 @@ Inherits [ScrollViewProps](https://reactnative.dev/docs/next/scrollview#props)
 | tabsContainerStyle | style - `StyleProp<ViewStyle>` | - |
 | title | string | - |
 | titleStyle | style = `StyleProp<TextStyle>` | - |
+| titleTestID | string | - |
 
 ### Tab
 
@@ -84,6 +85,7 @@ Inherits [ScrollViewProps](https://reactnative.dev/docs/next/scrollview#props)
 | - | - | - |
 | title | string | - |
 | icon | React Element or render function with isActive param | - |
+| testID | string | - |
 
 ### PagerProps
 

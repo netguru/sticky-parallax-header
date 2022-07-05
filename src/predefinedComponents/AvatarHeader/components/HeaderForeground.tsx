@@ -30,7 +30,7 @@ export const Foreground: FC<ForegroundProps> = ({
   scrollValue,
   subtitle,
   subtitleStyle,
-  subtitleTestID = 'AvatarHeaderForegrounSubtitleTestID',
+  subtitleTestID = 'AvatarHeaderForegroundSubtitleTestID',
   title,
   titleStyle,
   titleTestID = 'AvatarHeaderForegroundTitleTestID',

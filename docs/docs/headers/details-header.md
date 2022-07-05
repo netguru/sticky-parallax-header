@@ -80,6 +80,7 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | contentIcon | image source - `ImageSourcePropType` | - |
 | contentIconNumber | number | - |
 | contentIconNumberStyle | style - `StyleProp<TextStyle>` | - |
+| contentIconNumberTestID | string | - |
 | leftTopIcon | render function or image source | - |
 | leftTopIconAccessibilityLabel | string | - |
 | leftTopIconOnPress | function - `() => void` | - |
@@ -104,8 +105,13 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | snapStartThreshold | number | - |
 | snapStopThreshold | number | - |
 | snapToEdge | boolean | true |
+| subtitle | string | - |
+| subtitleStyle | style - `StyleProp<TextStyle>` | - |
+| subtitleTestID | string | - |
 | tabsContainerBackgroundColor | color - `ColorValue` | - |
 | tag | string | - |
 | tagStyle | style - `StyleProp<TextStyle>` | - |
+| tagTestID | string | - |
 | title | string | - |
 | titleStyle | style - `StyleProp<TextStyle>` | - |
+| titleTestID | string | - |

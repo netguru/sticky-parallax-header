@@ -80,6 +80,7 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | tabsContainerStyle | style - `StyleProp<ViewStyle>` | - |
 | title | string | - |
 | titleStyle | style = `StyleProp<TextStyle>` | - |
+| titleTestID | string | - |
 
 ### Tab
 
