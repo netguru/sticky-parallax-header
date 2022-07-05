@@ -14,6 +14,7 @@ interface HeaderBarProps extends IconProps {
   headerTitleContainerAnimatedStyle: { opacity: number };
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
+  titleTestID?: string;
 }
 
 const HIT_SLOP = {
@@ -36,6 +37,7 @@ export const HeaderBar: FC<HeaderBarProps> = ({
   rightTopIconTestID,
   title,
   titleStyle,
+  titleTestID = 'DetailsHeaderBarTitleTestID',
 }) => {
   return (
     <SafeAreaView
@@ -51,7 +53,9 @@ export const HeaderBar: FC<HeaderBarProps> = ({
         <IconRenderer icon={leftTopIcon} />
       </Pressable>
       <Animated.View style={[styles.headerTitleContainer, headerTitleContainerAnimatedStyle]}>
-        <Text style={[styles.headerTitle, titleStyle]}>{title}</Text>
+        <Text style={[styles.headerTitle, titleStyle]} testID={titleTestID}>
+          {title}
+        </Text>
       </Animated.View>
       <Pressable
         accessibilityLabel={rightTopIconAccessibilityLabel}

@@ -31,6 +31,7 @@ interface HeaderProps extends IconProps {
   scrollValue: Animated.SharedValue<number>;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
+  titleTestID?: string;
 }
 
 export const HeaderBar: FC<HeaderProps> = ({
@@ -48,6 +49,7 @@ export const HeaderBar: FC<HeaderProps> = ({
   scrollValue,
   title,
   titleStyle,
+  titleTestID = 'AvatarHeaderBarTestID',
 }) => {
   const [beforeFadeImg, startFadeImg, finishFadeImg] = [
     scrollPosition(height, 30),
@@ -106,7 +108,8 @@ export const HeaderBar: FC<HeaderProps> = ({
         />
         <Animated.Text
           numberOfLines={1}
-          style={[styles.headerTitle, nameAnimatedStyle, titleStyle]}>
+          style={[styles.headerTitle, nameAnimatedStyle, titleStyle]}
+          testID={titleTestID}>
           {title}
         </Animated.Text>
       </View>

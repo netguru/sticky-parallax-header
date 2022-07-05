@@ -13,6 +13,7 @@ import { colors, screenStyles } from '../../constants';
 import { Foreground } from './Foreground';
 import { HeaderBar } from './HeaderBar';
 import { text } from './data';
+import { simsScreenTestIDs } from './testIDs';
 
 const PARALLAX_HEIGHT = 330;
 const HEADER_BAR_HEIGHT = 92;
@@ -57,7 +58,9 @@ const SimsScreen: VFC = () => {
           showsVerticalScrollIndicator={false}
           style={screenStyles.stretch}>
           <SafeAreaView edges={['left', 'right', 'bottom']} style={styles.content}>
-            <Text style={screenStyles.text}>{text}</Text>
+            <Text style={screenStyles.text} testID={simsScreenTestIDs.contentTestID}>
+              {text}
+            </Text>
           </SafeAreaView>
         </StickyHeaderScrollView>
       </View>

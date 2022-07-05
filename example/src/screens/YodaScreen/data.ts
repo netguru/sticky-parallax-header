@@ -1,3 +1,5 @@
+import { yodaScreenTestIDs } from './testIDs';
+
 const text = {
   biography: `The bounty hunter known as "the Mandalorian" was dispatched by "the Client" and Imperial Dr. Pershing to capture the Child alive, however the Client would allow the Mandalorian to return the Child dead for a lower price.
   The assassin droid IG-11 was also dispatched to terminate him. After working together to storm the encampment the infant was being held in, the Mandalorian and IG-11 found the Child. IG-11 then attempted to terminate the Child. The Mandalorian shot the droid before the he was able to assassinate the Child.
@@ -42,13 +44,19 @@ export const TABS = [
   {
     title: 'Biography',
     description: text.biography,
+    testID: yodaScreenTestIDs.contentBiography,
+    contentTestID: yodaScreenTestIDs.contentBiography,
   },
   {
     title: 'Powers and Abilities',
     description: text.powers,
+    testID: yodaScreenTestIDs.contentPowers,
+    contentTestID: yodaScreenTestIDs.contentPowers,
   },
   {
     title: 'Appearances',
     description: text.appearances,
+    testID: yodaScreenTestIDs.contentAppearances,
+    contentTestID: yodaScreenTestIDs.contentAppearances,
   },
 ];

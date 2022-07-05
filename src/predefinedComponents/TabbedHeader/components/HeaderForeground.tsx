@@ -15,6 +15,7 @@ interface ForegroundProps {
   scrollValue: Animated.SharedValue<number>;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
+  titleTestID?: string;
 }
 
 export const Foreground: FC<ForegroundProps> = ({
@@ -23,6 +24,7 @@ export const Foreground: FC<ForegroundProps> = ({
   scrollValue,
   title,
   titleStyle,
+  titleTestID = 'TabbedHeaderForegroundTitleTestID',
 }) => {
   const { responsiveWidth } = useResponsiveSize();
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
@@ -96,7 +98,9 @@ export const Foreground: FC<ForegroundProps> = ({
         </Animated.View>
       ) : null}
       <Animated.View style={[commonStyles.messageContainer, titleAnimatedStyle]}>
-        <Text style={messageStyle}>{title}</Text>
+        <Text style={messageStyle} testID={titleTestID}>
+          {title}
+        </Text>
       </Animated.View>
     </View>
   );

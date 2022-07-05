@@ -89,6 +89,7 @@ function useTabbedHeader<T extends ScrollComponent>(props: TabbedHeaderPagerProp
     tabsContainerBackgroundColor,
     title,
     titleStyle,
+    titleTestID,
   } = props;
 
   const renderHeader = useCallback(() => {
@@ -108,6 +109,7 @@ function useTabbedHeader<T extends ScrollComponent>(props: TabbedHeaderPagerProp
           foregroundImage={foregroundImage}
           title={title}
           titleStyle={titleStyle}
+          titleTestID={titleTestID}
         />
       </HeaderWrapper>
     );
@@ -123,6 +125,7 @@ function useTabbedHeader<T extends ScrollComponent>(props: TabbedHeaderPagerProp
     tabsContainerBackgroundColor,
     title,
     titleStyle,
+    titleTestID,
   ]);
 
   return {

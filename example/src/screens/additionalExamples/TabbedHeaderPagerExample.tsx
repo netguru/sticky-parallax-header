@@ -9,6 +9,8 @@ import { logo, photosPortraitMe } from '../../assets/images';
 import { QuizCard } from '../../components';
 import { colors, screenStyles } from '../../constants';
 
+import { tabbedHeaderTestIDs } from './testIDs';
+
 export const TabbedHeaderPagerExample: FC = () => {
   const isDarkTheme = useColorScheme() === 'dark';
 
@@ -25,7 +27,11 @@ export const TabbedHeaderPagerExample: FC = () => {
         logo={logo}
         title={"Mornin' Mark! \nReady for a quiz?"}
         titleStyle={screenStyles.text}
-        tabs={TABBED_SECTIONS.map((section) => ({ title: section.title }))}
+        titleTestID={tabbedHeaderTestIDs.title}
+        tabs={TABBED_SECTIONS.map((section) => ({
+          title: section.title,
+          testID: section.tabTestID,
+        }))}
         tabTextStyle={screenStyles.text}
         showsVerticalScrollIndicator={false}>
         <View style={styles.content}>

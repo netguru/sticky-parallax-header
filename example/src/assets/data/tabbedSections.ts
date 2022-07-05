@@ -1,5 +1,7 @@
 import type { SectionListData } from 'react-native';
 
+import { tabbedSectionsTestIDs } from './testIDs';
+
 export interface ItemType {
   id: string;
   imageUrl: string;
@@ -8,6 +10,7 @@ export interface ItemType {
 }
 
 export interface SectionType {
+  tabTestID: string;
   title: string;
 }
 
@@ -48,6 +51,7 @@ export const TABBED_SECTIONS: SectionListData<ItemType, SectionType>[] = [
       },
     ],
     key: 'Pizza',
+    tabTestID: tabbedSectionsTestIDs.pizza,
     title: 'Pizza',
   },
   {
@@ -90,6 +94,7 @@ export const TABBED_SECTIONS: SectionListData<ItemType, SectionType>[] = [
       },
     ],
     key: 'Burgers',
+    tabTestID: tabbedSectionsTestIDs.burgers,
     title: 'Burgers',
   },
   {
@@ -114,6 +119,7 @@ export const TABBED_SECTIONS: SectionListData<ItemType, SectionType>[] = [
       },
     ],
     key: 'Kebab',
+    tabTestID: tabbedSectionsTestIDs.kebab,
     title: 'Kebab',
   },
   {
@@ -162,6 +168,7 @@ export const TABBED_SECTIONS: SectionListData<ItemType, SectionType>[] = [
       },
     ],
     key: 'Chinese Food',
+    tabTestID: tabbedSectionsTestIDs.chineseFood,
     title: 'Chinese Food',
   },
   {
@@ -240,6 +247,7 @@ export const TABBED_SECTIONS: SectionListData<ItemType, SectionType>[] = [
       },
     ],
     key: 'Sushi',
+    tabTestID: tabbedSectionsTestIDs.sushi,
     title: 'Sushi',
   },
   {
@@ -288,6 +296,7 @@ export const TABBED_SECTIONS: SectionListData<ItemType, SectionType>[] = [
       },
     ],
     key: 'Pasta',
+    tabTestID: tabbedSectionsTestIDs.pasta,
     title: 'Pasta',
   },
 ];

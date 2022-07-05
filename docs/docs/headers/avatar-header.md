@@ -104,5 +104,7 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | tabsContainerBackgroundColor | color - `ColorValue` | - |
 | subtitle | string | - |
 | subtitleStyle | style - `StyleProp<TextStyle>` | - |
+| subtitleTestID | string | - |
 | title | string | - |
 | titleStyle | style - `StyleProp<TextStyle>` | - |
+| titleTestID | string | - |

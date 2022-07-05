@@ -9,6 +9,8 @@ import { IconMenu, iconCloseWhite } from '../../assets/icons';
 import { QuizCard } from '../../components';
 import { screenStyles } from '../../constants';
 
+import { avatarHeaderTestIDs } from './testIDs';
+
 export const AvatarHeaderFlatListExample: FC = () => {
   const navigation = useNavigation();
 
@@ -23,7 +25,9 @@ export const AvatarHeaderFlatListExample: FC = () => {
       <AvatarHeaderFlatList
         leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
+        leftTopIconTestID={avatarHeaderTestIDs.headerLeftTopIcon}
         rightTopIcon={IconMenu}
+        rightTopIconTestID={avatarHeaderTestIDs.headerRightTopIcon}
         contentContainerStyle={[
           styles.content,
           isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
@@ -33,8 +37,10 @@ export const AvatarHeaderFlatListExample: FC = () => {
         hasBorderRadius
         image={Brandon.image}
         subtitle={Brandon.about}
+        subtitleTestID={avatarHeaderTestIDs.subtitle}
         title={Brandon.author}
         titleStyle={screenStyles.text}
+        titleTestID={avatarHeaderTestIDs.title}
         data={Brandon.cards}
         keyExtractor={(item) => item.question}
         renderItem={({ item, index }) => (

@@ -4,11 +4,13 @@ import React from 'react';
 import { StatusBar, View } from 'react-native';
 import { DetailsHeaderScrollView } from 'react-native-sticky-parallax-header';
 
-import { Brandon } from '../assets/data/cards';
-import { CardsBlack, IconMenu, iconCloseWhite } from '../assets/icons';
-import { QuizCard } from '../components';
-import { screenStyles } from '../constants';
-import type { CardRouteProp, RootStackNavigationProp } from '../navigation/types';
+import { Brandon } from '../../assets/data/cards';
+import { CardsBlack, IconMenu, iconCloseWhite } from '../../assets/icons';
+import { QuizCard } from '../../components';
+import { screenStyles } from '../../constants';
+import type { CardRouteProp, RootStackNavigationProp } from '../../navigation/types';
+
+import { cardScreenTestIDs } from './testIDs';
 
 const CardScreen: VFC = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -24,15 +26,20 @@ const CardScreen: VFC = () => {
       <DetailsHeaderScrollView
         title={user.author}
         titleStyle={screenStyles.text}
+        titleTestID={cardScreenTestIDs.headerTitle}
         leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
+        leftTopIconTestID={cardScreenTestIDs.headerLeftTopIcon}
         rightTopIcon={IconMenu}
+        rightTopIconTestID={cardScreenTestIDs.headerRightTopIcon}
         tag={user.type}
+        tagTestID={cardScreenTestIDs.headerTag}
         containerStyle={screenStyles.stretchContainer}
         backgroundColor={user.color}
         image={user.image}
         contentIcon={CardsBlack}
-        contentIconNumber={10}>
+        contentIconNumber={10}
+        contentIconNumberTestID={cardScreenTestIDs.headerContentIconNumber}>
         <View style={screenStyles.content}>
           {user.cards.map((data, i, arr) => (
             <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />

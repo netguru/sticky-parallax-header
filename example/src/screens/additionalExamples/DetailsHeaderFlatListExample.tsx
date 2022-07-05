@@ -9,6 +9,8 @@ import { CardsBlack, IconMenu, iconCloseWhite } from '../../assets/icons';
 import { QuizCard } from '../../components';
 import { screenStyles } from '../../constants';
 
+import { detailsHeaderTestIDs } from './testIDs';
+
 export const DetailsHeaderFlatListExample: FC = () => {
   const navigation = useNavigation();
 
@@ -23,7 +25,9 @@ export const DetailsHeaderFlatListExample: FC = () => {
       <DetailsHeaderFlatList
         leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
+        leftTopIconTestID={detailsHeaderTestIDs.headerLeftTopIcon}
         rightTopIcon={IconMenu}
+        rightTopIconTestID={detailsHeaderTestIDs.headerRightTopIcon}
         contentContainerStyle={[
           styles.content,
           isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
@@ -31,12 +35,15 @@ export const DetailsHeaderFlatListExample: FC = () => {
         containerStyle={screenStyles.stretchContainer}
         contentIcon={CardsBlack}
         contentIconNumber={10}
+        contentIconNumberTestID={detailsHeaderTestIDs.contentIconNumber}
         backgroundColor={Brandon.color}
         hasBorderRadius
         image={Brandon.image}
         tag={Brandon.type}
+        tagTestID={detailsHeaderTestIDs.tag}
         title={Brandon.author}
         titleStyle={screenStyles.text}
+        titleTestID={detailsHeaderTestIDs.title}
         data={Brandon.cards}
         keyExtractor={(item) => item.question}
         renderItem={({ item, index }) => (

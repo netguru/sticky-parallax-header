@@ -8,6 +8,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { colors } from '../../constants';
 
+import { simsScreenTestIDs } from './testIDs';
+
 interface HeaderBarProps {
   scrollValue: Animated.SharedValue<number>;
 }
@@ -55,7 +57,8 @@ export const HeaderBar: VFC<HeaderBarProps> = ({ scrollValue }) => {
           styles.headerButtonContainer,
           headerButtonContainerAnimatedStyle,
           { top: insets.top || DEFAULT_TOP_INSET, left: insets.left },
-        ]}>
+        ]}
+        testID={simsScreenTestIDs.headerBarBackButtonTestID}>
         <Animated.View style={[styles.headerButton, headerButtonAnimatedStyle]}>
           <Image
             style={styles.headerImage}
@@ -72,7 +75,10 @@ export const HeaderBar: VFC<HeaderBarProps> = ({ scrollValue }) => {
       <View
         style={[styles.headerWrapper, { top: insets.top || DEFAULT_TOP_INSET, left: insets.left }]}>
         <Animated.View style={headerContainerAnimatedStyle}>
-          <TouchableOpacity style={styles.headerSearchContainer} onPress={goBack}>
+          <TouchableOpacity
+            onPress={goBack}
+            style={styles.headerSearchContainer}
+            testID={simsScreenTestIDs.headerBarSearchButtonTestID}>
             <Image
               style={styles.headerSearchArrow}
               resizeMode="contain"

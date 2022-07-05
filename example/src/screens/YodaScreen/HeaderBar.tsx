@@ -7,6 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors } from '../../constants';
 
+import { yodaScreenTestIDs } from './testIDs';
+
 interface HeaderBarProps {
   scrollValue: Animated.SharedValue<number>;
 }
@@ -24,7 +26,7 @@ export const HeaderBar: VFC<HeaderBarProps> = ({ scrollValue }) => {
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.headerContainer}>
       <View style={styles.headerWrapper}>
-        <TouchableOpacity onPress={goBack}>
+        <TouchableOpacity onPress={goBack} testID={yodaScreenTestIDs.headerBarBackButton}>
           <Image
             style={styles.headerImage}
             resizeMode="contain"
@@ -34,7 +36,9 @@ export const HeaderBar: VFC<HeaderBarProps> = ({ scrollValue }) => {
           />
         </TouchableOpacity>
         <Animated.View style={animatedStyle}>
-          <Text style={styles.headerText}>Baby Yoda</Text>
+          <Text style={styles.headerText} testID={yodaScreenTestIDs.headerBarText}>
+            Baby Yoda
+          </Text>
         </Animated.View>
       </View>
     </SafeAreaView>

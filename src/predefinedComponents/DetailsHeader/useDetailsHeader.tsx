@@ -26,13 +26,19 @@ export function useDetailsHeader<T extends ScrollComponent>(props: DetailsHeader
     contentIcon,
     contentIconNumber,
     contentIconNumberStyle,
+    contentIconNumberTestID,
     hasBorderRadius,
     image,
+    subtitle,
+    subtitleStyle,
+    subtitleTestID,
     tabsContainerBackgroundColor,
     tag,
     tagStyle,
+    tagTestID,
     title,
     titleStyle,
+    titleTestID,
   } = props;
 
   const headerTitleInputRange = [
@@ -63,11 +69,17 @@ export function useDetailsHeader<T extends ScrollComponent>(props: DetailsHeader
           contentIcon={contentIcon}
           contentIconNumber={contentIconNumber}
           contentIconNumberStyle={contentIconNumberStyle}
+          contentIconNumberTestID={contentIconNumberTestID}
           image={image}
+          subtitle={subtitle}
+          subtitleStyle={subtitleStyle}
+          subtitleTestID={subtitleTestID}
           tag={tag}
           tagStyle={tagStyle}
+          tagTestID={tagTestID}
           title={title}
           titleStyle={titleStyle}
+          titleTestID={titleTestID}
         />
       </HeaderWrapper>
     );
@@ -78,16 +90,22 @@ export function useDetailsHeader<T extends ScrollComponent>(props: DetailsHeader
     contentIcon,
     contentIconNumber,
     contentIconNumberStyle,
+    contentIconNumberTestID,
     hasBorderRadius,
     image,
     parallaxHeight,
     scrollHeight,
     scrollValue,
+    subtitle,
+    subtitleStyle,
+    subtitleTestID,
     tabsContainerBackgroundColor,
     tag,
     tagStyle,
+    tagTestID,
     title,
     titleStyle,
+    titleTestID,
   ]);
 
   return {

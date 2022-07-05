@@ -12,6 +12,8 @@ import { SectionFooter } from '../../components/primitiveComponents/SectionFoote
 import { SectionHeader } from '../../components/primitiveComponents/SectionHeader';
 import { screenStyles } from '../../constants';
 
+import { avatarHeaderTestIDs } from './testIDs';
+
 export const AvatarHeaderSectionListExample: FC = () => {
   const navigation = useNavigation();
 
@@ -38,7 +40,9 @@ export const AvatarHeaderSectionListExample: FC = () => {
       <AvatarHeaderSectionList
         leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
+        leftTopIconTestID={avatarHeaderTestIDs.headerLeftTopIcon}
         rightTopIcon={IconMenu}
+        rightTopIconTestID={avatarHeaderTestIDs.headerRightTopIcon}
         contentContainerStyle={[
           styles.content,
           isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
@@ -48,8 +52,10 @@ export const AvatarHeaderSectionListExample: FC = () => {
         hasBorderRadius
         image={Brandon.image}
         subtitle={Brandon.about}
+        subtitleTestID={avatarHeaderTestIDs.subtitle}
         title={Brandon.author}
         titleStyle={screenStyles.text}
+        titleTestID={avatarHeaderTestIDs.title}
         renderSectionHeader={() => {
           return <SectionHeader />;
         }}

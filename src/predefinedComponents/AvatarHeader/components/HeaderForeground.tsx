@@ -15,8 +15,10 @@ interface ForegroundProps {
   scrollValue: Animated.SharedValue<number>;
   subtitle?: string;
   subtitleStyle?: StyleProp<TextStyle>;
+  subtitleTestID?: string;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
+  titleTestID?: string;
 }
 
 const finishImgPosition = 31;
@@ -28,8 +30,10 @@ export const Foreground: FC<ForegroundProps> = ({
   scrollValue,
   subtitle,
   subtitleStyle,
+  subtitleTestID = 'AvatarHeaderForegroundSubtitleTestID',
   title,
   titleStyle,
+  titleTestID = 'AvatarHeaderForegroundTitleTestID',
 }) => {
   const { responsiveWidth } = useResponsiveSize();
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
@@ -130,12 +134,16 @@ export const Foreground: FC<ForegroundProps> = ({
               styles.foregroundTitle,
               foregroundTitleRTLStyle,
               titleStyle,
-            ]}>
+            ]}
+            testID={titleTestID}>
             {title}
           </Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, aboutAnimatedStyle]}>
-          <Text adjustsFontSizeToFit style={[styles.infoText, subtitleStyle ?? titleStyle]}>
+          <Text
+            adjustsFontSizeToFit
+            style={[styles.infoText, subtitleStyle ?? titleStyle]}
+            testID={subtitleTestID}>
             {subtitle}
           </Text>
         </Animated.View>
