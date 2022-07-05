@@ -9,6 +9,8 @@ import { IconMenu, iconCloseWhite } from '../../assets/icons';
 import { QuizCard } from '../../components';
 import { screenStyles } from '../../constants';
 
+import { avatarHeaderTestIDs } from './testIDs';
+
 export const AvatarHeaderScrollViewExample: FC = () => {
   const navigation = useNavigation();
 
@@ -23,7 +25,9 @@ export const AvatarHeaderScrollViewExample: FC = () => {
       <AvatarHeaderScrollView
         leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
+        leftTopIconTestID={avatarHeaderTestIDs.headerLeftTopIcon}
         rightTopIcon={IconMenu}
+        rightTopIconTestID={avatarHeaderTestIDs.headerRightTopIcon}
         contentContainerStyle={[
           isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
         ]}
@@ -32,8 +36,10 @@ export const AvatarHeaderScrollViewExample: FC = () => {
         hasBorderRadius
         image={Brandon.image}
         subtitle={Brandon.about}
+        subtitleTestID={avatarHeaderTestIDs.subtitle}
         title={Brandon.author}
         titleStyle={screenStyles.text}
+        titleTestID={avatarHeaderTestIDs.title}
         showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           {Brandon.cards.map((data, i, arr) => (

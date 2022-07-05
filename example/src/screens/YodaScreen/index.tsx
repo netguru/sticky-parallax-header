@@ -9,6 +9,7 @@ import { colors, screenStyles } from '../../constants';
 
 import { HeaderBar } from './HeaderBar';
 import { TABS } from './data';
+import { yodaScreenTestIDs } from './testIDs';
 
 const YodaScreen: VFC = () => {
   const { height: windowHeight } = useWindowDimensions();
@@ -28,6 +29,7 @@ const YodaScreen: VFC = () => {
         }}
         title="Baby Yoda"
         titleStyle={styles.titleStyle}
+        titleTestID={yodaScreenTestIDs.headerTitle}
         foregroundImage={{
           uri: 'https://cdn.iconscout.com/icon/free/png-256/starwars-6-569425.png',
         }}
@@ -44,7 +46,9 @@ const YodaScreen: VFC = () => {
         showsVerticalScrollIndicator={false}>
         {TABS.map((tab, i) => (
           <View key={i} style={[styles.contentContainer, { height: windowHeight }]}>
-            <Text style={[screenStyles.text, styles.contentText]}>{tab.description}</Text>
+            <Text style={[screenStyles.text, styles.contentText]} testID={tab.contentTestID}>
+              {tab.description}
+            </Text>
           </View>
         ))}
       </TabbedHeaderPager>

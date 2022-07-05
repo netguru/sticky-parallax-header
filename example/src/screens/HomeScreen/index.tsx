@@ -22,6 +22,7 @@ import type { RootStackNavigationProp } from '../../navigation/types';
 
 import { EXAMPLES, ExampleLink } from './ExampleLink';
 import { TABS, users } from './data';
+import { homeScreenTestIDs } from './testIDs';
 
 const wait = (timeout: number) =>
   new Promise((resolve) => {
@@ -115,9 +116,10 @@ const HomeScreen: VFC = () => {
         logo={logo}
         title={"Mornin' Mark! \nReady for a quiz?"}
         titleStyle={screenStyles.text}
+        titleTestID={homeScreenTestIDs.headerTitle}
         offscreenPageLimit={5}
         foregroundImage={photosPortraitMe}
-        tabs={TABS.map((tab) => ({ title: tab.title }))}
+        tabs={TABS.map((tab) => ({ title: tab.title, testID: tab.testID }))}
         tabTextStyle={screenStyles.text}
         // Refresh control is not implemented on web and even if provided, it will double padding top and bottom
         {...(Platform.OS !== 'web' && {
@@ -155,7 +157,9 @@ const HomeScreen: VFC = () => {
                   />
                 </View>
               </Modal>
-              <Text style={screenStyles.contentText}>{title}</Text>
+              <Text style={screenStyles.contentText} testID={tab.contentTestID}>
+                {title}
+              </Text>
               {users.map(
                 (user) =>
                   (title === 'Popular Quizes' || title === user.type) && (

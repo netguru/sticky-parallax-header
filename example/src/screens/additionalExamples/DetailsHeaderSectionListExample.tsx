@@ -12,6 +12,8 @@ import { SectionFooter } from '../../components/primitiveComponents/SectionFoote
 import { SectionHeader } from '../../components/primitiveComponents/SectionHeader';
 import { screenStyles } from '../../constants';
 
+import { detailsHeaderTestIDs } from './testIDs';
+
 export const DetailsHeaderSectionListExample: FC = () => {
   const navigation = useNavigation();
 
@@ -38,7 +40,9 @@ export const DetailsHeaderSectionListExample: FC = () => {
       <DetailsHeaderSectionList
         leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
+        leftTopIconTestID={detailsHeaderTestIDs.headerLeftTopIcon}
         rightTopIcon={IconMenu}
+        rightTopIconTestID={detailsHeaderTestIDs.headerRightTopIcon}
         contentContainerStyle={[
           styles.content,
           isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
@@ -46,12 +50,15 @@ export const DetailsHeaderSectionListExample: FC = () => {
         containerStyle={screenStyles.stretchContainer}
         contentIcon={CardsBlack}
         contentIconNumber={10}
+        contentIconNumberTestID={detailsHeaderTestIDs.contentIconNumber}
         backgroundColor={Brandon.color}
         hasBorderRadius
         image={Brandon.image}
         tag={Brandon.type}
+        tagTestID={detailsHeaderTestIDs.tag}
         title={Brandon.author}
         titleStyle={screenStyles.text}
+        titleTestID={detailsHeaderTestIDs.title}
         renderSectionHeader={() => {
           return <SectionHeader />;
         }}

@@ -6,6 +6,8 @@ import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-nati
 import { share } from '../../assets/icons';
 import { colors } from '../../constants';
 
+import { simsScreenTestIDs } from './testIDs';
+
 interface ForegroundProps {
   scrollValue: Animated.SharedValue<number>;
 }
@@ -32,7 +34,11 @@ export const Foreground: VFC<ForegroundProps> = ({ scrollValue }) => {
             style={styles.foregroundLogo}
           />
           <View style={styles.foregroundDetails}>
-            <Text style={styles.foregroundDetailsHeader}>The Sims™ Mobile</Text>
+            <Text
+              style={styles.foregroundDetailsHeader}
+              testID={simsScreenTestIDs.foregroundDetailsHeader}>
+              The Sims™ Mobile
+            </Text>
             <Text style={styles.foregroundDetailsDesc}>Play with life.</Text>
             <View style={styles.foregroundActionsContainer}>
               <TouchableOpacity style={styles.foregroundActionsButton}>
