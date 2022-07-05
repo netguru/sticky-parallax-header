@@ -105,18 +105,18 @@ workflows:
     - git-clone@6: {}
     - cache-pull@2: {}
     - script:
-      inputs:
-        - content: |-
-            #!/bin/bash
-            set -ex
-            selected_version=$(cat $EXAMPLE_WORKDIR/.ruby-version)
-            rbenv_versions=$(rbenv versions)
-            if [[ $rbenv_versions =~ $selected_version ]]
-            then
-              $(rbenv local $selected_version)
-            else
-              $(rbenv install $selected_version)
-            fi
+        inputs:
+          - content: |-
+              #!/bin/bash
+              set -ex
+              selected_version=$(cat $EXAMPLE_WORKDIR/.ruby-version)
+              rbenv_versions=$(rbenv versions)
+              if [[ $rbenv_versions =~ $selected_version ]]
+              then
+                $(rbenv local $selected_version)
+              else
+                $(rbenv install $selected_version)
+              fi
     - yarn@0:
         inputs:
         - workdir: "$WORKDIR"
@@ -133,10 +133,10 @@ workflows:
           - simulator_device: 'iPhone 13'
           - simulator_os_version: latest
     - script:
-      inputs:
-        - content: |-
-            #!/bin/bash
-            zip -r $BITRISE_DEPLOY_DIR/app.zip $BITRISE_APP_DIR_PATH
+        inputs:
+          - content: |-
+              #!/bin/bash
+              zip -r $BITRISE_DEPLOY_DIR/app.zip $BITRISE_APP_DIR_PATH
     - cache-push@2:
         inputs:
           - cache_paths: |-
