@@ -68,6 +68,7 @@ export interface TabbedHeaderSharedProps extends SharedPredefinedProps, Partial<
   logoStyle?: StyleProp<ImageStyle>;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
+  titleTestID?: string;
 }
 
 export interface TabbedHeaderPagerProps

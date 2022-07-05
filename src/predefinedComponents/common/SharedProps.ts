@@ -45,6 +45,7 @@ export interface SharedPredefinedProps {
 export interface Tab {
   title?: string;
   icon?: (ReactElement | null) | ((isActive: boolean) => ReactElement | null);
+  testID?: string;
 }
 
 export interface TabsConfig {

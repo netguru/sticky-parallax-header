@@ -149,6 +149,7 @@ export const Tabs: FC<TabsProps> = ({
     ({ item: tab, index: page }: ListRenderItemInfo<Tab>) => {
       const isTabActive = activeTab === page;
       const tabKey = tab.title || `tab ${page}`;
+      const tabTestID = tab.testID || `${tabKey}TestID`;
 
       return (
         <Pressable
@@ -164,7 +165,8 @@ export const Tabs: FC<TabsProps> = ({
             tabWrapperStyle,
             styles.noMargins,
             pressed && styles.pressed,
-          ]}>
+          ]}
+          testID={tabTestID}>
           <View
             style={[
               styles.tabContainer,

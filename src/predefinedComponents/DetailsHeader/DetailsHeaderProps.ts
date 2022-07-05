@@ -11,13 +11,19 @@ export interface DetailsHeaderSharedProps extends IconProps, SharedPredefinedPro
   contentIcon?: ImageSourcePropType;
   contentIconNumber?: number;
   contentIconNumberStyle?: StyleProp<TextStyle>;
+  contentIconNumberTestID?: string;
   hasBorderRadius?: boolean;
   image?: ImageSourcePropType;
   tabsContainerBackgroundColor?: ColorValue;
+  subtitle?: string;
+  subtitleStyle?: StyleProp<TextStyle>;
+  subtitleTestID?: string;
   tag?: string;
   tagStyle?: StyleProp<TextStyle>;
+  tagTestID?: string;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
+  titleTestID?: string;
 }
 
 export interface DetailsHeaderScrollViewProps

@@ -12,9 +12,11 @@ export interface AvatarHeaderSharedProps extends IconProps, SharedPredefinedProp
   image?: ImageSourcePropType;
   subtitle?: string;
   subtitleStyle?: StyleProp<TextStyle>;
+  subtitleTestID?: string;
   tabsContainerBackgroundColor?: ColorValue;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
+  titleTestID?: string;
 }
 
 export interface AvatarHeaderScrollViewProps

@@ -12,26 +12,38 @@ interface ForegroundProps {
   contentIcon?: ImageSourcePropType;
   contentIconNumber?: number;
   contentIconNumberStyle?: StyleProp<TextStyle>;
+  contentIconNumberTestID?: string;
   height: number;
   image?: ImageSourcePropType;
   scrollValue: Animated.SharedValue<number>;
+  subtitle?: string;
+  subtitleStyle?: StyleProp<TextStyle>;
+  subtitleTestID?: string;
   tag?: string;
   tagStyle?: StyleProp<TextStyle>;
+  tagTestID?: string;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
+  titleTestID?: string;
 }
 
 export const Foreground: FC<ForegroundProps> = ({
   contentIcon,
   contentIconNumber,
   contentIconNumberStyle,
+  contentIconNumberTestID = 'DetailsHeaderForegroundContentIconNumberTestID',
   height,
   image,
   scrollValue,
+  subtitle,
+  subtitleStyle,
+  subtitleTestID = 'DetailsHeaderForegroundSubtitleTestID',
   tag,
   tagStyle,
+  tagTestID = 'DetailsHeaderForegroundTagTestID',
   title,
   titleStyle,
+  titleTestID = 'DetailsHeaderForegroundTitleTestID',
 }) => {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
 
@@ -82,10 +94,12 @@ export const Foreground: FC<ForegroundProps> = ({
       }>
       <View>
         <Animated.View style={[styles.foregroundTitle, labelAnimatedStyle]}>
-          <Text style={[styles.foregroundText, tagStyle ?? titleStyle]}>{tag}</Text>
+          <Text style={[styles.foregroundText, tagStyle ?? titleStyle]} testID={tagTestID}>
+            {tag}
+          </Text>
         </Animated.View>
         <Animated.View style={[commonStyles.messageContainer, titleAnimatedStyle]}>
-          <Text numberOfLines={3} style={[commonStyles.message, titleStyle]}>
+          <Text numberOfLines={3} style={[commonStyles.message, titleStyle]} testID={titleTestID}>
             {title}
           </Text>
         </Animated.View>
@@ -93,14 +107,19 @@ export const Foreground: FC<ForegroundProps> = ({
       <Animated.View style={[styles.infoContainer, authorAnimatedStyle]}>
         <View style={styles.iconContainer}>
           {contentIcon && <Image source={contentIcon} style={styles.icon} />}
-          <Text style={[styles.number, numberRTLStyle, contentIconNumberStyle ?? titleStyle]}>
+          <Text
+            style={[styles.number, numberRTLStyle, contentIconNumberStyle ?? titleStyle]}
+            testID={contentIconNumberTestID}>
             {contentIconNumber}
           </Text>
         </View>
         <View style={styles.footerContainer}>
           {image && <Image source={image} style={styles.authorPhoto} resizeMode="contain" />}
-          <Text numberOfLines={1} style={[styles.authorName, authorNameRTLStyle, titleStyle]}>
-            {title}
+          <Text
+            numberOfLines={1}
+            style={[styles.authorName, authorNameRTLStyle, subtitleStyle ?? titleStyle]}
+            testID={subtitleTestID}>
+            {subtitle ?? title}
           </Text>
         </View>
       </Animated.View>
