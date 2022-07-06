@@ -11,19 +11,17 @@
   <image src="https://img.shields.io/npm/dt/react-native-sticky-parallax-header"/>
 </div>
 <div align="center">
-    <br/><em>Brought with</em> &nbsp;❤️ <em>by</em> &nbsp; <a href="https://www.netguru.com">
-        <img align="center" alt="Netguru logo" src='./assets/readme_netguru_logo.png' width='30'/>
-      </a>
+  <br/><em>Brought with</em> &nbsp;❤️ <em>by</em> &nbsp; <a href="https://www.netguru.com"><img align="center" alt="Netguru logo" src='./assets/readme_netguru_logo.png' width='30'/></a>
 </div>
 
 # Introduction
 
 <p align="center">
-  `react-native-sticky-parallax-header` is a simple React Native library, enabling to create a fully custom header layout for your iOS, Android and web apps.
+  react-native-sticky-parallax-header is a simple React Native library, enabling to create a fully custom header layout for your iOS, Android and web apps.
 </p>
 
 <div align="center">
-  <a href="#Docs">Documentation</a> &nbsp;|&nbsp; <a href="#Preview">Preview</a> &nbsp;|&nbsp; <a href="#Installation">Installation</a> &nbsp;|&nbsp; <a href="#Contributing">Contributing</a> &nbsp;|&nbsp; <a href="#Contributors">Contributors</a>
+  <a href="#Docs">Documentation</a> &nbsp;|&nbsp; <a href="#Preview">Preview</a> &nbsp;|&nbsp; <a href="#Installation">Installation</a> &nbsp;|&nbsp; <a href="#Contributing">Contributing</a> &nbsp;
 </div>
 
 ## Documentation <a name="Docs"></a>
@@ -62,14 +60,12 @@ export default TestScreen
 
 ### Installation & requirements
 
-:::info
-Library supports react-native version 0.64+
-:::
+:information_source: Library supports react-native version 0.64+
 
 #### Install latest library version
 
 ```sh
-$ yarn add react-native-sticky-parallax-header
+$ yarn add react-native-sticky-parallax-header@rc
 ```
 
 #### Install library's dependencies
@@ -78,47 +74,13 @@ $ yarn add react-native-sticky-parallax-header
 yarn add react-native-reanimated react-native-safe-area-context react-freeze
 ```
 
-:::info
-If you already use `react-native-screens` version 3.9.0+, `react-freeze` is already included.
-:::
+:information_source: If you already use `react-native-screens` version 3.9.0+, `react-freeze` is already included.
 
 
 <h1 id="Contributing">Contributing</h1>
 
-[Contributing guidelines](readme_pages/CONTRIBUTING.md)
-
-<h1 id="Contributors">Contributors</h1>
-
-<div>
-
-<img alt="Radoslaw" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_radoslaw@3x.png' width='60'/>
-
-<img alt="Krzysztof" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_krzysztof@3x.png' width='60'/>
-
-<img alt="Anna" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_anna@3x.png' width='60'/>
-
-<img alt="Damian" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_damian@3x.png' width='60'/>
-
-<a href="https://github.com/IdaszakDaniel">
-<img alt="Daniel" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_daniel@3x.png' width='60'/>
-</a>
-
-<img alt="Maria" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_maria@3x.png' width='60'/>
-
-<img alt="Mateusz" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_mateusz@3x.png' width='60'/>
-
-<img alt="Natalia Muryn" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_natalia@3x.png' width='60'/>
-
-<a href="https://github.com/Karniej">
-<img alt="Pawel" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_pawel@3x.png' width='60'/>
-</a>
-
-<a href="https://www.github.com/kolkol69">
-<img alt="Maks Kolodiy" style="border-radius: 30px; margin-right: 5px" src='./assets/readme_maks@3x.png' width='60'/>
-</a>
-
-</div>
+[Contributing guidelines](CONTRIBUTING.md)
 
 # License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This library is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
