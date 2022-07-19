@@ -252,13 +252,8 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     alignItems: 'center',
-    ...Platform.select({
-      web: {
-        flex: 1,
-        justifyContent: 'space-between',
-      },
-      default: {},
-    }),
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
   inversionStyle: {
     transform: [{ scaleX: -1 }],

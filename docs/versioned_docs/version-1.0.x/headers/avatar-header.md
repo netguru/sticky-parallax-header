@@ -95,8 +95,11 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | snapStartThreshold | number | - |
 | snapStopThreshold | number | - |
 | snapToEdge | boolean | true |
-| tabsContainerBackgroundColor | color - `ColorValue` | - |
+| stickyTabs | boolean | true |
 | subtitle | string | - |
 | subtitleStyle | style - `StyleProp<TextStyle>` | - |
+| subtitleTestID | string | - |
+| tabsContainerBackgroundColor | color - `ColorValue` | - |
 | title | string | - |
 | titleStyle | style - `StyleProp<TextStyle>` | - |
+| titleTestID | string | - |

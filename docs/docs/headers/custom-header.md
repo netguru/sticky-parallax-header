@@ -85,3 +85,4 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | onTabsLayout | function - `(e: LayoutChangeEvent) => void` | - |
 | renderHeader | render function | - |
 | renderTabs | render function | - |
+| stickyTabs | boolean | true |

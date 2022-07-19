@@ -117,7 +117,6 @@ const HomeScreen: VFC = () => {
         title={"Mornin' Mark! \nReady for a quiz?"}
         titleStyle={screenStyles.text}
         titleTestID={homeScreenTestIDs.headerTitle}
-        offscreenPageLimit={5}
         foregroundImage={photosPortraitMe}
         tabs={TABS.map((tab) => ({ title: tab.title, testID: tab.testID }))}
         tabTextStyle={screenStyles.text}

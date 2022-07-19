@@ -23,7 +23,6 @@ export const TabbedHeaderPager = forwardRef<ScrollView, TabbedHeaderPagerProps>(
     logoResizeMode,
     logoStyle,
     nestedScrollEnabled = true,
-    offscreenPageLimit,
     onChangeTab,
     overScrollMode = 'never',
     pagerProps,
@@ -81,7 +80,6 @@ export const TabbedHeaderPager = forwardRef<ScrollView, TabbedHeaderPagerProps>(
             {...pagerProps}
             initialPage={initialPage}
             minScrollHeight={innerScrollHeight}
-            offscreenPageLimit={offscreenPageLimit}
             onChangeTab={(prevPage, newPage) => {
               setCurrentPage(newPage);
               onChangeTab?.(prevPage, newPage);

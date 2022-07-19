@@ -26,7 +26,6 @@ export interface PagerMethods {
 export interface InternalPagerProps {
   initialPage?: number;
   minScrollHeight: number;
-  offscreenPageLimit?: number;
   onChangeTab?: (previousPage: number, newPage: number) => void;
   page: number;
   pageContainerStyle?: StyleProp<ViewStyle>;
@@ -78,13 +77,6 @@ export interface TabbedHeaderPagerProps
   extends TabbedHeaderSharedProps,
     StickyHeaderScrollViewProps {
   initialPage?: number;
-  /**
-   * Set the number of pages that should be retained to either side of the currently visible page(s).
-   * Pages beyond this limit will be recreated when needed.
-   * Defaults to 1.
-   * The given value must be larger than 0.
-   */
-  offscreenPageLimit?: number;
   onChangeTab?: (prevPage: number, newPage: number) => void;
   pageContainerStyle?: StyleProp<ViewStyle>;
   pagerProps?: PagerProps & RefAttributes<PagerMethods>;
