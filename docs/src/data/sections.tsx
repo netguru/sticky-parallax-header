@@ -16,8 +16,7 @@ export const SECTIONS_DATA = [
   {
     id: 3,
     title: 'Modern solution',
-    description:
-      'Powered by react-native-reanimated, react-native-safe-area-context & react-freeze',
+    description: 'Powered by react-native-reanimated, react-native-safe-area-context',
     imageName: 'elements',
   },
 ];
