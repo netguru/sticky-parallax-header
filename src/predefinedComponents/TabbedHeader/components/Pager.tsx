@@ -250,7 +250,7 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
     useImperativeHandle(ref, () => ({ goToPage }));
 
     const renderItem = useCallback(
-      ({ item, index }: ListRenderItemInfo<Page>) => {
+      ({ item }: ListRenderItemInfo<Page>) => {
         return (
           <View
             style={[
@@ -258,8 +258,6 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
               // used to calculate current height of scroll
               {
                 width: containerWidth,
-                minHeight: minScrollHeight,
-                maxHeight: index === currentPage ? undefined : minScrollHeight,
               },
               pageContainerStyle,
             ]}>
@@ -267,7 +265,7 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
           </View>
         );
       },
-      [containerWidth, currentPage, isInverted, minScrollHeight, pageContainerStyle]
+      [containerWidth, isInverted, pageContainerStyle]
     );
 
     return (
