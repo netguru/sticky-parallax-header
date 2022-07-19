@@ -1,11 +1,11 @@
-import type { RefAttributes, RefObject } from 'react';
+import type { ReactChild, ReactFragment, ReactPortal, RefAttributes, RefObject } from 'react';
 import type {
+  FlatListProps,
   ImageResizeMode,
   ImageSourcePropType,
   ImageStyle,
   NativeScrollEvent,
   ScrollView,
-  ScrollViewProps,
   StyleProp,
   TextStyle,
   ViewStyle,
@@ -38,14 +38,17 @@ export interface InternalPagerProps {
 }
 export interface PagerProps
   extends Omit<
-    ScrollViewProps,
+    FlatListProps<ReactChild | ReactFragment | ReactPortal>,
+    | 'data'
     | 'horizontal'
-    | 'pagingEnabled'
+    | 'keyExtractor'
     | 'onMomentumScrollBegin'
     | 'onMomentumScrollEnd'
     | 'onScroll'
     | 'onScrollBeginDrag'
     | 'onScrollEndDrag'
+    | 'pagingEnabled'
+    | 'renderItem'
   > {
   /** worklet function */
   onMomentumScrollBegin?: (e: NativeScrollEvent) => void;
