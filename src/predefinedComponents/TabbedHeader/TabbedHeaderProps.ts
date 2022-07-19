@@ -24,6 +24,7 @@ export interface PagerMethods {
 
 /** TODO: do not export it when exporting module's components and types */
 export interface InternalPagerProps {
+  disableScrollToPosition?: boolean;
   initialPage?: number;
   minScrollHeight: number;
   onChangeTab?: (previousPage: number, newPage: number) => void;
@@ -76,6 +77,7 @@ export interface TabbedHeaderSharedProps extends SharedPredefinedProps, Partial<
 export interface TabbedHeaderPagerProps
   extends TabbedHeaderSharedProps,
     StickyHeaderScrollViewProps {
+  disableScrollToPosition?: boolean;
   initialPage?: number;
   onChangeTab?: (prevPage: number, newPage: number) => void;
   pageContainerStyle?: StyleProp<ViewStyle>;

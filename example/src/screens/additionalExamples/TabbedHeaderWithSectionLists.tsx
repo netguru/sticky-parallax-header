@@ -70,6 +70,7 @@ export const TabbedHeaderWithSectionListsExample: FC = () => {
         backgroundColor={colors.primaryGreen}
         containerStyle={screenStyles.stretchContainer}
         foregroundImage={photosPortraitMe}
+        disableScrollToPosition={true}
         rememberTabScrollPosition={false}
         logo={logo}
         title={"Mornin' Mark! \nReady for a quiz?"}

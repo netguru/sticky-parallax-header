@@ -16,6 +16,7 @@ export const TabbedHeaderPager = forwardRef<ScrollView, TabbedHeaderPagerProps>(
     backgroundColor,
     children,
     contentContainerStyle,
+    disableScrollToPosition,
     decelerationRate = 'fast',
     initialPage,
     logo,
@@ -78,6 +79,7 @@ export const TabbedHeaderPager = forwardRef<ScrollView, TabbedHeaderPagerProps>(
           scrollEventThrottle={scrollEventThrottle}>
           <Pager
             {...pagerProps}
+            disableScrollToPosition={disableScrollToPosition}
             initialPage={initialPage}
             minScrollHeight={innerScrollHeight}
             onChangeTab={(prevPage, newPage) => {

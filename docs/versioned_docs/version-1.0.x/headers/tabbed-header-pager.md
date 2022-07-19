@@ -37,6 +37,7 @@ Inherits [ScrollViewProps](https://reactnative.dev/docs/next/scrollview#props)
 | backgroundColor | color - `ColorValue` | - |
 | backgroundImage | image source - `ImageSourcePropType` | - |
 | containerStyle | style - `StyleProp<ViewStyle>` | - |
+| disableScrollToPosition | boolean | - |
 | foregroundImage | image source - `ImageSourcePropType` | - |
 | hasBorderRadius | boolean | - |
 | headerHeight | number | 100 |

@@ -44,6 +44,7 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
       contentContainerStyle,
       contentOffset: _contentOffset,
       directionalLockEnabled = true,
+      disableScrollToPosition,
       initialPage = 0,
       keyboardDismissMode = 'on-drag',
       minScrollHeight,
@@ -169,7 +170,7 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
     }
 
     function handleScrollToTabPosition(prevPage: number, newPage: number) {
-      if (!data.length || scrollValue.value === 0) {
+      if (!data.length || scrollValue.value === 0 || disableScrollToPosition) {
         return;
       }
 
