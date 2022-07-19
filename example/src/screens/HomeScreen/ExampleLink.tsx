@@ -86,6 +86,11 @@ export const EXAMPLES: Array<ExampleLinkProps> = [
     label: 'Tabbed Header with SectionList tabs',
     testID: homeScreenTestIDs.tabbedHeaderWithSectionLists,
   },
+  {
+    routeName: ROUTES.FLASHLIST,
+    label: 'FlashList example',
+    testID: homeScreenTestIDs.flashList,
+  },
 ];
 
 export const ExampleLink: VFC<ExampleLinkProps> = ({ routeName, label, testID }) => {

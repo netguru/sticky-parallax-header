@@ -311,6 +311,8 @@ PODS:
     - React-perflogger (= 0.68.2)
   - RNCMaskedView (0.2.6):
     - React-Core
+  - RNFlashList (1.2.0):
+    - React-Core
   - RNGestureHandler (2.2.1):
     - React-Core
   - RNReanimated (2.8.0):
@@ -389,6 +391,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
+  - "RNFlashList (from `../node_modules/@shopify/flash-list`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -481,6 +484,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCMaskedView:
     :path: "../node_modules/@react-native-masked-view/masked-view"
+  RNFlashList:
+    :path: "../node_modules/@shopify/flash-list"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -533,6 +538,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: b960b687d2dfef0d3761fbb187e01812ebab8b23
   ReactCommon: 095366164a276d91ea704ce53cb03825c487a3f2
   RNCMaskedView: c298b644a10c0c142055b3ae24d83879ecb13ccd
+  RNFlashList: adcc3a39aa72012852681bc439ccb4108c8c4448
   RNGestureHandler: 1dc1ea9d4b64f999042afafbaccf5b143f0b2fa2
   RNReanimated: 64573e25e078ae6bec03b891586d50b9ec284393
   RNScreens: 4d83613b50b74ed277026375dc0810893b0c347f

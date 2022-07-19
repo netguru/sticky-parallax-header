@@ -15,4 +15,5 @@ export const ROUTES = {
   DETAILS_HEADER_SCROLLVIEW: 'DetailsHeaderScrollView' as const,
   DETAILS_HEADER_SECTIONLIST: 'DetailsHeaderSectionList' as const,
   TABBED_HEADER_WITH_SECTION_LISTS: 'TabbedHeaderWithSectionLists' as const,
+  FLASHLIST: 'FlashList' as const,
 };
