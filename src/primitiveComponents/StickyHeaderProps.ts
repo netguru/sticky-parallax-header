@@ -28,6 +28,7 @@ export interface StickyHeaderSharedProps {
   onTabsLayout?: (e: LayoutChangeEvent) => void;
   renderHeader?: () => ReactElement | null;
   renderTabs?: () => ReactElement | null;
+  stickyTabs?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 

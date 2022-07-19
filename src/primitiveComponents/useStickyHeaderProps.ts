@@ -30,6 +30,7 @@ export function useStickyHeaderProps(
     onScrollBeginDrag,
     onScrollEndDrag,
     onTabsLayout,
+    stickyTabs = true,
     style,
   } = props;
 
@@ -78,11 +79,11 @@ export function useStickyHeaderProps(
     return 0;
   }, [contentContainerStyle]);
 
-  const listMarginTop = useMemo(() => {
-    const marginTop = StyleSheet.flatten(style)?.marginTop;
+  const listPaddingTop = useMemo(() => {
+    const paddingTop = StyleSheet.flatten(style)?.paddingTop;
 
-    if (typeof marginTop === 'number') {
-      return marginTop;
+    if (typeof paddingTop === 'number') {
+      return paddingTop;
     }
 
     // We do not support string values
@@ -97,7 +98,7 @@ export function useStickyHeaderProps(
             scrollValue.value,
             [0, headerHeight],
             [0, -headerHeight],
-            Extrapolate.CLAMP
+            stickyTabs ? Extrapolate.CLAMP : Extrapolate.EXTEND
           ),
         },
       ],
@@ -108,7 +109,7 @@ export function useStickyHeaderProps(
     contentContainerPaddingTop,
     headerAnimatedStyle,
     headerHeight,
-    listMarginTop,
+    listPaddingTop,
     onHeaderLayoutInternal,
     onTabsLayoutInternal,
     scrollHandler,

@@ -45,7 +45,7 @@ export function withStickyHeader<T extends ComponentType<any>>(component: T) {
       contentContainerPaddingTop,
       headerAnimatedStyle,
       headerHeight,
-      listMarginTop,
+      listPaddingTop,
       onHeaderLayoutInternal,
       onTabsLayoutInternal,
       scrollHandler,
@@ -79,6 +79,7 @@ export function withStickyHeader<T extends ComponentType<any>>(component: T) {
           contentContainerStyle={[
             contentContainerStyle,
             { paddingTop: headerHeight + contentContainerPaddingTop },
+            { paddingBottom: tabsHeight },
           ]}
           onScroll={scrollHandler}
           /**
@@ -93,7 +94,7 @@ export function withStickyHeader<T extends ComponentType<any>>(component: T) {
           overScrollMode={overScrollMode}
           progressViewOffset={headerHeight}
           scrollEventThrottle={scrollEventThrottle}
-          style={[style, { marginTop: tabsHeight + listMarginTop }]}
+          style={[style, { paddingTop: tabsHeight + listPaddingTop }]}
         />
       </View>
     );

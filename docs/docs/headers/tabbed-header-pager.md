@@ -39,6 +39,7 @@ Inherits [ScrollViewProps](https://reactnative.dev/docs/next/scrollview#props)
 | backgroundColor | color - `ColorValue` | - |
 | backgroundImage | image source - `ImageSourcePropType` | - |
 | containerStyle | style - `StyleProp<ViewStyle>` | - |
+| disableScrollToPosition | boolean | - |
 | foregroundImage | image source - `ImageSourcePropType` | - |
 | hasBorderRadius | boolean | - |
 | headerHeight | number | 100 |
@@ -47,7 +48,6 @@ Inherits [ScrollViewProps](https://reactnative.dev/docs/next/scrollview#props)
 | logoContainerStyle | style - `StyleProp<ViewStyle>` | - |
 | logoResizeMode | image resize mode - `ImageResizeMode` | - |
 | logoStyle | style - `StyleProp<ImageStyle>` | - |
-| offscreenPageLimit | number | 1 |
 | onChangeTab | function - `(prevPage: number, newPage: number) => void` | - |
 | onHeaderLayout | function - `(e: LayoutChangeEvent) => void` | - |
 | onMomentumScrollBegin | worklet function - `(e: NativeScrollEvent) => void` | - |
@@ -65,6 +65,7 @@ Inherits [ScrollViewProps](https://reactnative.dev/docs/next/scrollview#props)
 | snapStartThreshold | number | - |
 | snapStopThreshold | number | - |
 | snapToEdge | boolean | true |
+| stickyTabs | boolean | true |
 | tabTextActiveStyle | style - `StyleProp<TextStyle>` | - |
 | tabTextContainerStyle | style - `StyleProp<ViewStyle>` | - |
 | tabTextContainerActiveStyle | style - `StyleProp<ViewStyle>` | - |

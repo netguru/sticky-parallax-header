@@ -16,6 +16,7 @@ import {
   TabbedHeaderListExample,
   TabbedHeaderPagerExample,
 } from '../screens/additionalExamples';
+import { TabbedHeaderWithSectionListsExample } from '../screens/additionalExamples/TabbedHeaderWithSectionLists';
 
 import { ROUTES } from './routes';
 import type { RootStackParamList } from './types';
@@ -60,6 +61,10 @@ const AppNavigator: React.FC = () => (
       <Stack.Screen
         name={ROUTES.DETAILS_HEADER_SECTIONLIST}
         component={DetailsHeaderSectionListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.TABBED_HEADER_WITH_SECTION_LISTS}
+        component={TabbedHeaderWithSectionListsExample}
       />
     </Stack.Navigator>
   </NavigationContainer>

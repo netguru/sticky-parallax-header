@@ -81,6 +81,11 @@ export const EXAMPLES: Array<ExampleLinkProps> = [
     label: 'Card Screen (SectionList)',
     testID: homeScreenTestIDs.detailsHeaderSectionListLink,
   },
+  {
+    routeName: ROUTES.TABBED_HEADER_WITH_SECTION_LISTS,
+    label: 'Tabbed Header with SectionList tabs',
+    testID: homeScreenTestIDs.tabbedHeaderWithSectionLists,
+  },
 ];
 
 export const ExampleLink: VFC<ExampleLinkProps> = ({ routeName, label, testID }) => {

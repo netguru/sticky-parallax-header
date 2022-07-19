@@ -66,6 +66,7 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | snapStartThreshold | number | - |
 | snapStopThreshold | number | - |
 | snapToEdge | boolean | true |
+| stickyTabs | boolean | true |
 | tabTextActiveStyle | style - `StyleProp<TextStyle>` | - |
 | tabTextContainerStyle | style - `StyleProp<ViewStyle>` | - |
 | tabTextContainerActiveStyle | style - `StyleProp<ViewStyle>` | - |
@@ -78,6 +79,7 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | tabsContainerStyle | style - `StyleProp<ViewStyle>` | - |
 | title | string | - |
 | titleStyle | style = `StyleProp<TextStyle>` | - |
+| titleTestID | string | - |
 
 ### Tab
 
