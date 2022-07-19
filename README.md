@@ -71,10 +71,8 @@ $ yarn add react-native-sticky-parallax-header@rc
 #### Install library's dependencies
 
 ```sh
-yarn add react-native-reanimated react-native-safe-area-context react-freeze
+yarn add react-native-reanimated react-native-safe-area-context
 ```
-
-:information_source: If you already use `react-native-screens` version 3.9.0+, `react-freeze` is already included.
 
 
 <h1 id="Contributing">Contributing</h1>

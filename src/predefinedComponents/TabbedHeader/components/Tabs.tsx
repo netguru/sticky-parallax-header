@@ -76,16 +76,18 @@ export const Tabs: FC<TabsProps> = ({
     (page: number) => {
       if (tabs.length > 3) {
         if (page === 0) {
-          adjustNext(0);
+          horizontalFlatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+          currentPositionX.current = 0;
         } else if (page !== tabs.length - 1) {
           adjustPrevious(page - 1);
           adjustNext(page + 1);
         } else {
-          adjustNext(tabs.length - 1);
+          horizontalFlatListRef.current?.scrollToEnd?.({ animated: true });
+          currentPositionX.current = width * 0.3 * tabs.length - width;
         }
       }
     },
-    [adjustNext, adjustPrevious, tabs.length]
+    [adjustNext, adjustPrevious, tabs.length, width]
   );
 
   const scrollToTabRef = useRef(scrollToTab);

@@ -1,4 +1,4 @@
-import type { ReactNode, RefObject } from 'react';
+import type { RefObject } from 'react';
 import React, {
   Children,
   forwardRef,
@@ -9,8 +9,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import type { LayoutChangeEvent, ScrollView } from 'react-native';
-import { Dimensions, I18nManager, Platform, StyleSheet, View } from 'react-native';
+import type { FlatListProps, LayoutChangeEvent, ListRenderItemInfo } from 'react-native';
+import { Dimensions, FlatList, I18nManager, Platform, StyleSheet, View } from 'react-native';
 import Animated, {
   cancelAnimation,
   runOnJS,
@@ -24,16 +24,17 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { commonStyles } from '../../../constants';
-import { DelayedFreeze } from '../../common/components/DelayedFreeze';
 import { debounce } from '../../common/utils/debounce';
-import { isInRange } from '../../common/utils/isInRange';
 import type { InternalPagerProps, PagerMethods, PagerProps } from '../TabbedHeaderProps';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const NOOP = () => {};
 
-const DEFAULT_OFFSCREEN_PAGE_LIMIT = 1;
 const SCROLL_TO_PAGE_OFFSET_TIMEOUT = 250;
+
+type Page = React.ReactChild | React.ReactFragment | React.ReactPortal;
+
+const AnimatedFlatList = Animated.createAnimatedComponent<FlatListProps<Page>>(FlatList);
 
 export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
   (
@@ -46,7 +47,6 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
       initialPage = 0,
       keyboardDismissMode = 'on-drag',
       minScrollHeight,
-      offscreenPageLimit = DEFAULT_OFFSCREEN_PAGE_LIMIT,
       onChangeTab,
       onMomentumScrollBegin,
       onMomentumScrollEnd,
@@ -71,7 +71,7 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
     const containerWidthRef = useRef(containerWidth);
     const [currentPage, setCurrentPage] = useState(initialPage);
     const currentPageRef = useRef(currentPage);
-    const horizontalScrollViewRef = useAnimatedRef<ScrollView>();
+    const horizontalFlatListRef = useAnimatedRef<FlatList>();
     const horizontalScrollValue = useSharedValue(initialPage * Dimensions.get('window').width);
 
     const scrollToTabPositionTimeoutValue = useSharedValue(1);
@@ -86,12 +86,6 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
 
     const isInverted = Platform.OS === 'android' ? I18nManager.isRTL : undefined;
 
-    const offscreenPageLimitValidated = useMemo(() => {
-      return offscreenPageLimit >= DEFAULT_OFFSCREEN_PAGE_LIMIT
-        ? offscreenPageLimit
-        : DEFAULT_OFFSCREEN_PAGE_LIMIT;
-    }, [offscreenPageLimit]);
-
     useEffect(() => {
       /**
        * Scroll to make first rendered tab visible (if not used, sometimes when Pager is first rendered, it has blank first tab)
@@ -99,14 +93,14 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
       function scrollOnePxAndBack() {
         'worklet';
         if (Platform.OS === 'web') {
-          horizontalScrollViewRef.current?.scrollTo({ x: 0, y: 1, animated: true });
-          horizontalScrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+          horizontalFlatListRef.current?.scrollToOffset({ offset: 1, animated: true });
+          horizontalFlatListRef.current?.scrollToOffset({ offset: 0, animated: true });
 
           return;
         }
 
-        scrollTo(horizontalScrollViewRef, 0, 1, true);
-        scrollTo(horizontalScrollViewRef, 0, 0, true);
+        scrollTo(horizontalFlatListRef, 0, 1, true);
+        scrollTo(horizontalFlatListRef, 0, 0, true);
       }
 
       runOnUI(scrollOnePxAndBack)();
@@ -144,12 +138,12 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
     function scrollToPage(offset: number) {
       'worklet';
       if (Platform.OS === 'web') {
-        horizontalScrollViewRef.current?.scrollTo({ x: offset, y: 0, animated: true });
+        horizontalFlatListRef.current?.scrollToOffset({ offset, animated: true });
 
         return;
       }
 
-      scrollTo(horizontalScrollViewRef, offset, 0, true);
+      scrollTo(horizontalFlatListRef, offset, 0, true);
     }
 
     function scrollToTabPosition(position: number) {
@@ -256,48 +250,28 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
     useImperativeHandle(ref, () => ({ goToPage }));
 
     const renderItem = useCallback(
-      (child: ReactNode, idx: number) => {
+      ({ item }: ListRenderItemInfo<Page>) => {
         return (
-          <DelayedFreeze
-            freeze={
-              !isInRange(
-                currentPage,
-                idx - offscreenPageLimitValidated,
-                idx + offscreenPageLimitValidated
-              )
-            }
-            key={idx}
-            containerWidth={containerWidth}>
-            <View
-              style={[
-                isInverted && styles.inversionStyle,
-                // used to calculate current height of scroll
-                {
-                  width: containerWidth,
-                  minHeight: minScrollHeight,
-                  maxHeight: idx === currentPage ? undefined : minScrollHeight,
-                },
-                pageContainerStyle,
-              ]}>
-              {child}
-            </View>
-          </DelayedFreeze>
+          <View
+            style={[
+              isInverted && styles.inversionStyle,
+              // used to calculate current height of scroll
+              {
+                width: containerWidth,
+              },
+              pageContainerStyle,
+            ]}>
+            {item}
+          </View>
         );
       },
-      [
-        containerWidth,
-        currentPage,
-        isInverted,
-        minScrollHeight,
-        offscreenPageLimitValidated,
-        pageContainerStyle,
-      ]
+      [containerWidth, isInverted, pageContainerStyle]
     );
 
     return (
       <View style={styles.container} onLayout={onContainerLayout}>
-        <Animated.ScrollView
-          ref={horizontalScrollViewRef as unknown as RefObject<Animated.ScrollView>}
+        <AnimatedFlatList
+          ref={horizontalFlatListRef as unknown as RefObject<Animated.FlatList<Page>>}
           {...rest}
           automaticallyAdjustContentInsets={automaticallyAdjustContentInsets}
           contentContainerStyle={[
@@ -310,8 +284,10 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
             contentContainerStyle,
           ]}
           contentOffset={{ x: initialPage * containerWidth, y: 0 }}
+          data={data}
           directionalLockEnabled={directionalLockEnabled}
           horizontal
+          keyExtractor={(_, i) => `${i}`}
           keyboardDismissMode={keyboardDismissMode}
           onScroll={scrollHandler}
           /**
@@ -324,12 +300,12 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
           onScrollBeginDrag={NOOP}
           onScrollEndDrag={NOOP}
           pagingEnabled
+          renderItem={renderItem}
           scrollEventThrottle={scrollEventThrottle}
           scrollsToTop={scrollsToTop}
           showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
-          style={[isInverted && styles.inversionStyle]}>
-          {data.map(renderItem)}
-        </Animated.ScrollView>
+          style={[isInverted && styles.inversionStyle]}
+        />
       </View>
     );
   }
