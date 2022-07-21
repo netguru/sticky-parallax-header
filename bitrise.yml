@@ -97,6 +97,41 @@ workflows:
               $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
               $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
     - deploy-to-bitrise-io@2: {}
+  prod_android_with_appium_tests:
+    description: >
+      Create Android release build and run Appium tests
+    steps:
+      - activate-ssh-key@4: { }
+      - git-clone@6: { }
+      - yarn@0:
+          inputs:
+            - workdir: "$WORKDIR"
+            - command: install
+      - yarn@0:
+          inputs:
+            - workdir: "$EXAMPLE_WORKDIR"
+            - command: install
+      - android-build@1:
+          inputs:
+            - build_type: apk
+            - project_location: "$EXAMPLE_ANDROID_PROJECT"
+            - variant: "$EXAMPLE_ANDROID_RELEASE_VARIANT"
+      - deploy-to-bitrise-io@2: { }
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                # fail if any commands fails
+                set -ex
+                apt-get update
+                apt-get install -y jq
+                result=$(curl -X GET "https://api.bitrise.io/v0.1/apps/${BITRISE_APP_SLUG}/builds/${BITRISE_BUILD_SLUG}/artifacts" -H "accept: application/json" -H "Authorization: ${BITRISE_ACCESS_TOKEN}" | jq -r .data[0].slug)
+                artifactSlug=$(curl -X GET "https://api.bitrise.io/v0.1/apps/${BITRISE_APP_SLUG}/builds/${BITRISE_BUILD_SLUG}/artifacts/${result}" -H "accept: application/json" -H "Authorization: ${BITRISE_ACCESS_TOKEN}" | jq -r .data.expiring_download_url)
+                export APPIUM_ARTIFACT_URL=${artifactSlug}
+                echo "${APPIUM_ARTIFACT_URL}"
+                curl --location --request POST 'https://api.bitrise.io/v0.1/apps/a83b4e4adbd2a88d/builds' --header "Authorization: ${BITRISE_ACCESS_TOKEN}" --header 'Content-Type: application/json' --data-raw '{ "hook_info": { "type": "bitrise" }, "build_params": { "branch": "main", "workflow_id": "run_pixel_4", "environments": [{ "is_expand": true, "mapped_to": "APPIUM_ARTIFACT_URL", "value": "'"$APPIUM_ARTIFACT_URL"'" }]}}'
+                curl --location --request POST 'https://api.bitrise.io/v0.1/apps/a83b4e4adbd2a88d/builds' --header "Authorization: ${BITRISE_ACCESS_TOKEN}" --header 'Content-Type: application/json' --data-raw '{ "hook_info": { "type": "bitrise" }, "build_params": { "branch": "main", "workflow_id": "run_samsung_s7", "environments": [{ "is_expand": true, "mapped_to": "APPIUM_ARTIFACT_URL", "value": "'"$APPIUM_ARTIFACT_URL"'" }]}}'
+          title: Kick off appium tests
   prod_ios:
     description: >
       Create iOS release build
