@@ -83,12 +83,17 @@ export const EXAMPLES: Array<ExampleLinkProps> = [
   {
     routeName: ROUTES.TABBED_HEADER_WITH_SECTION_LISTS,
     label: 'Tabbed Header with SectionList tabs',
-    testID: homeScreenTestIDs.tabbedHeaderWithSectionLists,
+    testID: homeScreenTestIDs.tabbedHeaderWithSectionListsLink,
   },
   {
     routeName: ROUTES.TABBED_HEADER_FLASHLIST,
     label: 'FlashList with tabs',
-    testID: homeScreenTestIDs.tabbedHeaderFlashList,
+    testID: homeScreenTestIDs.tabbedHeaderFlashListLink,
+  },
+  {
+    routeName: ROUTES.AVATAR_HEADER_FLASHLIST,
+    label: 'User Modal (FlashList)',
+    testID: homeScreenTestIDs.avatarHeaderFlashListLink,
   },
 ];
 

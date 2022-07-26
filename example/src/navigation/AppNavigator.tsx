@@ -16,6 +16,7 @@ import {
   TabbedHeaderListExample,
   TabbedHeaderPagerExample,
 } from '../screens/additionalExamples';
+import { AvatarHeaderFlashListExample } from '../screens/additionalExamples/AvatarHeaderFlashListExample';
 import { TabbedHeaderFlashListExample } from '../screens/additionalExamples/TabbedHeaderFlashListExample';
 import { TabbedHeaderWithSectionListsExample } from '../screens/additionalExamples/TabbedHeaderWithSectionLists';
 
@@ -70,6 +71,10 @@ const AppNavigator: React.FC = () => (
       <Stack.Screen
         name={ROUTES.TABBED_HEADER_FLASHLIST}
         component={TabbedHeaderFlashListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.AVATAR_HEADER_FLASHLIST}
+        component={AvatarHeaderFlashListExample}
       />
     </Stack.Navigator>
   </NavigationContainer>

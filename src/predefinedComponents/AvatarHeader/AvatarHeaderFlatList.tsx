@@ -1,5 +1,5 @@
 import type { ForwardedRef, ReactElement, RefAttributes } from 'react';
-import React, { forwardRef, useImperativeHandle } from 'react';
+import * as React from 'react';
 import type { FlatList } from 'react-native';
 import { View } from 'react-native';
 
@@ -8,7 +8,7 @@ import { StickyHeaderFlatList } from '../../primitiveComponents/StickyHeaderFlat
 
 import type { AvatarHeaderFlatListProps } from './AvatarHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
-import { useAvatarHeader } from './useAvatarHeader';
+import { useAvatarHeader } from './hooks/useAvatarHeader';
 
 function AvatarHeaderFlatListInner<ItemT>(
   props: AvatarHeaderFlatListProps<ItemT>,
@@ -47,7 +47,7 @@ function AvatarHeaderFlatListInner<ItemT>(
     scrollViewRef,
   } = useAvatarHeader<FlatList<ItemT>>(props);
 
-  useImperativeHandle(ref, () => scrollViewRef.current as FlatList<ItemT>);
+  React.useImperativeHandle(ref, () => scrollViewRef.current as FlatList<ItemT>);
 
   return (
     <View style={[commonStyles.wrapper, { backgroundColor }]}>
@@ -96,6 +96,6 @@ type AvatarHeaderFlatListType = <ItemT>(
   props: AvatarHeaderFlatListProps<ItemT> & RefAttributes<FlatList<ItemT>>
 ) => ReactElement;
 
-export const AvatarHeaderFlatList = forwardRef(
+export const AvatarHeaderFlatList = React.forwardRef(
   AvatarHeaderFlatListInner
 ) as AvatarHeaderFlatListType;

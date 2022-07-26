@@ -1,20 +1,27 @@
+import type { FlashList, FlashListProps } from '@shopify/flash-list';
 import * as React from 'react';
-import type { ScrollView } from 'react-native';
 import { View } from 'react-native';
 
 import { commonStyles } from '../../constants';
-import { StickyHeaderScrollView } from '../../primitiveComponents/StickyHeaderScrollView';
+import type { StickyHeaderFlashListProps } from '../../primitiveComponents/StickyHeaderProps';
+import { withStickyHeaderFlashList } from '../../primitiveComponents/withStickyHeaderFlashList';
 
-import type { AvatarHeaderScrollViewProps } from './AvatarHeaderProps';
+import type { AvatarHeaderFlashListProps } from './AvatarHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
-import { useAvatarHeader } from './hooks/useAvatarHeader';
+import { useAvatarFlashListHeader } from './hooks/useAvatarFlashListHeader';
 
-export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderScrollViewProps>(
-  (props, ref) => {
+export function withAvatarHeaderFlashList<ItemT>(
+  flashListComponent: React.ComponentType<FlashListProps<ItemT>>
+) {
+  const StickyHeaderFlashList = withStickyHeaderFlashList(
+    flashListComponent as React.ComponentType<FlashListProps<ItemT>>
+  ) as (
+    props: StickyHeaderFlashListProps<ItemT> & React.RefAttributes<FlashList<ItemT>>
+  ) => React.ReactElement;
+
+  return React.forwardRef<FlashList<ItemT>, AvatarHeaderFlashListProps<ItemT>>((props, ref) => {
     const {
       backgroundColor,
-      children,
-      contentContainerStyle,
       decelerationRate = 'fast',
       leftTopIcon,
       leftTopIconAccessibilityLabel,
@@ -40,9 +47,9 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
       renderHeader,
       scrollValue,
       scrollViewRef,
-    } = useAvatarHeader<ScrollView>(props);
+    } = useAvatarFlashListHeader<ItemT>(props);
 
-    React.useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
+    React.useImperativeHandle(ref, () => scrollViewRef.current as FlashList<ItemT>);
 
     return (
       <View style={[commonStyles.wrapper, { backgroundColor }]}>
@@ -66,10 +73,9 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
           />
         )}
         <View style={commonStyles.wrapper}>
-          <StickyHeaderScrollView
+          <StickyHeaderFlashList
             ref={scrollViewRef}
             {...rest}
-            contentContainerStyle={contentContainerStyle}
             decelerationRate={decelerationRate}
             nestedScrollEnabled={nestedScrollEnabled}
             onMomentumScrollEnd={onMomentumScrollEnd}
@@ -77,11 +83,10 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
             onScroll={onScroll}
             overScrollMode={overScrollMode}
             renderHeader={renderHeader}
-            scrollEventThrottle={scrollEventThrottle}>
-            {children}
-          </StickyHeaderScrollView>
+            scrollEventThrottle={scrollEventThrottle}
+          />
         </View>
       </View>
     );
-  }
-);
+  });
+}

@@ -1,6 +1,7 @@
 import type { ColorValue, ImageSourcePropType, StyleProp, TextStyle } from 'react-native';
 
 import type {
+  StickyHeaderFlashListProps,
   StickyHeaderFlatListProps,
   StickyHeaderScrollViewProps,
   StickyHeaderSectionListProps,
@@ -30,3 +31,7 @@ export interface AvatarHeaderFlatListProps<ItemT>
 export interface AvatarHeaderSectionListProps<ItemT, SectionT>
   extends AvatarHeaderSharedProps,
     StickyHeaderSectionListProps<ItemT, SectionT> {}
+
+export interface AvatarHeaderFlashListProps<ItemT>
+  extends Omit<AvatarHeaderSharedProps, 'contentContainerStyle'>,
+    StickyHeaderFlashListProps<ItemT> {}

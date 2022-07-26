@@ -14,6 +14,7 @@ export { AvatarHeaderFlatList } from './predefinedComponents/AvatarHeader/Avatar
 export { AvatarHeaderScrollView } from './predefinedComponents/AvatarHeader/AvatarHeaderScrollView';
 export { AvatarHeaderSectionList } from './predefinedComponents/AvatarHeader/AvatarHeaderSectionList';
 export * from './predefinedComponents/AvatarHeader/AvatarHeaderProps';
+export { withAvatarHeaderFlashList } from './predefinedComponents/AvatarHeader/withAvatarHeaderFlashList';
 
 // Details components
 export { DetailsHeaderFlatList } from './predefinedComponents/DetailsHeader/DetailsHeaderFlatList';
