@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import type { VFC } from 'react';
-import React, { useCallback } from 'react';
+import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import { colors } from '../../constants';
@@ -87,16 +86,16 @@ export const EXAMPLES: Array<ExampleLinkProps> = [
     testID: homeScreenTestIDs.tabbedHeaderWithSectionLists,
   },
   {
-    routeName: ROUTES.FLASHLIST,
-    label: 'FlashList example',
-    testID: homeScreenTestIDs.flashList,
+    routeName: ROUTES.TABBED_HEADER_FLASHLIST,
+    label: 'FlashList with tabs',
+    testID: homeScreenTestIDs.tabbedHeaderFlashList,
   },
 ];
 
-export const ExampleLink: VFC<ExampleLinkProps> = ({ routeName, label, testID }) => {
+export const ExampleLink: React.FC<ExampleLinkProps> = ({ routeName, label, testID }) => {
   const navigation = useNavigation<RootStackNavigationProp>();
 
-  const navigateTo = useCallback(
+  const navigateTo = React.useCallback(
     (route: typeof ROUTES[keyof typeof ROUTES]) => {
       return () => {
         navigation.navigate(route);

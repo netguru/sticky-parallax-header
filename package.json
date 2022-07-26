@@ -48,6 +48,7 @@
     "@commitlint/config-conventional": "^8.3.4",
     "@react-native-community/eslint-config": "3.0.1",
     "@release-it/conventional-changelog": "^3.3.0",
+    "@shopify/flash-list": "^1.2.0",
     "@testing-library/react-native": "9.1.0",
     "@types/jest": "27.4.1",
     "@types/react": "17.0.39",

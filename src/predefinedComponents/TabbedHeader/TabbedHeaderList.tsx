@@ -1,5 +1,5 @@
 import type { ForwardedRef, ReactElement, RefAttributes } from 'react';
-import React, { forwardRef, useImperativeHandle } from 'react';
+import * as React from 'react';
 import type { SectionList } from 'react-native';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,7 +9,7 @@ import { StickyHeaderSectionList } from '../../primitiveComponents/StickyHeaderS
 
 import type { TabbedHeaderListProps } from './TabbedHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
-import { useTabbedHeaderList } from './useTabbedHeader';
+import { useTabbedHeaderList } from './hooks/useTabbedHeader';
 
 function TabbedHeaderListInner<ItemT, SectionT>(
   props: TabbedHeaderListProps<ItemT, SectionT>,
@@ -43,7 +43,7 @@ function TabbedHeaderListInner<ItemT, SectionT>(
     scrollViewRef,
   } = useTabbedHeaderList<ItemT, SectionT>(props);
 
-  useImperativeHandle(ref, () => scrollViewRef.current as SectionList<ItemT, SectionT>);
+  React.useImperativeHandle(ref, () => scrollViewRef.current as SectionList<ItemT, SectionT>);
 
   return (
     <View style={[commonStyles.container, { backgroundColor }]}>
@@ -89,4 +89,4 @@ type TabbedHeaderListType = <ItemT, SectionT>(
   props: TabbedHeaderListProps<ItemT, SectionT> & RefAttributes<SectionList<ItemT>>
 ) => ReactElement;
 
-export const TabbedHeaderList = forwardRef(TabbedHeaderListInner) as TabbedHeaderListType;
+export const TabbedHeaderList = React.forwardRef(TabbedHeaderListInner) as TabbedHeaderListType;

@@ -1,3 +1,4 @@
+import type { FlashListProps } from '@shopify/flash-list';
 import type { ReactElement } from 'react';
 import type {
   FlatListProps,
@@ -83,4 +84,31 @@ export interface StickyHeaderSectionListProps<ItemT, SectionT>
       | 'style'
     > {
   sections: ReadonlyArray<SectionListData<ItemT, SectionT>>;
+}
+
+export interface StickyHeaderFlashListProps<ItemT>
+  extends Omit<StickyHeaderSharedProps, 'contentContainerStyle' | 'style'>,
+    Omit<
+      AnimateProps<FlashListProps<ItemT>>,
+      | 'contentContainerStyle'
+      | 'data'
+      | 'renderItem'
+      | 'onScroll'
+      | 'onScrollBeginDrag'
+      | 'onScrollEndDrag'
+      | 'onMomentumScrollBegin'
+      | 'onMomentumScrollEnd'
+      | 'onViewableItemsChanged'
+      | 'stickyHeaderIndices'
+      | 'style'
+    >,
+    Pick<
+      FlashListProps<ItemT>,
+      | 'contentContainerStyle'
+      | 'renderItem'
+      | 'onViewableItemsChanged'
+      | 'stickyHeaderIndices'
+      | 'style'
+    > {
+  data: ReadonlyArray<ItemT>;
 }

@@ -1,75 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import * as React from 'react';
 import type { NativeScrollEvent, ScrollView, SectionList, ViewToken } from 'react-native';
 import { Platform } from 'react-native';
 import { runOnJS, useSharedValue, useWorkletCallback } from 'react-native-reanimated';
 
-import type { ScrollComponent, Tab } from '../common/SharedProps';
-import { HeaderWrapper } from '../common/components/HeaderWrapper';
-import { usePredefinedHeader } from '../common/hooks/usePredefinedHeader';
-import { debounce } from '../common/utils/debounce';
+import type { ScrollComponent } from '../../common/SharedProps';
+import { HeaderWrapper } from '../../common/components/HeaderWrapper';
+import { usePredefinedHeader } from '../../common/hooks/usePredefinedHeader';
+import { debounce } from '../../common/utils/debounce';
+import type { TabbedHeaderListProps, TabbedHeaderPagerProps } from '../TabbedHeaderProps';
+import { Foreground } from '../components/HeaderForeground';
 
-import type { TabbedHeaderListProps, TabbedHeaderPagerProps } from './TabbedHeaderProps';
-import { Foreground } from './components/HeaderForeground';
-import type { TabsProps } from './components/Tabs';
-import { Tabs } from './components/Tabs';
+import { useRenderTabs } from './useRenderTabs';
 
-function useRenderTabs(tabsProps: Omit<TabsProps, 'tabs'> & { tabs?: Tab[] }) {
-  const {
-    activeTab,
-    onTabPressed,
-    scrollValue,
-    tabTextActiveStyle,
-    tabTextContainerActiveStyle,
-    tabTextContainerStyle,
-    tabTextStyle,
-    tabUnderlineColor,
-    tabWrapperStyle,
-    tabs,
-    tabsContainerBackgroundColor,
-    tabsContainerHorizontalPadding,
-    tabsContainerStyle,
-  } = tabsProps;
-
-  return useCallback(() => {
-    if (!tabs) {
-      return null;
-    }
-
-    return (
-      <Tabs
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabPressed={onTabPressed}
-        scrollValue={scrollValue}
-        tabTextActiveStyle={tabTextActiveStyle}
-        tabTextContainerActiveStyle={tabTextContainerActiveStyle}
-        tabTextContainerStyle={tabTextContainerStyle}
-        tabTextStyle={tabTextStyle}
-        tabUnderlineColor={tabUnderlineColor}
-        tabWrapperStyle={tabWrapperStyle}
-        tabsContainerBackgroundColor={tabsContainerBackgroundColor}
-        tabsContainerHorizontalPadding={tabsContainerHorizontalPadding}
-        tabsContainerStyle={tabsContainerStyle}
-      />
-    );
-  }, [
-    activeTab,
-    onTabPressed,
-    scrollValue,
-    tabTextActiveStyle,
-    tabTextContainerActiveStyle,
-    tabTextContainerStyle,
-    tabTextStyle,
-    tabUnderlineColor,
-    tabWrapperStyle,
-    tabs,
-    tabsContainerBackgroundColor,
-    tabsContainerHorizontalPadding,
-    tabsContainerStyle,
-  ]);
-}
-
-function useTabbedHeader<T extends ScrollComponent>(props: TabbedHeaderPagerProps) {
+function useRenderHeader<T extends ScrollComponent>(props: TabbedHeaderPagerProps) {
   const {
     contentBackgroundColor,
     innerScrollHeight,
@@ -92,7 +35,7 @@ function useTabbedHeader<T extends ScrollComponent>(props: TabbedHeaderPagerProp
     titleTestID,
   } = props;
 
-  const renderHeader = useCallback(() => {
+  const renderHeader = React.useCallback(() => {
     return (
       <HeaderWrapper
         backgroundColor={backgroundColor}
@@ -150,11 +93,11 @@ export function useTabbedHeaderPager(props: TabbedHeaderPagerProps) {
     scrollHeight,
     scrollValue,
     scrollViewRef,
-  } = useTabbedHeader<ScrollView>(props);
+  } = useRenderHeader<ScrollView>(props);
   const { backgroundColor, initialPage, tabsContainerBackgroundColor } = props;
-  const [currentPage, setCurrentPage] = useState(initialPage ?? 0);
+  const [currentPage, setCurrentPage] = React.useState(initialPage ?? 0);
 
-  const goToPage = useCallback((pageNumber: number) => {
+  const goToPage = React.useCallback((pageNumber: number) => {
     setCurrentPage((prev) => {
       if (prev !== pageNumber) {
         return pageNumber;
@@ -202,7 +145,7 @@ export function useTabbedHeaderList<
     renderHeader,
     scrollValue,
     scrollViewRef,
-  } = useTabbedHeader<T>(props);
+  } = useRenderHeader<T>(props);
   const onMomentumScrollEndInternal = useWorkletCallback(
     (e: NativeScrollEvent) => {
       ignoreViewabilityItemsChangedEvent.value = false;
@@ -227,9 +170,9 @@ export function useTabbedHeaderList<
 
   const { backgroundColor, sections, tabsContainerBackgroundColor } = props;
 
-  const [activeSection, setActiveSection] = useState(0);
+  const [activeSection, setActiveSection] = React.useState(0);
 
-  const goToSection = useCallback((sectionIndex: number) => {
+  const goToSection = React.useCallback((sectionIndex: number) => {
     ignoreViewabilityItemsChangedEvent.value = true;
     scrollViewRef.current?.scrollToLocation({
       animated: true,
@@ -241,7 +184,7 @@ export function useTabbedHeaderList<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onViewableItemsChanged = useCallback(
+  const onViewableItemsChanged = React.useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[]; changed: ViewToken[] }) => {
       if (!viewableItems.length || ignoreViewabilityItemsChangedEvent.value) {
         return;
