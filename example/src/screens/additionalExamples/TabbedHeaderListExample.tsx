@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { StatusBar } from 'react-native';
 import { TabbedHeaderList } from 'react-native-sticky-parallax-header';
 
@@ -13,7 +12,7 @@ import { colors, screenStyles } from '../../constants';
 
 import { tabbedHeaderTestIDs } from './testIDs';
 
-export const TabbedHeaderListExample: FC = () => {
+export const TabbedHeaderListExample: React.FC = () => {
   return (
     <>
       <TabbedHeaderList

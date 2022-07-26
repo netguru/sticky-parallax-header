@@ -77,7 +77,7 @@ export const AvatarHeaderFlashListExample: React.FC = () => {
         titleStyle={screenStyles.text}
         titleTestID={avatarHeaderTestIDs.title}
         data={data}
-        estimatedItemSize={120}
+        estimatedItemSize={300}
         keyExtractor={(item) => item.id}
         decelerationRate="normal"
         renderItem={({ item, index }) => (

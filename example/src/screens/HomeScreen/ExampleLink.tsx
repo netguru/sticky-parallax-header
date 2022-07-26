@@ -95,6 +95,16 @@ export const EXAMPLES: Array<ExampleLinkProps> = [
     label: 'User Modal (FlashList)',
     testID: homeScreenTestIDs.avatarHeaderFlashListLink,
   },
+  {
+    routeName: ROUTES.DETAILS_HEADER_FLASHLIST,
+    label: 'Card Screen (FlashList)',
+    testID: homeScreenTestIDs.detailsHeaderFlashListLink,
+  },
+  {
+    routeName: ROUTES.STICKY_HEADER_FLASHLIST,
+    label: 'New StickyHeader (FlashList)',
+    testID: homeScreenTestIDs.stickyHeaderFlashListLink,
+  },
 ];
 
 export const ExampleLink: React.FC<ExampleLinkProps> = ({ routeName, label, testID }) => {

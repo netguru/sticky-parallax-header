@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import * as React from 'react';
 import type { ScrollView } from 'react-native';
 import { View } from 'react-native';
 
@@ -7,9 +7,9 @@ import { StickyHeaderScrollView } from '../../primitiveComponents/StickyHeaderSc
 
 import type { DetailsHeaderScrollViewProps } from './DetailsHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
-import { useDetailsHeader } from './useDetailsHeader';
+import { useDetailsHeader } from './hooks/useDetailsHeader';
 
-export const DetailsHeaderScrollView = forwardRef<ScrollView, DetailsHeaderScrollViewProps>(
+export const DetailsHeaderScrollView = React.forwardRef<ScrollView, DetailsHeaderScrollViewProps>(
   (props, ref) => {
     const {
       backgroundColor,
@@ -41,7 +41,7 @@ export const DetailsHeaderScrollView = forwardRef<ScrollView, DetailsHeaderScrol
       scrollViewRef,
     } = useDetailsHeader<ScrollView>(props);
 
-    useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
+    React.useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
 
     return (
       <View style={[commonStyles.container, { backgroundColor }]}>

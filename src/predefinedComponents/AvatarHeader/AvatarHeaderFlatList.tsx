@@ -1,4 +1,3 @@
-import type { ForwardedRef, ReactElement, RefAttributes } from 'react';
 import * as React from 'react';
 import type { FlatList } from 'react-native';
 import { View } from 'react-native';
@@ -12,7 +11,7 @@ import { useAvatarHeader } from './hooks/useAvatarHeader';
 
 function AvatarHeaderFlatListInner<ItemT>(
   props: AvatarHeaderFlatListProps<ItemT>,
-  ref: ForwardedRef<FlatList<ItemT>>
+  ref: React.ForwardedRef<FlatList<ItemT>>
 ) {
   const {
     backgroundColor,
@@ -93,8 +92,8 @@ function AvatarHeaderFlatListInner<ItemT>(
 }
 
 type AvatarHeaderFlatListType = <ItemT>(
-  props: AvatarHeaderFlatListProps<ItemT> & RefAttributes<FlatList<ItemT>>
-) => ReactElement;
+  props: AvatarHeaderFlatListProps<ItemT> & React.RefAttributes<FlatList<ItemT>>
+) => React.ReactElement;
 
 export const AvatarHeaderFlatList = React.forwardRef(
   AvatarHeaderFlatListInner

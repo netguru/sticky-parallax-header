@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StickyHeaderSectionList } from 'react-native-sticky-parallax-header';
@@ -11,8 +10,8 @@ import { SectionHeader } from '../../components/primitiveComponents/SectionHeade
 import { Tabs } from '../../components/primitiveComponents/Tabs';
 import { screenStyles } from '../../constants';
 
-export const StickyHeaderSectionListExample: FC = () => {
-  const [refreshing, setRefreshing] = useState(false);
+export const StickyHeaderSectionListExample: React.FC = () => {
+  const [refreshing, setRefreshing] = React.useState(false);
 
   async function onRefresh() {
     setRefreshing(true);

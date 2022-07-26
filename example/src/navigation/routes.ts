@@ -17,4 +17,6 @@ export const ROUTES = {
   TABBED_HEADER_WITH_SECTION_LISTS: 'TabbedHeaderWithSectionLists' as const,
   TABBED_HEADER_FLASHLIST: 'TabbedHeaderFlashList' as const,
   AVATAR_HEADER_FLASHLIST: 'AvatarHeaderFlashList' as const,
+  DETAILS_HEADER_FLASHLIST: 'DetailsHeaderFlashList' as const,
+  STICKY_HEADER_FLASHLIST: 'StickyHeaderFlashList' as const,
 };

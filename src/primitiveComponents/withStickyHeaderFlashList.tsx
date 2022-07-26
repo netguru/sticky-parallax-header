@@ -51,7 +51,7 @@ export function withStickyHeaderFlashList<T extends React.ComponentType<FlashLis
         contentContainerStyle,
         {
           paddingBottom: tabsHeight,
-          paddingTop: headerHeight + contentContainerPaddingTop + tabsHeight,
+          paddingTop: headerHeight + contentContainerPaddingTop,
         },
       ]);
     }, [contentContainerPaddingTop, contentContainerStyle, headerHeight, tabsHeight]);
@@ -70,7 +70,7 @@ export function withStickyHeaderFlashList<T extends React.ComponentType<FlashLis
             </View>
           ) : null}
         </Animated.View>
-        <View style={styles.container}>
+        <View style={[styles.container, { paddingTop: tabsHeight }]}>
           <AnimatedFlashList
             ref={ref}
             {...rest}
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',
     flex: 1,
-    // overflow: 'hidden',
+    overflow: 'hidden',
   },
   header: {
     position: 'absolute',

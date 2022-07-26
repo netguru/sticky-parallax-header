@@ -1,4 +1,3 @@
-import type { ForwardedRef, ReactElement, RefAttributes } from 'react';
 import * as React from 'react';
 import type { SectionList } from 'react-native';
 import { View } from 'react-native';
@@ -13,7 +12,7 @@ import { useTabbedHeaderList } from './hooks/useTabbedHeader';
 
 function TabbedHeaderListInner<ItemT, SectionT>(
   props: TabbedHeaderListProps<ItemT, SectionT>,
-  ref: ForwardedRef<SectionList<ItemT, SectionT>>
+  ref: React.ForwardedRef<SectionList<ItemT, SectionT>>
 ) {
   const {
     backgroundColor,
@@ -86,7 +85,7 @@ function TabbedHeaderListInner<ItemT, SectionT>(
 }
 
 type TabbedHeaderListType = <ItemT, SectionT>(
-  props: TabbedHeaderListProps<ItemT, SectionT> & RefAttributes<SectionList<ItemT>>
-) => ReactElement;
+  props: TabbedHeaderListProps<ItemT, SectionT> & React.RefAttributes<SectionList<ItemT>>
+) => React.ReactElement;
 
 export const TabbedHeaderList = React.forwardRef(TabbedHeaderListInner) as TabbedHeaderListType;

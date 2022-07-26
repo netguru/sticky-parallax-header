@@ -1,17 +1,16 @@
 import type { FlashList, FlashListProps } from '@shopify/flash-list';
 import * as React from 'react';
 import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { commonStyles } from '../../constants';
 import type { StickyHeaderFlashListProps } from '../../primitiveComponents/StickyHeaderProps';
 import { withStickyHeaderFlashList } from '../../primitiveComponents/withStickyHeaderFlashList';
 
-import type { TabbedHeaderFlashListProps } from './TabbedHeaderProps';
+import type { DetailsHeaderFlashListProps } from './DetailsHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
-import { useTabbedFlashListHeader } from './hooks/useTabbedFlashListHeader';
+import { useDetailsFlashListHeader } from './hooks/useDetailsFlashListHeader';
 
-export function withTabbedHeaderFlashList<ItemT>(
+export function withDetailsHeaderFlashList<ItemT>(
   flashListComponent: React.ComponentType<FlashListProps<ItemT>>
 ) {
   const StickyHeaderFlashList = withStickyHeaderFlashList(
@@ -20,30 +19,34 @@ export function withTabbedHeaderFlashList<ItemT>(
     props: StickyHeaderFlashListProps<ItemT> & React.RefAttributes<FlashList<ItemT>>
   ) => React.ReactElement;
 
-  return React.forwardRef<FlashList<ItemT>, TabbedHeaderFlashListProps<ItemT>>((props, ref) => {
+  return React.forwardRef<FlashList<ItemT>, DetailsHeaderFlashListProps<ItemT>>((props, ref) => {
     const {
       backgroundColor,
       decelerationRate = 'fast',
-      logo,
-      logoContainerStyle,
-      logoResizeMode,
-      logoStyle,
+      leftTopIcon,
+      leftTopIconAccessibilityLabel,
+      leftTopIconOnPress,
+      leftTopIconTestID,
       nestedScrollEnabled = true,
       overScrollMode = 'never',
       renderHeaderBar,
+      rightTopIcon,
+      rightTopIconAccessibilityLabel,
+      rightTopIconOnPress,
+      rightTopIconTestID,
       scrollEventThrottle = 16,
-      viewabilityConfig = { itemVisiblePercentThreshold: 50 },
+      title,
+      titleStyle,
       ...rest
     } = props;
     const {
-      onMomentumScrollEnd,
+      headerTitleContainerAnimatedStyle,
+      renderHeader,
+      scrollViewRef,
       onScroll,
       onScrollEndDrag,
-      onViewableItemsChanged,
-      renderHeader,
-      renderTabs,
-      scrollViewRef,
-    } = useTabbedFlashListHeader<ItemT>(props);
+      onMomentumScrollEnd,
+    } = useDetailsFlashListHeader<ItemT>(props);
 
     React.useImperativeHandle(ref, () => scrollViewRef.current as FlashList<ItemT>);
 
@@ -51,32 +54,34 @@ export function withTabbedHeaderFlashList<ItemT>(
       <View style={[commonStyles.container, { backgroundColor }]}>
         {renderHeaderBar ? (
           renderHeaderBar()
-        ) : logo ? (
+        ) : (
           <HeaderBar
             backgroundColor={backgroundColor}
-            logo={logo}
-            logoContainerStyle={logoContainerStyle}
-            logoResizeMode={logoResizeMode}
-            logoStyle={logoStyle}
+            headerTitleContainerAnimatedStyle={headerTitleContainerAnimatedStyle}
+            leftTopIcon={leftTopIcon}
+            leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}
+            leftTopIconOnPress={leftTopIconOnPress}
+            leftTopIconTestID={leftTopIconTestID}
+            rightTopIcon={rightTopIcon}
+            rightTopIconAccessibilityLabel={rightTopIconAccessibilityLabel}
+            rightTopIconOnPress={rightTopIconOnPress}
+            rightTopIconTestID={rightTopIconTestID}
+            title={title}
+            titleStyle={titleStyle}
           />
-        ) : (
-          <SafeAreaView edges={['left', 'top', 'right']} style={commonStyles.stretch} />
         )}
-        <View style={commonStyles.wrapper}>
+        <View style={commonStyles.container}>
           <StickyHeaderFlashList
             ref={scrollViewRef}
             {...rest}
             decelerationRate={decelerationRate}
             nestedScrollEnabled={nestedScrollEnabled}
-            overScrollMode={overScrollMode}
-            scrollEventThrottle={scrollEventThrottle}
-            viewabilityConfig={viewabilityConfig}
-            renderHeader={renderHeader}
-            renderTabs={renderTabs}
             onScroll={onScroll}
-            onScrollEndDrag={onScrollEndDrag}
             onMomentumScrollEnd={onMomentumScrollEnd}
-            onViewableItemsChanged={onViewableItemsChanged}
+            onScrollEndDrag={onScrollEndDrag}
+            overScrollMode={overScrollMode}
+            renderHeader={renderHeader}
+            scrollEventThrottle={scrollEventThrottle}
           />
         </View>
       </View>

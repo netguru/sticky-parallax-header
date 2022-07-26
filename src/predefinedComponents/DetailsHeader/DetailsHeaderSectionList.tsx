@@ -1,5 +1,4 @@
-import type { ForwardedRef, ReactElement, RefAttributes } from 'react';
-import React, { forwardRef, useImperativeHandle } from 'react';
+import * as React from 'react';
 import type { SectionList } from 'react-native';
 import { View } from 'react-native';
 
@@ -8,11 +7,11 @@ import { StickyHeaderSectionList } from '../../primitiveComponents/StickyHeaderS
 
 import type { DetailsHeaderSectionListProps } from './DetailsHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
-import { useDetailsHeader } from './useDetailsHeader';
+import { useDetailsHeader } from './hooks/useDetailsHeader';
 
 function DetailsHeaderSectionListInner<ItemT, SectionT>(
   props: DetailsHeaderSectionListProps<ItemT, SectionT>,
-  ref: ForwardedRef<SectionList<ItemT, SectionT>>
+  ref: React.ForwardedRef<SectionList<ItemT, SectionT>>
 ) {
   const {
     backgroundColor,
@@ -47,7 +46,7 @@ function DetailsHeaderSectionListInner<ItemT, SectionT>(
     scrollViewRef,
   } = useDetailsHeader<SectionList<ItemT, SectionT>>(props);
 
-  useImperativeHandle(ref, () => scrollViewRef.current as SectionList<ItemT, SectionT>);
+  React.useImperativeHandle(ref, () => scrollViewRef.current as SectionList<ItemT, SectionT>);
 
   return (
     <View style={[commonStyles.container, { backgroundColor }]}>
@@ -94,9 +93,9 @@ function DetailsHeaderSectionListInner<ItemT, SectionT>(
 
 type DetailsHeaderSectionListType = <ItemT, SectionT>(
   props: DetailsHeaderSectionListProps<ItemT, SectionT> &
-    RefAttributes<SectionList<ItemT, SectionT>>
-) => ReactElement;
+    React.RefAttributes<SectionList<ItemT, SectionT>>
+) => React.ReactElement;
 
-export const DetailsHeaderSectionList = forwardRef(
+export const DetailsHeaderSectionList = React.forwardRef(
   DetailsHeaderSectionListInner
 ) as DetailsHeaderSectionListType;

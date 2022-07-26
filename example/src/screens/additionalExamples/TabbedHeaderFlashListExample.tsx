@@ -1,6 +1,4 @@
 import { FlashList } from '@shopify/flash-list';
-import type { FC } from 'react';
-import { useCallback, useState } from 'react';
 import * as React from 'react';
 import { Platform, RefreshControl, StatusBar, StyleSheet } from 'react-native';
 import { withTabbedHeaderFlashList } from 'react-native-sticky-parallax-header';
@@ -44,10 +42,10 @@ const PARALLAX_HEIGHT = 100;
 
 const TabbedHeaderFlashList = withTabbedHeaderFlashList<SectionType | ItemType>(FlashList);
 
-export const TabbedHeaderFlashListExample: FC = () => {
-  const [refreshing, setRefreshing] = useState<boolean>(false);
+export const TabbedHeaderFlashListExample: React.FC = () => {
+  const [refreshing, setRefreshing] = React.useState<boolean>(false);
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = React.useCallback(() => {
     setRefreshing(true);
 
     wait(2000).then(() => {
@@ -69,7 +67,7 @@ export const TabbedHeaderFlashListExample: FC = () => {
         getItemType={(item) => {
           return isSection(item) ? 'sectionHeader' : 'row';
         }}
-        estimatedItemSize={46}
+        estimatedItemSize={200}
         stickyHeaderIndices={stickyHeaderIndices}
         decelerationRate="normal"
         {...(Platform.OS !== 'web' && {

@@ -1,4 +1,3 @@
-import type { ForwardedRef, ReactElement, RefAttributes } from 'react';
 import * as React from 'react';
 import type { SectionList } from 'react-native';
 import { View } from 'react-native';
@@ -12,7 +11,7 @@ import { useAvatarHeader } from './hooks/useAvatarHeader';
 
 function AvatarHeaderSectionListInner<ItemT, SectionT>(
   props: AvatarHeaderSectionListProps<ItemT, SectionT>,
-  ref: ForwardedRef<SectionList<ItemT, SectionT>>
+  ref: React.ForwardedRef<SectionList<ItemT, SectionT>>
 ) {
   const {
     backgroundColor,
@@ -95,8 +94,9 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
 }
 
 type AvatarHeaderSectionListType = <ItemT, SectionT>(
-  props: AvatarHeaderSectionListProps<ItemT, SectionT> & RefAttributes<SectionList<ItemT, SectionT>>
-) => ReactElement;
+  props: AvatarHeaderSectionListProps<ItemT, SectionT> &
+    React.RefAttributes<SectionList<ItemT, SectionT>>
+) => React.ReactElement;
 
 export const AvatarHeaderSectionList = React.forwardRef(
   AvatarHeaderSectionListInner

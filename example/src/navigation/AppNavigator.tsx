@@ -17,6 +17,8 @@ import {
   TabbedHeaderPagerExample,
 } from '../screens/additionalExamples';
 import { AvatarHeaderFlashListExample } from '../screens/additionalExamples/AvatarHeaderFlashListExample';
+import { DetailsHeaderFlashListExample } from '../screens/additionalExamples/DetailsHeaderFlashListExample';
+import { StickyHeaderFlashListExample } from '../screens/additionalExamples/StickyHeaderFlashListExample';
 import { TabbedHeaderFlashListExample } from '../screens/additionalExamples/TabbedHeaderFlashListExample';
 import { TabbedHeaderWithSectionListsExample } from '../screens/additionalExamples/TabbedHeaderWithSectionLists';
 
@@ -75,6 +77,14 @@ const AppNavigator: React.FC = () => (
       <Stack.Screen
         name={ROUTES.AVATAR_HEADER_FLASHLIST}
         component={AvatarHeaderFlashListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.DETAILS_HEADER_FLASHLIST}
+        component={DetailsHeaderFlashListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.STICKY_HEADER_FLASHLIST}
+        component={StickyHeaderFlashListExample}
       />
     </Stack.Navigator>
   </NavigationContainer>

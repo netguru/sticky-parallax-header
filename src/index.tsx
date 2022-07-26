@@ -21,6 +21,7 @@ export { DetailsHeaderFlatList } from './predefinedComponents/DetailsHeader/Deta
 export { DetailsHeaderScrollView } from './predefinedComponents/DetailsHeader/DetailsHeaderScrollView';
 export { DetailsHeaderSectionList } from './predefinedComponents/DetailsHeader/DetailsHeaderSectionList';
 export * from './predefinedComponents/DetailsHeader/DetailsHeaderProps';
+export { withDetailsHeaderFlashList } from './predefinedComponents/DetailsHeader/withDetailsHeaderFlashList';
 
 // Tabbed components
 export { TabbedHeaderList } from './predefinedComponents/TabbedHeader/TabbedHeaderList';

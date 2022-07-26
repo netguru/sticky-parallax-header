@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FlashList, ViewToken } from '@shopify/flash-list';
 import * as React from 'react';
-import type { LayoutChangeEvent, NativeScrollEvent } from 'react-native';
+import type { NativeScrollEvent } from 'react-native';
 import { Platform } from 'react-native';
 import { runOnJS, useSharedValue, useWorkletCallback } from 'react-native-reanimated';
 
@@ -101,11 +101,7 @@ export function useTabbedFlashListHeader<ItemT, T extends FlashList<ItemT> = Fla
   } = useRenderFlashListHeader<T>(props);
   const { stickyHeaderIndices = [], backgroundColor, tabsContainerBackgroundColor } = props;
   const [activeSection, setActiveSection] = React.useState(0);
-  const [tabsHeight, setTabsHeight] = React.useState(0);
   const ignoreViewabilityItemsChangedEvent = useSharedValue(false);
-  const onTabsLayout = React.useCallback((e: LayoutChangeEvent) => {
-    setTabsHeight(e.nativeEvent.layout.height);
-  }, []);
   const onViewableItemsChanged = React.useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[]; changed: ViewToken[] }) => {
       if (
@@ -149,11 +145,11 @@ export function useTabbedFlashListHeader<ItemT, T extends FlashList<ItemT> = Fla
         animated: true,
         index: stickyHeaderIndices[sectionIndex],
         viewPosition: 0,
-        viewOffset: tabsHeight,
+        viewOffset: 0,
       });
       setActiveSection(sectionIndex);
     },
-    [ignoreViewabilityItemsChangedEvent, scrollViewRef, stickyHeaderIndices, tabsHeight]
+    [ignoreViewabilityItemsChangedEvent, scrollViewRef, stickyHeaderIndices]
   );
   const onMomentumScrollEndInternal = useWorkletCallback(
     (e: NativeScrollEvent) => {
@@ -191,7 +187,6 @@ export function useTabbedFlashListHeader<ItemT, T extends FlashList<ItemT> = Fla
     onMomentumScrollEnd: onMomentumScrollEndInternal,
     onScroll: onScrollInternal,
     onScrollEndDrag,
-    onTabsLayout,
     onViewableItemsChanged,
     renderHeader,
     renderTabs,

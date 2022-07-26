@@ -1,14 +1,4 @@
-import type { RefObject } from 'react';
-import React, {
-  Children,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import * as React from 'react';
 import type { FlatListProps, LayoutChangeEvent, ListRenderItemInfo } from 'react-native';
 import { Dimensions, FlatList, I18nManager, Platform, StyleSheet, View } from 'react-native';
 import Animated, {
@@ -36,7 +26,7 @@ type Page = React.ReactChild | React.ReactFragment | React.ReactPortal;
 
 const AnimatedFlatList = Animated.createAnimatedComponent<FlatListProps<Page>>(FlatList);
 
-export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
+export const Pager = React.forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
   (
     {
       automaticallyAdjustContentInsets = false,
@@ -68,26 +58,28 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
     },
     ref
   ) => {
-    const [containerWidth, setContainerWidth] = useState(() => Dimensions.get('window').width);
-    const containerWidthRef = useRef(containerWidth);
-    const [currentPage, setCurrentPage] = useState(initialPage);
-    const currentPageRef = useRef(currentPage);
+    const [containerWidth, setContainerWidth] = React.useState(
+      () => Dimensions.get('window').width
+    );
+    const containerWidthRef = React.useRef(containerWidth);
+    const [currentPage, setCurrentPage] = React.useState(initialPage);
+    const currentPageRef = React.useRef(currentPage);
     const horizontalFlatListRef = useAnimatedRef<FlatList>();
     const horizontalScrollValue = useSharedValue(initialPage * Dimensions.get('window').width);
 
     const scrollToTabPositionTimeoutValue = useSharedValue(1);
 
-    const data = useMemo(() => {
-      return Children.toArray(children);
+    const data = React.useMemo(() => {
+      return React.Children.toArray(children);
     }, [children]);
 
-    const tabsScrollPosition = useRef<number[]>(Array(data.length).fill(-1));
+    const tabsScrollPosition = React.useRef<number[]>(Array(data.length).fill(-1));
 
-    const goToPageAnimationFrame = useRef<ReturnType<typeof requestAnimationFrame>>();
+    const goToPageAnimationFrame = React.useRef<ReturnType<typeof requestAnimationFrame>>();
 
     const isInverted = Platform.OS === 'android' ? I18nManager.isRTL : undefined;
 
-    useEffect(() => {
+    React.useEffect(() => {
       /**
        * Scroll to make first rendered tab visible (if not used, sometimes when Pager is first rendered, it has blank first tab)
        */
@@ -115,7 +107,7 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() => {
+    React.useEffect(() => {
       if (page !== currentPageRef.current && page >= 0) {
         goToPage(page);
       }
@@ -248,9 +240,9 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
       },
     });
 
-    useImperativeHandle(ref, () => ({ goToPage }));
+    React.useImperativeHandle(ref, () => ({ goToPage }));
 
-    const renderItem = useCallback(
+    const renderItem = React.useCallback(
       ({ item }: ListRenderItemInfo<Page>) => {
         return (
           <View
@@ -272,7 +264,7 @@ export const Pager = forwardRef<PagerMethods, PagerProps & InternalPagerProps>(
     return (
       <View style={styles.container} onLayout={onContainerLayout}>
         <AnimatedFlatList
-          ref={horizontalFlatListRef as unknown as RefObject<Animated.FlatList<Page>>}
+          ref={horizontalFlatListRef as unknown as React.RefObject<Animated.FlatList<Page>>}
           {...rest}
           automaticallyAdjustContentInsets={automaticallyAdjustContentInsets}
           contentContainerStyle={[
