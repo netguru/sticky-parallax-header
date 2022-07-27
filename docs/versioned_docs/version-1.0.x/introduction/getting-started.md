@@ -38,6 +38,16 @@ Library offers following header layout types:
 - `TabbedHeaderPager`
 - `TabbedHeaderList`
 
+### FlashList HOCs
+
+Library also provides higher-order-components to enhance [FlashList](https://shopify.github.io/flash-list/docs/) with sticky header layouts:
+
+- `withAvatarHeaderFlashList` (will produce FlashList equivalent of `AvatarHeader(FlashList|SectionList)`)
+- `withDetailsHeaderFlashList` (will produce FlashList equivalent of `DetailsHeader(FlashList|SectionList)`)
+- `withTabbedHeaderFlashList` (will produce FlashList equivalent of `TabbedHeaderList`)
+
+As with primitive components, FlashList can also be customized to create its own "sticky header" layout, thanks to `withStickyHeaderFlashList` & `useStickyHeaderFlashListScrollProps`
+
 ## In Use
 
 **Check the live demo on Expo Snack [here](https://snack.expo.dev/@netguru_rnd/sticky-parallax-header-example).**
