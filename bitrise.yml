@@ -36,7 +36,6 @@ workflows:
     steps:
     - activate-ssh-key@4: {}
     - git-clone@6: {}
-    - cache-pull@2: {}
     - yarn@0:
         inputs:
         - workdir: "$WORKDIR"
@@ -49,19 +48,6 @@ workflows:
         inputs:
         - workdir: "$WORKDIR"
         - command: typescript
-    - cache-push@2:
-        inputs:
-          - cache_paths: |-
-              $HOME/.rbenv
-              $EXAMPLE_WORKDIR/ios/Pods
-              $EXAMPLE_WORKDIR/node_modules
-              $WORKDIR/node_modules
-              $HOME/.gradle
-              $EXAMPLE_ANDROID_PROJECT/.gradle
-          - ignore_check_on_paths: |-
-              $HOME/.gradle/caches/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
     - deploy-to-bitrise-io@2: {}
   prod_android:
     description: >
@@ -186,147 +172,66 @@ workflows:
               $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
               $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
     - deploy-to-bitrise-io@2: {}
+  _release:
+    description: >
+      Publish to NPM reusable workflow (template)
+    steps:
+    - activate-ssh-key@4: {}
+    - git-clone@6: {}
+    - yarn@0:
+        inputs:
+        - workdir: "$WORKDIR"
+        - command: install
+    - yarn@0:
+        inputs:
+        - workdir: "$EXAMPLE_WORKDIR"
+        - command: install
+    - script:
+        inputs:
+        - content: |-
+            git config --global user.email "react@netguru.co"
+            git config --global user.name "netguru"
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+            if [[ $PRE_RELEASE == true ]]
+            then
+              yarn release --preRelease=rc --ci --npm.skipChecks
+            else
+              yarn release --increment=$INCREMENT --ci --npm.skipChecks
+            fi
+    - deploy-to-bitrise-io@2: {}
   pre-release:
     description: >
       Create release candidate and publish it to npm
-    steps:
-    - activate-ssh-key@4: {}
-    - git-clone@6: {}
-    - cache-pull@2: {}
-    - yarn@0:
-        inputs:
-        - workdir: "$WORKDIR"
-        - command: install
-    - yarn@0:
-        inputs:
-        - workdir: "$EXAMPLE_WORKDIR"
-        - command: install
-    - script:
-        inputs:
-        - content: |-
-            git config --global user.email "react@netguru.co"
-            git config --global user.name "netguru"
-            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-            yarn release --preRelease=rc --ci --npm.skipChecks
-    - cache-push@2:
-        inputs:
-          - cache_paths: |-
-              $HOME/.rbenv
-              $EXAMPLE_WORKDIR/ios/Pods
-              $EXAMPLE_WORKDIR/node_modules
-              $WORKDIR/node_modules
-              $HOME/.gradle
-              $EXAMPLE_ANDROID_PROJECT/.gradle
-          - ignore_check_on_paths: |-
-              $HOME/.gradle/caches/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
-    - deploy-to-bitrise-io@2: {}
+    envs:
+      - opts:
+          - is_expand: false
+        PRE_RELEASE: true
+    after_run:
+      - _release
   release-major:
     description: >
       Create major release and publish it to npm
-    steps:
-    - activate-ssh-key@4: {}
-    - git-clone@6: {}
-    - cache-pull@2: {}
-    - yarn@0:
-        inputs:
-        - workdir: "$WORKDIR"
-        - command: install
-    - yarn@0:
-        inputs:
-        - workdir: "$EXAMPLE_WORKDIR"
-        - command: install
-    - script:
-        inputs:
-        - content: |-
-            git config --global user.email "react@netguru.co"
-            git config --global user.name "netguru"
-            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-            yarn release --increment=major --ci --npm.skipChecks
-    - cache-push@2:
-        inputs:
-          - cache_paths: |-
-              $HOME/.rbenv
-              $EXAMPLE_WORKDIR/ios/Pods
-              $EXAMPLE_WORKDIR/node_modules
-              $WORKDIR/node_modules
-              $HOME/.gradle
-              $EXAMPLE_ANDROID_PROJECT/.gradle
-          - ignore_check_on_paths: |-
-              $HOME/.gradle/caches/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
-    - deploy-to-bitrise-io@2: {}
+    envs:
+      - opts:
+          - is_expand: false
+        INCREMENT: major
+    after_run:
+      - _release
   release-minor:
     description: >
       Create minor release and publish it to npm
-    steps:
-    - activate-ssh-key@4: {}
-    - git-clone@6: {}
-    - cache-pull@2: {}
-    - yarn@0:
-        inputs:
-        - workdir: "$WORKDIR"
-        - command: install
-    - yarn@0:
-        inputs:
-        - workdir: "$EXAMPLE_WORKDIR"
-        - command: install
-    - script:
-        inputs:
-        - content: |-
-            git config --global user.email "react@netguru.co"
-            git config --global user.name "netguru"
-            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-            yarn release --increment=minor --ci --npm.skipChecks
-    - cache-push@2:
-        inputs:
-          - cache_paths: |-
-              $HOME/.rbenv
-              $EXAMPLE_WORKDIR/ios/Pods
-              $EXAMPLE_WORKDIR/node_modules
-              $WORKDIR/node_modules
-              $HOME/.gradle
-              $EXAMPLE_ANDROID_PROJECT/.gradle
-          - ignore_check_on_paths: |-
-              $HOME/.gradle/caches/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
-    - deploy-to-bitrise-io@2: {}
+    envs:
+      - opts:
+          - is_expand: false
+        INCREMENT: minor
+    after_run:
+      - _release
   release-patch:
     description: >
       Create patch release and publish it to npm
-    steps:
-    - activate-ssh-key@4: {}
-    - git-clone@6: {}
-    - cache-pull@2: {}
-    - yarn@0:
-        inputs:
-        - workdir: "$WORKDIR"
-        - command: install
-    - yarn@0:
-        inputs:
-        - workdir: "$EXAMPLE_WORKDIR"
-        - command: install
-    - script:
-        inputs:
-        - content: |-
-            git config --global user.email "react@netguru.co"
-            git config --global user.name "netguru"
-            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-            yarn release --increment=patch --ci --npm.skipChecks
-    - cache-push@2:
-        inputs:
-          - cache_paths: |-
-              $HOME/.rbenv
-              $EXAMPLE_WORKDIR/ios/Pods
-              $EXAMPLE_WORKDIR/node_modules
-              $WORKDIR/node_modules
-              $HOME/.gradle
-              $EXAMPLE_ANDROID_PROJECT/.gradle
-          - ignore_check_on_paths: |-
-              $HOME/.gradle/caches/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.lock
-              $EXAMPLE_ANDROID_PROJECT/.gradle/*.bin
-    - deploy-to-bitrise-io@2: {}
+    envs:
+      - opts:
+          - is_expand: false
+        INCREMENT: patch
+    after_run:
+      - _release
