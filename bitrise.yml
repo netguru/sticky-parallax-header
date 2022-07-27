@@ -204,7 +204,7 @@ workflows:
       Create release candidate and publish it to npm
     envs:
       - opts:
-          - is_expand: false
+          is_expand: false
         PRE_RELEASE: true
     after_run:
       - _release
@@ -213,7 +213,7 @@ workflows:
       Create major release and publish it to npm
     envs:
       - opts:
-          - is_expand: false
+          is_expand: false
         INCREMENT: major
     after_run:
       - _release
@@ -222,7 +222,7 @@ workflows:
       Create minor release and publish it to npm
     envs:
       - opts:
-          - is_expand: false
+          is_expand: false
         INCREMENT: minor
     after_run:
       - _release
@@ -231,7 +231,7 @@ workflows:
       Create patch release and publish it to npm
     envs:
       - opts:
-          - is_expand: false
+          is_expand: false
         INCREMENT: patch
     after_run:
       - _release
