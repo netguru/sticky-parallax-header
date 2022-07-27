@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import * as React from 'react';
 
 import { CardScreen, HomeScreen, SimsScreen, YodaScreen } from '../screens';
 import {
@@ -16,6 +16,10 @@ import {
   TabbedHeaderListExample,
   TabbedHeaderPagerExample,
 } from '../screens/additionalExamples';
+import { AvatarHeaderFlashListExample } from '../screens/additionalExamples/AvatarHeaderFlashListExample';
+import { DetailsHeaderFlashListExample } from '../screens/additionalExamples/DetailsHeaderFlashListExample';
+import { StickyHeaderFlashListExample } from '../screens/additionalExamples/StickyHeaderFlashListExample';
+import { TabbedHeaderFlashListExample } from '../screens/additionalExamples/TabbedHeaderFlashListExample';
 import { TabbedHeaderWithSectionListsExample } from '../screens/additionalExamples/TabbedHeaderWithSectionLists';
 
 import { ROUTES } from './routes';
@@ -65,6 +69,22 @@ const AppNavigator: React.FC = () => (
       <Stack.Screen
         name={ROUTES.TABBED_HEADER_WITH_SECTION_LISTS}
         component={TabbedHeaderWithSectionListsExample}
+      />
+      <Stack.Screen
+        name={ROUTES.TABBED_HEADER_FLASHLIST}
+        component={TabbedHeaderFlashListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.AVATAR_HEADER_FLASHLIST}
+        component={AvatarHeaderFlashListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.DETAILS_HEADER_FLASHLIST}
+        component={DetailsHeaderFlashListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.STICKY_HEADER_FLASHLIST}
+        component={StickyHeaderFlashListExample}
       />
     </Stack.Navigator>
   </NavigationContainer>

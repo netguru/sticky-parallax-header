@@ -13,6 +13,7 @@ import type {
 import type { SharedValue } from 'react-native-reanimated';
 
 import type {
+  StickyHeaderFlashListProps,
   StickyHeaderScrollViewProps,
   StickyHeaderSectionListProps,
 } from '../../primitiveComponents/StickyHeaderProps';
@@ -88,3 +89,7 @@ export interface TabbedHeaderPagerProps
 export interface TabbedHeaderListProps<ItemT, SectionT>
   extends TabbedHeaderSharedProps,
     StickyHeaderSectionListProps<ItemT, SectionT> {}
+
+export interface TabbedHeaderFlashListProps<ItemT>
+  extends Omit<TabbedHeaderSharedProps, 'contentContainerStyle'>,
+    StickyHeaderFlashListProps<ItemT> {}

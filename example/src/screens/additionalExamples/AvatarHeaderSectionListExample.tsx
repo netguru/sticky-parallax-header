@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import type { FC } from 'react';
-import React, { useMemo } from 'react';
+import * as React from 'react';
 import type { SectionListData } from 'react-native';
 import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { AvatarHeaderSectionList } from 'react-native-sticky-parallax-header';
@@ -14,7 +13,7 @@ import { screenStyles } from '../../constants';
 
 import { avatarHeaderTestIDs } from './testIDs';
 
-export const AvatarHeaderSectionListExample: FC = () => {
+export const AvatarHeaderSectionListExample: React.FC = () => {
   const navigation = useNavigation();
 
   function goBack() {
@@ -23,7 +22,7 @@ export const AvatarHeaderSectionListExample: FC = () => {
 
   const isDarkTheme = useColorScheme() === 'dark';
 
-  const sections = useMemo(() => {
+  const sections = React.useMemo(() => {
     const section: SectionListData<typeof Brandon.cards[0]> = {
       data: Brandon.cards,
       keyExtractor: (item) => item.question,

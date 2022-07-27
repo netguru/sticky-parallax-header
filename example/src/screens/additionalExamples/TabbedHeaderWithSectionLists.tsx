@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { SectionListData } from 'react-native';
 import { SectionList, StatusBar, StyleSheet, View, useColorScheme } from 'react-native';
 import { TabbedHeaderPager } from 'react-native-sticky-parallax-header';
@@ -43,7 +42,7 @@ const QUIZ_TAB_SECTIONS = [
   },
 ];
 
-const List: FC<{ startIndex: number }> = ({ startIndex }) => {
+const List: React.FC<{ startIndex: number }> = ({ startIndex }) => {
   return (
     <SectionList
       sections={QUIZ_SECTIONS.slice(startIndex).concat(QUIZ_SECTIONS.slice(0, startIndex))}
@@ -58,7 +57,7 @@ const List: FC<{ startIndex: number }> = ({ startIndex }) => {
   );
 };
 
-export const TabbedHeaderWithSectionListsExample: FC = () => {
+export const TabbedHeaderWithSectionListsExample: React.FC = () => {
   const isDarkTheme = useColorScheme() === 'dark';
 
   return (

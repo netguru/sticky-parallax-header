@@ -22,6 +22,10 @@ export type RootStackParamList = {
   [ROUTES.DETAILS_HEADER_SCROLLVIEW]: undefined;
   [ROUTES.DETAILS_HEADER_SECTIONLIST]: undefined;
   [ROUTES.TABBED_HEADER_WITH_SECTION_LISTS]: undefined;
+  [ROUTES.TABBED_HEADER_FLASHLIST]: undefined;
+  [ROUTES.AVATAR_HEADER_FLASHLIST]: undefined;
+  [ROUTES.DETAILS_HEADER_FLASHLIST]: undefined;
+  [ROUTES.STICKY_HEADER_FLASHLIST]: undefined;
 };
 
 export type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;

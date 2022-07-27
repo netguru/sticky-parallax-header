@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { StatusBar, StyleSheet, View, useColorScheme } from 'react-native';
 import { TabbedHeaderPager } from 'react-native-sticky-parallax-header';
 
@@ -11,7 +10,7 @@ import { colors, screenStyles } from '../../constants';
 
 import { tabbedHeaderTestIDs } from './testIDs';
 
-export const TabbedHeaderPagerExample: FC = () => {
+export const TabbedHeaderPagerExample: React.FC = () => {
   const isDarkTheme = useColorScheme() === 'dark';
 
   return (

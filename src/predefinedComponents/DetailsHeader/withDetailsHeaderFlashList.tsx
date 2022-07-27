@@ -1,20 +1,27 @@
+import type { FlashList, FlashListProps } from '@shopify/flash-list';
 import * as React from 'react';
-import type { ScrollView } from 'react-native';
 import { View } from 'react-native';
 
 import { commonStyles } from '../../constants';
-import { StickyHeaderScrollView } from '../../primitiveComponents/StickyHeaderScrollView';
+import type { StickyHeaderFlashListProps } from '../../primitiveComponents/StickyHeaderProps';
+import { withStickyHeaderFlashList } from '../../primitiveComponents/withStickyHeaderFlashList';
 
-import type { AvatarHeaderScrollViewProps } from './AvatarHeaderProps';
+import type { DetailsHeaderFlashListProps } from './DetailsHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
-import { useAvatarHeader } from './hooks/useAvatarHeader';
+import { useDetailsFlashListHeader } from './hooks/useDetailsFlashListHeader';
 
-export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderScrollViewProps>(
-  (props, ref) => {
+export function withDetailsHeaderFlashList<ItemT>(
+  flashListComponent: React.ComponentType<FlashListProps<ItemT>>
+) {
+  const StickyHeaderFlashList = withStickyHeaderFlashList(
+    flashListComponent as React.ComponentType<FlashListProps<ItemT>>
+  ) as (
+    props: StickyHeaderFlashListProps<ItemT> & React.RefAttributes<FlashList<ItemT>>
+  ) => React.ReactElement;
+
+  return React.forwardRef<FlashList<ItemT>, DetailsHeaderFlashListProps<ItemT>>((props, ref) => {
     const {
       backgroundColor,
-      children,
-      contentContainerStyle,
       decelerationRate = 'fast',
       leftTopIcon,
       leftTopIconAccessibilityLabel,
@@ -33,25 +40,24 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
       ...rest
     } = props;
     const {
-      onMomentumScrollEnd,
+      headerTitleContainerAnimatedStyle,
+      renderHeader,
+      scrollViewRef,
       onScroll,
       onScrollEndDrag,
-      parallaxHeight,
-      renderHeader,
-      scrollValue,
-      scrollViewRef,
-    } = useAvatarHeader<ScrollView>(props);
+      onMomentumScrollEnd,
+    } = useDetailsFlashListHeader<ItemT>(props);
 
-    React.useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
+    React.useImperativeHandle(ref, () => scrollViewRef.current as FlashList<ItemT>);
 
     return (
-      <View style={[commonStyles.wrapper, { backgroundColor }]}>
+      <View style={[commonStyles.container, { backgroundColor }]}>
         {renderHeaderBar ? (
           renderHeaderBar()
         ) : (
           <HeaderBar
             backgroundColor={backgroundColor}
-            height={parallaxHeight}
+            headerTitleContainerAnimatedStyle={headerTitleContainerAnimatedStyle}
             leftTopIcon={leftTopIcon}
             leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}
             leftTopIconOnPress={leftTopIconOnPress}
@@ -60,28 +66,25 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
             rightTopIconAccessibilityLabel={rightTopIconAccessibilityLabel}
             rightTopIconOnPress={rightTopIconOnPress}
             rightTopIconTestID={rightTopIconTestID}
-            scrollValue={scrollValue}
             title={title}
             titleStyle={titleStyle}
           />
         )}
-        <View style={commonStyles.wrapper}>
-          <StickyHeaderScrollView
+        <View style={commonStyles.container}>
+          <StickyHeaderFlashList
             ref={scrollViewRef}
             {...rest}
-            contentContainerStyle={contentContainerStyle}
             decelerationRate={decelerationRate}
             nestedScrollEnabled={nestedScrollEnabled}
+            onScroll={onScroll}
             onMomentumScrollEnd={onMomentumScrollEnd}
             onScrollEndDrag={onScrollEndDrag}
-            onScroll={onScroll}
             overScrollMode={overScrollMode}
             renderHeader={renderHeader}
-            scrollEventThrottle={scrollEventThrottle}>
-            {children}
-          </StickyHeaderScrollView>
+            scrollEventThrottle={scrollEventThrottle}
+          />
         </View>
       </View>
     );
-  }
-);
+  });
+}

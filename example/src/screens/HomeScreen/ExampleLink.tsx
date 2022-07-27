@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import type { VFC } from 'react';
-import React, { useCallback } from 'react';
+import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import { colors } from '../../constants';
@@ -84,14 +83,34 @@ export const EXAMPLES: Array<ExampleLinkProps> = [
   {
     routeName: ROUTES.TABBED_HEADER_WITH_SECTION_LISTS,
     label: 'Tabbed Header with SectionList tabs',
-    testID: homeScreenTestIDs.tabbedHeaderWithSectionLists,
+    testID: homeScreenTestIDs.tabbedHeaderWithSectionListsLink,
+  },
+  {
+    routeName: ROUTES.TABBED_HEADER_FLASHLIST,
+    label: 'FlashList with tabs',
+    testID: homeScreenTestIDs.tabbedHeaderFlashListLink,
+  },
+  {
+    routeName: ROUTES.AVATAR_HEADER_FLASHLIST,
+    label: 'User Modal (FlashList)',
+    testID: homeScreenTestIDs.avatarHeaderFlashListLink,
+  },
+  {
+    routeName: ROUTES.DETAILS_HEADER_FLASHLIST,
+    label: 'Card Screen (FlashList)',
+    testID: homeScreenTestIDs.detailsHeaderFlashListLink,
+  },
+  {
+    routeName: ROUTES.STICKY_HEADER_FLASHLIST,
+    label: 'New StickyHeader (FlashList)',
+    testID: homeScreenTestIDs.stickyHeaderFlashListLink,
   },
 ];
 
-export const ExampleLink: VFC<ExampleLinkProps> = ({ routeName, label, testID }) => {
+export const ExampleLink: React.FC<ExampleLinkProps> = ({ routeName, label, testID }) => {
   const navigation = useNavigation<RootStackNavigationProp>();
 
-  const navigateTo = useCallback(
+  const navigateTo = React.useCallback(
     (route: typeof ROUTES[keyof typeof ROUTES]) => {
       return () => {
         navigation.navigate(route);

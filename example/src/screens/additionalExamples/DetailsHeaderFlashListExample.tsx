@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
+import { FlashList } from '@shopify/flash-list';
 import * as React from 'react';
-import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
-import { DetailsHeaderFlatList } from 'react-native-sticky-parallax-header';
+import { StatusBar, useColorScheme } from 'react-native';
+import { withDetailsHeaderFlashList } from 'react-native-sticky-parallax-header';
 
+import type { Question } from '../../assets/data/cards';
 import { Brandon } from '../../assets/data/cards';
 import { CardsBlack, IconMenu, iconCloseWhite } from '../../assets/icons';
 import { QuizCard } from '../../components';
@@ -10,7 +12,42 @@ import { screenStyles } from '../../constants';
 
 import { detailsHeaderTestIDs } from './testIDs';
 
-export const DetailsHeaderFlatListExample: React.FC = () => {
+const cards = Brandon.cards
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards)
+  .concat(Brandon.cards);
+
+const data = cards.map((card, index) => ({ ...card, id: `${index}` }));
+
+const DetailsHeaderFlashList = withDetailsHeaderFlashList<Question & { id: string }>(FlashList);
+
+export const DetailsHeaderFlashListExample: React.FC = () => {
   const navigation = useNavigation();
 
   function goBack() {
@@ -21,16 +58,15 @@ export const DetailsHeaderFlatListExample: React.FC = () => {
 
   return (
     <>
-      <DetailsHeaderFlatList
+      <DetailsHeaderFlashList
         leftTopIcon={iconCloseWhite}
         leftTopIconOnPress={goBack}
         leftTopIconTestID={detailsHeaderTestIDs.headerLeftTopIcon}
         rightTopIcon={IconMenu}
         rightTopIconTestID={detailsHeaderTestIDs.headerRightTopIcon}
-        contentContainerStyle={[
-          styles.content,
-          isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
-        ]}
+        contentContainerStyle={
+          isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground
+        }
         containerStyle={screenStyles.stretchContainer}
         contentIcon={CardsBlack}
         contentIconNumber={10}
@@ -43,8 +79,10 @@ export const DetailsHeaderFlatListExample: React.FC = () => {
         title={Brandon.author}
         titleStyle={screenStyles.text}
         titleTestID={detailsHeaderTestIDs.title}
-        data={Brandon.cards}
-        keyExtractor={(item) => item.question}
+        data={data}
+        estimatedItemSize={300}
+        keyExtractor={(item) => item.id}
+        decelerationRate="normal"
         renderItem={({ item, index }) => (
           <QuizCard data={item} num={index} cardsAmount={Brandon.cards.length} />
         )}
@@ -54,11 +92,3 @@ export const DetailsHeaderFlatListExample: React.FC = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  content: {
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    paddingHorizontal: 24,
-  },
-});

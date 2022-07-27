@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { StatusBar, StyleSheet, View, useColorScheme } from 'react-native';
 import { DetailsHeaderScrollView } from 'react-native-sticky-parallax-header';
 
@@ -11,7 +10,7 @@ import { screenStyles } from '../../constants';
 
 import { detailsHeaderTestIDs } from './testIDs';
 
-export const DetailsHeaderScrollViewExample: FC = () => {
+export const DetailsHeaderScrollViewExample: React.FC = () => {
   const navigation = useNavigation();
 
   function goBack() {

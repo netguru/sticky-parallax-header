@@ -1,15 +1,16 @@
-import React, { useCallback } from 'react';
+import type { FlashList } from '@shopify/flash-list';
+import * as React from 'react';
 import { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
-import type { ScrollComponent } from '../common/SharedProps';
-import { HeaderWrapper } from '../common/components/HeaderWrapper';
-import { usePredefinedHeader } from '../common/hooks/usePredefinedHeader';
-import { scrollPosition } from '../common/utils/scrollPosition';
+import { HeaderWrapper } from '../../common/components/HeaderWrapper';
+import { usePredefinedFlashListHeader } from '../../common/hooks/usePredefinedFlashListHeader';
+import { scrollPosition } from '../../common/utils/scrollPosition';
+import type { DetailsHeaderFlashListProps } from '../DetailsHeaderProps';
+import { Foreground } from '../components/HeaderForeground';
 
-import type { DetailsHeaderScrollViewProps } from './DetailsHeaderProps';
-import { Foreground } from './components/HeaderForeground';
-
-export function useDetailsHeader<T extends ScrollComponent>(props: DetailsHeaderScrollViewProps) {
+export function useDetailsFlashListHeader<ItemT, T extends FlashList<ItemT> = FlashList<ItemT>>(
+  props: DetailsHeaderFlashListProps<ItemT>
+) {
   const {
     contentBackgroundColor,
     onMomentumScrollEnd,
@@ -19,7 +20,7 @@ export function useDetailsHeader<T extends ScrollComponent>(props: DetailsHeader
     scrollHeight,
     scrollValue,
     scrollViewRef,
-  } = usePredefinedHeader<T>(props);
+  } = usePredefinedFlashListHeader<T>(props);
   const {
     backgroundColor,
     backgroundImage,
@@ -52,7 +53,7 @@ export function useDetailsHeader<T extends ScrollComponent>(props: DetailsHeader
     };
   });
 
-  const renderHeader = useCallback(() => {
+  const renderHeader = React.useCallback(() => {
     return (
       <HeaderWrapper
         backgroundColor={backgroundColor}

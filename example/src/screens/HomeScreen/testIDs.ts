@@ -21,5 +21,9 @@ export const homeScreenTestIDs = Object.freeze({
   detailsHeaderFlatListLink: 'DetailsHeaderFlatListLinkTestID',
   detailsHeaderScrollViewLink: 'DetailsHeaderScrollViewLinkTestID',
   detailsHeaderSectionListLink: 'DetailsHeaderSectionListLinkTestID',
-  tabbedHeaderWithSectionLists: 'TabbedHeaderWithSectionListsTestID',
+  tabbedHeaderWithSectionListsLink: 'TabbedHeaderWithSectionListsLinkTestID',
+  tabbedHeaderFlashListLink: 'TabbedHeaderFlashListLinkTestID',
+  avatarHeaderFlashListLink: 'AvatarHeaderFlashListLinkTestID',
+  detailsHeaderFlashListLink: 'DetailsHeaderFlashListLinkTestID',
+  stickyHeaderFlashListLink: 'StickyHeaderFlashListLinkTestID',
 });
