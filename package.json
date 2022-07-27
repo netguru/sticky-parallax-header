@@ -38,7 +38,6 @@
   },
   "peerDependencies": {
     "react": ">=17.0.0",
-    "react-freeze": ">=1.0.0",
     "react-native": ">=0.64.0",
     "react-native-reanimated": ">=2.0.0",
     "react-native-safe-area-context": ">=3.0.0"
@@ -64,7 +63,6 @@
     "pod-install": "^0.1.37",
     "prettier": "2.6.2",
     "react": "17.0.2",
-    "react-freeze": "1.0.0",
     "react-native": "0.68.2",
     "react-native-builder-bob": "0.18.2",
     "react-native-reanimated": "2.8.0",
