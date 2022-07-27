@@ -15,6 +15,9 @@ app:
     EXAMPLE_WORKDIR: "./example"
   - opts:
       is_expand: false
+    DOCS_WORKDIR: "./docs"
+  - opts:
+      is_expand: false
     EXAMPLE_ANDROID_PROJECT: "./example/android"
   - opts:
       is_expand: false
@@ -235,3 +238,36 @@ workflows:
         INCREMENT: patch
     after_run:
       - _release
+  docs-deploy:
+    description: >
+      Create docs release and deploy it to Github Pages
+    envs:
+      - opts:
+          is_expand: false
+        USE_SSH: true
+      - opts:
+          is_expand: false
+        GIT_USER: git
+      - opts:
+          is_expand: false
+        CURRENT_BRANCH: master
+      - opts:
+          is_expand: false
+        DEPLOYMENT_BRANCH: gh-pages
+    steps:
+    - activate-ssh-key@4: {}
+    - git-clone@6: {}
+    - yarn@0:
+        inputs:
+        - workdir: "$DOCS_WORKDIR"
+        - command: install
+    - script:
+        inputs:
+        - content: |-
+            git config --global user.email "react@netguru.co"
+            git config --global user.name "netguru"
+    - yarn@0:
+        inputs:
+        - workdir: "$DOCS_WORKDIR"
+        - command: deploy
+    - deploy-to-bitrise-io@2: {}
