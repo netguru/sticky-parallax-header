@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React, { memo } from 'react';
+import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -11,7 +10,7 @@ const ITEM_MARGIN_VERTICAL = 5;
 
 export const TABBED_SECTION_ITEM_HEIGHT = ITEM_HEIGHT + 2 * ITEM_MARGIN_VERTICAL;
 
-export const TabbedSectionItem: FC<ItemType> = memo(({ imageUrl, title, subtitle }) => {
+export const TabbedSectionItem: React.FC<ItemType> = React.memo(({ imageUrl, title, subtitle }) => {
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.container}>
       <View style={styles.itemContainer}>

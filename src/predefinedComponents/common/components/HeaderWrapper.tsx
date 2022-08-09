@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { ColorValue, ImageSourcePropType } from 'react-native';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import type Animated from 'react-native-reanimated';
@@ -20,7 +19,7 @@ interface HeaderWrapperProps {
   tabsContainerBackgroundColor?: ColorValue;
 }
 
-export const HeaderWrapper: FC<HeaderWrapperProps> = ({
+export const HeaderWrapper: React.FC<React.PropsWithChildren<HeaderWrapperProps>> = ({
   backgroundColor,
   backgroundImage,
   children,

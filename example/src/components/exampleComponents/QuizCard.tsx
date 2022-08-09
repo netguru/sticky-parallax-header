@@ -1,5 +1,4 @@
-import type { VFC } from 'react';
-import React, { useCallback, useState } from 'react';
+import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import type { Card, Question } from '../../assets/data/cards';
@@ -23,10 +22,10 @@ type Props = {
   cardsAmount: number;
 };
 
-const QuizCard: VFC<Props> = ({ data: { question, cards }, num, onPress, cardsAmount }) => {
-  const [revealed, setRevealed] = useState(false);
+const QuizCard: React.FC<Props> = ({ data: { question, cards }, num, onPress, cardsAmount }) => {
+  const [revealed, setRevealed] = React.useState(false);
 
-  const reveal = useCallback(() => {
+  const reveal = React.useCallback(() => {
     setRevealed(true);
   }, []);
 

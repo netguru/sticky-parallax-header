@@ -1,12 +1,11 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import type { SectionType } from '../../assets/data/tabbedSections';
 import { colors } from '../../constants';
 
-export const TabbedSectionHeader: FC<SectionType> = ({ title }) => {
+export const TabbedSectionHeader: React.FC<SectionType> = ({ title }) => {
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>{title}</Text>

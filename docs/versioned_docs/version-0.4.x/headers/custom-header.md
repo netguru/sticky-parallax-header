@@ -51,7 +51,7 @@ sidebar_position: 5
 Here is a basic example of how you can create a custom header
 
 ```jsx
-import React from 'react'
+import * as React from 'react'
 import { Text, View, Animated, StyleSheet } from 'react-native'
 import StickyParallaxHeader from 'react-native-sticky-parallax-header'
 const styles = StyleSheet.create({

@@ -1,10 +1,9 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { Platform, Pressable, StyleSheet, Text } from 'react-native';
 
 import { colors, screenStyles } from '../../constants';
 
-export const Paragraph: FC<{ text: string }> = ({ text }) => {
+export const Paragraph: React.FC<{ text: string }> = ({ text }) => {
   return (
     <Pressable
       android_ripple={{

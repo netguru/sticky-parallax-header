@@ -20,7 +20,7 @@ Predefined headers can be accessed through `headerType="HeaderName"` property, e
 This is how you can add them in your app:
 
 ```tsx
-import React from 'react'
+import * as React from 'react'
 import StickyParallaxHeader from 'react-native-sticky-parallax-header'
 
 const TestScreen = () => (

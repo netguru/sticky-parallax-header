@@ -1,10 +1,9 @@
 import Link from '@docusaurus/Link';
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 import styles from './GetStartedSection.module.css';
 
-const GetStartedSection: FC = () => {
+const GetStartedSection: React.FC = () => {
   return (
     <section className={styles.wrapper}>
       <div className={styles.title}>Get started</div>

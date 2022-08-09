@@ -1,5 +1,4 @@
-import type { VFC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { ImageSourcePropType } from 'react-native';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -16,7 +15,7 @@ type Props = {
   pressUser?: () => void;
 };
 
-const QuizListElement: VFC<Props> = ({
+const QuizListElement: React.FC<Props> = ({
   onPress,
   authorName,
   imageSource,

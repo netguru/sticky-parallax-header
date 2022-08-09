@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type {
   ColorValue,
   ImageSourcePropType,
@@ -34,7 +33,7 @@ interface HeaderProps extends IconProps {
   titleTestID?: string;
 }
 
-export const HeaderBar: FC<HeaderProps> = ({
+export const HeaderBar: React.FC<HeaderProps> = ({
   backgroundColor,
   height,
   image,

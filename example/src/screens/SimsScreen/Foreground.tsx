@@ -1,5 +1,4 @@
-import type { VFC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
@@ -12,7 +11,7 @@ interface ForegroundProps {
   scrollValue: Animated.SharedValue<number>;
 }
 
-export const Foreground: VFC<ForegroundProps> = ({ scrollValue }) => {
+export const Foreground: React.FC<ForegroundProps> = ({ scrollValue }) => {
   const foregroundWrapperAnimatedStyle = useAnimatedStyle(() => {
     return { opacity: interpolate(scrollValue.value, [0, 250, 330], [1, 1, 0], Extrapolate.CLAMP) };
   });

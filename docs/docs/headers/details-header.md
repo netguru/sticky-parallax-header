@@ -9,7 +9,7 @@ sidebar_position: 3
 ## Example usage
 
 ```tsx
-import React from 'react'
+import * as React from 'react'
 import {
   DetailsHeaderScrollView,
   DetailsHeaderFlatList,

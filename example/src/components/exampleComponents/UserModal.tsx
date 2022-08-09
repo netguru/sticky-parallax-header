@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import * as React from 'react';
 import { StatusBar, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AvatarHeaderScrollView } from 'react-native-sticky-parallax-header';
@@ -20,10 +20,10 @@ interface Props {
 const UserModal: React.FC<Props> = ({ setModalVisible, user, onPressCloseModal }) => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const insets = useSafeAreaInsets();
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>();
 
   const title = "Author's Quizes";
-  const cards = useMemo(
+  const cards = React.useMemo(
     () => [
       {
         id: '4850294857',
@@ -37,7 +37,7 @@ const UserModal: React.FC<Props> = ({ setModalVisible, user, onPressCloseModal }
     [user]
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -45,7 +45,7 @@ const UserModal: React.FC<Props> = ({ setModalVisible, user, onPressCloseModal }
     };
   }, []);
 
-  const onQuizListElementPress = useCallback(() => {
+  const onQuizListElementPress = React.useCallback(() => {
     setModalVisible(false);
     timeoutRef.current = setTimeout(() => {
       navigation.navigate('Card', { user });

@@ -1,5 +1,4 @@
-import type { VFC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { ScrollView } from 'react-native';
 import { StatusBar, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -20,7 +19,7 @@ const HEADER_BAR_HEIGHT = 92;
 const SNAP_START_THRESHOLD = 50;
 const SNAP_STOP_THRESHOLD = 330;
 
-const SimsScreen: VFC = () => {
+const SimsScreen: React.FC = () => {
   const { width: windowWidth } = useWindowDimensions();
   const {
     onMomentumScrollEnd,

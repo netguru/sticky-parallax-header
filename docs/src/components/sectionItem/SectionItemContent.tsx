@@ -1,6 +1,5 @@
 import clsx from 'clsx';
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 import styles from './SectionItem.module.css';
 
@@ -9,7 +8,7 @@ interface SectionItemContentProps {
   title: string;
 }
 
-export const SectionItemContent: FC<SectionItemContentProps> = ({ description, title }) => {
+export const SectionItemContent: React.FC<SectionItemContentProps> = ({ description, title }) => {
   return (
     <div className={clsx('col col--6', styles.contentWrapper)}>
       <div className={styles.content}>
