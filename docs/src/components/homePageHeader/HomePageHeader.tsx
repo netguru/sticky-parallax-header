@@ -2,12 +2,11 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import clsx from 'clsx';
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 import styles from './HomePageHeader.module.css';
 
-const HomePageHeader: FC = () => {
+const HomePageHeader: React.FC = () => {
   const { siteConfig } = useDocusaurusContext();
 
   return (

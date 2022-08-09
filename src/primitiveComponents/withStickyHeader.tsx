@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ComponentPropsWithRef, ComponentType, FC } from 'react';
-import React, { forwardRef, useMemo } from 'react';
+import * as React from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -23,10 +22,10 @@ const createCellRenderer = (itemLayoutAnimation: any) => {
   return cellRenderer;
 };
 
-export function withStickyHeader<T extends ComponentType<any>>(component: T) {
+export function withStickyHeader<T extends React.ComponentType<any>>(component: T) {
   const AnimatedComponent = Animated.createAnimatedComponent(component as any) as any;
 
-  return forwardRef<
+  return React.forwardRef<
     T,
     StickyHeaderSharedProps & Animated.AnimateProps<React.ComponentPropsWithRef<T>>
   >((props, ref) => {
@@ -52,7 +51,7 @@ export function withStickyHeader<T extends ComponentType<any>>(component: T) {
       tabsHeight,
     } = useStickyHeaderProps(props);
 
-    const cellRenderer = useMemo(
+    const cellRenderer = React.useMemo(
       () => createCellRenderer(itemLayoutAnimation),
       // eslint-disable-next-line react-hooks/exhaustive-deps
       []
@@ -98,7 +97,9 @@ export function withStickyHeader<T extends ComponentType<any>>(component: T) {
         />
       </View>
     );
-  }) as unknown as FC<StickyHeaderSharedProps & Animated.AnimateProps<ComponentPropsWithRef<T>>>;
+  }) as unknown as React.FC<
+    StickyHeaderSharedProps & Animated.AnimateProps<React.ComponentPropsWithRef<T>>
+  >;
 }
 
 export const styles = StyleSheet.create({

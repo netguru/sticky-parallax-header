@@ -42,7 +42,7 @@ Sticky Parallax Header ships with 3 different use cases for sticky headers and a
 This is how you can display header in your app:
 
 ```tsx
-import React from 'react'
+import * as React from 'react'
 import { DetailsHeaderScrollView } from 'react-native-sticky-parallax-header'
 
 const TestScreen = () => (

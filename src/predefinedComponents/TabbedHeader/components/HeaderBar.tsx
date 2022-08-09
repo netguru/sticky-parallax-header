@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type {
   ColorValue,
   ImageResizeMode,
@@ -21,7 +20,7 @@ interface HeaderBarProps {
   logoStyle?: StyleProp<ImageStyle>;
 }
 
-export const HeaderBar: FC<HeaderBarProps> = ({
+export const HeaderBar: React.FC<HeaderBarProps> = ({
   backgroundColor,
   logo,
   logoResizeMode,

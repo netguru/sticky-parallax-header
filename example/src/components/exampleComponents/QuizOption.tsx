@@ -1,5 +1,4 @@
-import type { VFC } from 'react';
-import React, { useCallback, useState } from 'react';
+import * as React from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import { Image, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 
@@ -15,18 +14,18 @@ type Props = {
 
 const QUIZ_OPTION_WIDTH_PERCENTAGE = 0.75;
 
-const QuizOption: VFC<Props> = ({ reveal, revealed, card: { number, question, value } }) => {
+const QuizOption: React.FC<Props> = ({ reveal, revealed, card: { number, question, value } }) => {
   const { width: windowWidth } = useWindowDimensions();
-  const [picked, setPicked] = useState(false);
-  const [paddingVertical, setPaddingVertical] = useState(0);
-  const calcPaddings = useCallback((event: LayoutChangeEvent) => {
+  const [picked, setPicked] = React.useState(false);
+  const [paddingVertical, setPaddingVertical] = React.useState(0);
+  const calcPaddings = React.useCallback((event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
     const circleRadius = 40;
     const padding = height > circleRadius ? height / 2.5 : 0;
 
     setPaddingVertical(padding);
   }, []);
-  const onPress = useCallback(() => {
+  const onPress = React.useCallback(() => {
     reveal();
     setPicked(true);
   }, [reveal]);

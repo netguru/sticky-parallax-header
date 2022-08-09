@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { ColorValue, StyleProp, TextStyle } from 'react-native';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import Animated from 'react-native-reanimated';
@@ -24,7 +23,7 @@ const HIT_SLOP = {
   right: 15,
 };
 
-export const HeaderBar: FC<HeaderBarProps> = ({
+export const HeaderBar: React.FC<HeaderBarProps> = ({
   backgroundColor,
   headerTitleContainerAnimatedStyle,
   leftTopIcon,

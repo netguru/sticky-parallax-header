@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
-import type { VFC } from 'react';
-import React, { useCallback } from 'react';
+import * as React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -16,10 +15,10 @@ interface HeaderBarProps {
 
 const DEFAULT_TOP_INSET = 30;
 
-export const HeaderBar: VFC<HeaderBarProps> = ({ scrollValue }) => {
+export const HeaderBar: React.FC<HeaderBarProps> = ({ scrollValue }) => {
   const navigation = useNavigation();
 
-  const goBack = useCallback(() => {
+  const goBack = React.useCallback(() => {
     navigation.goBack();
   }, [navigation]);
 

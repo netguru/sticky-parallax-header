@@ -14,7 +14,7 @@ To make [FlashList](https://shopify.github.io/flash-list/docs/) work with react-
 
 ```tsx
 import { FlashList } from '@shopify/flash-list'
-import React from 'react'
+import * as React from 'react'
 import {
   withAvatarHeaderFlashList,
   withDetailsHeaderFlashList,

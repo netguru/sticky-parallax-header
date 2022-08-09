@@ -1,10 +1,9 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { colors } from '../../constants';
 
-export const SectionHeader: FC = () => {
+export const SectionHeader: React.FC = () => {
   return (
     <View style={styles.sectionHeaderContainer}>
       <Text style={styles.sectionHeaderLabel}>Section header</Text>

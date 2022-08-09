@@ -57,7 +57,7 @@ As with primitive components, FlashList can also be customized to create its own
 This is how you can display header in your app:
 
 ```tsx
-import React from 'react'
+import * as React from 'react'
 import { DetailsHeaderScrollView } from 'react-native-sticky-parallax-header'
 
 const TestScreen = () => (

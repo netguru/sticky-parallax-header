@@ -196,7 +196,7 @@ const CutomHeaderScreen = () => {
 
 ## Summary - Full source code
 ```tsx
-import React from 'react'
+import * as React from 'react'
 import {
   Text,
   View,

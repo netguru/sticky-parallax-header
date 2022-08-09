@@ -1,8 +1,7 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { Image, PixelRatio, StyleSheet, View } from 'react-native';
 
-export const Header: FC = () => {
+export const Header: React.FC = () => {
   return (
     <View style={styles.headerContainer}>
       <Image

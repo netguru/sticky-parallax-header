@@ -1,15 +1,14 @@
-import type { ReactNode, VFC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { ImageSourcePropType } from 'react-native';
 import { ImageBackground, StyleSheet, useWindowDimensions } from 'react-native';
 
 interface HeaderBackgroundImageProps {
-  background: ReactNode;
+  background: React.ReactNode;
   backgroundHeight: number;
   backgroundImage: ImageSourcePropType;
 }
 
-export const HeaderBackgroundImage: VFC<HeaderBackgroundImageProps> = ({
+export const HeaderBackgroundImage: React.FC<HeaderBackgroundImageProps> = ({
   background,
   backgroundHeight,
   backgroundImage,

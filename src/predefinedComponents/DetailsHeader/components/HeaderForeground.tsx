@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { Image, Platform, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
@@ -27,7 +26,7 @@ interface ForegroundProps {
   titleTestID?: string;
 }
 
-export const Foreground: FC<ForegroundProps> = ({
+export const Foreground: React.FC<ForegroundProps> = ({
   contentIcon,
   contentIconNumber,
   contentIconNumberStyle,

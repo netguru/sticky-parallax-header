@@ -9,7 +9,7 @@ sidebar_position: 2
 ## Example usage
 
 ```tsx
-import React from 'react';
+import * as React from 'react';
 import { Text, View } from 'react-native';
 import { TabbedHeaderList } from 'react-native-sticky-parallax-header';
 

@@ -1,6 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import type { VFC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { StatusBar, View } from 'react-native';
 import { DetailsHeaderScrollView } from 'react-native-sticky-parallax-header';
 
@@ -12,7 +11,7 @@ import type { CardRouteProp, RootStackNavigationProp } from '../../navigation/ty
 
 import { cardScreenTestIDs } from './testIDs';
 
-const CardScreen: VFC = () => {
+const CardScreen: React.FC = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const route = useRoute<CardRouteProp>();
   const user = route.params?.user ?? Brandon;

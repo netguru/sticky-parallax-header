@@ -1,5 +1,4 @@
-import type { VFC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { NativeScrollEvent } from 'react-native';
 import { StatusBar, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
@@ -11,7 +10,7 @@ import { HeaderBar } from './HeaderBar';
 import { TABS } from './data';
 import { yodaScreenTestIDs } from './testIDs';
 
-const YodaScreen: VFC = () => {
+const YodaScreen: React.FC = () => {
   const { height: windowHeight } = useWindowDimensions();
   const scrollValue = useSharedValue(0);
 

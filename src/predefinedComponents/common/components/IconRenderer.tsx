@@ -1,13 +1,12 @@
-import type { ReactElement, VFC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import type { ImageSourcePropType } from 'react-native';
 import { Image, StyleSheet } from 'react-native';
 
 interface Props {
-  icon?: (() => ReactElement | null) | ImageSourcePropType;
+  icon?: (() => React.ReactElement | null) | ImageSourcePropType;
 }
 
-const IconRenderer: VFC<Props> = ({ icon }) => {
+const IconRenderer: React.FC<Props> = ({ icon }) => {
   if (typeof icon === 'function') {
     return icon();
   }

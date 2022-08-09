@@ -7,7 +7,7 @@ sidebar_position: 5
 ## Example usage
 
 ```tsx
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import {
   StickyHeaderScrollView,

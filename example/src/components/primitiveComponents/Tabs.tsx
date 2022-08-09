@@ -1,10 +1,9 @@
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 import { PixelRatio, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { colors, screenStyles } from '../../constants';
 
-export const Tabs: FC = () => {
+export const Tabs: React.FC = () => {
   return (
     <View style={styles.tabsContainer}>
       <Tab title="Tab 1" />
@@ -16,7 +15,7 @@ export const Tabs: FC = () => {
   );
 };
 
-const Tab: FC<{ title: string }> = ({ title }) => {
+const Tab: React.FC<{ title: string }> = ({ title }) => {
   return (
     <Pressable
       android_ripple={{

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import type { SectionListData } from 'react-native';
 
 import { Paragraph } from '../../components/primitiveComponents/Paragraph';

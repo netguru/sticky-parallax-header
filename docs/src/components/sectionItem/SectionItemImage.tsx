@@ -1,7 +1,6 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import clsx from 'clsx';
-import type { FC } from 'react';
-import React from 'react';
+import * as React from 'react';
 
 import styles from './SectionItem.module.css';
 
@@ -10,7 +9,7 @@ interface SectionItemImageProps {
   imageName: string;
 }
 
-export const SectionItemImage: FC<SectionItemImageProps> = ({ imageName, index }) => {
+export const SectionItemImage: React.FC<SectionItemImageProps> = ({ imageName, index }) => {
   return (
     <div className={clsx('col col--6', styles.imageWrapper)}>
       <img

@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React, { useCallback, useEffect, useRef } from 'react';
+import * as React from 'react';
 import type { LayoutChangeEvent, ListRenderItemInfo } from 'react-native';
 import {
   FlatList,
@@ -24,7 +23,7 @@ export interface TabsProps extends TabsConfig {
 
 const UNDERLINE_PADDING = 20;
 
-export const Tabs: FC<TabsProps> = ({
+export const Tabs: React.FC<TabsProps> = ({
   tabs,
   activeTab,
   onTabPressed,
@@ -40,15 +39,15 @@ export const Tabs: FC<TabsProps> = ({
   tabsContainerHorizontalPadding,
 }) => {
   const { width } = useWindowDimensions();
-  const horizontalFlatListRef = useRef<FlatList>(null);
+  const horizontalFlatListRef = React.useRef<FlatList>(null);
 
-  const currentPositionX = useRef(0);
-  const tabsWidth = useRef(tabs.map((_) => 0));
+  const currentPositionX = React.useRef(0);
+  const tabsWidth = React.useRef(tabs.map((_) => 0));
 
   /** For some weird reason, inverted prop is not handled correctly, when applied directly with FlatList */
   const isInverted = Platform.OS === 'android' ? I18nManager.isRTL : undefined;
 
-  const adjustPrevious = useCallback(
+  const adjustPrevious = React.useCallback(
     (page: number) => {
       const lastHidden = Math.floor(currentPositionX.current / (width * 0.3));
 
@@ -60,7 +59,7 @@ export const Tabs: FC<TabsProps> = ({
     [width]
   );
 
-  const adjustNext = useCallback(
+  const adjustNext = React.useCallback(
     (page: number) => {
       const invisibleX = width + currentPositionX.current - width * 0.3 * (page + 1);
 
@@ -72,7 +71,7 @@ export const Tabs: FC<TabsProps> = ({
     [width]
   );
 
-  const scrollToTab = useCallback(
+  const scrollToTab = React.useCallback(
     (page: number) => {
       if (tabs.length > 3) {
         if (page === 0) {
@@ -90,29 +89,29 @@ export const Tabs: FC<TabsProps> = ({
     [adjustNext, adjustPrevious, tabs.length, width]
   );
 
-  const scrollToTabRef = useRef(scrollToTab);
+  const scrollToTabRef = React.useRef(scrollToTab);
 
-  useEffect(() => {
+  React.useEffect(() => {
     scrollToTabRef.current = scrollToTab;
   }, [scrollToTab]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     scrollToTabRef.current(activeTab);
   }, [activeTab]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     horizontalFlatListRef.current?.scrollToOffset({ offset: 1 });
     horizontalFlatListRef.current?.scrollToOffset({ offset: 0 });
   }, []);
 
-  const onTabLayout = useCallback(
+  const onTabLayout = React.useCallback(
     (page: number) => (e: LayoutChangeEvent) => {
       tabsWidth.current[page] = e.nativeEvent.layout.width;
     },
     []
   );
 
-  const onTabPress = useCallback(
+  const onTabPress = React.useCallback(
     (page: number) => {
       return function () {
         scrollToTab(page);
@@ -122,7 +121,7 @@ export const Tabs: FC<TabsProps> = ({
     [onTabPressed, scrollToTab]
   );
 
-  const renderIcon = useCallback(
+  const renderIcon = React.useCallback(
     (icon: Tab['icon'], page: number) => {
       const isActive = activeTab === page;
 
@@ -147,7 +146,7 @@ export const Tabs: FC<TabsProps> = ({
     };
   });
 
-  const renderItem = useCallback(
+  const renderItem = React.useCallback(
     ({ item: tab, index: page }: ListRenderItemInfo<Tab>) => {
       const isTabActive = activeTab === page;
       const tabKey = tab.title || `tab ${page}`;

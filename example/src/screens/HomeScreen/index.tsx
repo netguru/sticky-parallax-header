@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import type { VFC } from 'react';
-import React, { useCallback, useState } from 'react';
+import * as React from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import {
   Modal,
@@ -29,16 +28,16 @@ const wait = (timeout: number) =>
     setTimeout(resolve, timeout);
   });
 
-const HomeScreen: VFC = () => {
+const HomeScreen: React.FC = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
   const { height: windowHeight } = useWindowDimensions();
 
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [userSelected, setUserSelected] = useState<User>();
-  const [contentHeight, setContentHeight] = useState<{ [key: string]: number }>({});
+  const [refreshing, setRefreshing] = React.useState<boolean>(false);
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
+  const [userSelected, setUserSelected] = React.useState<User>();
+  const [contentHeight, setContentHeight] = React.useState<{ [key: string]: number }>({});
 
-  const openUserModal = useCallback((user: User) => {
+  const openUserModal = React.useCallback((user: User) => {
     setUserSelected(() => {
       setModalVisible(true);
 
@@ -46,7 +45,7 @@ const HomeScreen: VFC = () => {
     });
   }, []);
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = React.useCallback(() => {
     setRefreshing(true);
 
     wait(2000).then(() => {
@@ -83,7 +82,7 @@ const HomeScreen: VFC = () => {
     });
   };
 
-  const navigateToCardScreen = useCallback(
+  const navigateToCardScreen = React.useCallback(
     (user: User) => {
       return () => {
         navigation.navigate('Card', { user });
@@ -92,7 +91,7 @@ const HomeScreen: VFC = () => {
     [navigation]
   );
 
-  const pressUserModal = useCallback(
+  const pressUserModal = React.useCallback(
     (user: User) => {
       return () => {
         openUserModal(user);
@@ -101,7 +100,7 @@ const HomeScreen: VFC = () => {
     [openUserModal]
   );
 
-  const onPressCloseModal = useCallback(() => {
+  const onPressCloseModal = React.useCallback(() => {
     setModalVisible(false);
   }, []);
 
