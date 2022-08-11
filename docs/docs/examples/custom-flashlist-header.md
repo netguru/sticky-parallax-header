@@ -13,7 +13,6 @@ Full source code can be found in [example repo](https://github.com/netguru/stick
 
 ```tsx
 const PARALLAX_HEIGHT = 330;
-const HEADER_BAR_HEIGHT = 92;
 const SNAP_START_THRESHOLD = 50;
 const SNAP_STOP_THRESHOLD = 330;
 
@@ -22,51 +21,56 @@ const StickyHeaderFlashList = withStickyHeaderFlashList(FlashList) as (
 ) => React.ReactElement;
 
 const StickyHeaderFlashListExample: React.FC = () => {
-  const { width: windowWidth } = useWindowDimensions();
-  const {
-    onMomentumScrollEnd,
-    onScroll,
-    onScrollEndDrag,
-    scrollHeight,
-    scrollValue,
-    scrollViewRef,
-  } = useStickyHeaderFlashListScrollProps({
-    parallaxHeight: PARALLAX_HEIGHT,
-    snapStartThreshold: SNAP_START_THRESHOLD,
-    snapStopThreshold: SNAP_STOP_THRESHOLD,
-    snapToEdge: true,
-  });
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const { onMomentumScrollEnd, onScroll, onScrollEndDrag, scrollHeight, scrollViewRef } =
+    useStickyHeaderFlashListScrollProps({
+      parallaxHeight: PARALLAX_HEIGHT,
+      snapStartThreshold: SNAP_START_THRESHOLD,
+      snapStopThreshold: SNAP_STOP_THRESHOLD,
+      snapToEdge: true,
+    });
+
+  async function onRefresh() {
+    setRefreshing(true);
+    await new Promise((res) => setTimeout(res, 2000));
+    setRefreshing(false);
+  }
 
   return (
-    <View style={screenStyles.screenContainer}>
-      <View style={[styles.headerBarContainer, { width: windowWidth }]}>
-        <HeaderBar scrollValue={scrollValue} />
-      </View>
-      <View style={screenStyles.stretchContainer}>
-        <StickyHeaderFlashList
-          ref={scrollViewRef}
-          containerStyle={screenStyles.stretchContainer}
-          onScroll={onScroll}
-          onMomentumScrollEnd={onMomentumScrollEnd}
-          onScrollEndDrag={onScrollEndDrag}
-          estimatedItemSize={400}
-          renderItem={({ item }) => {
-            return <Paragraph text={item} />;
-          }}
-          renderTabs={() => <Tabs />}
-          renderHeader={() => {
-            return (
-              <View pointerEvents="box-none" style={{ height: scrollHeight }}>
-                <Foreground scrollValue={scrollValue} />
-              </View>
-            );
-          }}
-          showsVerticalScrollIndicator={false}
-          style={screenStyles.stretch}
-        />
-      </View>
-      <StatusBar barStyle="light-content" backgroundColor={colors.black} translucent />
-    </View>
+    <SafeAreaView style={screenStyles.screenContainer}>
+      <StickyHeaderFlashList
+        ref={scrollViewRef}
+        containerStyle={screenStyles.stretchContainer}
+        data={data}
+        decelerationRate="fast"
+        keyExtractor={(_, index) => `${index}`}
+        /**
+         * Refresh control is not implemented on web, which causes styles as margin or padding
+         * to be duplicated - ignore it on web, it will be no-op anyway
+         */
+        {...Platform.select({ native: { onRefresh } })}
+        refreshing={refreshing}
+        onScroll={onScroll}
+        onMomentumScrollEnd={onMomentumScrollEnd}
+        onScrollEndDrag={onScrollEndDrag}
+        renderHeader={() => {
+          return (
+            <View pointerEvents="box-none" style={[styles.center, { height: scrollHeight }]}>
+              <Header />
+            </View>
+          );
+        }}
+        renderItem={({ item }) => {
+          return <Paragraph text={item} />;
+        }}
+        renderTabs={() => <Tabs />}
+        scrollEventThrottle={16}
+        estimatedItemSize={400}
+        showsVerticalScrollIndicator={false}
+      />
+      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+    </SafeAreaView>
   );
 };
 ```
