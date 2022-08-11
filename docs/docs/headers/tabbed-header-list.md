@@ -54,6 +54,7 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | backgroundColor | color - `ColorValue` | - |
 | backgroundImage | image source - `ImageSourcePropType` | - |
 | containerStyle | style - `StyleProp<ViewStyle>` | - |
+| enableSafeAreaTopInset | boolean | true |
 | foregroundImage | image source - `ImageSourcePropType` | - |
 | hasBorderRadius | boolean | - |
 | headerHeight | number | 100 |

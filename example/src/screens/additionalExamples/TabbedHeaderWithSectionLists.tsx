@@ -70,6 +70,7 @@ export const TabbedHeaderWithSectionListsExample: React.FC = () => {
         containerStyle={screenStyles.stretchContainer}
         foregroundImage={photosPortraitMe}
         disableScrollToPosition={true}
+        enableSafeAreaTopInset={false}
         rememberTabScrollPosition={false}
         logo={logo}
         title={"Mornin' Mark! \nReady for a quiz?"}

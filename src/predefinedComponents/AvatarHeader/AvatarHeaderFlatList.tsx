@@ -18,6 +18,7 @@ function AvatarHeaderFlatListInner<ItemT>(
     contentContainerStyle,
     data,
     decelerationRate = 'fast',
+    enableSafeAreaTopInset = true,
     keyExtractor,
     leftTopIcon,
     leftTopIconAccessibilityLabel,
@@ -55,6 +56,7 @@ function AvatarHeaderFlatListInner<ItemT>(
       ) : (
         <HeaderBar
           backgroundColor={backgroundColor}
+          enableSafeAreaTopInset={enableSafeAreaTopInset}
           height={parallaxHeight}
           leftTopIcon={leftTopIcon}
           leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}

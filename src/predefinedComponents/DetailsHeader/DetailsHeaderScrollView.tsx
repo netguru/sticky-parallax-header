@@ -16,6 +16,7 @@ export const DetailsHeaderScrollView = React.forwardRef<ScrollView, DetailsHeade
       children,
       contentContainerStyle,
       decelerationRate = 'fast',
+      enableSafeAreaTopInset = true,
       leftTopIcon,
       leftTopIconAccessibilityLabel,
       leftTopIconOnPress,
@@ -50,6 +51,7 @@ export const DetailsHeaderScrollView = React.forwardRef<ScrollView, DetailsHeade
         ) : (
           <HeaderBar
             backgroundColor={backgroundColor}
+            enableSafeAreaTopInset={enableSafeAreaTopInset}
             headerTitleContainerAnimatedStyle={headerTitleContainerAnimatedStyle}
             leftTopIcon={leftTopIcon}
             leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}

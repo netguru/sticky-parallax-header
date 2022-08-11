@@ -69,6 +69,7 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | backgroundColor | color - `ColorValue` | - |
 | backgroundImage | image source - `ImageSourcePropType` | - |
 | containerStyle | style - `StyleProp<ViewStyle>` | - |
+| enableSafeAreaTopInset | boolean | true |
 | leftTopIcon | render function or image source | - |
 | leftTopIconAccessibilityLabel | string | - |
 | leftTopIconOnPress | function - `() => void` | - |

@@ -75,6 +75,7 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | contentIconNumber | number | - |
 | contentIconNumberStyle | style - `StyleProp<TextStyle>` | - |
 | contentIconNumberTestID | string | - |
+| enableSafeAreaTopInset | boolean | true |
 | leftTopIcon | render function or image source | - |
 | leftTopIconAccessibilityLabel | string | - |
 | leftTopIconOnPress | function - `() => void` | - |

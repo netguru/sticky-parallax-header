@@ -16,6 +16,7 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
       children,
       contentContainerStyle,
       decelerationRate = 'fast',
+      enableSafeAreaTopInset = true,
       leftTopIcon,
       leftTopIconAccessibilityLabel,
       leftTopIconOnPress,
@@ -51,6 +52,7 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
         ) : (
           <HeaderBar
             backgroundColor={backgroundColor}
+            enableSafeAreaTopInset={enableSafeAreaTopInset}
             height={parallaxHeight}
             leftTopIcon={leftTopIcon}
             leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}

@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { ColorValue, StyleProp, TextStyle } from 'react-native';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import Animated from 'react-native-reanimated';
+import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors, commonStyles } from '../../../constants';
@@ -10,6 +11,7 @@ import IconRenderer from '../../common/components/IconRenderer';
 
 interface HeaderBarProps extends IconProps {
   backgroundColor?: ColorValue;
+  enableSafeAreaTopInset?: boolean;
   headerTitleContainerAnimatedStyle: { opacity: number };
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
@@ -25,6 +27,7 @@ const HIT_SLOP = {
 
 export const HeaderBar: React.FC<HeaderBarProps> = ({
   backgroundColor,
+  enableSafeAreaTopInset,
   headerTitleContainerAnimatedStyle,
   leftTopIcon,
   leftTopIconAccessibilityLabel,
@@ -38,10 +41,14 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
   titleStyle,
   titleTestID = 'DetailsHeaderBarTitleTestID',
 }) => {
+  const safeAreaEdges: Edge[] = ['left', 'right'];
+
+  if (enableSafeAreaTopInset) {
+    safeAreaEdges.push('top');
+  }
+
   return (
-    <SafeAreaView
-      edges={['left', 'top', 'right']}
-      style={[commonStyles.headerWrapper, { backgroundColor }]}>
+    <SafeAreaView edges={safeAreaEdges} style={[commonStyles.headerWrapper, { backgroundColor }]}>
       <Pressable
         accessibilityLabel={leftTopIconAccessibilityLabel}
         accessibilityRole="button"

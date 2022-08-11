@@ -9,6 +9,7 @@ import type {
 import type { IconProps, SharedPredefinedProps } from '../common/SharedProps';
 
 export interface AvatarHeaderSharedProps extends IconProps, SharedPredefinedProps {
+  enableSafeAreaTopInset?: boolean;
   hasBorderRadius?: boolean;
   image?: ImageSourcePropType;
   subtitle?: string;

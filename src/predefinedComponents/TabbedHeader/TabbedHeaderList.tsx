@@ -1,6 +1,7 @@
 import * as React from 'react';
 import type { SectionList } from 'react-native';
 import { View } from 'react-native';
+import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { commonStyles } from '../../constants';
@@ -18,6 +19,7 @@ function TabbedHeaderListInner<ItemT, SectionT>(
     backgroundColor,
     contentContainerStyle,
     decelerationRate = 'fast',
+    enableSafeAreaTopInset = true,
     logo,
     logoContainerStyle,
     logoResizeMode,
@@ -51,13 +53,17 @@ function TabbedHeaderListInner<ItemT, SectionT>(
       ) : logo ? (
         <HeaderBar
           backgroundColor={backgroundColor}
+          enableSafeAreaTopInset={enableSafeAreaTopInset}
           logo={logo}
           logoContainerStyle={logoContainerStyle}
           logoResizeMode={logoResizeMode}
           logoStyle={logoStyle}
         />
       ) : (
-        <SafeAreaView edges={['left', 'top', 'right']} style={commonStyles.stretch} />
+        <SafeAreaView
+          edges={['left', 'right', ...(enableSafeAreaTopInset ? ['top' as Edge] : [])]}
+          style={commonStyles.stretch}
+        />
       )}
       <View style={commonStyles.container}>
         <StickyHeaderSectionList
