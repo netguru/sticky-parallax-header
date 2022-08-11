@@ -8,53 +8,45 @@ sidebar_position: 4
 
 ## Example usage
 
+Check out AvatarHeader examples for [ScrollView](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/AvatarHeaderScrollViewExample.tsx), [FlatList](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/AvatarHeaderFlatListExample.tsx), [SectionList](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/AvatarHeaderSectionListExample.tsx) & [FlashList](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/AvatarHeaderFlashListExample.tsx)
+
 ```tsx
-import * as React from 'react'
-import {
-  AvatarHeaderScrollView,
-  AvatarHeaderFlatList,
-  AvatarHeaderSectionList,
-} from 'react-native-sticky-parallax-header'
+const AvatarHeaderScrollViewExample: React.FC = () => {
+  const navigation = useNavigation();
 
-export const TestScrollViewScreen = () => (
-  <>
-    <AvatarHeaderScrollView
-      leftTopIcon={require('<path-to-details-left-icon>')}
-      image={{ uri: '<path-to-details-image>' }}
-      backgroundColor="green"
-      subtitle="Details subtitle"
-      title="Details title"
-    >
-      {/** scroll view content */}
-    </AvatarHeaderScrollView>
-  </>
-)
+  function goBack() {
+    navigation.goBack();
+  }
 
-export const TestFlatListScreen = () => (
-  <>
-    <AvatarHeaderFlatList
-      {...flatListProps}
-      leftTopIcon={require('<path-to-details-left-icon>')}
-      image={{ uri: '<path-to-details-image>' }}
-      backgroundColor="green"
-      subtitle="Details subtitle"
-      title="Details title"
-    />
-  </>
-)
+  const isDarkTheme = useColorScheme() === 'dark';
 
-export const TestSectionListScreen = () => (
-  <>
-    <AvatarHeaderSectionList
-      {...sectionListProps}
-      leftTopIcon={require('<path-to-details-left-icon>')}
-      image={{ uri: '<path-to-details-image>' }}
-      backgroundColor="green"
-      subtitle="Details subtitle"
-      title="Details title"
-    />
-  </>
-)
+  return (
+    <>
+      <AvatarHeaderScrollView
+        leftTopIcon={iconCloseWhite}
+        leftTopIconOnPress={goBack}
+        rightTopIcon={IconMenu}
+        contentContainerStyle={[
+          isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
+        ]}
+        containerStyle={screenStyles.stretchContainer}
+        backgroundColor={Brandon.color}
+        hasBorderRadius
+        image={Brandon.image}
+        subtitle={Brandon.about}
+        title={Brandon.author}
+        titleStyle={screenStyles.text}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
+          {Brandon.cards.map((data, i, arr) => (
+            <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+          ))}
+        </View>
+      </AvatarHeaderScrollView>
+      <StatusBar barStyle="light-content" backgroundColor={Brandon.color} translucent />
+    </>
+  );
+};
 ```
 
 ## Props

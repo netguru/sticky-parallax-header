@@ -18,7 +18,7 @@ const VELOCITY_THRESHOLD = 7;
 
 // FIXME: unknown does not work here :/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useStickyHeaderFlashListScrollProps<T extends FlashList<any>>(
+export function useStickyHeaderFlashListScrollProps<T extends FlashList<any> = FlashList<any>>(
   props: StickyHeaderSharedProps & StickyHeaderSnapProps
 ) {
   const { responsiveHeight } = useResponsiveSize();

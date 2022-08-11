@@ -8,47 +8,47 @@ sidebar_position: 3
 
 ## Example usage
 
+Check out DetailsHeader examples for [ScrollView](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/DetailsHeaderScrollViewExample.tsx), [FlatList](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/DetailsHeaderFlatListExample.tsx), [SectionList](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/DetailsHeaderSectionListExample.tsx) & [FlashList](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/DetailsHeaderFlashListExample.tsx)
+
 ```tsx
-import * as React from 'react'
-import {
-  DetailsHeaderScrollView,
-  DetailsHeaderFlatList,
-  DetailsHeaderSectionList,
-} from 'react-native-sticky-parallax-header'
+const DetailsHeaderScrollViewExample: React.FC = () => {
+  const navigation = useNavigation();
 
-export const TestScrollViewScreen = () => (
-  <DetailsHeaderScrollView
-    leftTopIcon={require('<path-to-details-left-icon>')}
-    image={{ uri: '<path-to-details-image>' }}
-    backgroundColor="green"
-    tag="Details type"
-    title="Details title"
-  >
-    {/** scroll view content */}
-  </DetailsHeaderScrollView>
-)
+  function goBack() {
+    navigation.goBack();
+  }
 
-export const TestFlatListScreen = () => (
-  <DetailsHeaderFlatList
-    {...flatListProps}
-    leftTopIcon={require('<path-to-details-left-icon>')}
-    image={{ uri: '<path-to-details-image>' }}
-    backgroundColor="green"
-    tag="Details type"
-    title="Details title"
-  />
-)
+  const isDarkTheme = useColorScheme() === 'dark';
 
-export const TestSectionListScreen = () => (
-  <DetailsHeaderSectionList
-    {...sectionListProps}
-    leftTopIcon={require('<path-to-details-left-icon>')}
-    image={{ uri: '<path-to-details-image>' }}
-    backgroundColor="green"
-    tag="Details type"
-    title="Details title"
-  />
-)
+  return (
+    <>
+      <DetailsHeaderScrollView
+        leftTopIcon={iconCloseWhite}
+        leftTopIconOnPress={goBack}
+        rightTopIcon={IconMenu}
+        contentContainerStyle={[
+          isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
+        ]}
+        containerStyle={screenStyles.stretchContainer}
+        contentIcon={CardsBlack}
+        contentIconNumber={10}
+        backgroundColor={Brandon.color}
+        hasBorderRadius
+        image={Brandon.image}
+        tag={Brandon.type}
+        title={Brandon.author}
+        titleStyle={screenStyles.text}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
+          {Brandon.cards.map((data, i, arr) => (
+            <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+          ))}
+        </View>
+      </DetailsHeaderScrollView>
+      <StatusBar barStyle="light-content" backgroundColor={Brandon.color} translucent />
+    </>
+  );
+};
 ```
 
 ## Props

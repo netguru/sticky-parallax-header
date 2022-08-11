@@ -8,26 +8,65 @@ sidebar_position: 1
 
 ## Example usage
 
+Full source code can be found in [example repo](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/TabbedHeaderPagerExample.tsx).
+
 ```tsx
-import * as React from 'react';
-import { Text, View } from 'react-native';
-import { TabbedHeaderPager } from 'react-native-sticky-parallax-header';
+const TabbedHeaderPagerExample: React.FC = () => {
+  const isDarkTheme = useColorScheme() === 'dark';
 
-const TestScreen = () => (
-  <>
-    <TabbedHeaderPager
-      tabs={TABS.map((tab) => ({ title: tab.title }))}
-    >
-      {TABS.map((tab) => (
-        <View key={tab.title}>
-          <Text>{tab.description}</Text>
+  return (
+    <>
+      <TabbedHeaderPager
+        contentContainerStyle={[
+          isDarkTheme ? screenStyles.darkBackground : screenStyles.lightBackground,
+        ]}
+        containerStyle={screenStyles.stretchContainer}
+        backgroundColor={colors.primaryGreen}
+        foregroundImage={photosPortraitMe}
+        rememberTabScrollPosition
+        logo={logo}
+        title={"Mornin' Mark! \nReady for a quiz?"}
+        titleStyle={screenStyles.text}
+        tabs={TABBED_SECTIONS.map((section) => ({
+          title: section.title,
+        }))}
+        tabTextStyle={screenStyles.text}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
+          {Brandon.cards.map((data, i, arr) => (
+            <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+          ))}
         </View>
-      ))}
-    </TabbedHeaderPager>
-  </>
-)
-
-export default TestScreen
+        <View style={styles.content}>
+          {Ewa.cards.map((data, i, arr) => (
+            <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+          ))}
+        </View>
+        <View style={styles.content}>
+          {Jennifer.cards.map((data, i, arr) => (
+            <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+          ))}
+        </View>
+        <View style={styles.content}>
+          {Brandon.cards.map((data, i, arr) => (
+            <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+          ))}
+        </View>
+        <View style={styles.content}>
+          {Ewa.cards.map((data, i, arr) => (
+            <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+          ))}
+        </View>
+        <View style={styles.content}>
+          {Jennifer.cards.map((data, i, arr) => (
+            <QuizCard data={data} num={i} key={data.question} cardsAmount={arr.length} />
+          ))}
+        </View>
+      </TabbedHeaderPager>
+      <StatusBar barStyle="light-content" backgroundColor={colors.primaryGreen} translucent />
+    </>
+  );
+};
 ```
 
 ## Props
