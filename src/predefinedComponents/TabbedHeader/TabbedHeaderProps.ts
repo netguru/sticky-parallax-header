@@ -64,6 +64,7 @@ export interface PagerProps
 }
 
 export interface TabbedHeaderSharedProps extends SharedPredefinedProps, Partial<TabsConfig> {
+  enableSafeAreaTopInset?: boolean;
   foregroundImage?: ImageSourcePropType;
   hasBorderRadius?: boolean;
   logo?: ImageSourcePropType;

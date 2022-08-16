@@ -12,88 +12,11 @@ To make [FlashList](https://shopify.github.io/flash-list/docs/) work with react-
 
 ## Example usage
 
-```tsx
-import { FlashList } from '@shopify/flash-list'
-import * as React from 'react'
-import {
-  withAvatarHeaderFlashList,
-  withDetailsHeaderFlashList,
-  withTabbedHeaderFlashList,
-} from 'react-native-sticky-parallax-header'
+For full examples check:
 
-type ItemType = { title: string } // Example data type
-type SectionType = string // Example section data type
-
-const AvatarHeaderFlashList = withAvatarHeaderFlashList<ItemType>(FlashList)
-const DetailsHeaderFlashList = withDetailsHeaderFlashList<ItemType>(FlashList)
-const TabbedHeaderFlashList = withTabbedHeaderFlashList<ItemType | SectionType>(FlashList)
-
-export const TestAvatarHeaderFlashListScreen = () => (
-  <>
-    <AvatarHeaderFlashList
-      {...flashListProps}
-      leftTopIcon={require('<path-to-details-left-icon>')}
-      image={{ uri: '<path-to-details-image>' }}
-      backgroundColor="green"
-      subtitle="Details subtitle"
-      title="Details title"
-    />
-  </>
-)
-
-export const TestDetailsHeaderFlashListScreen = () => (
-  <>
-    <DetailsHeaderFlashList
-      {...flashListProps}
-      leftTopIcon={require('<path-to-details-left-icon>')}
-      image={{ uri: '<path-to-details-image>' }}
-      backgroundColor="green"
-      tag="Details type"
-      title="Details title"
-    />
-  </>
-)
-
-const data: (ItemType | SectionType)[] // example data
-
-function isNotEmpty<T>(item: T | null): item is T {
-  return item !== null;
-}
-
-const stickyHeaderIndices = data
-  .map((item, index) => {
-    return typeof item === 'string' ? index : null;
-  })
-  .filter(isNotEmpty);
-
-const tabs = data
-  .map((item) => {
-    return typeof item === 'string' ? item : null;
-  })
-  .filter(isNotEmpty);
-
-export const TestTabbedHeaderFlashListScreen = () => (
-  <>
-    <TabbedHeaderFlashList
-      {...flashListProps}
-      data={data}
-      renderItem={({ item }) => {
-        if (typeof item === 'string') {
-          return // render section header
-        }
-
-        return // render section item
-      }}
-      getItemType={(item) => {
-        return typeof item === 'string' ? 'sectionHeader' : 'row';
-      }}
-      estimatedItemSize={200}
-      stickyHeaderIndices={stickyHeaderIndices}
-      tabs={tabs}
-    />
-  </>
-)
-```
+- [AvatarHeaderFlashList](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/AvatarHeaderFlashListExample.tsx)
+- [DetailsHeaderFlashList](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/DetailsHeaderFlashListExample.tsx)
+- [TabbedHeaderFlashList](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/TabbedHeaderFlashListExample.tsx)
 
 ## Props
 

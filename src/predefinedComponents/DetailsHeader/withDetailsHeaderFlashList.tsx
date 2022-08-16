@@ -23,6 +23,7 @@ export function withDetailsHeaderFlashList<ItemT>(
     const {
       backgroundColor,
       decelerationRate = 'fast',
+      enableSafeAreaTopInset = true,
       leftTopIcon,
       leftTopIconAccessibilityLabel,
       leftTopIconOnPress,
@@ -57,6 +58,7 @@ export function withDetailsHeaderFlashList<ItemT>(
         ) : (
           <HeaderBar
             backgroundColor={backgroundColor}
+            enableSafeAreaTopInset={enableSafeAreaTopInset}
             headerTitleContainerAnimatedStyle={headerTitleContainerAnimatedStyle}
             leftTopIcon={leftTopIcon}
             leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}

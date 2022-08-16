@@ -53,20 +53,3 @@ As with primitive components, FlashList can also be customized to create its own
 **Check the live demo on Expo Snack [here](https://snack.expo.dev/@netguru_rnd/sticky-parallax-header-example).**
 
 <div data-snack-id="@netguru_rnd/sticky-parallax-header-example" data-snack-platform="web" data-snack-preview="true" data-snack-theme="light" className="expo-snack"></div>
-
-This is how you can display header in your app:
-
-```tsx
-import * as React from 'react'
-import { DetailsHeaderScrollView } from 'react-native-sticky-parallax-header'
-
-const TestScreen = () => (
-  <>
-    <DetailsHeaderScrollView {...scrollProps} {...detailsHeaderProps}>
-      {/** scroll view content */}
-    </DetailsHeaderScrollView>
-  </>
-)
-
-export default TestScreen
-```

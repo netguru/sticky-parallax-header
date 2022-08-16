@@ -16,8 +16,13 @@ Library supports react-native version 0.64+
 $ yarn add react-native-sticky-parallax-header@rc
 ```
 
-### Install library's dependencies
+### Prerequisites
 
 ```sh
 yarn add react-native-reanimated react-native-safe-area-context
 ```
+
+After installation:
+- check Reanimated installation [guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation)
+- handle Pods installation with `npx pod-install`
+- wrap your root component with `SafeAreaProvider` from `react-native-safe-area-context`

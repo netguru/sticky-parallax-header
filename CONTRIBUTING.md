@@ -2,18 +2,18 @@
 
 ## Running/Development
 1. iOS:
-```bash
-$ react-native run-ios
+```sh
+yarn example ios
 ```
 
 2. Android:
-```bash
-$ react-native run-android
+```sh
+yarn example android
 ```
 
 ## Running Tests
-```bash
-$ yarn test
+```sh
+yarn test
 ```
 
 ## Creating new Pull Request

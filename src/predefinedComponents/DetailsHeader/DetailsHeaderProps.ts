@@ -13,6 +13,7 @@ export interface DetailsHeaderSharedProps extends IconProps, SharedPredefinedPro
   contentIconNumber?: number;
   contentIconNumberStyle?: StyleProp<TextStyle>;
   contentIconNumberTestID?: string;
+  enableSafeAreaTopInset?: boolean;
   hasBorderRadius?: boolean;
   image?: ImageSourcePropType;
   tabsContainerBackgroundColor?: ColorValue;

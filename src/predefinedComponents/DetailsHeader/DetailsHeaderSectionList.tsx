@@ -17,6 +17,7 @@ function DetailsHeaderSectionListInner<ItemT, SectionT>(
     backgroundColor,
     contentContainerStyle,
     decelerationRate = 'fast',
+    enableSafeAreaTopInset = true,
     leftTopIcon,
     leftTopIconAccessibilityLabel,
     leftTopIconOnPress,
@@ -55,6 +56,7 @@ function DetailsHeaderSectionListInner<ItemT, SectionT>(
       ) : (
         <HeaderBar
           backgroundColor={backgroundColor}
+          enableSafeAreaTopInset={enableSafeAreaTopInset}
           headerTitleContainerAnimatedStyle={headerTitleContainerAnimatedStyle}
           leftTopIcon={leftTopIcon}
           leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}

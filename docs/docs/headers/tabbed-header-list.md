@@ -8,35 +8,41 @@ sidebar_position: 2
 
 ## Example usage
 
+Full source code can be found in [example repo](https://github.com/netguru/sticky-parallax-header/blob/master/example/src/screens/additionalExamples/TabbedHeaderListExample.tsx).
+
 ```tsx
-import * as React from 'react';
-import { Text, View } from 'react-native';
-import { TabbedHeaderList } from 'react-native-sticky-parallax-header';
-
-const TABBED_SECTION_ITEM_HEIGHT = 100
-
-const TestScreen = () => (
-  <>
-    <TabbedHeaderList
-      keyExtractor={(_, i) => `${i}`}
-      renderItem={({ item }) => <View key={item.title} style={{ height: TABBED_SECTION_ITEM_HEIGHT }}>
-        <Text>{item.description}</Text>
-      </View>}
-      renderSectionHeader={({ section }) => <View style={{ height: TABBED_SECTION_ITEM_HEIGHT }}>
-        <Text>{section.title}</Text>
-      </View>}
-      getItemLayout={(_, index) => ({
-        length: TABBED_SECTION_ITEM_HEIGHT,
-        offset: TABBED_SECTION_ITEM_HEIGHT * index,
-        index,
-      })}
-      sections={TABBED_SECTIONS}
-      tabs={TABBED_SECTIONS.map((tab) => ({ title: tab.title }))}
-    />
-  </>
-)
-
-export default TestScreen
+const TabbedHeaderListExample: React.FC = () => {
+  return (
+    <>
+      <TabbedHeaderList
+        contentContainerStyle={{ backgroundColor: colors.coralPink }}
+        containerStyle={screenStyles.stretchContainer}
+        backgroundColor={colors.coralPink}
+        title="Food delivery app"
+        titleStyle={screenStyles.text}
+        foregroundImage={{ uri: 'https://foodish-api.herokuapp.com/images/samosa/samosa9.jpg' }}
+        parallaxHeight={100}
+        tabs={TABBED_SECTIONS.map(({ title }) => ({ title }))}
+        tabTextStyle={screenStyles.text}
+        sections={TABBED_SECTIONS}
+        tabTextContainerActiveStyle={{ backgroundColor: colors.activeOrange }}
+        keyExtractor={(_, i) => `${i}`}
+        renderItem={({ item }) => <TabbedSectionItem {...item} />}
+        renderSectionHeader={({ section }) => (
+          <TabbedSectionHeader title={section.title} />
+        )}
+        getItemLayout={(_, index) => ({
+          length: TABBED_SECTION_ITEM_HEIGHT,
+          offset: TABBED_SECTION_ITEM_HEIGHT * index,
+          index,
+        })}
+        updateCellsBatchingPeriod={100}
+        showsVerticalScrollIndicator={false}
+      />
+      <StatusBar barStyle="light-content" backgroundColor={colors.coralPink} translucent />
+    </>
+  );
+};
 ```
 
 ## Props
@@ -48,6 +54,7 @@ Inherits [SectionListProps](https://reactnative.dev/docs/next/sectionlist#props)
 | backgroundColor | color - `ColorValue` | - |
 | backgroundImage | image source - `ImageSourcePropType` | - |
 | containerStyle | style - `StyleProp<ViewStyle>` | - |
+| enableSafeAreaTopInset | boolean | true |
 | foregroundImage | image source - `ImageSourcePropType` | - |
 | hasBorderRadius | boolean | - |
 | headerHeight | number | 100 |

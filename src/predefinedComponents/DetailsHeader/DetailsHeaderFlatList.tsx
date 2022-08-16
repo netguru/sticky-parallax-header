@@ -18,6 +18,7 @@ function DetailsHeaderFlatListInner<ItemT>(
     contentContainerStyle,
     data,
     decelerationRate = 'fast',
+    enableSafeAreaTopInset = true,
     keyExtractor,
     leftTopIcon,
     leftTopIconAccessibilityLabel,
@@ -54,6 +55,7 @@ function DetailsHeaderFlatListInner<ItemT>(
       ) : (
         <HeaderBar
           backgroundColor={backgroundColor}
+          enableSafeAreaTopInset={enableSafeAreaTopInset}
           headerTitleContainerAnimatedStyle={headerTitleContainerAnimatedStyle}
           leftTopIcon={leftTopIcon}
           leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}

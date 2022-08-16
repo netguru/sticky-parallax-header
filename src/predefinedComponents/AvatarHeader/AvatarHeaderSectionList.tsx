@@ -17,6 +17,7 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
     backgroundColor,
     contentContainerStyle,
     decelerationRate = 'fast',
+    enableSafeAreaTopInset = true,
     leftTopIcon,
     leftTopIconAccessibilityLabel,
     leftTopIconOnPress,
@@ -56,6 +57,7 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
       ) : (
         <HeaderBar
           backgroundColor={backgroundColor}
+          enableSafeAreaTopInset={enableSafeAreaTopInset}
           height={parallaxHeight}
           leftTopIcon={leftTopIcon}
           leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}

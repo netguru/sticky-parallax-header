@@ -1,6 +1,7 @@
 import type { FlashList, FlashListProps } from '@shopify/flash-list';
 import * as React from 'react';
 import { View } from 'react-native';
+import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { commonStyles } from '../../constants';
@@ -24,6 +25,7 @@ export function withTabbedHeaderFlashList<ItemT>(
     const {
       backgroundColor,
       decelerationRate = 'fast',
+      enableSafeAreaTopInset = true,
       logo,
       logoContainerStyle,
       logoResizeMode,
@@ -54,13 +56,17 @@ export function withTabbedHeaderFlashList<ItemT>(
         ) : logo ? (
           <HeaderBar
             backgroundColor={backgroundColor}
+            enableSafeAreaTopInset={enableSafeAreaTopInset}
             logo={logo}
             logoContainerStyle={logoContainerStyle}
             logoResizeMode={logoResizeMode}
             logoStyle={logoStyle}
           />
         ) : (
-          <SafeAreaView edges={['left', 'top', 'right']} style={commonStyles.stretch} />
+          <SafeAreaView
+            edges={['left', 'right', ...(enableSafeAreaTopInset ? ['top' as Edge] : [])]}
+            style={commonStyles.stretch}
+          />
         )}
         <View style={commonStyles.wrapper}>
           <StickyHeaderFlashList

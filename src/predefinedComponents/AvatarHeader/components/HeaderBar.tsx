@@ -8,6 +8,7 @@ import type {
 } from 'react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
+import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors, commonStyles } from '../../../constants';
@@ -25,6 +26,7 @@ const HIT_SLOP = {
 
 interface HeaderProps extends IconProps {
   backgroundColor?: ColorValue;
+  enableSafeAreaTopInset?: boolean;
   height: number;
   image?: ImageSourcePropType;
   scrollValue: Animated.SharedValue<number>;
@@ -35,6 +37,7 @@ interface HeaderProps extends IconProps {
 
 export const HeaderBar: React.FC<HeaderProps> = ({
   backgroundColor,
+  enableSafeAreaTopInset,
   height,
   image,
   leftTopIcon,
@@ -86,11 +89,14 @@ export const HeaderBar: React.FC<HeaderProps> = ({
     styles.headerTitleContainerMarginLeft,
     styles.headerTitleContainerMarginEnd
   );
+  const safeAreaEdges: Edge[] = ['left', 'right'];
+
+  if (enableSafeAreaTopInset) {
+    safeAreaEdges.push('top');
+  }
 
   return (
-    <SafeAreaView
-      edges={['left', 'top', 'right']}
-      style={[commonStyles.headerWrapper, { backgroundColor }]}>
+    <SafeAreaView edges={safeAreaEdges} style={[commonStyles.headerWrapper, { backgroundColor }]}>
       <Pressable
         accessibilityLabel={leftTopIconAccessibilityLabel}
         accessibilityRole="button"
