@@ -142,7 +142,24 @@ export const Tabs: React.FC<TabsProps> = ({
 
   const tabUnderlineAnimatedStyle = useAnimatedStyle(() => {
     return {
+      backgroundColor:
+        typeof tabUnderlineColor === 'string' ||
+        typeof tabUnderlineColor === 'number' ||
+        typeof tabUnderlineColor === 'symbol'
+          ? tabUnderlineColor
+          : tabUnderlineColor?.value,
       transform: [{ translateX: interpolate(scrollValue.value, inputRanges, outputRanges) }],
+    };
+  });
+
+  const containerAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      backgroundColor:
+        typeof tabsContainerBackgroundColor === 'string' ||
+        typeof tabsContainerBackgroundColor === 'number' ||
+        typeof tabsContainerBackgroundColor === 'symbol'
+          ? tabsContainerBackgroundColor
+          : tabsContainerBackgroundColor?.value,
     };
   });
 
@@ -201,7 +218,7 @@ export const Tabs: React.FC<TabsProps> = ({
   );
 
   return (
-    <View style={[styles.container, { backgroundColor: tabsContainerBackgroundColor }]}>
+    <Animated.View style={[styles.container, containerAnimatedStyle]}>
       <FlatList<Tab>
         ref={horizontalFlatListRef}
         bounces={false}
@@ -234,13 +251,12 @@ export const Tabs: React.FC<TabsProps> = ({
             styles.tabUnderlineStyles,
             {
               width: tabsWidth.current[activeTab],
-              backgroundColor: tabUnderlineColor,
             },
             tabUnderlineAnimatedStyle,
           ]}
         />
       ) : null}
-    </View>
+    </Animated.View>
   );
 };
 

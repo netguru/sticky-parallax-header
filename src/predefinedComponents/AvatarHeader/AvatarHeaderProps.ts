@@ -1,4 +1,4 @@
-import type { ColorValue, ImageSourcePropType, StyleProp, TextStyle } from 'react-native';
+import type { ImageSourcePropType, StyleProp, TextStyle } from 'react-native';
 
 import type {
   StickyHeaderFlashListProps,
@@ -6,7 +6,7 @@ import type {
   StickyHeaderScrollViewProps,
   StickyHeaderSectionListProps,
 } from '../../primitiveComponents/StickyHeaderProps';
-import type { IconProps, SharedPredefinedProps } from '../common/SharedProps';
+import type { AnimatedColorProp, IconProps, SharedPredefinedProps } from '../common/SharedProps';
 
 export interface AvatarHeaderSharedProps extends IconProps, SharedPredefinedProps {
   enableSafeAreaTopInset?: boolean;
@@ -15,7 +15,7 @@ export interface AvatarHeaderSharedProps extends IconProps, SharedPredefinedProp
   subtitle?: string;
   subtitleStyle?: StyleProp<TextStyle>;
   subtitleTestID?: string;
-  tabsContainerBackgroundColor?: ColorValue;
+  tabsContainerBackgroundColor?: AnimatedColorProp;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
   titleTestID?: string;

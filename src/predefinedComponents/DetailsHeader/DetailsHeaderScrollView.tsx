@@ -1,9 +1,11 @@
 import * as React from 'react';
 import type { ScrollView } from 'react-native';
 import { View } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { commonStyles } from '../../constants';
 import { StickyHeaderScrollView } from '../../primitiveComponents/StickyHeaderScrollView';
+import { parseAnimatedColorProp } from '../common/utils/parseAnimatedColorProp';
 
 import type { DetailsHeaderScrollViewProps } from './DetailsHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
@@ -44,8 +46,14 @@ export const DetailsHeaderScrollView = React.forwardRef<ScrollView, DetailsHeade
 
     React.useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
 
+    const wrapperAnimatedStyle = useAnimatedStyle(() => {
+      return {
+        backgroundColor: parseAnimatedColorProp(backgroundColor),
+      };
+    });
+
     return (
-      <View style={[commonStyles.container, { backgroundColor }]}>
+      <Animated.View style={[commonStyles.container, wrapperAnimatedStyle]}>
         {renderHeaderBar ? (
           renderHeaderBar()
         ) : (
@@ -81,7 +89,7 @@ export const DetailsHeaderScrollView = React.forwardRef<ScrollView, DetailsHeade
             {children}
           </StickyHeaderScrollView>
         </View>
-      </View>
+      </Animated.View>
     );
   }
 );

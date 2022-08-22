@@ -1,12 +1,14 @@
 import type { FlashList, FlashListProps } from '@shopify/flash-list';
 import * as React from 'react';
 import { View } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { commonStyles } from '../../constants';
 import type { StickyHeaderFlashListProps } from '../../primitiveComponents/StickyHeaderProps';
 import { withStickyHeaderFlashList } from '../../primitiveComponents/withStickyHeaderFlashList';
+import { parseAnimatedColorProp } from '../common/utils/parseAnimatedColorProp';
 
 import type { TabbedHeaderFlashListProps } from './TabbedHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
@@ -49,8 +51,14 @@ export function withTabbedHeaderFlashList<ItemT>(
 
     React.useImperativeHandle(ref, () => scrollViewRef.current as FlashList<ItemT>);
 
+    const wrapperAnimatedStyle = useAnimatedStyle(() => {
+      return {
+        backgroundColor: parseAnimatedColorProp(backgroundColor),
+      };
+    });
+
     return (
-      <View style={[commonStyles.container, { backgroundColor }]}>
+      <Animated.View style={[commonStyles.container, wrapperAnimatedStyle]}>
         {renderHeaderBar ? (
           renderHeaderBar()
         ) : logo ? (
@@ -85,7 +93,7 @@ export function withTabbedHeaderFlashList<ItemT>(
             onViewableItemsChanged={onViewableItemsChanged}
           />
         </View>
-      </View>
+      </Animated.View>
     );
   });
 }

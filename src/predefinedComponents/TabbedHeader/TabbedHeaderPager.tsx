@@ -1,11 +1,13 @@
 import * as React from 'react';
 import type { ScrollView } from 'react-native';
 import { View } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { commonStyles } from '../../constants';
 import { StickyHeaderScrollView } from '../../primitiveComponents/StickyHeaderScrollView';
+import { parseAnimatedColorProp } from '../common/utils/parseAnimatedColorProp';
 
 import type { TabbedHeaderPagerProps } from './TabbedHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
@@ -51,8 +53,14 @@ export const TabbedHeaderPager = React.forwardRef<ScrollView, TabbedHeaderPagerP
 
     React.useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
 
+    const wrapperAnimatedStyle = useAnimatedStyle(() => {
+      return {
+        backgroundColor: parseAnimatedColorProp(backgroundColor),
+      };
+    });
+
     return (
-      <View style={[commonStyles.container, { backgroundColor }]}>
+      <Animated.View style={[commonStyles.container, wrapperAnimatedStyle]}>
         {renderHeaderBar ? (
           renderHeaderBar()
         ) : logo ? (
@@ -102,7 +110,7 @@ export const TabbedHeaderPager = React.forwardRef<ScrollView, TabbedHeaderPagerP
             </Pager>
           </StickyHeaderScrollView>
         </View>
-      </View>
+      </Animated.View>
     );
   }
 );

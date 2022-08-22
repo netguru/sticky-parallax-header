@@ -1,6 +1,5 @@
 import * as React from 'react';
 import type {
-  ColorValue,
   ImageResizeMode,
   ImageSourcePropType,
   ImageStyle,
@@ -8,19 +7,24 @@ import type {
   ViewStyle,
 } from 'react-native';
 import { Image } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { commonStyles } from '../../../constants';
+import type { AnimatedColorProp } from '../../common/SharedProps';
+import { parseAnimatedColorProp } from '../../common/utils/parseAnimatedColorProp';
 
 interface HeaderBarProps {
-  backgroundColor?: ColorValue;
+  backgroundColor?: AnimatedColorProp;
   enableSafeAreaTopInset?: boolean;
   logo: ImageSourcePropType;
   logoContainerStyle?: StyleProp<ViewStyle>;
   logoResizeMode?: ImageResizeMode;
   logoStyle?: StyleProp<ImageStyle>;
 }
+
+const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
 
 export const HeaderBar: React.FC<HeaderBarProps> = ({
   backgroundColor,
@@ -30,6 +34,12 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
   logoStyle,
   logoContainerStyle,
 }) => {
+  const wrapperAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      // TypeScript complains about AnimatedNode<StyleProp<ViewStyle>> from reanimated v1
+      backgroundColor: parseAnimatedColorProp(backgroundColor) as string,
+    };
+  });
   const safeAreaEdges: Edge[] = ['left', 'right'];
 
   if (enableSafeAreaTopInset) {
@@ -37,10 +47,10 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
   }
 
   return (
-    <SafeAreaView
+    <AnimatedSafeAreaView
       edges={safeAreaEdges}
-      style={[commonStyles.headerWrapper, logoContainerStyle, { backgroundColor }]}>
+      style={[commonStyles.headerWrapper, logoContainerStyle, wrapperAnimatedStyle]}>
       <Image resizeMode={logoResizeMode} source={logo} style={[commonStyles.logo, logoStyle]} />
-    </SafeAreaView>
+    </AnimatedSafeAreaView>
   );
 };

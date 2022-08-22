@@ -4,16 +4,25 @@ import type {
   FlatList,
   ImageSourcePropType,
   NativeScrollEvent,
+  ProcessedColorValue,
   ScrollView,
   SectionList,
   StyleProp,
   TextStyle,
   ViewStyle,
 } from 'react-native';
+import type { SharedValue } from 'react-native-reanimated';
 
 // FIXME: unknown does not work here :/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ScrollComponent = ScrollView | FlatList<any> | SectionList<any, any>;
+
+export type AnimatedColorProp =
+  | ColorValue
+  | ProcessedColorValue
+  | SharedValue<ColorValue | ProcessedColorValue>;
+
+export type ColorProp = ColorValue | ProcessedColorValue;
 
 export interface IconProps {
   leftTopIcon?: (() => ReactElement | null) | ImageSourcePropType;
@@ -27,7 +36,7 @@ export interface IconProps {
 }
 
 export interface SharedPredefinedProps {
-  backgroundColor?: ColorValue;
+  backgroundColor?: AnimatedColorProp;
   backgroundImage?: ImageSourcePropType;
   contentContainerStyle?: StyleProp<ViewStyle>;
   headerHeight?: number;
@@ -53,10 +62,10 @@ export interface TabsConfig {
   tabTextContainerStyle?: StyleProp<ViewStyle>;
   tabTextContainerActiveStyle?: StyleProp<ViewStyle>;
   tabTextStyle?: StyleProp<TextStyle>;
-  tabUnderlineColor?: ColorValue;
+  tabUnderlineColor?: AnimatedColorProp;
   tabWrapperStyle?: StyleProp<ViewStyle>;
   tabs: Tab[];
-  tabsContainerBackgroundColor?: ColorValue;
+  tabsContainerBackgroundColor?: AnimatedColorProp;
   tabsContainerHorizontalPadding?: number;
   tabsContainerStyle?: StyleProp<ViewStyle>;
 }

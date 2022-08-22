@@ -1,16 +1,17 @@
 import * as React from 'react';
-import type { ColorValue, StyleProp, TextStyle } from 'react-native';
+import type { StyleProp, TextStyle } from 'react-native';
 import { Pressable, StyleSheet, Text } from 'react-native';
-import Animated from 'react-native-reanimated';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors, commonStyles } from '../../../constants';
-import type { IconProps } from '../../common/SharedProps';
+import type { AnimatedColorProp, IconProps } from '../../common/SharedProps';
 import IconRenderer from '../../common/components/IconRenderer';
+import { parseAnimatedColorProp } from '../../common/utils/parseAnimatedColorProp';
 
 interface HeaderBarProps extends IconProps {
-  backgroundColor?: ColorValue;
+  backgroundColor?: AnimatedColorProp;
   enableSafeAreaTopInset?: boolean;
   headerTitleContainerAnimatedStyle: { opacity: number };
   title?: string;
@@ -24,6 +25,8 @@ const HIT_SLOP = {
   bottom: 15,
   right: 15,
 };
+
+const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
 
 export const HeaderBar: React.FC<HeaderBarProps> = ({
   backgroundColor,
@@ -41,6 +44,12 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
   titleStyle,
   titleTestID = 'DetailsHeaderBarTitleTestID',
 }) => {
+  const wrapperAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      // TypeScript complains about AnimatedNode<StyleProp<ViewStyle>> from reanimated v1
+      backgroundColor: parseAnimatedColorProp(backgroundColor) as string,
+    };
+  });
   const safeAreaEdges: Edge[] = ['left', 'right'];
 
   if (enableSafeAreaTopInset) {
@@ -48,7 +57,9 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
   }
 
   return (
-    <SafeAreaView edges={safeAreaEdges} style={[commonStyles.headerWrapper, { backgroundColor }]}>
+    <AnimatedSafeAreaView
+      edges={safeAreaEdges}
+      style={[commonStyles.headerWrapper, wrapperAnimatedStyle]}>
       <Pressable
         accessibilityLabel={leftTopIconAccessibilityLabel}
         accessibilityRole="button"
@@ -72,7 +83,7 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
         testID={rightTopIconTestID}>
         <IconRenderer icon={rightTopIcon} />
       </Pressable>
-    </SafeAreaView>
+    </AnimatedSafeAreaView>
   );
 };
 
