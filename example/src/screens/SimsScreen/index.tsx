@@ -7,6 +7,7 @@ import {
   useStickyHeaderScrollProps,
 } from 'react-native-sticky-parallax-header';
 
+import { Tabs } from '../../components/primitiveComponents/Tabs';
 import { colors, screenStyles } from '../../constants';
 
 import { Foreground } from './Foreground';
@@ -54,6 +55,11 @@ const SimsScreen: React.FC = () => {
               </View>
             );
           }}
+          renderTabs={() => (
+            <View style={styles.tabContainer}>
+              <Tabs />
+            </View>
+          )}
           showsVerticalScrollIndicator={false}
           style={screenStyles.stretch}>
           <SafeAreaView edges={['left', 'right', 'bottom']} style={styles.content}>
@@ -71,7 +77,6 @@ const SimsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   content: {
     alignSelf: 'stretch',
-    paddingTop: HEADER_BAR_HEIGHT,
   },
   headerBarContainer: {
     position: 'absolute',
@@ -84,6 +89,9 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
     zIndex: 3,
+  },
+  tabContainer: {
+    paddingTop: HEADER_BAR_HEIGHT,
   },
 });
 

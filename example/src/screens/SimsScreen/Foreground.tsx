@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 27,
     marginLeft: 27,
-    marginBottom: 18,
+    paddingBottom: 18,
   },
   foregroundLogo: {
     width: 128,

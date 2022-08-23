@@ -72,7 +72,10 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({ scrollValue }) => {
         <BlurView style={styles.headerBlurView} tint="dark" intensity={90} />
       </Animated.View>
       <View
-        style={[styles.headerWrapper, { top: insets.top || DEFAULT_TOP_INSET, left: insets.left }]}>
+        style={[
+          styles.headerWrapper,
+          { top: insets.top || DEFAULT_TOP_INSET, left: insets.left, right: insets.right },
+        ]}>
         <Animated.View style={headerContainerAnimatedStyle}>
           <TouchableOpacity
             onPress={goBack}
@@ -115,7 +118,6 @@ const styles = StyleSheet.create({
   },
   headerWrapper: {
     position: 'absolute',
-    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
