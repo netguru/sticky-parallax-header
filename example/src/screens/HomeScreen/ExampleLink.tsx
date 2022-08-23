@@ -105,6 +105,11 @@ export const EXAMPLES: Array<ExampleLinkProps> = [
     label: 'New StickyHeader (FlashList)',
     testID: homeScreenTestIDs.stickyHeaderFlashListLink,
   },
+  {
+    routeName: ROUTES.TABBED_HEADER_WITH_ANIMATED_COLORS,
+    label: 'Pager with tabs and animated colors or styles',
+    testID: homeScreenTestIDs.tabbedHeaderWithAnimatedColorsLink,
+  },
 ];
 
 export const ExampleLink: React.FC<ExampleLinkProps> = ({ routeName, label, testID }) => {

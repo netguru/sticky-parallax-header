@@ -19,4 +19,5 @@ export const ROUTES = {
   AVATAR_HEADER_FLASHLIST: 'AvatarHeaderFlashList' as const,
   DETAILS_HEADER_FLASHLIST: 'DetailsHeaderFlashList' as const,
   STICKY_HEADER_FLASHLIST: 'StickyHeaderFlashList' as const,
+  TABBED_HEADER_WITH_ANIMATED_COLORS: 'TabbedHeaderWithAnimatedColors' as const,
 };

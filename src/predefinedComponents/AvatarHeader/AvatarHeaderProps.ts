@@ -1,4 +1,5 @@
 import type { ImageSourcePropType, StyleProp, TextStyle } from 'react-native';
+import type Animated from 'react-native-reanimated';
 
 import type {
   StickyHeaderFlashListProps,
@@ -13,11 +14,11 @@ export interface AvatarHeaderSharedProps extends IconProps, SharedPredefinedProp
   hasBorderRadius?: boolean;
   image?: ImageSourcePropType;
   subtitle?: string;
-  subtitleStyle?: StyleProp<TextStyle>;
+  subtitleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   subtitleTestID?: string;
   tabsContainerBackgroundColor?: AnimatedColorProp;
   title?: string;
-  titleStyle?: StyleProp<TextStyle>;
+  titleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   titleTestID?: string;
 }
 

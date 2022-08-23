@@ -1,24 +1,18 @@
 import * as React from 'react';
-import type { LayoutChangeEvent, ListRenderItemInfo } from 'react-native';
-import {
-  FlatList,
-  I18nManager,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native';
+import type { LayoutChangeEvent } from 'react-native';
+import { I18nManager, Platform, ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
-import { colors, commonStyles } from '../../../constants';
+import { commonStyles } from '../../../constants';
 import type { Tab, TabsConfig } from '../../common/SharedProps';
+import { parseAnimatedColorProp } from '../../common/utils/parseAnimatedColorProp';
+
+import { TabItem } from './TabItem';
 
 export interface TabsProps extends TabsConfig {
   activeTab: number;
+  horizontalScrollValue: Animated.SharedValue<number>;
   onTabPressed: (index: number) => void;
-  scrollValue: Animated.SharedValue<number>;
 }
 
 const UNDERLINE_PADDING = 20;
@@ -26,8 +20,8 @@ const UNDERLINE_PADDING = 20;
 export const Tabs: React.FC<TabsProps> = ({
   tabs,
   activeTab,
+  horizontalScrollValue,
   onTabPressed,
-  scrollValue,
   tabsContainerBackgroundColor,
   tabsContainerStyle,
   tabTextContainerStyle,
@@ -39,13 +33,13 @@ export const Tabs: React.FC<TabsProps> = ({
   tabsContainerHorizontalPadding,
 }) => {
   const { width } = useWindowDimensions();
-  const horizontalFlatListRef = React.useRef<FlatList>(null);
+  const horizontalScrollRef = React.useRef<ScrollView>(null);
 
   const currentPositionX = React.useRef(0);
-  const tabsWidth = React.useRef(tabs.map((_) => 0));
+  const [tabsWidth, setTabsWidth] = React.useState(tabs.map((_) => 0));
 
-  /** For some weird reason, inverted prop is not handled correctly, when applied directly with FlatList */
-  const isInverted = Platform.OS === 'android' ? I18nManager.isRTL : undefined;
+  const isInvertedAndroid = Platform.OS === 'android' ? I18nManager.isRTL : undefined;
+  const isInvertedIOS = Platform.OS === 'ios' ? I18nManager.isRTL : undefined;
 
   const adjustPrevious = React.useCallback(
     (page: number) => {
@@ -53,7 +47,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
       if (page <= lastHidden) {
         currentPositionX.current = width * 0.3 * page;
-        horizontalFlatListRef.current?.scrollToOffset({ offset: currentPositionX.current });
+        horizontalScrollRef.current?.scrollTo({ animated: true, x: currentPositionX.current });
       }
     },
     [width]
@@ -65,7 +59,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
       if (invisibleX < 0) {
         currentPositionX.current = currentPositionX.current - invisibleX;
-        horizontalFlatListRef.current?.scrollToOffset?.({ offset: currentPositionX.current });
+        horizontalScrollRef.current?.scrollTo?.({ animated: true, x: currentPositionX.current });
       }
     },
     [width]
@@ -75,13 +69,13 @@ export const Tabs: React.FC<TabsProps> = ({
     (page: number) => {
       if (tabs.length > 3) {
         if (page === 0) {
-          horizontalFlatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+          horizontalScrollRef.current?.scrollTo({ animated: true, x: 0 });
           currentPositionX.current = 0;
         } else if (page !== tabs.length - 1) {
           adjustPrevious(page - 1);
           adjustNext(page + 1);
         } else {
-          horizontalFlatListRef.current?.scrollToEnd?.({ animated: true });
+          horizontalScrollRef.current?.scrollToEnd?.({ animated: true });
           currentPositionX.current = width * 0.3 * tabs.length - width;
         }
       }
@@ -97,16 +91,27 @@ export const Tabs: React.FC<TabsProps> = ({
 
   React.useEffect(() => {
     scrollToTabRef.current(activeTab);
-  }, [activeTab]);
+    // Scroll also on width change to handle scrolling
+    // when device orientation changes from landscape to portrait,
+    // so that active tab is visible;
+  }, [activeTab, width]);
 
   React.useEffect(() => {
-    horizontalFlatListRef.current?.scrollToOffset({ offset: 1 });
-    horizontalFlatListRef.current?.scrollToOffset({ offset: 0 });
+    horizontalScrollRef.current?.scrollTo({ x: 1 });
+    horizontalScrollRef.current?.scrollTo({ x: 0 });
   }, []);
 
   const onTabLayout = React.useCallback(
     (page: number) => (e: LayoutChangeEvent) => {
-      tabsWidth.current[page] = e.nativeEvent.layout.width;
+      const tabWidth = e.nativeEvent.layout.width;
+
+      setTabsWidth((prevTabsWidth) => {
+        const newTabsWidth = prevTabsWidth.slice();
+
+        newTabsWidth[page] = tabWidth;
+
+        return newTabsWidth;
+      });
     },
     []
   );
@@ -135,92 +140,69 @@ export const Tabs: React.FC<TabsProps> = ({
   );
 
   const HORIZONTAL_PADDINGS = tabsContainerHorizontalPadding ?? UNDERLINE_PADDING;
-  const allSizes =
-    tabsWidth.current.every((it) => !!it) && tabsWidth.current.length > 0 && tabUnderlineColor;
-  const inputRanges = allSizes ? [0] : [0, 1];
-  const outputRanges = allSizes ? [HORIZONTAL_PADDINGS] : [HORIZONTAL_PADDINGS, 100];
+  const allSizes = tabsWidth.every((it) => !!it) && tabsWidth.length > 0 && !!tabUnderlineColor;
+
+  const { inputRange, translateXOutputRange, widthOutputRange } = React.useMemo(() => {
+    const inRange = allSizes ? [0] : [0, 1];
+    const translateXOutRange = allSizes ? [HORIZONTAL_PADDINGS] : [HORIZONTAL_PADDINGS, 100];
+    const widthOutRange = translateXOutRange.slice();
+
+    if (tabUnderlineColor) {
+      tabsWidth.reduce((accTabWidth, tabWidth, index) => {
+        if (allSizes) {
+          widthOutRange[index] = tabWidth;
+
+          if (index > 0) {
+            inRange[index] = width * index;
+            translateXOutRange[index] = accTabWidth;
+          }
+
+          return accTabWidth + tabWidth;
+        }
+
+        return accTabWidth;
+      }, HORIZONTAL_PADDINGS);
+    }
+
+    return {
+      inputRange: inRange,
+      translateXOutputRange: translateXOutRange,
+      widthOutputRange: widthOutRange,
+    };
+  }, [tabsWidth, tabUnderlineColor, HORIZONTAL_PADDINGS, allSizes, width]);
 
   const tabUnderlineAnimatedStyle = useAnimatedStyle(() => {
+    const translateX = interpolate(horizontalScrollValue.value, inputRange, translateXOutputRange);
+
     return {
-      backgroundColor:
-        typeof tabUnderlineColor === 'string' ||
-        typeof tabUnderlineColor === 'number' ||
-        typeof tabUnderlineColor === 'symbol'
-          ? tabUnderlineColor
-          : tabUnderlineColor?.value,
-      transform: [{ translateX: interpolate(scrollValue.value, inputRanges, outputRanges) }],
+      backgroundColor: parseAnimatedColorProp(tabUnderlineColor),
+      transform: [
+        {
+          translateX: isInvertedIOS ? translateX * -1 : translateX,
+        },
+      ],
+      width: interpolate(horizontalScrollValue.value, inputRange, widthOutputRange),
     };
-  });
+  }, [
+    horizontalScrollValue,
+    inputRange,
+    isInvertedIOS,
+    tabUnderlineColor,
+    translateXOutputRange,
+    width,
+    widthOutputRange,
+  ]);
 
   const containerAnimatedStyle = useAnimatedStyle(() => {
     return {
-      backgroundColor:
-        typeof tabsContainerBackgroundColor === 'string' ||
-        typeof tabsContainerBackgroundColor === 'number' ||
-        typeof tabsContainerBackgroundColor === 'symbol'
-          ? tabsContainerBackgroundColor
-          : tabsContainerBackgroundColor?.value,
+      backgroundColor: parseAnimatedColorProp(tabsContainerBackgroundColor),
     };
   });
 
-  const renderItem = React.useCallback(
-    ({ item: tab, index: page }: ListRenderItemInfo<Tab>) => {
-      const isTabActive = activeTab === page;
-      const tabKey = tab.title || `tab ${page}`;
-      const tabTestID = tab.testID || `${tabKey}TestID`;
-
-      return (
-        <Pressable
-          accessibilityLabel={tabKey}
-          accessibilityRole="button"
-          key={tabKey}
-          onLayout={onTabLayout(page)}
-          onPress={onTabPress(page)}
-          style={({ pressed }) => [
-            /** Handle inverted prop here */
-            isInverted && styles.inversionStyle,
-            styles.tabsWrapper,
-            tabWrapperStyle,
-            styles.noMargins,
-            pressed && styles.pressed,
-          ]}
-          testID={tabTestID}>
-          <View
-            style={[
-              styles.tabContainer,
-              styles.tabTextContainerStyle,
-              tabTextContainerStyle,
-              isTabActive && styles.tabTextContainerActiveStyle,
-              isTabActive && tabTextContainerActiveStyle,
-            ]}>
-            {renderIcon(tab.icon, page)}
-            {tab.title ? (
-              <Text style={[styles.tabText, tabTextStyle, isTabActive && tabTextActiveStyle]}>
-                {tab.title}
-              </Text>
-            ) : null}
-          </View>
-        </Pressable>
-      );
-    },
-    [
-      activeTab,
-      isInverted,
-      onTabLayout,
-      onTabPress,
-      renderIcon,
-      tabTextActiveStyle,
-      tabTextContainerActiveStyle,
-      tabTextContainerStyle,
-      tabTextStyle,
-      tabWrapperStyle,
-    ]
-  );
-
   return (
     <Animated.View style={[styles.container, containerAnimatedStyle]}>
-      <FlatList<Tab>
-        ref={horizontalFlatListRef}
+      <ScrollView
+        ref={horizontalScrollRef}
         bounces={false}
         contentContainerStyle={[
           styles.contentContainer,
@@ -233,29 +215,30 @@ export const Tabs: React.FC<TabsProps> = ({
           styles.noMargins,
           { paddingHorizontal: HORIZONTAL_PADDINGS },
         ]}
-        data={tabs}
         horizontal
-        keyExtractor={(_, i) => `${i}`}
         onScrollEndDrag={(event) => (currentPositionX.current = event.nativeEvent.contentOffset.x)}
-        renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
-        style={[
-          styles.nestedStyle,
-          /** Handle inverted prop here */
-          isInverted && styles.inversionStyle,
-        ]}
-      />
-      {tabUnderlineColor ? (
-        <Animated.View
-          style={[
-            styles.tabUnderlineStyles,
-            {
-              width: tabsWidth.current[activeTab],
-            },
-            tabUnderlineAnimatedStyle,
-          ]}
-        />
-      ) : null}
+        style={[styles.nestedStyle, isInvertedAndroid && styles.inversionStyle]}>
+        {tabs.map((tab, page) => (
+          <TabItem
+            key={page}
+            tab={tab}
+            page={page}
+            activeTab={activeTab}
+            renderIcon={renderIcon}
+            onTabLayout={onTabLayout(page)}
+            onTabPress={onTabPress(page)}
+            tabTextActiveStyle={tabTextActiveStyle}
+            tabTextContainerActiveStyle={tabTextContainerActiveStyle}
+            tabTextContainerStyle={tabTextContainerStyle}
+            tabTextStyle={tabTextStyle}
+            tabWrapperStyle={tabWrapperStyle}
+          />
+        ))}
+        {tabUnderlineColor ? (
+          <Animated.View style={[styles.tabUnderlineStyles, tabUnderlineAnimatedStyle]} />
+        ) : null}
+      </ScrollView>
     </Animated.View>
   );
 };
@@ -280,36 +263,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
     paddingHorizontal: 0,
   },
-  pressed: {
-    opacity: 0.9,
-  },
-  tabContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  tabText: {
-    fontSize: 16,
-    lineHeight: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    color: colors.white,
-    textAlign: 'left',
-  },
   tabUnderlineStyles: {
     position: 'absolute',
     bottom: 0,
     borderRadius: 6,
     height: 3,
-  },
-  tabsWrapper: {
-    paddingVertical: 12,
-  },
-  tabTextContainerStyle: {
-    backgroundColor: colors.transparent,
-    borderRadius: 18,
-  },
-  tabTextContainerActiveStyle: {
-    backgroundColor: colors.darkMint,
   },
 });

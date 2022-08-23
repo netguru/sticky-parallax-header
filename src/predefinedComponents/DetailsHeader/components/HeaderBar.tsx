@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { StyleProp, TextStyle } from 'react-native';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,7 +15,7 @@ interface HeaderBarProps extends IconProps {
   enableSafeAreaTopInset?: boolean;
   headerTitleContainerAnimatedStyle: { opacity: number };
   title?: string;
-  titleStyle?: StyleProp<TextStyle>;
+  titleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   titleTestID?: string;
 }
 
@@ -70,9 +70,9 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
         <IconRenderer icon={leftTopIcon} />
       </Pressable>
       <Animated.View style={[styles.headerTitleContainer, headerTitleContainerAnimatedStyle]}>
-        <Text style={[styles.headerTitle, titleStyle]} testID={titleTestID}>
+        <Animated.Text style={[styles.headerTitle, titleStyle]} testID={titleTestID}>
           {title}
-        </Text>
+        </Animated.Text>
       </Animated.View>
       <Pressable
         accessibilityLabel={rightTopIconAccessibilityLabel}

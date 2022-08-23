@@ -1,14 +1,20 @@
 import * as React from 'react';
+import type Animated from 'react-native-reanimated';
 
 import type { Tab } from '../../common/SharedProps';
 import type { TabsProps } from '../components/Tabs';
 import { Tabs } from '../components/Tabs';
 
-export function useRenderTabs(tabsProps: Omit<TabsProps, 'tabs'> & { tabs?: Tab[] }) {
+export function useRenderTabs(
+  tabsProps: Omit<TabsProps, 'tabs'> & {
+    tabs?: Tab[];
+    horizontalScrollValue: Animated.SharedValue<number>;
+  }
+) {
   const {
     activeTab,
+    horizontalScrollValue,
     onTabPressed,
-    scrollValue,
     tabTextActiveStyle,
     tabTextContainerActiveStyle,
     tabTextContainerStyle,
@@ -30,8 +36,8 @@ export function useRenderTabs(tabsProps: Omit<TabsProps, 'tabs'> & { tabs?: Tab[
       <Tabs
         tabs={tabs}
         activeTab={activeTab}
+        horizontalScrollValue={horizontalScrollValue}
         onTabPressed={onTabPressed}
-        scrollValue={scrollValue}
         tabTextActiveStyle={tabTextActiveStyle}
         tabTextContainerActiveStyle={tabTextContainerActiveStyle}
         tabTextContainerStyle={tabTextContainerStyle}
@@ -45,8 +51,8 @@ export function useRenderTabs(tabsProps: Omit<TabsProps, 'tabs'> & { tabs?: Tab[
     );
   }, [
     activeTab,
+    horizontalScrollValue,
     onTabPressed,
-    scrollValue,
     tabTextActiveStyle,
     tabTextContainerActiveStyle,
     tabTextContainerStyle,

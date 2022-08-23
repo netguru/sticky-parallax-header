@@ -11,7 +11,7 @@ import type {
   TextStyle,
   ViewStyle,
 } from 'react-native';
-import type { SharedValue } from 'react-native-reanimated';
+import type Animated from 'react-native-reanimated';
 
 // FIXME: unknown does not work here :/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,7 +20,7 @@ export type ScrollComponent = ScrollView | FlatList<any> | SectionList<any, any>
 export type AnimatedColorProp =
   | ColorValue
   | ProcessedColorValue
-  | SharedValue<ColorValue | ProcessedColorValue>;
+  | Animated.SharedValue<ColorValue | ProcessedColorValue>;
 
 export type ColorProp = ColorValue | ProcessedColorValue;
 
@@ -56,12 +56,11 @@ export interface Tab {
   icon?: (ReactElement | null) | ((isActive: boolean) => ReactElement | null);
   testID?: string;
 }
-
 export interface TabsConfig {
-  tabTextActiveStyle?: StyleProp<TextStyle>;
-  tabTextContainerStyle?: StyleProp<ViewStyle>;
-  tabTextContainerActiveStyle?: StyleProp<ViewStyle>;
-  tabTextStyle?: StyleProp<TextStyle>;
+  tabTextActiveStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
+  tabTextContainerStyle?: StyleProp<Animated.AnimateStyle<ViewStyle>>;
+  tabTextContainerActiveStyle?: StyleProp<Animated.AnimateStyle<ViewStyle>>;
+  tabTextStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   tabUnderlineColor?: AnimatedColorProp;
   tabWrapperStyle?: StyleProp<ViewStyle>;
   tabs: Tab[];

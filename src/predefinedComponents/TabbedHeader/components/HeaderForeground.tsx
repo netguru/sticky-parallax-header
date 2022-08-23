@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from 'react-native';
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
 import { colors, commonStyles, constants } from '../../../constants';
@@ -13,7 +13,7 @@ interface ForegroundProps {
   height: number;
   scrollValue: Animated.SharedValue<number>;
   title?: string;
-  titleStyle?: StyleProp<TextStyle>;
+  titleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   titleTestID?: string;
 }
 
@@ -97,9 +97,9 @@ export const Foreground: React.FC<ForegroundProps> = ({
         </Animated.View>
       ) : null}
       <Animated.View style={[commonStyles.messageContainer, titleAnimatedStyle]}>
-        <Text style={messageStyle} testID={titleTestID}>
+        <Animated.Text style={messageStyle} testID={titleTestID}>
           {title}
-        </Text>
+        </Animated.Text>
       </Animated.View>
     </View>
   );

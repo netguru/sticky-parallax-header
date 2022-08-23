@@ -26,4 +26,5 @@ export const homeScreenTestIDs = Object.freeze({
   avatarHeaderFlashListLink: 'AvatarHeaderFlashListLinkTestID',
   detailsHeaderFlashListLink: 'DetailsHeaderFlashListLinkTestID',
   stickyHeaderFlashListLink: 'StickyHeaderFlashListLinkTestID',
+  tabbedHeaderWithAnimatedColorsLink: 'TabbedHeaderWithAnimatedColorsLinkTestID',
 });

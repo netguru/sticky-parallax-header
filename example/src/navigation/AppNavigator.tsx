@@ -20,6 +20,7 @@ import { AvatarHeaderFlashListExample } from '../screens/additionalExamples/Avat
 import { DetailsHeaderFlashListExample } from '../screens/additionalExamples/DetailsHeaderFlashListExample';
 import { StickyHeaderFlashListExample } from '../screens/additionalExamples/StickyHeaderFlashListExample';
 import { TabbedHeaderFlashListExample } from '../screens/additionalExamples/TabbedHeaderFlashListExample';
+import { TabbedHeaderWithAnimatedColorsExample } from '../screens/additionalExamples/TabbedHeaderWithAnimatedColors';
 import { TabbedHeaderWithSectionListsExample } from '../screens/additionalExamples/TabbedHeaderWithSectionLists';
 
 import { ROUTES } from './routes';
@@ -86,6 +87,10 @@ const AppNavigator: React.FC = () => (
       <Stack.Screen
         name={ROUTES.STICKY_HEADER_FLASHLIST}
         component={StickyHeaderFlashListExample}
+      />
+      <Stack.Screen
+        name={ROUTES.TABBED_HEADER_WITH_ANIMATED_COLORS}
+        component={TabbedHeaderWithAnimatedColorsExample}
       />
     </Stack.Navigator>
   </NavigationContainer>

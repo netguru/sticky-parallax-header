@@ -34,6 +34,10 @@ function useRenderHeader<T extends ScrollComponent>(props: TabbedHeaderPagerProp
     titleStyle,
     titleTestID,
   } = props;
+  const horizontalScrollValue = useSharedValue(0);
+  const onHorizontalPagerScroll = useWorkletCallback((e: NativeScrollEvent) => {
+    horizontalScrollValue.value = e.contentOffset.x;
+  }, []);
 
   const renderHeader = React.useCallback(() => {
     return (
@@ -73,6 +77,8 @@ function useRenderHeader<T extends ScrollComponent>(props: TabbedHeaderPagerProp
 
   return {
     innerScrollHeight,
+    horizontalScrollValue,
+    onHorizontalPagerScroll,
     onMomentumScrollEnd,
     onScroll,
     onScrollEndDrag,
@@ -86,6 +92,8 @@ function useRenderHeader<T extends ScrollComponent>(props: TabbedHeaderPagerProp
 export function useTabbedHeaderPager(props: TabbedHeaderPagerProps) {
   const {
     innerScrollHeight,
+    horizontalScrollValue,
+    onHorizontalPagerScroll,
     onMomentumScrollEnd,
     onScroll,
     onScrollEndDrag,
@@ -110,8 +118,8 @@ export function useTabbedHeaderPager(props: TabbedHeaderPagerProps) {
   const renderTabs = useRenderTabs({
     ...props,
     activeTab: currentPage,
+    horizontalScrollValue,
     onTabPressed: goToPage,
-    scrollValue,
     tabsContainerBackgroundColor: tabsContainerBackgroundColor ?? backgroundColor,
   });
 
@@ -119,6 +127,7 @@ export function useTabbedHeaderPager(props: TabbedHeaderPagerProps) {
     currentPage,
     goToPage,
     innerScrollHeight,
+    onHorizontalPagerScroll,
     onMomentumScrollEnd,
     onScroll,
     onScrollEndDrag,
@@ -139,6 +148,7 @@ export function useTabbedHeaderList<
   const ignoreViewabilityItemsChangedEvent = useSharedValue(false);
   const {
     innerScrollHeight,
+    horizontalScrollValue,
     onMomentumScrollEnd,
     onScroll,
     onScrollEndDrag,
@@ -205,8 +215,8 @@ export function useTabbedHeaderList<
   const renderTabs = useRenderTabs({
     ...props,
     activeTab: activeSection,
+    horizontalScrollValue,
     onTabPressed: goToSection,
-    scrollValue,
     tabsContainerBackgroundColor: tabsContainerBackgroundColor ?? backgroundColor,
   });
 

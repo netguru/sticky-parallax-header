@@ -1,5 +1,6 @@
 import * as Font from 'expo-font';
 import * as React from 'react';
+import { I18nManager } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import AppNavigator from './navigation/AppNavigator';
@@ -17,6 +18,7 @@ export default function App() {
 
   React.useEffect(() => {
     loadFonts();
+    I18nManager.allowRTL(true);
   }, [loadFonts]);
 
   return <SafeAreaProvider>{loaded ? <AppNavigator /> : <></>}</SafeAreaProvider>;

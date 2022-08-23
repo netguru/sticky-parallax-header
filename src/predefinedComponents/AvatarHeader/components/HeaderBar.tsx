@@ -26,7 +26,7 @@ interface HeaderProps extends IconProps {
   image?: ImageSourcePropType;
   scrollValue: Animated.SharedValue<number>;
   title?: string;
-  titleStyle?: StyleProp<TextStyle>;
+  titleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   titleTestID?: string;
 }
 

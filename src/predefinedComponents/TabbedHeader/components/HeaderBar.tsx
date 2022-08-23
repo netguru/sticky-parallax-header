@@ -6,7 +6,6 @@ import type {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { Image } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,9 +18,9 @@ interface HeaderBarProps {
   backgroundColor?: AnimatedColorProp;
   enableSafeAreaTopInset?: boolean;
   logo: ImageSourcePropType;
-  logoContainerStyle?: StyleProp<ViewStyle>;
+  logoContainerStyle?: StyleProp<Animated.AnimateStyle<ViewStyle>>;
   logoResizeMode?: ImageResizeMode;
-  logoStyle?: StyleProp<ImageStyle>;
+  logoStyle?: StyleProp<Animated.AnimateStyle<ImageStyle>>;
 }
 
 const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
@@ -47,10 +46,15 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
   }
 
   return (
+    // @ts-ignore
     <AnimatedSafeAreaView
       edges={safeAreaEdges}
       style={[commonStyles.headerWrapper, logoContainerStyle, wrapperAnimatedStyle]}>
-      <Image resizeMode={logoResizeMode} source={logo} style={[commonStyles.logo, logoStyle]} />
+      <Animated.Image
+        resizeMode={logoResizeMode}
+        source={logo}
+        style={[commonStyles.logo, logoStyle]}
+      />
     </AnimatedSafeAreaView>
   );
 };

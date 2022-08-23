@@ -1,7 +1,7 @@
 import * as React from 'react';
-import type { ScrollView } from 'react-native';
+import type { NativeScrollEvent, ScrollView } from 'react-native';
 import { View } from 'react-native';
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useWorkletCallback } from 'react-native-reanimated';
 import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -40,6 +40,7 @@ export const TabbedHeaderPager = React.forwardRef<ScrollView, TabbedHeaderPagerP
     const {
       currentPage,
       innerScrollHeight,
+      onHorizontalPagerScroll,
       onMomentumScrollEnd,
       onScroll,
       onScrollEndDrag,
@@ -58,6 +59,22 @@ export const TabbedHeaderPager = React.forwardRef<ScrollView, TabbedHeaderPagerP
         backgroundColor: parseAnimatedColorProp(backgroundColor),
       };
     });
+
+    const handleChangeTab = React.useCallback(
+      (prevPage: number, newPage: number) => {
+        setCurrentPage(newPage);
+        onChangeTab?.(prevPage, newPage);
+      },
+      [onChangeTab, setCurrentPage]
+    );
+
+    const handleScroll = useWorkletCallback(
+      (e: NativeScrollEvent) => {
+        onHorizontalPagerScroll(e);
+        pagerProps?.onScroll?.(e);
+      },
+      [onHorizontalPagerScroll, pagerProps?.onScroll]
+    );
 
     return (
       <Animated.View style={[commonStyles.container, wrapperAnimatedStyle]}>
@@ -97,10 +114,8 @@ export const TabbedHeaderPager = React.forwardRef<ScrollView, TabbedHeaderPagerP
               disableScrollToPosition={disableScrollToPosition}
               initialPage={initialPage}
               minScrollHeight={innerScrollHeight}
-              onChangeTab={(prevPage, newPage) => {
-                setCurrentPage(newPage);
-                onChangeTab?.(prevPage, newPage);
-              }}
+              onChangeTab={handleChangeTab}
+              onScroll={handleScroll}
               page={currentPage}
               rememberTabScrollPosition={rememberTabScrollPosition}
               scrollHeight={scrollHeight}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from 'react-native';
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
 import { colors, commonStyles, constants } from '../../../constants';
@@ -13,10 +13,10 @@ interface ForegroundProps {
   image?: ImageSourcePropType;
   scrollValue: Animated.SharedValue<number>;
   subtitle?: string;
-  subtitleStyle?: StyleProp<TextStyle>;
+  subtitleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   subtitleTestID?: string;
   title?: string;
-  titleStyle?: StyleProp<TextStyle>;
+  titleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   titleTestID?: string;
 }
 
@@ -125,7 +125,7 @@ export const Foreground: React.FC<ForegroundProps> = ({
       </Animated.View>
       <View style={[isLandscape && styles.landscapeTitleContainer]}>
         <Animated.View style={[styles.userModalMessageContainer, authorAnimatedStyle]}>
-          <Text
+          <Animated.Text
             adjustsFontSizeToFit
             numberOfLines={2}
             style={[
@@ -136,15 +136,15 @@ export const Foreground: React.FC<ForegroundProps> = ({
             ]}
             testID={titleTestID}>
             {title}
-          </Text>
+          </Animated.Text>
         </Animated.View>
         <Animated.View style={[styles.infoContainer, aboutAnimatedStyle]}>
-          <Text
+          <Animated.Text
             adjustsFontSizeToFit
             style={[styles.infoText, subtitleStyle ?? titleStyle]}
             testID={subtitleTestID}>
             {subtitle}
-          </Text>
+          </Animated.Text>
         </Animated.View>
       </View>
     </View>

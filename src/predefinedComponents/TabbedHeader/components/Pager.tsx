@@ -15,7 +15,8 @@ import Animated, {
 
 import { commonStyles } from '../../../constants';
 import { debounce } from '../../common/utils/debounce';
-import type { InternalPagerProps, PagerMethods, PagerProps } from '../TabbedHeaderProps';
+import type { InternalPagerProps } from '../InternalTabbedHeaderProps';
+import type { PagerMethods, PagerProps } from '../TabbedHeaderProps';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const NOOP = () => {};
@@ -77,26 +78,14 @@ export const Pager = React.forwardRef<PagerMethods, PagerProps & InternalPagerPr
 
     const goToPageAnimationFrame = React.useRef<ReturnType<typeof requestAnimationFrame>>();
 
-    const isInverted = Platform.OS === 'android' ? I18nManager.isRTL : undefined;
+    const isInvertedAndroid = Platform.OS === 'android' ? I18nManager.isRTL : undefined;
 
     React.useEffect(() => {
       /**
        * Scroll to make first rendered tab visible (if not used, sometimes when Pager is first rendered, it has blank first tab)
        */
-      function scrollOnePxAndBack() {
-        'worklet';
-        if (Platform.OS === 'web') {
-          horizontalFlatListRef.current?.scrollToOffset({ offset: 1, animated: true });
-          horizontalFlatListRef.current?.scrollToOffset({ offset: 0, animated: true });
-
-          return;
-        }
-
-        scrollTo(horizontalFlatListRef, 0, 1, true);
-        scrollTo(horizontalFlatListRef, 0, 0, true);
-      }
-
-      runOnUI(scrollOnePxAndBack)();
+      horizontalFlatListRef.current?.scrollToOffset({ offset: 1, animated: true });
+      horizontalFlatListRef.current?.scrollToOffset({ offset: 0, animated: true });
 
       return () => {
         cancelAnimation(scrollToTabPositionTimeoutValue);
@@ -245,9 +234,9 @@ export const Pager = React.forwardRef<PagerMethods, PagerProps & InternalPagerPr
     const renderItem = React.useCallback(
       ({ item }: ListRenderItemInfo<Page>) => {
         return (
-          <View
+          <Animated.View
             style={[
-              isInverted && styles.inversionStyle,
+              isInvertedAndroid && styles.inversionStyle,
               // used to calculate current height of scroll
               {
                 width: containerWidth,
@@ -255,10 +244,10 @@ export const Pager = React.forwardRef<PagerMethods, PagerProps & InternalPagerPr
               pageContainerStyle,
             ]}>
             {item}
-          </View>
+          </Animated.View>
         );
       },
-      [containerWidth, isInverted, pageContainerStyle]
+      [containerWidth, isInvertedAndroid, pageContainerStyle]
     );
 
     return (
@@ -297,7 +286,7 @@ export const Pager = React.forwardRef<PagerMethods, PagerProps & InternalPagerPr
           scrollEventThrottle={scrollEventThrottle}
           scrollsToTop={scrollsToTop}
           showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
-          style={[isInverted && styles.inversionStyle]}
+          style={[isInvertedAndroid && styles.inversionStyle]}
         />
       </View>
     );
