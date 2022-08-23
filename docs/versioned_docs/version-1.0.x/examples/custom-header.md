@@ -58,6 +58,11 @@ const SimsScreen: React.FC = () => {
               </View>
             );
           }}
+          renderTabs={() => (
+            <View style={styles.tabContainer}>
+              <Tabs />
+            </View>
+          )}
           showsVerticalScrollIndicator={false}
           style={screenStyles.stretch}>
           <SafeAreaView edges={['left', 'right', 'bottom']} style={styles.content}>
