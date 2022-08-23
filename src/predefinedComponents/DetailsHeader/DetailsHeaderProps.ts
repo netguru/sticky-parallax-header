@@ -1,4 +1,5 @@
-import type { ColorValue, ImageSourcePropType, StyleProp, TextStyle } from 'react-native';
+import type { ImageSourcePropType, StyleProp, TextStyle } from 'react-native';
+import type Animated from 'react-native-reanimated';
 
 import type {
   StickyHeaderFlashListProps,
@@ -6,25 +7,25 @@ import type {
   StickyHeaderScrollViewProps,
   StickyHeaderSectionListProps,
 } from '../../primitiveComponents/StickyHeaderProps';
-import type { IconProps, SharedPredefinedProps } from '../common/SharedProps';
+import type { AnimatedColorProp, IconProps, SharedPredefinedProps } from '../common/SharedProps';
 
 export interface DetailsHeaderSharedProps extends IconProps, SharedPredefinedProps {
   contentIcon?: ImageSourcePropType;
   contentIconNumber?: number;
-  contentIconNumberStyle?: StyleProp<TextStyle>;
+  contentIconNumberStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   contentIconNumberTestID?: string;
   enableSafeAreaTopInset?: boolean;
   hasBorderRadius?: boolean;
   image?: ImageSourcePropType;
-  tabsContainerBackgroundColor?: ColorValue;
+  tabsContainerBackgroundColor?: AnimatedColorProp;
   subtitle?: string;
-  subtitleStyle?: StyleProp<TextStyle>;
+  subtitleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   subtitleTestID?: string;
   tag?: string;
-  tagStyle?: StyleProp<TextStyle>;
+  tagStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   tagTestID?: string;
   title?: string;
-  titleStyle?: StyleProp<TextStyle>;
+  titleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   titleTestID?: string;
 }
 

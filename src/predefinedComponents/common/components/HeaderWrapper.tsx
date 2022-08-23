@@ -1,22 +1,24 @@
 import * as React from 'react';
-import type { ColorValue, ImageSourcePropType } from 'react-native';
+import type { ImageSourcePropType } from 'react-native';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
-import type Animated from 'react-native-reanimated';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { colors } from '../../../constants';
+import type { AnimatedColorProp } from '../SharedProps';
+import { parseAnimatedColorProp } from '../utils/parseAnimatedColorProp';
 
 import { HeaderBackground } from './HeaderBackground';
 import { HeaderBackgroundImage } from './HeaderBackgroundImage';
 
 interface HeaderWrapperProps {
-  backgroundColor?: ColorValue;
+  backgroundColor?: AnimatedColorProp;
   backgroundImage?: ImageSourcePropType;
-  contentBackgroundColor?: ColorValue;
+  contentBackgroundColor?: AnimatedColorProp;
   hasBorderRadius?: boolean;
   parallaxHeight: number;
   scrollHeight: number;
   scrollValue: Animated.SharedValue<number>;
-  tabsContainerBackgroundColor?: ColorValue;
+  tabsContainerBackgroundColor?: AnimatedColorProp;
 }
 
 export const HeaderWrapper: React.FC<React.PropsWithChildren<HeaderWrapperProps>> = ({
@@ -31,9 +33,23 @@ export const HeaderWrapper: React.FC<React.PropsWithChildren<HeaderWrapperProps>
   tabsContainerBackgroundColor,
 }) => {
   const { width } = useWindowDimensions();
+  const hasBackgroundImage = !!backgroundImage;
+  const contentAnimatedStyle = useAnimatedStyle(() => {
+    // TypeScript complains about AnimatedNode<StyleProp<ViewStyle>> from reanimated v1
+    return { backgroundColor: parseAnimatedColorProp(contentBackgroundColor) as string };
+  });
+  const foregroundAnimatedStyle = useAnimatedStyle(() => {
+    if (hasBackgroundImage) {
+      return { backgroundColor: colors.transparent };
+    }
+
+    return {
+      backgroundColor: parseAnimatedColorProp(tabsContainerBackgroundColor),
+    };
+  });
 
   return (
-    <View pointerEvents="box-none" style={{ backgroundColor: contentBackgroundColor }}>
+    <Animated.View pointerEvents="box-none" style={contentAnimatedStyle}>
       {backgroundImage ? (
         <View pointerEvents="none">
           <HeaderBackgroundImage
@@ -61,19 +77,18 @@ export const HeaderWrapper: React.FC<React.PropsWithChildren<HeaderWrapperProps>
           />
         </View>
       )}
-      <View
+      <Animated.View
         pointerEvents="box-none"
         style={[
           {
             height: scrollHeight,
-            backgroundColor: tabsContainerBackgroundColor,
           },
-          !!backgroundImage && styles.transparentBackground,
+          foregroundAnimatedStyle,
         ]}
         testID="HeaderForeground">
         {children}
-      </View>
-    </View>
+      </Animated.View>
+    </Animated.View>
   );
 };
 
@@ -84,8 +99,5 @@ const styles = StyleSheet.create({
     top: 0,
     alignItems: 'flex-start',
     justifyContent: 'flex-end',
-  },
-  transparentBackground: {
-    backgroundColor: colors.transparent,
   },
 });

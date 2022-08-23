@@ -26,6 +26,7 @@ export type RootStackParamList = {
   [ROUTES.AVATAR_HEADER_FLASHLIST]: undefined;
   [ROUTES.DETAILS_HEADER_FLASHLIST]: undefined;
   [ROUTES.STICKY_HEADER_FLASHLIST]: undefined;
+  [ROUTES.TABBED_HEADER_WITH_ANIMATED_COLORS]: undefined;
 };
 
 export type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;

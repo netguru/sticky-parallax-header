@@ -1,20 +1,15 @@
 import * as React from 'react';
-import type {
-  ColorValue,
-  ImageSourcePropType,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-} from 'react-native';
+import type { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from 'react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { Extrapolate, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import type { Edge } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { colors, commonStyles } from '../../../constants';
-import type { IconProps } from '../../common/SharedProps';
+import type { AnimatedColorProp, IconProps } from '../../common/SharedProps';
 import IconRenderer from '../../common/components/IconRenderer';
 import { useRTLStyles } from '../../common/hooks/useRTLStyles';
+import { parseAnimatedColorProp } from '../../common/utils/parseAnimatedColorProp';
 import { scrollPosition } from '../../common/utils/scrollPosition';
 
 const HIT_SLOP = {
@@ -25,15 +20,17 @@ const HIT_SLOP = {
 };
 
 interface HeaderProps extends IconProps {
-  backgroundColor?: ColorValue;
+  backgroundColor?: AnimatedColorProp;
   enableSafeAreaTopInset?: boolean;
   height: number;
   image?: ImageSourcePropType;
   scrollValue: Animated.SharedValue<number>;
   title?: string;
-  titleStyle?: StyleProp<TextStyle>;
+  titleStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
   titleTestID?: string;
 }
+
+const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
 
 export const HeaderBar: React.FC<HeaderProps> = ({
   backgroundColor,
@@ -89,6 +86,13 @@ export const HeaderBar: React.FC<HeaderProps> = ({
     styles.headerTitleContainerMarginLeft,
     styles.headerTitleContainerMarginEnd
   );
+  const wrapperAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      // TypeScript complains about AnimatedNode<StyleProp<ViewStyle>> from reanimated v1
+      backgroundColor: parseAnimatedColorProp(backgroundColor) as string,
+    };
+  });
+
   const safeAreaEdges: Edge[] = ['left', 'right'];
 
   if (enableSafeAreaTopInset) {
@@ -96,7 +100,9 @@ export const HeaderBar: React.FC<HeaderProps> = ({
   }
 
   return (
-    <SafeAreaView edges={safeAreaEdges} style={[commonStyles.headerWrapper, { backgroundColor }]}>
+    <AnimatedSafeAreaView
+      edges={safeAreaEdges}
+      style={[commonStyles.headerWrapper, wrapperAnimatedStyle]}>
       <Pressable
         accessibilityLabel={leftTopIconAccessibilityLabel}
         accessibilityRole="button"
@@ -127,7 +133,7 @@ export const HeaderBar: React.FC<HeaderProps> = ({
         testID={rightTopIconTestID}>
         <IconRenderer icon={rightTopIcon} />
       </Pressable>
-    </SafeAreaView>
+    </AnimatedSafeAreaView>
   );
 };
 

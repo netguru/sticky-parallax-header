@@ -38,6 +38,10 @@ function useRenderFlashListHeader<T extends FlashList<any>>(
     titleStyle,
     titleTestID,
   } = props;
+  const horizontalScrollValue = useSharedValue(0);
+  const onHorizontalPagerScroll = useWorkletCallback((e: NativeScrollEvent) => {
+    horizontalScrollValue.value = e.contentOffset.x;
+  }, []);
 
   const renderHeader = React.useCallback(() => {
     return (
@@ -77,6 +81,8 @@ function useRenderFlashListHeader<T extends FlashList<any>>(
 
   return {
     innerScrollHeight,
+    horizontalScrollValue,
+    onHorizontalPagerScroll,
     onMomentumScrollEnd,
     onScroll,
     onScrollEndDrag,
@@ -92,6 +98,7 @@ export function useTabbedFlashListHeader<ItemT, T extends FlashList<ItemT> = Fla
 ) {
   const {
     innerScrollHeight,
+    horizontalScrollValue,
     onMomentumScrollEnd,
     onScroll,
     onScrollEndDrag,
@@ -176,8 +183,8 @@ export function useTabbedFlashListHeader<ItemT, T extends FlashList<ItemT> = Fla
   const renderTabs = useRenderTabs({
     ...props,
     activeTab: activeSection,
+    horizontalScrollValue,
     onTabPressed: goToSection,
-    scrollValue,
     tabsContainerBackgroundColor: tabsContainerBackgroundColor ?? backgroundColor,
   });
 

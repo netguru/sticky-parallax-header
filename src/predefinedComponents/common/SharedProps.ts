@@ -4,16 +4,25 @@ import type {
   FlatList,
   ImageSourcePropType,
   NativeScrollEvent,
+  ProcessedColorValue,
   ScrollView,
   SectionList,
   StyleProp,
   TextStyle,
   ViewStyle,
 } from 'react-native';
+import type Animated from 'react-native-reanimated';
 
 // FIXME: unknown does not work here :/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ScrollComponent = ScrollView | FlatList<any> | SectionList<any, any>;
+
+export type AnimatedColorProp =
+  | ColorValue
+  | ProcessedColorValue
+  | Animated.SharedValue<ColorValue | ProcessedColorValue>;
+
+export type ColorProp = ColorValue | ProcessedColorValue;
 
 export interface IconProps {
   leftTopIcon?: (() => ReactElement | null) | ImageSourcePropType;
@@ -27,7 +36,7 @@ export interface IconProps {
 }
 
 export interface SharedPredefinedProps {
-  backgroundColor?: ColorValue;
+  backgroundColor?: AnimatedColorProp;
   backgroundImage?: ImageSourcePropType;
   contentContainerStyle?: StyleProp<ViewStyle>;
   headerHeight?: number;
@@ -47,16 +56,15 @@ export interface Tab {
   icon?: (ReactElement | null) | ((isActive: boolean) => ReactElement | null);
   testID?: string;
 }
-
 export interface TabsConfig {
-  tabTextActiveStyle?: StyleProp<TextStyle>;
-  tabTextContainerStyle?: StyleProp<ViewStyle>;
-  tabTextContainerActiveStyle?: StyleProp<ViewStyle>;
-  tabTextStyle?: StyleProp<TextStyle>;
-  tabUnderlineColor?: ColorValue;
+  tabTextActiveStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
+  tabTextContainerStyle?: StyleProp<Animated.AnimateStyle<ViewStyle>>;
+  tabTextContainerActiveStyle?: StyleProp<Animated.AnimateStyle<ViewStyle>>;
+  tabTextStyle?: StyleProp<Animated.AnimateStyle<TextStyle>>;
+  tabUnderlineColor?: AnimatedColorProp;
   tabWrapperStyle?: StyleProp<ViewStyle>;
   tabs: Tab[];
-  tabsContainerBackgroundColor?: ColorValue;
+  tabsContainerBackgroundColor?: AnimatedColorProp;
   tabsContainerHorizontalPadding?: number;
   tabsContainerStyle?: StyleProp<ViewStyle>;
 }

@@ -1,10 +1,12 @@
 import type { FlashList, FlashListProps } from '@shopify/flash-list';
 import * as React from 'react';
 import { View } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { commonStyles } from '../../constants';
 import type { StickyHeaderFlashListProps } from '../../primitiveComponents/StickyHeaderProps';
 import { withStickyHeaderFlashList } from '../../primitiveComponents/withStickyHeaderFlashList';
+import { parseAnimatedColorProp } from '../common/utils/parseAnimatedColorProp';
 
 import type { DetailsHeaderFlashListProps } from './DetailsHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
@@ -51,8 +53,14 @@ export function withDetailsHeaderFlashList<ItemT>(
 
     React.useImperativeHandle(ref, () => scrollViewRef.current as FlashList<ItemT>);
 
+    const wrapperAnimatedStyle = useAnimatedStyle(() => {
+      return {
+        backgroundColor: parseAnimatedColorProp(backgroundColor),
+      };
+    });
+
     return (
-      <View style={[commonStyles.container, { backgroundColor }]}>
+      <Animated.View style={[commonStyles.container, wrapperAnimatedStyle]}>
         {renderHeaderBar ? (
           renderHeaderBar()
         ) : (
@@ -86,7 +94,7 @@ export function withDetailsHeaderFlashList<ItemT>(
             scrollEventThrottle={scrollEventThrottle}
           />
         </View>
-      </View>
+      </Animated.View>
     );
   });
 }

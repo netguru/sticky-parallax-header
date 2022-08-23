@@ -1,9 +1,11 @@
 import * as React from 'react';
 import type { SectionList } from 'react-native';
 import { View } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { commonStyles } from '../../constants';
 import { StickyHeaderSectionList } from '../../primitiveComponents/StickyHeaderSectionList';
+import { parseAnimatedColorProp } from '../common/utils/parseAnimatedColorProp';
 
 import type { AvatarHeaderSectionListProps } from './AvatarHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
@@ -50,8 +52,14 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
 
   React.useImperativeHandle(ref, () => scrollViewRef.current as SectionList<ItemT, SectionT>);
 
+  const wrapperAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      backgroundColor: parseAnimatedColorProp(backgroundColor),
+    };
+  });
+
   return (
-    <View style={[commonStyles.wrapper, { backgroundColor }]}>
+    <Animated.View style={[commonStyles.wrapper, wrapperAnimatedStyle]}>
       {renderHeaderBar ? (
         renderHeaderBar()
       ) : (
@@ -91,7 +99,7 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
           stickySectionHeadersEnabled={stickySectionHeadersEnabled}
         />
       </View>
-    </View>
+    </Animated.View>
   );
 }
 

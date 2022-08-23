@@ -1,9 +1,11 @@
 import * as React from 'react';
 import type { FlatList } from 'react-native';
 import { View } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { commonStyles } from '../../constants';
 import { StickyHeaderFlatList } from '../../primitiveComponents/StickyHeaderFlatList';
+import { parseAnimatedColorProp } from '../common/utils/parseAnimatedColorProp';
 
 import type { DetailsHeaderFlatListProps } from './DetailsHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
@@ -48,8 +50,14 @@ function DetailsHeaderFlatListInner<ItemT>(
 
   React.useImperativeHandle(ref, () => scrollViewRef.current as FlatList<ItemT>);
 
+  const wrapperAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      backgroundColor: parseAnimatedColorProp(backgroundColor),
+    };
+  });
+
   return (
-    <View style={[commonStyles.container, { backgroundColor }]}>
+    <Animated.View style={[commonStyles.container, wrapperAnimatedStyle]}>
       {renderHeaderBar ? (
         renderHeaderBar()
       ) : (
@@ -87,7 +95,7 @@ function DetailsHeaderFlatListInner<ItemT>(
           scrollEventThrottle={scrollEventThrottle}
         />
       </View>
-    </View>
+    </Animated.View>
   );
 }
 

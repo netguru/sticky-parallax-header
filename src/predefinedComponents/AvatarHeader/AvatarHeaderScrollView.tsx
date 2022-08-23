@@ -1,9 +1,11 @@
 import * as React from 'react';
 import type { ScrollView } from 'react-native';
 import { View } from 'react-native';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { commonStyles } from '../../constants';
 import { StickyHeaderScrollView } from '../../primitiveComponents/StickyHeaderScrollView';
+import { parseAnimatedColorProp } from '../common/utils/parseAnimatedColorProp';
 
 import type { AvatarHeaderScrollViewProps } from './AvatarHeaderProps';
 import { HeaderBar } from './components/HeaderBar';
@@ -45,8 +47,14 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
 
     React.useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
 
+    const wrapperAnimatedStyle = useAnimatedStyle(() => {
+      return {
+        backgroundColor: parseAnimatedColorProp(backgroundColor),
+      };
+    });
+
     return (
-      <View style={[commonStyles.wrapper, { backgroundColor }]}>
+      <Animated.View style={[commonStyles.wrapper, wrapperAnimatedStyle]}>
         {renderHeaderBar ? (
           renderHeaderBar()
         ) : (
@@ -83,7 +91,7 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
             {children}
           </StickyHeaderScrollView>
         </View>
-      </View>
+      </Animated.View>
     );
   }
 );
