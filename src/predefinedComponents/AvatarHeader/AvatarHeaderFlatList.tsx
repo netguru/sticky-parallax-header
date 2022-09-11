@@ -21,6 +21,7 @@ function AvatarHeaderFlatListInner<ItemT>(
     data,
     decelerationRate = 'fast',
     enableSafeAreaTopInset = true,
+    image,
     keyExtractor,
     leftTopIcon,
     leftTopIconAccessibilityLabel,
@@ -66,6 +67,7 @@ function AvatarHeaderFlatListInner<ItemT>(
           backgroundColor={backgroundColor}
           enableSafeAreaTopInset={enableSafeAreaTopInset}
           height={parallaxHeight}
+          image={image}
           leftTopIcon={leftTopIcon}
           leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}
           leftTopIconOnPress={leftTopIconOnPress}

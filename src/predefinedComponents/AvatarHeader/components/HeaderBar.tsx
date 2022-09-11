@@ -103,15 +103,20 @@ export const HeaderBar: React.FC<HeaderProps> = ({
     <AnimatedSafeAreaView
       edges={safeAreaEdges}
       style={[commonStyles.headerWrapper, wrapperAnimatedStyle]}>
-      <Pressable
-        accessibilityLabel={leftTopIconAccessibilityLabel}
-        accessibilityRole="button"
-        hitSlop={HIT_SLOP}
-        onPress={leftTopIconOnPress}
-        style={styles.leftHeaderButton}
-        testID={leftTopIconTestID}>
-        <IconRenderer icon={leftTopIcon} />
-      </Pressable>
+      {
+        leftTopIcon ? (
+        <Pressable
+          accessibilityLabel={ leftTopIconAccessibilityLabel }
+          accessibilityRole="button"
+          hitSlop={ HIT_SLOP }
+          onPress={ leftTopIconOnPress }
+          style={ styles.leftHeaderButton }
+          testID={ leftTopIconTestID }>
+          <IconRenderer icon={ leftTopIcon }/>
+        </Pressable>
+        ) : null
+      }
+
       <View style={[styles.headerTitleContainer, headerTitleContainerRTLStyle]}>
         <Animated.Image
           source={image as ImageSourcePropType}
@@ -124,15 +129,20 @@ export const HeaderBar: React.FC<HeaderProps> = ({
           {title}
         </Animated.Text>
       </View>
-      <Pressable
-        accessibilityLabel={rightTopIconAccessibilityLabel}
-        accessibilityRole="button"
-        hitSlop={HIT_SLOP}
-        onPress={rightTopIconOnPress}
-        style={styles.rightHeaderButton}
-        testID={rightTopIconTestID}>
-        <IconRenderer icon={rightTopIcon} />
-      </Pressable>
+      {
+        rightTopIcon ?
+        (
+          <Pressable
+            accessibilityLabel={ rightTopIconAccessibilityLabel }
+            accessibilityRole="button"
+            hitSlop={ HIT_SLOP }
+            onPress={ rightTopIconOnPress }
+            style={ styles.rightHeaderButton }
+            testID={ rightTopIconTestID }>
+            <IconRenderer icon={ rightTopIcon }/>
+          </Pressable>
+        ) : null
+      }
     </AnimatedSafeAreaView>
   );
 };
