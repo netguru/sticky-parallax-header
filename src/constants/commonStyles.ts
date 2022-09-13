@@ -37,8 +37,8 @@ const commonStyles = StyleSheet.create({
   },
   message: {
     color: colors.white,
-    fontSize: 72,
-    lineHeight: 85,
+    fontSize: 48,
+    lineHeight: 55,
     letterSpacing: -1,
     textAlign: 'left',
   },

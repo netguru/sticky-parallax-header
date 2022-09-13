@@ -26,6 +26,7 @@ export function withAvatarHeaderFlashList<ItemT>(
       backgroundColor,
       decelerationRate = 'fast',
       enableSafeAreaTopInset = true,
+      image,
       leftTopIcon,
       leftTopIconAccessibilityLabel,
       leftTopIconOnPress,
@@ -69,6 +70,7 @@ export function withAvatarHeaderFlashList<ItemT>(
             backgroundColor={backgroundColor}
             enableSafeAreaTopInset={enableSafeAreaTopInset}
             height={parallaxHeight}
+            image={image}
             leftTopIcon={leftTopIcon}
             leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}
             leftTopIconOnPress={leftTopIconOnPress}

@@ -19,6 +19,7 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
       contentContainerStyle,
       decelerationRate = 'fast',
       enableSafeAreaTopInset = true,
+      image,
       leftTopIcon,
       leftTopIconAccessibilityLabel,
       leftTopIconOnPress,
@@ -62,6 +63,7 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
             backgroundColor={backgroundColor}
             enableSafeAreaTopInset={enableSafeAreaTopInset}
             height={parallaxHeight}
+            image={image}
             leftTopIcon={leftTopIcon}
             leftTopIconAccessibilityLabel={leftTopIconAccessibilityLabel}
             leftTopIconOnPress={leftTopIconOnPress}
