@@ -35,6 +35,6 @@ src/
 ## Code Style
 * Make sure you are using linter with linting rules defined in ESLint config (.eslintrc.js)
 * Name branch according to your ticket following this pattern: RNS-XX-short_description
-* Imports and exports inside `index.tsx` files eg. `screens/index.tsx`, `components/index.tsx` should be sorted alfabetically
-* Style names should be ordered alfabetically
+* Imports and exports inside `index.tsx` files eg. `screens/index.tsx`, `components/index.tsx` should be sorted alphabetically
+* Style names should be ordered alphabetically
 * Please use commit lint and follow commit naming convention (https://www.conventionalcommits.org/en/v1.0.0/)
