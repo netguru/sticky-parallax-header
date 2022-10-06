@@ -78,7 +78,7 @@ yarn add react-native-reanimated react-native-safe-area-context
 After installation:
 - check Reanimated installation [guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation)
 - handle Pods installation with `npx pod-install`
-- wrap your root component with `SafeAreaProvider` from `react-native-safe-area-context
+- wrap your root component with `SafeAreaProvider` from `react-native-safe-area-context`
 
 <h1 id="Contributing">Contributing</h1>
 
