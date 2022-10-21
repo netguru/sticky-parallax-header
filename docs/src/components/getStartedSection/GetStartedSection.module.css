@@ -59,6 +59,7 @@
 
 .libName {
     white-space: nowrap;
+    background-color: var(--ifm-footer-background-color);
 }
 
 @media screen and (max-width: 966px) {
