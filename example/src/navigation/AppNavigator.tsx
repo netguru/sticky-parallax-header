@@ -30,7 +30,13 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => (
   <NavigationContainer>
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        cardStyle: {
+          flex: 1,
+        },
+        headerShown: false,
+      }}>
       <Stack.Screen name={ROUTES.HOME} component={HomeScreen} />
       <Stack.Screen name={ROUTES.CARD} component={CardScreen} />
       <Stack.Screen name={ROUTES.SIMS} component={SimsScreen} />

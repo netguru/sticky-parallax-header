@@ -13,10 +13,10 @@ import { HeaderBar } from './components/HeaderBar';
 import { useDetailsFlashListHeader } from './hooks/useDetailsFlashListHeader';
 
 export function withDetailsHeaderFlashList<ItemT>(
-  flashListComponent: React.ComponentType<FlashListProps<ItemT>>
+  flashListComponent: React.ComponentClass<FlashListProps<ItemT>>
 ) {
   const StickyHeaderFlashList = withStickyHeaderFlashList(
-    flashListComponent as React.ComponentType<FlashListProps<ItemT>>
+    flashListComponent as React.ComponentClass<FlashListProps<ItemT>>
   ) as (
     props: StickyHeaderFlashListProps<ItemT> & React.RefAttributes<FlashList<ItemT>>
   ) => React.ReactElement;
