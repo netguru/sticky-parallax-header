@@ -33,6 +33,7 @@ export function withStickyHeaderFlashList<T extends React.ComponentType<FlashLis
     } = props;
     const {
       contentContainerPaddingTop,
+      contentContainerPaddingBottom,
       headerAnimatedStyle,
       headerHeight,
       onHeaderLayoutInternal,
@@ -40,6 +41,7 @@ export function withStickyHeaderFlashList<T extends React.ComponentType<FlashLis
       scrollHandler,
       tabsHeight,
     } = useStickyHeaderProps({
+      contentContainerStyle,
       sections: [], // is not needed with FlashList
       onMomentumScrollEnd,
       onScroll,
@@ -50,11 +52,17 @@ export function withStickyHeaderFlashList<T extends React.ComponentType<FlashLis
       return StyleSheet.flatten([
         contentContainerStyle,
         {
-          paddingBottom: tabsHeight,
+          paddingBottom: tabsHeight + contentContainerPaddingBottom,
           paddingTop: headerHeight + contentContainerPaddingTop,
         },
       ]);
-    }, [contentContainerPaddingTop, contentContainerStyle, headerHeight, tabsHeight]);
+    }, [
+      contentContainerPaddingTop,
+      contentContainerPaddingBottom,
+      contentContainerStyle,
+      headerHeight,
+      tabsHeight,
+    ]);
 
     return (
       <View style={[styles.container, containerStyle]}>
