@@ -42,6 +42,7 @@ export function withStickyHeader<T extends React.ComponentType<any>>(component: 
     } = props;
     const {
       contentContainerPaddingTop,
+      contentContainerPaddingBottom,
       headerAnimatedStyle,
       headerHeight,
       listPaddingTop,
@@ -78,7 +79,7 @@ export function withStickyHeader<T extends React.ComponentType<any>>(component: 
           contentContainerStyle={[
             contentContainerStyle,
             { paddingTop: headerHeight + contentContainerPaddingTop },
-            { paddingBottom: tabsHeight },
+            { paddingBottom: tabsHeight + contentContainerPaddingBottom },
           ]}
           onScroll={scrollHandler}
           /**

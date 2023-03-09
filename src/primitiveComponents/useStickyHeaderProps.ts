@@ -79,6 +79,17 @@ export function useStickyHeaderProps(
     return 0;
   }, [contentContainerStyle]);
 
+  const contentContainerPaddingBottom = useMemo(() => {
+    const paddingBottom = StyleSheet.flatten(contentContainerStyle)?.paddingBottom;
+
+    if (typeof paddingBottom === 'number') {
+      return paddingBottom;
+    }
+
+    // We do not support string values
+    return 0;
+  }, [contentContainerStyle]);
+
   const listPaddingTop = useMemo(() => {
     const paddingTop = StyleSheet.flatten(style)?.paddingTop;
 
@@ -107,6 +118,7 @@ export function useStickyHeaderProps(
 
   return {
     contentContainerPaddingTop,
+    contentContainerPaddingBottom,
     headerAnimatedStyle,
     headerHeight,
     listPaddingTop,
