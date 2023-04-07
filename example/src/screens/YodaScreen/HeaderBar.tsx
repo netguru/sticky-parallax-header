@@ -20,7 +20,7 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({ scrollValue }) => {
 
   const animatedStyle = useAnimatedStyle(() => {
     return { opacity: interpolate(scrollValue.value, [0, 60, 90], [0, 0, 1], Extrapolate.CLAMP) };
-  });
+  }, [scrollValue]);
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.headerContainer}>

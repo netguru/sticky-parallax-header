@@ -189,7 +189,6 @@ export const Tabs: React.FC<TabsProps> = ({
     isInvertedIOS,
     tabUnderlineColor,
     translateXOutputRange,
-    width,
     widthOutputRange,
   ]);
 
@@ -197,7 +196,7 @@ export const Tabs: React.FC<TabsProps> = ({
     return {
       backgroundColor: parseAnimatedColorProp(tabsContainerBackgroundColor),
     };
-  });
+  }, [tabsContainerBackgroundColor]);
 
   return (
     <Animated.View style={[styles.container, containerAnimatedStyle]}>

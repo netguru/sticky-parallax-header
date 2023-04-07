@@ -70,7 +70,7 @@ export const HeaderBar: React.FC<HeaderProps> = ({
         Extrapolate.CLAMP
       ),
     };
-  });
+  }, [scrollValue, beforeFadeImg, startFadeImg, finishFadeImg]);
   const nameAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: interpolate(
@@ -80,7 +80,7 @@ export const HeaderBar: React.FC<HeaderProps> = ({
         Extrapolate.CLAMP
       ),
     };
-  });
+  }, [scrollValue, beforeFadeName, startFadeName, finishFadeName]);
   const headerTitleContainerRTLStyle = useRTLStyles<ViewStyle>(
     styles.headerTitleContainerMarginRight,
     styles.headerTitleContainerMarginLeft,
@@ -91,7 +91,7 @@ export const HeaderBar: React.FC<HeaderProps> = ({
       // TypeScript complains about AnimatedNode<StyleProp<ViewStyle>> from reanimated v1
       backgroundColor: parseAnimatedColorProp(backgroundColor) as string,
     };
-  });
+  }, [backgroundColor]);
 
   const safeAreaEdges: Edge[] = ['left', 'right'];
 

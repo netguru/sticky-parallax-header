@@ -51,7 +51,7 @@ export const Foreground: React.FC<ForegroundProps> = ({
         Extrapolate.CLAMP
       ),
     };
-  });
+  }, [scrollValue, startImgFade, finishImgFade]);
   const imageAnimatedStyle = useAnimatedStyle(() => {
     const imageSize = interpolate(
       scrollValue.value,
@@ -65,7 +65,7 @@ export const Foreground: React.FC<ForegroundProps> = ({
       height: imageSize,
       width: imageSize,
     };
-  });
+  }, [scrollValue, startImgSize, finishImgSize, startSize, endSize, profilePicBorderRadius]);
   const titleAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: interpolate(
@@ -75,7 +75,7 @@ export const Foreground: React.FC<ForegroundProps> = ({
         Extrapolate.CLAMP
       ),
     };
-  });
+  }, [scrollValue, startTitleFade, finishTitleFade]);
 
   const landscapeStyle = useRTLStyles<ViewStyle>(
     commonStyles.row,

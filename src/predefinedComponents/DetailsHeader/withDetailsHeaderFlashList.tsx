@@ -57,7 +57,7 @@ export function withDetailsHeaderFlashList<ItemT>(
       return {
         backgroundColor: parseAnimatedColorProp(backgroundColor),
       };
-    });
+    }, [backgroundColor]);
 
     return (
       <Animated.View style={[commonStyles.container, wrapperAnimatedStyle]}>

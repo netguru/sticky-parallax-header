@@ -58,7 +58,7 @@ export const TabbedHeaderPager = React.forwardRef<ScrollView, TabbedHeaderPagerP
       return {
         backgroundColor: parseAnimatedColorProp(backgroundColor),
       };
-    });
+    }, [backgroundColor]);
 
     const handleChangeTab = React.useCallback(
       (prevPage: number, newPage: number) => {

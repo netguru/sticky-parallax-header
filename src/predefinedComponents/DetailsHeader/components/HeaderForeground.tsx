@@ -54,19 +54,22 @@ export const Foreground: React.FC<ForegroundProps> = ({
     return {
       opacity: interpolate(scrollValue.value, labelInputRange, outputRange, Extrapolate.CLAMP),
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollValue, height]);
   const titleInputRange = [0, scrollPosition(height, 45), scrollPosition(height, 55)];
   const titleAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: interpolate(scrollValue.value, titleInputRange, outputRange, Extrapolate.CLAMP),
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollValue, height]);
   const authorInputRange = [0, scrollPosition(height, 55), scrollPosition(height, 70)];
   const authorAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: interpolate(scrollValue.value, authorInputRange, outputRange, Extrapolate.CLAMP),
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollValue, height]);
   const authorNameRTLStyle = useRTLStyles<TextStyle>(
     styles.authorNamePaddingLeft,
     styles.authorNamePaddingRight,

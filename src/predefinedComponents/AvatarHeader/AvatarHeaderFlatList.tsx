@@ -56,7 +56,7 @@ function AvatarHeaderFlatListInner<ItemT>(
     return {
       backgroundColor: parseAnimatedColorProp(backgroundColor),
     };
-  });
+  }, [backgroundColor]);
 
   return (
     <Animated.View style={[commonStyles.wrapper, wrapperAnimatedStyle]}>

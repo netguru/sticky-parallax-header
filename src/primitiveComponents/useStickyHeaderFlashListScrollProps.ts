@@ -62,7 +62,7 @@ export function useStickyHeaderFlashListScrollProps<T extends FlashList<any> = F
     (value) => {
       runOnJS(maybeTopReached)(value);
     },
-    []
+    [scrollValue]
   );
 
   const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);

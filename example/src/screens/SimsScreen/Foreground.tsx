@@ -14,7 +14,7 @@ interface ForegroundProps {
 export const Foreground: React.FC<ForegroundProps> = ({ scrollValue }) => {
   const foregroundWrapperAnimatedStyle = useAnimatedStyle(() => {
     return { opacity: interpolate(scrollValue.value, [0, 250, 330], [1, 1, 0], Extrapolate.CLAMP) };
-  });
+  }, [scrollValue]);
 
   return (
     <View pointerEvents="none" style={styles.foregroundWrapper}>
