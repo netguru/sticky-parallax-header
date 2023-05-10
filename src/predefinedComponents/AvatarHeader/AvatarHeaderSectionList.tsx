@@ -27,6 +27,7 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
     leftTopIconTestID,
     nestedScrollEnabled = true,
     overScrollMode = 'never',
+    renderHeader,
     renderHeaderBar,
     renderSectionFooter,
     renderSectionHeader,
@@ -46,7 +47,7 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
     onScroll,
     onScrollEndDrag,
     parallaxHeight,
-    renderHeader,
+    renderHeader: defaultRenderHeader,
     scrollValue,
     scrollViewRef,
   } = useAvatarHeader<SectionList<ItemT, SectionT>>(props);
@@ -93,7 +94,7 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
           onScrollEndDrag={onScrollEndDrag}
           onScroll={onScroll}
           overScrollMode={overScrollMode}
-          renderHeader={renderHeader}
+          renderHeader={renderHeader ?? defaultRenderHeader}
           renderSectionFooter={renderSectionFooter}
           renderSectionHeader={renderSectionHeader}
           scrollEventThrottle={scrollEventThrottle}

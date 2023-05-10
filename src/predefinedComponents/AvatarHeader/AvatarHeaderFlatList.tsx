@@ -29,6 +29,7 @@ function AvatarHeaderFlatListInner<ItemT>(
     leftTopIconTestID,
     nestedScrollEnabled = true,
     overScrollMode = 'never',
+    renderHeader,
     renderHeaderBar,
     renderItem,
     rightTopIcon,
@@ -45,7 +46,7 @@ function AvatarHeaderFlatListInner<ItemT>(
     onScroll,
     onScrollEndDrag,
     parallaxHeight,
-    renderHeader,
+    renderHeader: defaultRenderHeader,
     scrollValue,
     scrollViewRef,
   } = useAvatarHeader<FlatList<ItemT>>(props);
@@ -94,7 +95,7 @@ function AvatarHeaderFlatListInner<ItemT>(
           onScrollEndDrag={onScrollEndDrag}
           onScroll={onScroll}
           overScrollMode={overScrollMode}
-          renderHeader={renderHeader}
+          renderHeader={renderHeader ?? defaultRenderHeader}
           renderItem={renderItem}
           scrollEventThrottle={scrollEventThrottle}
         />

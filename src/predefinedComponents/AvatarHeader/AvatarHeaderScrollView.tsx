@@ -26,6 +26,7 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
       leftTopIconTestID,
       nestedScrollEnabled = true,
       overScrollMode = 'never',
+      renderHeader,
       renderHeaderBar,
       rightTopIcon,
       rightTopIconAccessibilityLabel,
@@ -41,7 +42,7 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
       onScroll,
       onScrollEndDrag,
       parallaxHeight,
-      renderHeader,
+      renderHeader: defaultRenderHeader,
       scrollValue,
       scrollViewRef,
     } = useAvatarHeader<ScrollView>(props);
@@ -88,7 +89,7 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
             onScrollEndDrag={onScrollEndDrag}
             onScroll={onScroll}
             overScrollMode={overScrollMode}
-            renderHeader={renderHeader}
+            renderHeader={renderHeader ?? defaultRenderHeader}
             scrollEventThrottle={scrollEventThrottle}>
             {children}
           </StickyHeaderScrollView>

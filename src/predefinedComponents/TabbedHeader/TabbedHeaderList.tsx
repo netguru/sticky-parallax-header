@@ -28,6 +28,7 @@ function TabbedHeaderListInner<ItemT, SectionT>(
     logoStyle,
     nestedScrollEnabled = true,
     overScrollMode = 'never',
+    renderHeader,
     renderHeaderBar,
     renderSectionFooter,
     renderSectionHeader,
@@ -41,7 +42,7 @@ function TabbedHeaderListInner<ItemT, SectionT>(
     onScroll,
     onScrollEndDrag,
     onViewableItemsChanged,
-    renderHeader,
+    renderHeader: defaultRenderHeader,
     renderTabs,
     scrollViewRef,
   } = useTabbedHeaderList<ItemT, SectionT>(props);
@@ -85,7 +86,7 @@ function TabbedHeaderListInner<ItemT, SectionT>(
           onScroll={onScroll}
           overScrollMode={overScrollMode}
           onViewableItemsChanged={onViewableItemsChanged}
-          renderHeader={renderHeader}
+          renderHeader={renderHeader ?? defaultRenderHeader}
           renderSectionFooter={renderSectionFooter}
           renderSectionHeader={renderSectionHeader}
           renderTabs={renderTabs}

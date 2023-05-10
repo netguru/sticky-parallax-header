@@ -26,6 +26,7 @@ function DetailsHeaderSectionListInner<ItemT, SectionT>(
     leftTopIconTestID,
     nestedScrollEnabled = true,
     overScrollMode = 'never',
+    renderHeader,
     renderHeaderBar,
     renderSectionFooter,
     renderSectionHeader,
@@ -45,7 +46,7 @@ function DetailsHeaderSectionListInner<ItemT, SectionT>(
     onScroll,
     onScrollEndDrag,
     onMomentumScrollEnd,
-    renderHeader,
+    renderHeader: defaultRenderHeader,
     scrollViewRef,
   } = useDetailsHeader<SectionList<ItemT, SectionT>>(props);
 
@@ -89,7 +90,7 @@ function DetailsHeaderSectionListInner<ItemT, SectionT>(
           onScroll={onScroll}
           onScrollEndDrag={onScrollEndDrag}
           overScrollMode={overScrollMode}
-          renderHeader={renderHeader}
+          renderHeader={renderHeader ?? defaultRenderHeader}
           renderSectionFooter={renderSectionFooter}
           renderSectionHeader={renderSectionHeader}
           scrollEventThrottle={scrollEventThrottle}

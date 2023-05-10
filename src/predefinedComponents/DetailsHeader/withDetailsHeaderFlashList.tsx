@@ -32,6 +32,7 @@ export function withDetailsHeaderFlashList<ItemT>(
       leftTopIconTestID,
       nestedScrollEnabled = true,
       overScrollMode = 'never',
+      renderHeader,
       renderHeaderBar,
       rightTopIcon,
       rightTopIconAccessibilityLabel,
@@ -44,7 +45,7 @@ export function withDetailsHeaderFlashList<ItemT>(
     } = props;
     const {
       headerTitleContainerAnimatedStyle,
-      renderHeader,
+      renderHeader: defaultRenderHeader,
       scrollViewRef,
       onScroll,
       onScrollEndDrag,
@@ -90,7 +91,7 @@ export function withDetailsHeaderFlashList<ItemT>(
             onMomentumScrollEnd={onMomentumScrollEnd}
             onScrollEndDrag={onScrollEndDrag}
             overScrollMode={overScrollMode}
-            renderHeader={renderHeader}
+            renderHeader={renderHeader ?? defaultRenderHeader}
             scrollEventThrottle={scrollEventThrottle}
           />
         </View>
