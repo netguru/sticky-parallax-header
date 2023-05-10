@@ -28,6 +28,7 @@ function DetailsHeaderFlatListInner<ItemT>(
     leftTopIconTestID,
     nestedScrollEnabled = true,
     overScrollMode = 'never',
+    renderHeader,
     renderHeaderBar,
     renderItem,
     rightTopIcon,
@@ -41,7 +42,7 @@ function DetailsHeaderFlatListInner<ItemT>(
   } = props;
   const {
     headerTitleContainerAnimatedStyle,
-    renderHeader,
+    renderHeader: defaultRenderHeader,
     scrollViewRef,
     onScroll,
     onScrollEndDrag,
@@ -90,7 +91,7 @@ function DetailsHeaderFlatListInner<ItemT>(
           onMomentumScrollEnd={onMomentumScrollEnd}
           onScrollEndDrag={onScrollEndDrag}
           overScrollMode={overScrollMode}
-          renderHeader={renderHeader}
+          renderHeader={renderHeader ?? defaultRenderHeader}
           renderItem={renderItem}
           scrollEventThrottle={scrollEventThrottle}
         />

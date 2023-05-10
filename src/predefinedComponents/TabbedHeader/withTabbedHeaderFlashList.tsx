@@ -34,6 +34,7 @@ export function withTabbedHeaderFlashList<ItemT>(
       logoStyle,
       nestedScrollEnabled = true,
       overScrollMode = 'never',
+      renderHeader,
       renderHeaderBar,
       scrollEventThrottle = 16,
       viewabilityConfig = { itemVisiblePercentThreshold: 50 },
@@ -44,7 +45,7 @@ export function withTabbedHeaderFlashList<ItemT>(
       onScroll,
       onScrollEndDrag,
       onViewableItemsChanged,
-      renderHeader,
+      renderHeader: defaultRenderHeader,
       renderTabs,
       scrollViewRef,
     } = useTabbedFlashListHeader<ItemT>(props);
@@ -85,7 +86,7 @@ export function withTabbedHeaderFlashList<ItemT>(
             overScrollMode={overScrollMode}
             scrollEventThrottle={scrollEventThrottle}
             viewabilityConfig={viewabilityConfig}
-            renderHeader={renderHeader}
+            renderHeader={renderHeader ?? defaultRenderHeader}
             renderTabs={renderTabs}
             onScroll={onScroll}
             onScrollEndDrag={onScrollEndDrag}

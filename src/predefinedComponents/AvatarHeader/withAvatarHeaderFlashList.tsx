@@ -33,6 +33,7 @@ export function withAvatarHeaderFlashList<ItemT>(
       leftTopIconTestID,
       nestedScrollEnabled = true,
       overScrollMode = 'never',
+      renderHeader,
       renderHeaderBar,
       rightTopIcon,
       rightTopIconAccessibilityLabel,
@@ -48,7 +49,7 @@ export function withAvatarHeaderFlashList<ItemT>(
       onScroll,
       onScrollEndDrag,
       parallaxHeight,
-      renderHeader,
+      renderHeader: defaultRenderHeader,
       scrollValue,
       scrollViewRef,
     } = useAvatarFlashListHeader<ItemT>(props);
@@ -94,7 +95,7 @@ export function withAvatarHeaderFlashList<ItemT>(
             onScrollEndDrag={onScrollEndDrag}
             onScroll={onScroll}
             overScrollMode={overScrollMode}
-            renderHeader={renderHeader}
+            renderHeader={renderHeader ?? defaultRenderHeader}
             scrollEventThrottle={scrollEventThrottle}
           />
         </View>
