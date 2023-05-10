@@ -64,7 +64,7 @@ export function useStickyHeaderScrollProps<T extends ScrollComponent>(
     (value) => {
       runOnJS(maybeTopReached)(value);
     },
-    []
+    [scrollValue]
   );
 
   const scrollHeight = Math.max(parallaxHeight, headerHeight * 2);

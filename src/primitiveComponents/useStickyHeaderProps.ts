@@ -114,7 +114,7 @@ export function useStickyHeaderProps(
         },
       ],
     };
-  });
+  }, [scrollValue, headerHeight, stickyTabs]);
 
   return {
     contentContainerPaddingTop,

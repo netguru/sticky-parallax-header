@@ -37,7 +37,7 @@ export const HeaderWrapper: React.FC<React.PropsWithChildren<HeaderWrapperProps>
   const contentAnimatedStyle = useAnimatedStyle(() => {
     // TypeScript complains about AnimatedNode<StyleProp<ViewStyle>> from reanimated v1
     return { backgroundColor: parseAnimatedColorProp(contentBackgroundColor) as string };
-  });
+  }, [contentBackgroundColor]);
   const foregroundAnimatedStyle = useAnimatedStyle(() => {
     if (hasBackgroundImage) {
       return { backgroundColor: colors.transparent };
@@ -46,7 +46,7 @@ export const HeaderWrapper: React.FC<React.PropsWithChildren<HeaderWrapperProps>
     return {
       backgroundColor: parseAnimatedColorProp(tabsContainerBackgroundColor),
     };
-  });
+  }, [hasBackgroundImage, tabsContainerBackgroundColor]);
 
   return (
     <Animated.View pointerEvents="box-none" style={contentAnimatedStyle}>

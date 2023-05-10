@@ -40,11 +40,14 @@ export const TabbedHeaderWithAnimatedColorsExample: React.FC = () => {
     [colors.primaryGreen, colors.activeOrange, colors.coralPink],
     ColorSpace.RGB
   );
-  const tabUnderlineColor = useDerivedValue(() =>
-    interpolateSharableColor(horizontalScrollValue.value, tabUnderlineColorInterpolateConfig)
+  const tabUnderlineColor = useDerivedValue(
+    () => interpolateSharableColor(horizontalScrollValue.value, tabUnderlineColorInterpolateConfig),
+    [horizontalScrollValue, tabUnderlineColorInterpolateConfig]
   );
-  const tabsContainerBackgroundColor = useDerivedValue(() =>
-    interpolateSharableColor(scrollValue.value, tabsContainerBackgroundColorInterpolateConfig)
+  const tabsContainerBackgroundColor = useDerivedValue(
+    () =>
+      interpolateSharableColor(scrollValue.value, tabsContainerBackgroundColorInterpolateConfig),
+    [scrollValue, tabsContainerBackgroundColorInterpolateConfig]
   );
 
   return (

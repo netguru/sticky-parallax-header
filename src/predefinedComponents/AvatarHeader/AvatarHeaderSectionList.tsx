@@ -58,7 +58,7 @@ function AvatarHeaderSectionListInner<ItemT, SectionT>(
     return {
       backgroundColor: parseAnimatedColorProp(backgroundColor),
     };
-  });
+  }, [backgroundColor]);
 
   return (
     <Animated.View style={[commonStyles.wrapper, wrapperAnimatedStyle]}>

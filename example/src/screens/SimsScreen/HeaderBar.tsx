@@ -37,16 +37,16 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({ scrollValue }) => {
         },
       ],
     };
-  });
+  }, [scrollValue]);
   const headerContainerAnimatedStyle = useAnimatedStyle(() => {
     return { opacity: interpolate(scrollValue.value, [0, 110, 150], [0, 0, 1], Extrapolate.CLAMP) };
-  });
+  }, [scrollValue]);
   const headerButtonAnimatedStyle = useAnimatedStyle(() => {
     return { opacity: interpolate(scrollValue.value, [0, 110, 140], [1, 1, 0], Extrapolate.CLAMP) };
-  });
+  }, [scrollValue]);
   const headerDetailsContainerAnimatedStyle = useAnimatedStyle(() => {
     return { opacity: interpolate(scrollValue.value, [0, 250, 330], [0, 0, 1], Extrapolate.CLAMP) };
-  });
+  }, [scrollValue]);
 
   return (
     <>

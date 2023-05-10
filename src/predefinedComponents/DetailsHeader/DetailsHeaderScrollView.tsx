@@ -51,7 +51,7 @@ export const DetailsHeaderScrollView = React.forwardRef<ScrollView, DetailsHeade
       return {
         backgroundColor: parseAnimatedColorProp(backgroundColor),
       };
-    });
+    }, [backgroundColor]);
 
     return (
       <Animated.View style={[commonStyles.container, wrapperAnimatedStyle]}>

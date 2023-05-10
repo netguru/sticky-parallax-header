@@ -53,7 +53,7 @@ export const AvatarHeaderScrollView = React.forwardRef<ScrollView, AvatarHeaderS
       return {
         backgroundColor: parseAnimatedColorProp(backgroundColor),
       };
-    });
+    }, [backgroundColor]);
 
     return (
       <Animated.View style={[commonStyles.wrapper, wrapperAnimatedStyle]}>

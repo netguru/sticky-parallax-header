@@ -66,7 +66,12 @@ module.exports = {
     ],
     'react/display-name': 'off',
     'react/prop-types': 'off',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': [
+      'error',
+      {
+        additionalHooks: '(useAnimatedStyle|useDerivedValue|useAnimatedProps)',
+      },
+    ],
     'react-native/no-color-literals': 'warn',
     'react-native/no-inline-styles': 'warn',
     'react-native/no-unused-styles': 'warn',

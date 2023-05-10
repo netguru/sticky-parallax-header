@@ -49,7 +49,7 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
       // TypeScript complains about AnimatedNode<StyleProp<ViewStyle>> from reanimated v1
       backgroundColor: parseAnimatedColorProp(backgroundColor) as string,
     };
-  });
+  }, [backgroundColor]);
   const safeAreaEdges: Edge[] = ['left', 'right'];
 
   if (enableSafeAreaTopInset) {

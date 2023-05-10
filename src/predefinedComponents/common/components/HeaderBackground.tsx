@@ -34,7 +34,7 @@ export const HeaderBackground: React.FC<HeaderBackgroundProps> = ({
         Extrapolate.EXTEND
       ),
     };
-  }, [hasBorderRadius, height]);
+  }, [backgroundColor, hasBorderRadius, scrollValue, height]);
 
   return (
     <Animated.View

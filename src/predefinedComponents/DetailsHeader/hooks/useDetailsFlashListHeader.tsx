@@ -51,7 +51,8 @@ export function useDetailsFlashListHeader<ItemT, T extends FlashList<ItemT> = Fl
     return {
       opacity: interpolate(scrollValue.value, headerTitleInputRange, [0, 0, 1], Extrapolate.CLAMP),
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollValue, scrollHeight]);
 
   const renderHeader = React.useCallback(() => {
     return (
