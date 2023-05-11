@@ -30,8 +30,6 @@ interface HeaderProps extends IconProps {
   titleTestID?: string;
 }
 
-const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
-
 export const HeaderBar: React.FC<HeaderProps> = ({
   backgroundColor,
   enableSafeAreaTopInset,
@@ -100,45 +98,45 @@ export const HeaderBar: React.FC<HeaderProps> = ({
   }
 
   return (
-    <AnimatedSafeAreaView
-      edges={safeAreaEdges}
-      style={[commonStyles.headerWrapper, wrapperAnimatedStyle]}>
-      {leftTopIcon ? (
-        <Pressable
-          accessibilityLabel={leftTopIconAccessibilityLabel}
-          accessibilityRole="button"
-          hitSlop={HIT_SLOP}
-          onPress={leftTopIconOnPress}
-          style={styles.leftHeaderButton}
-          testID={leftTopIconTestID}>
-          <IconRenderer icon={leftTopIcon} />
-        </Pressable>
-      ) : null}
+    <SafeAreaView edges={safeAreaEdges} style={commonStyles.container}>
+      <Animated.View style={[commonStyles.headerWrapper, wrapperAnimatedStyle]}>
+        {leftTopIcon ? (
+          <Pressable
+            accessibilityLabel={leftTopIconAccessibilityLabel}
+            accessibilityRole="button"
+            hitSlop={HIT_SLOP}
+            onPress={leftTopIconOnPress}
+            style={styles.leftHeaderButton}
+            testID={leftTopIconTestID}>
+            <IconRenderer icon={leftTopIcon} />
+          </Pressable>
+        ) : null}
 
-      <View style={[styles.headerTitleContainer, headerTitleContainerRTLStyle]}>
-        <Animated.Image
-          source={image as ImageSourcePropType}
-          style={[styles.headerPic, imageAnimatedStyle]}
-        />
-        <Animated.Text
-          numberOfLines={1}
-          style={[styles.headerTitle, nameAnimatedStyle, titleStyle]}
-          testID={titleTestID}>
-          {title}
-        </Animated.Text>
-      </View>
-      {rightTopIcon ? (
-        <Pressable
-          accessibilityLabel={rightTopIconAccessibilityLabel}
-          accessibilityRole="button"
-          hitSlop={HIT_SLOP}
-          onPress={rightTopIconOnPress}
-          style={styles.rightHeaderButton}
-          testID={rightTopIconTestID}>
-          <IconRenderer icon={rightTopIcon} />
-        </Pressable>
-      ) : null}
-    </AnimatedSafeAreaView>
+        <View style={[styles.headerTitleContainer, headerTitleContainerRTLStyle]}>
+          <Animated.Image
+            source={image as ImageSourcePropType}
+            style={[styles.headerPic, imageAnimatedStyle]}
+          />
+          <Animated.Text
+            numberOfLines={1}
+            style={[styles.headerTitle, nameAnimatedStyle, titleStyle]}
+            testID={titleTestID}>
+            {title}
+          </Animated.Text>
+        </View>
+        {rightTopIcon ? (
+          <Pressable
+            accessibilityLabel={rightTopIconAccessibilityLabel}
+            accessibilityRole="button"
+            hitSlop={HIT_SLOP}
+            onPress={rightTopIconOnPress}
+            style={styles.rightHeaderButton}
+            testID={rightTopIconTestID}>
+            <IconRenderer icon={rightTopIcon} />
+          </Pressable>
+        ) : null}
+      </Animated.View>
+    </SafeAreaView>
   );
 };
 

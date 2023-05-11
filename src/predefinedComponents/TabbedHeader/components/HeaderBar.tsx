@@ -23,8 +23,6 @@ interface HeaderBarProps {
   logoStyle?: StyleProp<Animated.AnimateStyle<ImageStyle>>;
 }
 
-const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
-
 export const HeaderBar: React.FC<HeaderBarProps> = ({
   backgroundColor,
   enableSafeAreaTopInset,
@@ -47,14 +45,14 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
 
   return (
     // @ts-ignore
-    <AnimatedSafeAreaView
-      edges={safeAreaEdges}
-      style={[commonStyles.headerWrapper, logoContainerStyle, wrapperAnimatedStyle]}>
-      <Animated.Image
-        resizeMode={logoResizeMode}
-        source={logo}
-        style={[commonStyles.logo, logoStyle]}
-      />
-    </AnimatedSafeAreaView>
+    <SafeAreaView edges={safeAreaEdges} style={commonStyles.container}>
+      <Animated.View style={[commonStyles.headerWrapper, logoContainerStyle, wrapperAnimatedStyle]}>
+        <Animated.Image
+          resizeMode={logoResizeMode}
+          source={logo}
+          style={[commonStyles.logo, logoStyle]}
+        />
+      </Animated.View>
+    </SafeAreaView>
   );
 };

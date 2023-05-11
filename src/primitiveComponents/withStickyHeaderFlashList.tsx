@@ -9,10 +9,10 @@ import { useStickyHeaderProps } from './useStickyHeaderProps';
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const NOOP = () => {};
 
-export function withStickyHeaderFlashList<T extends React.ComponentType<FlashListProps<any>>>(
+export function withStickyHeaderFlashList<T extends React.ComponentClass<FlashListProps<any>>>(
   flashListComponent: T
 ) {
-  const AnimatedFlashList = Animated.createAnimatedComponent(flashListComponent as any) as any;
+  const AnimatedFlashList = Animated.createAnimatedComponent(flashListComponent) as any;
 
   return React.forwardRef<
     T,

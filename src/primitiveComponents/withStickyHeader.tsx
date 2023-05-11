@@ -22,8 +22,8 @@ const createCellRenderer = (itemLayoutAnimation: any) => {
   return cellRenderer;
 };
 
-export function withStickyHeader<T extends React.ComponentType<any>>(component: T) {
-  const AnimatedComponent = Animated.createAnimatedComponent(component as any) as any;
+export function withStickyHeader<T extends React.ComponentClass<any>>(component: T) {
+  const AnimatedComponent = Animated.createAnimatedComponent(component) as any;
 
   return React.forwardRef<
     T,
