@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import { I18nManager, Platform, ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { commonStyles } from '../../../constants';
 import type { Tab, TabsConfig } from '../../common/SharedProps';
@@ -199,46 +200,54 @@ export const Tabs: React.FC<TabsProps> = ({
   }, [tabsContainerBackgroundColor]);
 
   return (
-    <Animated.View style={[styles.container, containerAnimatedStyle]}>
-      <ScrollView
-        ref={horizontalScrollRef}
-        bounces={false}
-        contentContainerStyle={[
-          styles.contentContainer,
-          Platform.OS === 'android'
-            ? I18nManager.isRTL
-              ? commonStyles.rowReverse
-              : commonStyles.row
-            : null,
-          tabsContainerStyle,
-          styles.noMargins,
-          { paddingHorizontal: HORIZONTAL_PADDINGS },
-        ]}
-        horizontal
-        onScrollEndDrag={(event) => (currentPositionX.current = event.nativeEvent.contentOffset.x)}
-        showsHorizontalScrollIndicator={false}
-        style={[styles.nestedStyle, isInvertedAndroid && styles.inversionStyle]}>
-        {tabs.map((tab, page) => (
-          <TabItem
-            key={page}
-            tab={tab}
-            page={page}
-            activeTab={activeTab}
-            renderIcon={renderIcon}
-            onTabLayout={onTabLayout(page)}
-            onTabPress={onTabPress(page)}
-            tabTextActiveStyle={tabTextActiveStyle}
-            tabTextContainerActiveStyle={tabTextContainerActiveStyle}
-            tabTextContainerStyle={tabTextContainerStyle}
-            tabTextStyle={tabTextStyle}
-            tabWrapperStyle={tabWrapperStyle}
-          />
-        ))}
-        {tabUnderlineColor ? (
-          <Animated.View style={[styles.tabUnderlineStyles, tabUnderlineAnimatedStyle]} />
-        ) : null}
-      </ScrollView>
-    </Animated.View>
+    <LinearGradient
+      colors={['#060A57', '#2566C7']}
+      style={styles.gradientContainer}
+      useAngle
+      angle={74}
+      locations={[0.2, 0.94]}
+      angleCenter={{x: 0.5, y: 0.5}}>
+      <Animated.View style={[styles.container, containerAnimatedStyle]}>
+        <ScrollView
+          ref={horizontalScrollRef}
+          bounces={false}
+          contentContainerStyle={[
+            styles.contentContainer,
+            Platform.OS === 'android'
+              ? I18nManager.isRTL
+                ? commonStyles.rowReverse
+                : commonStyles.row
+              : null,
+            tabsContainerStyle,
+            styles.noMargins,
+            { paddingHorizontal: HORIZONTAL_PADDINGS },
+          ]}
+          horizontal
+          onScrollEndDrag={(event) => (currentPositionX.current = event.nativeEvent.contentOffset.x)}
+          showsHorizontalScrollIndicator={false}
+          style={[styles.nestedStyle, isInvertedAndroid && styles.inversionStyle]}>
+          {tabs.map((tab, page) => (
+            <TabItem
+              key={page}
+              tab={tab}
+              page={page}
+              activeTab={activeTab}
+              renderIcon={renderIcon}
+              onTabLayout={onTabLayout(page)}
+              onTabPress={onTabPress(page)}
+              tabTextActiveStyle={tabTextActiveStyle}
+              tabTextContainerActiveStyle={tabTextContainerActiveStyle}
+              tabTextContainerStyle={tabTextContainerStyle}
+              tabTextStyle={tabTextStyle}
+              tabWrapperStyle={tabWrapperStyle}
+            />
+          ))}
+          {tabUnderlineColor ? (
+            <Animated.View style={[styles.tabUnderlineStyles, tabUnderlineAnimatedStyle]} />
+          ) : null}
+        </ScrollView>
+      </Animated.View>
+    </LinearGradient>
   );
 };
 
@@ -265,7 +274,15 @@ const styles = StyleSheet.create({
   tabUnderlineStyles: {
     position: 'absolute',
     bottom: 0,
-    borderRadius: 6,
-    height: 3,
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6,
+    height: 7
   },
+  gradientContainer: {
+    flex: 1,
+    width: '100%',
+    height:'100%',
+    flexDirection: 'row',
+    paddingTop: '12.5%'
+  }
 });

@@ -108,6 +108,6 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   tabTextContainerActiveStyle: {
-    backgroundColor: colors.darkMint,
+    backgroundColor: colors.transparent,
   },
 });
