@@ -38,6 +38,7 @@ export function useDetailsHeader<T extends ScrollComponent>(props: DetailsHeader
     title,
     titleStyle,
     titleTestID,
+    renderHeader
   } = props;
 
   const headerTitleInputRange = [
@@ -51,7 +52,7 @@ export function useDetailsHeader<T extends ScrollComponent>(props: DetailsHeader
     };
   });
 
-  const renderHeader = React.useCallback(() => {
+   const renderHeaderDefault = React.useCallback(() => {
     return (
       <HeaderWrapper
         backgroundColor={backgroundColor}
@@ -112,7 +113,7 @@ export function useDetailsHeader<T extends ScrollComponent>(props: DetailsHeader
     onMomentumScrollEnd,
     onScroll,
     onScrollEndDrag,
-    renderHeader,
+    renderHeader: renderHeader? renderHeader : renderHeaderDefault,
     scrollValue,
     scrollViewRef,
   };
