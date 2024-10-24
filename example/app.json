@@ -21,6 +21,9 @@
     ],
     "android": {
       "package": "com.reactnativestickyparallaxheaderexample"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
