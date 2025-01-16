@@ -15,7 +15,6 @@
 </div>
 
 # Introduction
-
 <p align="center">
   react-native-sticky-parallax-header is a simple React Native library, enabling to create a fully custom header layout for your iOS, Android and web apps.
 </p>
