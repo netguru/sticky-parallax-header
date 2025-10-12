@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react-native';
 import * as React from 'react';
 
+import type { PagerMethods } from '../../TabbedHeaderProps';
 import { Pager } from '../Pager';
-import { PagerMethods } from '../../TabbedHeaderProps';
 
 // Mock React Native components
 jest.mock('react-native', () => ({
