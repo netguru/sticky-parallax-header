@@ -2,6 +2,7 @@ import { render } from '@testing-library/react-native';
 import * as React from 'react';
 
 import { Pager } from '../Pager';
+import { PagerMethods } from '../../TabbedHeaderProps';
 
 // Mock React Native components
 jest.mock('react-native', () => ({
@@ -57,7 +58,7 @@ describe('Pager', () => {
   });
 
   it('should handle ref without throwing error', () => {
-    const pagerRef = React.createRef<any>();
+    const pagerRef = React.createRef<PagerMethods>();
 
     expect(() => {
       render(<Pager {...mockProps} ref={pagerRef} />);
@@ -65,7 +66,7 @@ describe('Pager', () => {
   });
 
   it('should expose goToPage method through ref', () => {
-    const pagerRef = React.createRef<any>();
+    const pagerRef = React.createRef<PagerMethods>();
 
     render(<Pager {...mockProps} ref={pagerRef} />);
 
