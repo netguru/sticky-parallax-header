@@ -59,6 +59,10 @@ export const Pager = React.forwardRef<PagerMethods, PagerProps & InternalPagerPr
     },
     ref
   ) => {
+    // Extract ref from rest props to avoid conflicts
+    const { ref: pagerRef, ...pagerRestProps } = rest as PagerProps & {
+      ref?: React.RefObject<PagerMethods>;
+    };
     const [containerWidth, setContainerWidth] = React.useState(
       () => Dimensions.get('window').width
     );
@@ -229,7 +233,9 @@ export const Pager = React.forwardRef<PagerMethods, PagerProps & InternalPagerPr
       },
     });
 
+    // Handle both the forwardRef and the pagerRef from props
     React.useImperativeHandle(ref, () => ({ goToPage }));
+    React.useImperativeHandle(pagerRef, () => ({ goToPage }));
 
     const renderItem = React.useCallback(
       ({ item }: ListRenderItemInfo<Page>) => {
@@ -254,7 +260,7 @@ export const Pager = React.forwardRef<PagerMethods, PagerProps & InternalPagerPr
       <View style={styles.container} onLayout={onContainerLayout}>
         <AnimatedFlatList
           ref={horizontalFlatListRef as unknown as React.RefObject<Animated.FlatList<Page>>}
-          {...rest}
+          {...pagerRestProps}
           automaticallyAdjustContentInsets={automaticallyAdjustContentInsets}
           contentContainerStyle={[
             Platform.OS === 'android'
