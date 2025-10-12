@@ -32,8 +32,8 @@ jest.mock('react-native-reanimated', () => ({
   runOnJS: jest.fn((fn) => fn),
   runOnUI: jest.fn((fn) => fn),
   scrollTo: jest.fn(),
-  withDelay: jest.fn((delay, animation) => animation),
-  withTiming: jest.fn((value, config, callback) => callback),
+  withDelay: jest.fn((_delay, animation) => animation),
+  withTiming: jest.fn((_value, _config, callback) => callback),
 }));
 
 describe('Pager', () => {
@@ -43,6 +43,7 @@ describe('Pager', () => {
       <React.Fragment key="2">Page 2</React.Fragment>,
     ],
     initialPage: 0,
+    page: 0,
     minScrollHeight: 100,
     scrollHeight: 200,
     scrollRef: { current: null },
@@ -55,57 +56,20 @@ describe('Pager', () => {
     expect(getByText('Page 1')).toBeTruthy();
   });
 
-  it('should handle ref from pagerProps without throwing error', () => {
-    const pagerRef = React.createRef();
+  it('should handle ref without throwing error', () => {
+    const pagerRef = React.createRef<any>();
 
     expect(() => {
-      render(
-        <Pager
-          {...mockProps}
-          pagerProps={{
-            ref: pagerRef,
-          }}
-        />
-      );
+      render(<Pager {...mockProps} ref={pagerRef} />);
     }).not.toThrow();
   });
 
   it('should expose goToPage method through ref', () => {
-    const pagerRef = React.createRef();
+    const pagerRef = React.createRef<any>();
 
-    render(
-      <Pager
-        {...mockProps}
-        pagerProps={{
-          ref: pagerRef,
-        }}
-      />
-    );
+    render(<Pager {...mockProps} ref={pagerRef} />);
 
     // The ref should have the goToPage method
-    expect(pagerRef.current).toBeDefined();
-    expect(typeof pagerRef.current?.goToPage).toBe('function');
-  });
-
-  it('should handle both forwardRef and pagerProps ref', () => {
-    const forwardRef = React.createRef();
-    const pagerRef = React.createRef();
-
-    expect(() => {
-      render(
-        <Pager
-          ref={forwardRef}
-          {...mockProps}
-          pagerProps={{
-            ref: pagerRef,
-          }}
-        />
-      );
-    }).not.toThrow();
-
-    // Both refs should have the goToPage method
-    expect(forwardRef.current).toBeDefined();
-    expect(typeof forwardRef.current?.goToPage).toBe('function');
     expect(pagerRef.current).toBeDefined();
     expect(typeof pagerRef.current?.goToPage).toBe('function');
   });
