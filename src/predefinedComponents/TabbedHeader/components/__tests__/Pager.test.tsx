@@ -1,5 +1,6 @@
-import * as React from 'react';
 import { render } from '@testing-library/react-native';
+import * as React from 'react';
+
 import { Pager } from '../Pager';
 
 // Mock React Native components
@@ -37,7 +38,10 @@ jest.mock('react-native-reanimated', () => ({
 
 describe('Pager', () => {
   const mockProps = {
-    children: [<React.Fragment key="1">Page 1</React.Fragment>, <React.Fragment key="2">Page 2</React.Fragment>],
+    children: [
+      <React.Fragment key="1">Page 1</React.Fragment>,
+      <React.Fragment key="2">Page 2</React.Fragment>,
+    ],
     initialPage: 0,
     minScrollHeight: 100,
     scrollHeight: 200,
@@ -47,12 +51,13 @@ describe('Pager', () => {
 
   it('should render without crashing', () => {
     const { getByText } = render(<Pager {...mockProps} />);
+
     expect(getByText('Page 1')).toBeTruthy();
   });
 
   it('should handle ref from pagerProps without throwing error', () => {
     const pagerRef = React.createRef();
-    
+
     expect(() => {
       render(
         <Pager
@@ -67,7 +72,7 @@ describe('Pager', () => {
 
   it('should expose goToPage method through ref', () => {
     const pagerRef = React.createRef();
-    
+
     render(
       <Pager
         {...mockProps}
@@ -85,7 +90,7 @@ describe('Pager', () => {
   it('should handle both forwardRef and pagerProps ref', () => {
     const forwardRef = React.createRef();
     const pagerRef = React.createRef();
-    
+
     expect(() => {
       render(
         <Pager

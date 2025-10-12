@@ -60,7 +60,9 @@ export const Pager = React.forwardRef<PagerMethods, PagerProps & InternalPagerPr
     ref
   ) => {
     // Extract ref from rest props to avoid conflicts
-    const { ref: pagerRef, ...pagerRestProps } = rest as any;
+    const { ref: pagerRef, ...pagerRestProps } = rest as PagerProps & {
+      ref?: React.RefObject<PagerMethods>;
+    };
     const [containerWidth, setContainerWidth] = React.useState(
       () => Dimensions.get('window').width
     );
